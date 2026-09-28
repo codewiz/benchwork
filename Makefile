@@ -31,7 +31,8 @@ HARNESS_SRCS = \
 	benches/lha.c \
 	benches/zlib.c \
 	benches/png.c \
-	benches/ftgrays.c
+	benches/ftgrays.c \
+	benches/memcpy.c
 
 DHRY_SRCS = \
 	third_party/dhry/dhry_1.c \

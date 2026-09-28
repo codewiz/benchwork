@@ -14,6 +14,9 @@ compiler-generated code: no disk, display or OS calls.
 | zlib-deflate, zlib-inflate | zlib 1.3.2 | deflate's longest_match(), inflate's bit-level state machine |
 | png-encode, png-decode | libpng 1.6.58 + zlib | libpng's filter selection and reconstruction byte loops |
 | ftgrays | FreeType 2.12.1 smooth rasterizer | fixed-point curve subdivision, cell sweep, switch-heavy code |
+| memcpy-fixed | constant-size block copies | by-pieces expansion, aligned and odd sizes, struct assignment |
+| memcpy-var | copies sized at run time | the library memcpy, which on AmigaOS reaches exec CopyMem |
+| memmove | overlapping moves both ways | the backwards path a block-move expander gets wrong |
 
 ## Building
 
