@@ -43,8 +43,8 @@ static bool deflate_corpus(void) {
 static bool zlib_setup(void) {
     plain = corpus_alloc();
     packed_cap = (ULONG)deflateBound(NULL, CORPUS_SIZE);
-    packed = AllocVec(packed_cap, MEMF_ANY);
-    unpacked = AllocVec(CORPUS_SIZE, MEMF_ANY);
+    packed = bench_alloc(packed_cap, "zlib deflate buffer");
+    unpacked = bench_alloc(CORPUS_SIZE, "zlib inflate buffer");
     if (!plain || !packed || !unpacked)
         return false;
     return deflate_corpus();

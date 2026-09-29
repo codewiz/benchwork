@@ -96,8 +96,8 @@ static bool memcpy_setup(void) {
     ULONG i;
     ULONG x = 2463534242UL;
 
-    src = AllocVec(BUFSIZE, MEMF_ANY);
-    dst = AllocVec(BUFSIZE, MEMF_ANY);
+    src = bench_alloc(BUFSIZE, "block move source");
+    dst = bench_alloc(BUFSIZE, "block move destination");
     if (!src || !dst)
         return false;
 

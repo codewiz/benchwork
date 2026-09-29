@@ -54,9 +54,9 @@ static bool lha_setup(void) {
     // The corpus compresses about 4:1, so this never fills; the encoder
     // reports unpackable data rather than overflowing if it did.
     packed.cap = CORPUS_SIZE;
-    packed.data = AllocVec(packed.cap, MEMF_ANY);
+    packed.data = bench_alloc(packed.cap, "lha pack buffer");
     unpacked.cap = CORPUS_SIZE;
-    unpacked.data = AllocVec(unpacked.cap, MEMF_ANY);
+    unpacked.data = bench_alloc(unpacked.cap, "lha unpack buffer");
     if (!packed.data || !unpacked.data)
         return false;
     make_crctable();

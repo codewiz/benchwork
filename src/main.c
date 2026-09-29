@@ -63,7 +63,9 @@ ULONG checksum(ULONG seed, const void *data, ULONG len) {
 }
 
 static void usage(void) {
-    printf("usage: benchwork [-n iterations] [-l] [name ...]\n");
+    printf("usage: benchwork [-n iterations] [--fastmem] [-l] [name ...]\n");
+    printf("  --fastmem  allocate from fast memory only, and fail if there is\n");
+    printf("             none, so a chip-memory fallback cannot skew timings\n");
 }
 
 // Milliseconds with three decimals, right-aligned in 10 columns.
@@ -127,6 +129,16 @@ static bool run_bench(const struct bench *b, int iters) {
 
 static int iters = 3;
 static bool selected[NBENCHES], any;
+static bool fastmem;
+
+void *bench_alloc(ULONG size, const char *what) {
+    void *p = AllocVec(size, fastmem ? MEMF_FAST : MEMF_ANY);
+
+    if (!p)
+        printf("%s: cannot allocate %lu bytes%s\n", what, (unsigned long)size,
+               fastmem ? " of fast memory" : "");
+    return p;
+}
 
 // Run the selected benchmarks. Returns the failure count.
 static int run_all(void) {
@@ -158,6 +170,8 @@ int main(int argc, char **argv) {
             iters = atoi(argv[++i]);
             if (iters < 1)
                 iters = 1;
+        } else if (!strcmp(argv[i], "--fastmem")) {
+            fastmem = true;
         } else if (!strcmp(argv[i], "-l")) {
             for (size_t j = 0; j < NBENCHES; j++)
                 printf("%-12s %s\n", BENCHES[j]->name, BENCHES[j]->desc);

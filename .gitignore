@@ -1,4 +1,7 @@
 build*/
+build*.log
+build*.out
 benchwork
 benchwork-*
 tools/dumpglyphs
+tmp/

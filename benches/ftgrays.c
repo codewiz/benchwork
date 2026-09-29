@@ -160,10 +160,11 @@ static bool ftgrays_setup(void) {
         if (GLYPHS[i].n_contours > max_contours)
             max_contours = GLYPHS[i].n_contours;
     }
-    page = AllocVec(PAGE_W * PAGE_H, MEMF_ANY);
-    points = AllocVec((ULONG)max_points * sizeof(*points), MEMF_ANY);
-    tags = AllocVec((ULONG)max_points, MEMF_ANY);
-    contours = AllocVec((ULONG)max_contours * sizeof(*contours), MEMF_ANY);
+    page = bench_alloc(PAGE_W * PAGE_H, "ftgrays page");
+    points = bench_alloc((ULONG)max_points * sizeof(*points), "ftgrays points");
+    tags = bench_alloc((ULONG)max_points, "ftgrays tags");
+    contours = bench_alloc((ULONG)max_contours * sizeof(*contours),
+                           "ftgrays contours");
     if (!page || !points || !tags || !contours)
         return false;
     return ft_grays_raster.raster_new(NULL, &raster) == 0;

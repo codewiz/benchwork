@@ -15,6 +15,7 @@
 #include <exec/memory.h>
 #include <string.h>
 
+#include "bench.h"
 #include "corpus.h"
 
 static const char *const WORDS[] = {
@@ -73,7 +74,7 @@ static UBYTE *put(UBYTE *p, UBYTE *end, const char *s) {
 // 72 columns and a paragraph break every 6 to 14 sentences. Returns NULL
 // when out of memory; the caller frees it with FreeVec().
 UBYTE *corpus_alloc(void) {
-    UBYTE *buf = AllocVec(CORPUS_SIZE, MEMF_ANY);
+    UBYTE *buf = bench_alloc(CORPUS_SIZE, "text corpus");
     UBYTE *p = buf, *end = buf + CORPUS_SIZE;
     int column = 0, sentences = 0;
 

@@ -156,7 +156,7 @@ static void backdrop(UBYTE *px, SHORT w, SHORT h, bool truecolor) {
 static UBYTE *pixels;
 
 static bool backdrop_setup(void) {
-    pixels = AllocVec(WIDTH * HEIGHT * 3, MEMF_ANY);
+    pixels = bench_alloc(WIDTH * HEIGHT * 3, "backdrop frame");
     return pixels != NULL;
 }
 
@@ -178,7 +178,7 @@ static void backdrop_teardown(void) {
 // For the PNG benchmark, which needs a picture to encode: the 640x480 R8G8B8
 // scene in a buffer the caller frees with FreeVec(), or NULL.
 UBYTE *backdrop_rgb(SHORT *w, SHORT *h) {
-    UBYTE *px = AllocVec(PNG_WIDTH * PNG_HEIGHT * 3, MEMF_ANY);
+    UBYTE *px = bench_alloc(PNG_WIDTH * PNG_HEIGHT * 3, "backdrop scene");
 
     if (!px)
         return NULL;

@@ -121,9 +121,9 @@ static bool png_setup(void) {
     // An encode is never bigger than the raw pixels plus libpng's per-row
     // filter byte and a zlib worst case, so this is generous but bounded.
     encoded.capacity = (ULONG)width * height * 3 + height + 65536;
-    encoded.data = AllocVec(encoded.capacity, MEMF_ANY);
-    decoded = AllocVec((ULONG)width * height * 3, MEMF_ANY);
-    rows = AllocVec((ULONG)height * sizeof(png_bytep), MEMF_ANY);
+    encoded.data = bench_alloc(encoded.capacity, "png encode buffer");
+    decoded = bench_alloc((ULONG)width * height * 3, "png pixel buffer");
+    rows = bench_alloc((ULONG)height * sizeof(png_bytep), "png row table");
     if (!encoded.data || !decoded || !rows)
         return false;
     return encode();
