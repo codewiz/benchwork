@@ -287,8 +287,8 @@ static bool move_large_run(ULONG *check) {
 }
 
 static void memcpy_teardown(void) {
-    FreeVec(src);
-    FreeVec(dst);
+    bench_free(src);
+    bench_free(dst);
     src = NULL;
     dst = NULL;
 }

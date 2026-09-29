@@ -171,12 +171,12 @@ static bool backdrop_run(ULONG *check) {
 }
 
 static void backdrop_teardown(void) {
-    FreeVec(pixels);
+    bench_free(pixels);
     pixels = NULL;
 }
 
 // For the PNG benchmark, which needs a picture to encode: the 640x480 R8G8B8
-// scene in a buffer the caller frees with FreeVec(), or NULL.
+// scene in a buffer the caller frees with bench_free(), or NULL.
 UBYTE *backdrop_rgb(SHORT *w, SHORT *h) {
     UBYTE *px = bench_alloc(PNG_WIDTH * PNG_HEIGHT * 3, "backdrop scene");
 

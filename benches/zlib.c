@@ -55,9 +55,9 @@ static bool zlib_setup(void) {
 }
 
 static void zlib_teardown(void) {
-    FreeVec(plain);
-    FreeVec(packed);
-    FreeVec(unpacked);
+    bench_free(plain);
+    bench_free(packed);
+    bench_free(unpacked);
     plain = packed = unpacked = NULL;
 }
 

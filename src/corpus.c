@@ -72,7 +72,7 @@ static UBYTE *put(UBYTE *p, UBYTE *end, const char *s) {
 // Allocate and fill CORPUS_SIZE bytes of prose: sentences of 4 to 16 words,
 // capitalized, one number in about every twenty words, lines wrapped near
 // 72 columns and a paragraph break every 6 to 14 sentences. Returns NULL
-// when out of memory; the caller frees it with FreeVec().
+// when out of memory; the caller frees it with bench_free().
 UBYTE *corpus_alloc(void) {
     UBYTE *buf = bench_alloc(CORPUS_SIZE, "text corpus");
     UBYTE *p = buf, *end = buf + CORPUS_SIZE;

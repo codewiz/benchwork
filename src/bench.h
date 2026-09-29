@@ -49,21 +49,10 @@ extern const struct bench bench_memmove_large;
 // the work it summarizes.
 ULONG checksum(ULONG seed, const void *data, ULONG len);
 
-// Allocate a benchmark buffer, freed with FreeVec() as usual. WHAT names the
-// buffer in diagnostics.
-//
-// Where the memory lands changes the timings: on a machine whose fast RAM is
-// full or fragmented, MEMF_ANY falls back to chip RAM, which the CPU reaches
-// only through bus arbitration against DMA. A large buffer that lands there
-// makes a workload look much slower for reasons that have nothing to do with
-// the code under test, and nothing in the output says so. --fastmem asks for
-// fast memory and fails when there is none, so a published number cannot come
-// from a run that quietly landed in chip memory.
 void *bench_alloc(ULONG size, const char *what);
+void bench_free(void *p);
 
-// The same, shaped for zlib's z_stream.zalloc/zfree and libpng's
-// png_set_mem_fn, so the buffers those libraries allocate for themselves are
-// covered by --fastmem as well. zlib's own default reaches malloc().
+// Shaped for zlib's z_stream.zalloc/zfree and libpng's malloc_fn/free_fn.
 void *bench_zalloc(void *opaque, unsigned items, unsigned size);
 void bench_zfree(void *opaque, void *address);
 

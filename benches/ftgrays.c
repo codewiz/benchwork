@@ -173,10 +173,10 @@ static bool ftgrays_setup(void) {
 static void ftgrays_teardown(void) {
     if (raster)
         ft_grays_raster.raster_done(raster);
-    FreeVec(page);
-    FreeVec(points);
-    FreeVec(tags);
-    FreeVec(contours);
+    bench_free(page);
+    bench_free(points);
+    bench_free(tags);
+    bench_free(contours);
     page = NULL;
     points = NULL;
     tags = NULL;

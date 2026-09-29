@@ -7,7 +7,6 @@
  * slide.c's dispatch tables refer to but this build never selects.
  */
 
-#include <proto/exec.h>
 #include <stdarg.h>
 
 #include "bench.h"
@@ -131,7 +130,7 @@ void *xmalloc(size_t size) {
 }
 
 void xfree(void *p) {
-    FreeVec(p);
+    bench_free(p);
 }
 
 /* --- unused methods --------------------------------------------------- */

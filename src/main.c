@@ -64,8 +64,7 @@ ULONG checksum(ULONG seed, const void *data, ULONG len) {
 
 static void usage(void) {
     printf("usage: benchwork [-n iterations] [--fastmem] [-l] [name ...]\n");
-    printf("  --fastmem  allocate from fast memory only, and fail if there is\n");
-    printf("             none, so a chip-memory fallback cannot skew timings\n");
+    printf("  --fastmem  require MEMF_FAST for benchmark buffers\n");
 }
 
 // Milliseconds with three decimals, right-aligned in 10 columns.
@@ -131,6 +130,15 @@ static int iters = 3;
 static bool selected[NBENCHES], any;
 static bool fastmem;
 
+// Allocate a benchmark buffer, released with bench_free(). WHAT names it if
+// the allocation fails. Not cleared, like malloc().
+//
+// Where the memory lands changes the timings: MEMF_ANY falls back to chip
+// memory when fast memory is full or fragmented, and the CPU reaches chip
+// memory only through bus arbitration against DMA, so a large buffer landing
+// there makes a workload look slower for reasons that have nothing to do with
+// the code under test. --fastmem asks for fast memory and fails when there is
+// none, rather than producing a number that cannot be compared.
 void *bench_alloc(ULONG size, const char *what) {
     void *p = AllocVec(size, fastmem ? MEMF_FAST : MEMF_ANY);
 
@@ -140,14 +148,23 @@ void *bench_alloc(ULONG size, const char *what) {
     return p;
 }
 
+// Release a bench_alloc() buffer. Takes NULL, as FreeVec() does.
+void bench_free(void *p) {
+    FreeVec(p);
+}
+
+// bench_alloc() for zlib's z_stream.zalloc and libpng's malloc_fn. Neither
+// library expects cleared memory: zlib's own zcalloc() is malloc() on any
+// target with 32-bit ints, despite the name.
 void *bench_zalloc(void *opaque, unsigned items, unsigned size) {
     (void)opaque;
     return bench_alloc((ULONG)items * size, "library buffer");
 }
 
+// The matching zfree/free_fn.
 void bench_zfree(void *opaque, void *address) {
     (void)opaque;
-    FreeVec(address);
+    bench_free(address);
 }
 
 // Run the selected benchmarks. Returns the failure count.

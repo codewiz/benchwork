@@ -66,7 +66,7 @@ static png_voidp png_bench_malloc(png_structp png, png_alloc_size_t size) {
 
 static void png_bench_free(png_structp png, png_voidp ptr) {
     (void)png;
-    FreeVec(ptr);
+    bench_free(ptr);
 }
 
 static bool encode(void) {
@@ -144,10 +144,10 @@ static bool png_setup(void) {
 }
 
 static void png_teardown(void) {
-    FreeVec(pixels);
-    FreeVec(encoded.data);
-    FreeVec(decoded);
-    FreeVec(rows);
+    bench_free(pixels);
+    bench_free(encoded.data);
+    bench_free(decoded);
+    bench_free(rows);
     pixels = encoded.data = decoded = NULL;
     rows = NULL;
 }

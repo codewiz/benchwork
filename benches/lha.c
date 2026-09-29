@@ -64,9 +64,9 @@ static bool lha_setup(void) {
 }
 
 static void lha_teardown(void) {
-    FreeVec(plain);
-    FreeVec(packed.data);
-    FreeVec(unpacked.data);
+    bench_free(plain);
+    bench_free(packed.data);
+    bench_free(unpacked.data);
     plain = packed.data = unpacked.data = NULL;
 }
 
