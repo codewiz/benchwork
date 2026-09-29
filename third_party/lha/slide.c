@@ -495,7 +495,7 @@ decode(interface)
         fwrite_crc(&crc, dtext, loc, outfile);
     }
 
-    free(dtext);
+    xfree(dtext);
 
     /* usually read size is interface->packed */
     interface->read_size = interface->packed - compsize;

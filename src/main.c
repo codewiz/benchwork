@@ -140,6 +140,16 @@ void *bench_alloc(ULONG size, const char *what) {
     return p;
 }
 
+void *bench_zalloc(void *opaque, unsigned items, unsigned size) {
+    (void)opaque;
+    return bench_alloc((ULONG)items * size, "library buffer");
+}
+
+void bench_zfree(void *opaque, void *address) {
+    (void)opaque;
+    FreeVec(address);
+}
+
 // Run the selected benchmarks. Returns the failure count.
 static int run_all(void) {
     int failures = 0;

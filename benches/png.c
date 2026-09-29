@@ -57,12 +57,25 @@ static void mem_flush(png_structp png) {
 
 // Encode the scene into `encoded` with libpng's defaults: 8-bit RGB,
 // adaptive filtering, zlib level 6. Returns false on a libpng error.
+// libpng allocates its row buffers and zlib's state through these, so
+// --fastmem covers them too. Like libpng's own default, they do not clear.
+static png_voidp png_bench_malloc(png_structp png, png_alloc_size_t size) {
+    (void)png;
+    return bench_alloc((ULONG)size, "libpng buffer");
+}
+
+static void png_bench_free(png_structp png, png_voidp ptr) {
+    (void)png;
+    FreeVec(ptr);
+}
+
 static bool encode(void) {
     png_structp png;
     png_infop info;
 
     encoded.len = 0;
-    png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    png = png_create_write_struct_2(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL,
+                                    NULL, png_bench_malloc, png_bench_free);
     if (!png)
         return false;
     info = png_create_info_struct(png);
@@ -92,7 +105,8 @@ static bool decode(void) {
     int depth, color;
 
     encoded.pos = 0;
-    png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    png = png_create_read_struct_2(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL,
+                                   NULL, png_bench_malloc, png_bench_free);
     if (!png)
         return false;
     info = png_create_info_struct(png);

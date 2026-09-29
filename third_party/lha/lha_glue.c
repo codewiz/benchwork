@@ -7,7 +7,10 @@
  * slide.c's dispatch tables refer to but this build never selects.
  */
 
+#include <proto/exec.h>
 #include <stdarg.h>
+
+#include "bench.h"
 
 #include "lha.h"
 
@@ -116,12 +119,19 @@ void fatal_error(char *fmt, ...) {
     exit(20);
 }
 
+// Through the harness allocator rather than malloc(), so --fastmem covers
+// lha's own buffers too: the decode dictionary is the memory this benchmark
+// works in, and chip memory costs the CPU bus arbitration against DMA.
 void *xmalloc(size_t size) {
-    void *p = malloc(size);
+    void *p = bench_alloc((ULONG)size, "lha buffer");
 
     if (!p)
         fatal_error("out of memory");
     return p;
+}
+
+void xfree(void *p) {
+    FreeVec(p);
 }
 
 /* --- unused methods --------------------------------------------------- */

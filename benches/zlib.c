@@ -28,6 +28,10 @@ static bool deflate_corpus(void) {
     int rc;
 
     memset(&strm, 0, sizeof(strm));
+    // zlib's own default allocator reaches malloc(), which --fastmem does not
+    // reach; deflate's state and window are where this benchmark works.
+    strm.zalloc = bench_zalloc;
+    strm.zfree = bench_zfree;
     if (deflateInit(&strm, Z_DEFAULT_COMPRESSION) != Z_OK)
         return false;
     strm.next_in = plain;
@@ -69,6 +73,8 @@ static bool inflate_run(ULONG *check) {
     int rc;
 
     memset(&strm, 0, sizeof(strm));
+    strm.zalloc = bench_zalloc;
+    strm.zfree = bench_zfree;
     if (inflateInit(&strm) != Z_OK)
         return false;
     strm.next_in = packed;

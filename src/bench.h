@@ -61,6 +61,12 @@ ULONG checksum(ULONG seed, const void *data, ULONG len);
 // from a run that quietly landed in chip memory.
 void *bench_alloc(ULONG size, const char *what);
 
+// The same, shaped for zlib's z_stream.zalloc/zfree and libpng's
+// png_set_mem_fn, so the buffers those libraries allocate for themselves are
+// covered by --fastmem as well. zlib's own default reaches malloc().
+void *bench_zalloc(void *opaque, unsigned items, unsigned size);
+void bench_zfree(void *opaque, void *address);
+
 // The backdrop scene as 8-bit RGB, for benchmarks that need a picture.
 UBYTE *backdrop_rgb(SHORT *w, SHORT *h);
 

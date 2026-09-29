@@ -206,5 +206,6 @@ void decode_start_pm2(void);
 void error(char *fmt, ...);
 void fatal_error(char *fmt, ...);
 void *xmalloc(size_t size);
+void xfree(void *p);
 
 #endif
