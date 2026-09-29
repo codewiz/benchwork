@@ -37,9 +37,12 @@ extern const struct bench bench_zlib_inflate;
 extern const struct bench bench_png_encode;
 extern const struct bench bench_png_decode;
 extern const struct bench bench_ftgrays;
-extern const struct bench bench_memcpy_fixed;
-extern const struct bench bench_memcpy_var;
-extern const struct bench bench_memmove;
+extern const struct bench bench_memcpy_small;
+extern const struct bench bench_memcpy_large;
+extern const struct bench bench_memcpy_var_small;
+extern const struct bench bench_memcpy_var_large;
+extern const struct bench bench_memmove_small;
+extern const struct bench bench_memmove_large;
 
 // Fowler-Noll-Vo hash of a buffer, folded into a running checksum. Used by
 // the benchmarks for their check value; cheap enough not to matter next to

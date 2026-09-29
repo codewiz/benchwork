@@ -42,9 +42,12 @@ static const struct bench *const BENCHES[] = {
     &bench_png_encode,
     &bench_png_decode,
     &bench_ftgrays,
-    &bench_memcpy_fixed,
-    &bench_memcpy_var,
-    &bench_memmove,
+    &bench_memcpy_small,
+    &bench_memcpy_large,
+    &bench_memcpy_var_small,
+    &bench_memcpy_var_large,
+    &bench_memmove_small,
+    &bench_memmove_large,
 };
 
 #define NBENCHES (sizeof(BENCHES) / sizeof(BENCHES[0]))
