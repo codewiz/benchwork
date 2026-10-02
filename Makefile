@@ -81,8 +81,19 @@ LIBPNG_SRCS = \
 
 FREETYPE_SRCS = third_party/freetype/ftgrays.c
 
+# newlib's C versions of the string functions the timed code calls out of
+# line, linked ahead of the C library so the calls land in code the
+# compiler under test generated: libnix's memcpy hands off to exec CopyMem,
+# and the rest of libnix.a was compiled by whatever built the toolchain.
+# The functions libnix's string.h inlines (memmove, memcmp, strcpy, strlen)
+# stay as they are: callers get the best implementation the headers offer.
+NEWLIB_SRCS = \
+	third_party/newlib/memcpy.c \
+	third_party/newlib/memset.c \
+	third_party/newlib/strcmp.c
+
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS)
+	$(FREETYPE_SRCS) $(NEWLIB_SRCS)
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 
 all: $(TARGET)
@@ -98,6 +109,9 @@ $(BUILD)/third_party/lha/%.o: CFLAGS += -std=gnu11
 
 # ftgrays.c's stand-alone mode: no FreeType build system or headers needed.
 $(BUILD)/third_party/freetype/%.o: CFLAGS += -DSTANDALONE_
+
+# A function named memcpy must not have its loop turned into a memcpy call.
+$(BUILD)/third_party/newlib/%.o: CFLAGS += -fno-builtin -Ithird_party/newlib
 
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
