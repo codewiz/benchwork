@@ -12,7 +12,7 @@
 // expander is most likely to be wrong rather than merely slow.
 //
 // A memcpy call lands in newlib's C memcpy (third_party/newlib), which
-// BenchWork links ahead of the C library and which the compiler under test
+// Benchwork links ahead of the C library and which the compiler under test
 // compiled; libnix's own memcpy would hand the work to exec CopyMem, whose
 // speed is the ROM's. memmove is whatever the C library's string.h offers,
 // as it is for any program; with libnix that is an inline call to its
