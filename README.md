@@ -4,7 +4,9 @@ CPU benchmarks for comparing m68k compilers, built from code that Amiga
 programs actually run.
 
 Everything works on memory buffers, so the timed region contains only
-compiler-generated code: no disk, display or OS calls.
+compiler-generated code: no disk, display or OS calls. `memcpy`, `memset`
+and `strcmp` are newlib's C versions linked ahead of the C library; libnix's
+memcpy would otherwise hand the work to exec `CopyMem`.
 
 | benchmark | source | what it measures |
 |---|---|---|
@@ -14,8 +16,8 @@ compiler-generated code: no disk, display or OS calls.
 | zlib-deflate, zlib-inflate | zlib 1.3.2 | deflate's longest_match(), inflate's bit-level state machine |
 | png-encode, png-decode | libpng 1.6.58 + zlib | libpng's filter selection and reconstruction byte loops |
 | ftgrays | FreeType 2.12.1 smooth rasterizer | fixed-point curve subdivision, cell sweep, switch-heavy code |
-| memcpy-small, memcpy-large | constant-size block copies, split at 128 bytes | by-pieces expansion below the limit, an expander taking over from the library above it |
-| memcpy-var-small, memcpy-var-large | copies sized at run time | the library memcpy, which on AmigaOS reaches exec CopyMem: call overhead and throughput |
+| memcpy-small, memcpy-large | constant-size block copies, split at 128 bytes | by-pieces expansion below the limit, an expander taking over from the memcpy call above it |
+| memcpy-var-small, memcpy-var-large | copies sized at run time | the called memcpy: newlib's C one, compiled by the compiler under test, not the C library's |
 | memmove-small, memmove-large | overlapping moves both ways | the backwards path a block-move expander gets wrong |
 
 ## Building
@@ -47,6 +49,7 @@ checksum of its output that must be identical across compilers. The timer is
 
 The harness is 0BSD. The vendored code keeps its own license, in each
 `third_party/` directory:
+* newlib string functions (BSD, Red Hat)
 * zlib (zlib)
 * libpng (PNG Reference Library License)
 * FreeType (FTL)

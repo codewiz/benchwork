@@ -6,11 +6,17 @@
 // None of the other workloads measures this directly, yet it is one of the
 // places where the m68k backend makes the largest differences. A copy whose
 // size is a compile-time constant can be expanded by pieces, as a run of
-// moves; one whose size is only known at run time becomes a call, which on
-// AmigaOS with libnix reaches exec CopyMem. Struct assignment takes the same
-// path as a constant-size memcpy, and an overlapping move has to be done
-// backwards, which is where a block-move expander is most likely to be wrong
-// rather than merely slow.
+// moves; one whose size is only known at run time becomes a call. Struct
+// assignment takes the same path as a constant-size memcpy, and an
+// overlapping move has to be done backwards, which is where a block-move
+// expander is most likely to be wrong rather than merely slow.
+//
+// A memcpy call lands in newlib's C memcpy (third_party/newlib), which
+// BenchWork links ahead of the C library and which the compiler under test
+// compiled; libnix's own memcpy would hand the work to exec CopyMem, whose
+// speed is the ROM's. memmove is whatever the C library's string.h offers,
+// as it is for any program; with libnix that is an inline call to its
+// prebuilt __bcopz.
 //
 // Each case is split at 128 bytes, the size up to which the AmigaOS by-pieces
 // hook expands a copy inline: below it the two policies mostly agree, above it
@@ -21,15 +27,15 @@
 //   memcpy-small      constant sizes up to 128, aligned and odd, plus struct
 //                     assignment
 //   memcpy-large      constant sizes from 256 to 4096
-//   memcpy-var-small  small sizes the compiler cannot see: per-call overhead
-//                     of the runtime's memcpy
-//   memcpy-var-large  large ones: its throughput
+//   memcpy-var-small  small sizes the compiler cannot see: the call and
+//                     memcpy's head and tail handling
+//   memcpy-var-large  large ones: memcpy's unrolled longword loop
 //   memmove-small     overlapping moves up to 128 bytes, both directions
 //   memmove-large     the same at 2048 and 4096
 //
-// Neither expander accepts a run-time size, so the two var benchmarks measure
-// the runtime rather than code generation; they are here to tell a change in
-// the library apart from a change in what the compiler inlines.
+// Neither expander accepts a run-time size, so the two var benchmarks always
+// measure the called memcpy; they are here to tell a change in how it is
+// compiled apart from a change in what the compiler inlines.
 //
 // The checksum covers the whole destination buffer at the end of a run, so a
 // copy that moves the wrong bytes, or a backwards move that eats its own
@@ -311,7 +317,7 @@ const struct bench bench_memcpy_large = {
 
 const struct bench bench_memcpy_var_small = {
     "memcpy-var-small",
-    "small copies sized at run time: the library call overhead",
+    "small copies sized at run time: the call into newlib's memcpy",
     memcpy_setup,
     var_small_run,
     memcpy_teardown,
@@ -319,7 +325,7 @@ const struct bench bench_memcpy_var_small = {
 
 const struct bench bench_memcpy_var_large = {
     "memcpy-var-large",
-    "large copies sized at run time: the library throughput",
+    "large copies sized at run time: newlib's memcpy loop",
     memcpy_setup,
     var_large_run,
     memcpy_teardown,
