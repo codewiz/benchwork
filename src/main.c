@@ -28,6 +28,13 @@
 #ifndef BENCH_VERSION
 #define BENCH_VERSION "?"
 #endif
+#ifndef BENCH_DATE
+#define BENCH_DATE "?"
+#endif
+
+// For the AmigaOS "version" command.
+static const char version_tag[] __attribute__((used)) =
+    "$VER: benchwork " BENCH_VERSION " (" BENCH_DATE ")";
 
 // ftgrays keeps its 16 KiB cell pool on the stack and the Amiga shell's
 // default stack is 4 KiB. Swapping to a bigger one from C is not portable

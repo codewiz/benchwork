@@ -46,15 +46,14 @@ are the knobs a comparison usually turns.
 ## Running
 
 ```
-benchwork [-n iterations] [-l] [name ...]
+benchwork [-n iterations] [--fastmem] [-l] [name ...]
 ```
 
 The FreeType rasterizer keeps its cell pool on the stack, so the program
 refuses to start on the shell's default 4 KiB stack: `stack 65536` first.
 
 Each benchmark reports its fastest and mean iteration in milliseconds, and a
-checksum of its output that must be identical across compilers. The timer is
-`ReadEClock()`.
+checksum of its output that must be identical across compilers.
 
 ## License
 

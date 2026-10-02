@@ -16,7 +16,8 @@ CFLAGS ?= $(OPT) $(CPUFLAGS)
 # What the binary reports it was built with: taken now, before the
 # per-directory additions below.
 REPORTED_CFLAGS := $(CFLAGS)
-VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo unknown)
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null | sed 's/^v//' || echo unknown)
+DATE := $(shell date '+%-d.%-m.%Y')
 
 # The harness is held to a stricter standard than the code it measures,
 # which is compiled the way its own build systems compile it.
@@ -26,7 +27,7 @@ WARNINGS = -Wall -Wextra -Wshadow -Wpointer-arith -Wwrite-strings \
 INCLUDES = -Isrc -Ithird_party/zlib -Ithird_party/libpng
 
 ALL_CFLAGS = $(CFLAGS) -noixemul $(INCLUDES) -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
-	-DBENCH_VERSION='"$(VERSION)"'
+	-DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"'
 
 HARNESS_SRCS = \
 	src/main.c \
