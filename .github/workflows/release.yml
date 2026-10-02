@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    uses: ./.github/workflows/binaries.yml
+
+  release:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Download the binaries
+        uses: actions/download-artifact@v8
+        with:
+          name: benchwork
+
+      # Bare executables, not archives: one download, copied to the Amiga
+      # as is. The tag message, subject and body, is the release text;
+      # write it with "git tag -a" or "git tag -s".
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" benchwork-0* \
+            --title "BenchWork ${TAG#v}" --notes-from-tag

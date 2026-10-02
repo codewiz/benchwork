@@ -1,0 +1,14 @@
+name: Build
+
+# The release binaries on every push and pull request, so a tag push is never
+# the first build of them; release.yml publishes the same binaries for a tag.
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/binaries.yml

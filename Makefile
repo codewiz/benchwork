@@ -11,6 +11,7 @@ CFLAGS ?= $(OPT) $(CPUFLAGS)
 # What the binary reports it was built with: taken now, before the
 # per-directory additions below.
 REPORTED_CFLAGS := $(CFLAGS)
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo unknown)
 
 # The harness is held to a stricter standard than the code it measures,
 # which is compiled the way its own build systems compile it.
@@ -19,7 +20,8 @@ WARNINGS = -Wall -Wextra -Wshadow -Wpointer-arith -Wwrite-strings \
 
 INCLUDES = -Isrc -Ithird_party/zlib -Ithird_party/libpng
 
-ALL_CFLAGS = $(CFLAGS) -noixemul $(INCLUDES) -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"'
+ALL_CFLAGS = $(CFLAGS) -noixemul $(INCLUDES) -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
+	-DBENCH_VERSION='"$(VERSION)"'
 
 HARNESS_SRCS = \
 	src/main.c \
@@ -105,9 +107,22 @@ FONT ?= /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf
 glyphs: tools/dumpglyphs
 	tools/dumpglyphs $(FONT) > src/glyphs.c
 
+# The release binaries: one per CPU generation, named after it. The 68040 one
+# uses the FPU; the others are soft float, as a program shipped for those
+# machines would be.
+RELEASE_CPUS = 000 020 040
+CPUFLAGS_000 = -m68000
+CPUFLAGS_020 = -m68020
+CPUFLAGS_040 = -m68040 -mhard-float
+
+release: $(RELEASE_CPUS:%=release-%)
+
+$(RELEASE_CPUS:%=release-%): release-%:
+	$(MAKE) BUILD=build-$* TARGET=benchwork-$* CPUFLAGS="$(CPUFLAGS_$*)"
+
 clean:
-	rm -rf $(BUILD) $(TARGET)
+	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=build-%) $(RELEASE_CPUS:%=benchwork-%)
 
 -include $(OBJS:.o=.d)
 
-.PHONY: all clean glyphs
+.PHONY: all clean glyphs release $(RELEASE_CPUS:%=release-%)
