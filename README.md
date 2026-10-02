@@ -23,6 +23,7 @@ compiler-generated code: no disk, display or OS calls.[^libc]
 | memcpy-var-large | large copies sized at run time | memcpy's copy loop |
 | memmove-small | overlapping moves up to 128 bytes, both ways | the backwards path a block-move expander gets wrong |
 | memmove-large | overlapping moves of 2048 and 4096 bytes, both ways | the same past the by-pieces limit |
+| wipeout-tris | render_push_tris() from arczi84's Wipeout port | a game's per-triangle path: float UV scaling, byte clamps, 96-byte struct copies |
 
 [^libc]: `memcpy`, `memset` and `strcmp` are newlib's C versions linked ahead
     of the C library, so they too are compiled by the compiler under test;

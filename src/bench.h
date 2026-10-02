@@ -43,6 +43,7 @@ extern const struct bench bench_memcpy_var_small;
 extern const struct bench bench_memcpy_var_large;
 extern const struct bench bench_memmove_small;
 extern const struct bench bench_memmove_large;
+extern const struct bench bench_wipeout_tris;
 
 // Fowler-Noll-Vo hash of a buffer, folded into a running checksum. Used by
 // the benchmarks for their check value; cheap enough not to matter next to
