@@ -35,4 +35,4 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           gh release create "$TAG" benchwork-0* \
-            --title "BenchWork ${TAG#v}" --notes-from-tag
+            --title "Benchwork ${TAG#v}" --notes-from-tag

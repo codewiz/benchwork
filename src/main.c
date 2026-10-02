@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: 0BSD
 //
-// BenchWork -- CPU benchmarks for comparing m68k compilers.
+// Benchwork -- CPU benchmarks for comparing m68k compilers.
 //
 // Every benchmark is a real workload lifted from a program people run on
 // the Amiga (see README.md), reduced to a function that reads and writes

@@ -1,24 +1,34 @@
-# BenchWork
+# Benchwork
 
 CPU benchmarks for comparing m68k compilers, built from code that Amiga
 programs actually run.
 
 Everything works on memory buffers, so the timed region contains only
-compiler-generated code: no disk, display or OS calls. `memcpy`, `memset`
-and `strcmp` are newlib's C versions linked ahead of the C library; libnix's
-memcpy would otherwise hand the work to exec `CopyMem`.
+compiler-generated code: no disk, display or OS calls.[^libc]
 
 | benchmark | source | what it measures |
 |---|---|---|
 | dhrystone | Dhrystone 2.1, as used by xSysInfo | the classic integer mix |
 | backdrop | p96cts's dithered landscape scene | per-pixel integer arithmetic, divides, byte stores |
-| lha-pack, lha-unpack | LHa for UNIX 1.14i, -lh5- | hash-chain match search, Huffman coding, K&R-era C |
-| zlib-deflate, zlib-inflate | zlib 1.3.2 | deflate's longest_match(), inflate's bit-level state machine |
-| png-encode, png-decode | libpng 1.6.58 + zlib | libpng's filter selection and reconstruction byte loops |
+| lha-pack | LHa for UNIX 1.14i, -lh5- | hash-chain match search, Huffman coding, K&R-era C |
+| lha-unpack | LHa for UNIX 1.14i, -lh5- | Huffman decoding, sliding-window copies |
+| zlib-deflate | zlib 1.3.2 | deflate's longest_match() |
+| zlib-inflate | zlib 1.3.2 | inflate's bit-level state machine |
+| png-encode | libpng 1.6.58 + zlib | filter selection byte loops |
+| png-decode | libpng 1.6.58 + zlib | filter reconstruction byte loops |
 | ftgrays | FreeType 2.12.1 smooth rasterizer | fixed-point curve subdivision, cell sweep, switch-heavy code |
-| memcpy-small, memcpy-large | constant-size block copies, split at 128 bytes | by-pieces expansion below the limit, an expander taking over from the memcpy call above it |
-| memcpy-var-small, memcpy-var-large | copies sized at run time | the called memcpy: newlib's C one, compiled by the compiler under test, not the C library's |
-| memmove-small, memmove-large | overlapping moves both ways | the backwards path a block-move expander gets wrong |
+| memcpy-small | constant-size copies up to 128 bytes | by-pieces expansion[^pieces] |
+| memcpy-large | constant-size copies from 256 to 4096 bytes | an expander taking over from the memcpy call |
+| memcpy-var-small | small copies sized at run time | the memcpy call[^libc] |
+| memcpy-var-large | large copies sized at run time | memcpy's copy loop |
+| memmove-small | overlapping moves up to 128 bytes, both ways | the backwards path a block-move expander gets wrong |
+| memmove-large | overlapping moves of 2048 and 4096 bytes, both ways | the same past the by-pieces limit |
+
+[^libc]: `memcpy`, `memset` and `strcmp` are newlib's C versions linked ahead
+    of the C library, so they too are compiled by the compiler under test;
+    libnix's memcpy would hand the work to exec `CopyMem`.
+[^pieces]: 128 bytes is the size up to which the AmigaOS by-pieces hook
+    expands a copy inline.
 
 ## Building
 
