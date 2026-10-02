@@ -39,7 +39,8 @@ HARNESS_SRCS = \
 	benches/zlib.c \
 	benches/png.c \
 	benches/ftgrays.c \
-	benches/memcpy.c
+	benches/memcpy.c \
+	benches/wipeout.c
 
 DHRY_SRCS = \
 	third_party/dhry/dhry_1.c \
@@ -92,8 +93,10 @@ NEWLIB_SRCS = \
 	third_party/newlib/memset.c \
 	third_party/newlib/strcmp.c
 
+WIPEOUT_SRCS = third_party/wipeout/kernel.c
+
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS) $(NEWLIB_SRCS)
+	$(FREETYPE_SRCS) $(NEWLIB_SRCS) $(WIPEOUT_SRCS)
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 
 all: $(TARGET)
@@ -112,6 +115,9 @@ $(BUILD)/third_party/freetype/%.o: CFLAGS += -DSTANDALONE_
 
 # A function named memcpy must not have its loop turned into a memcpy call.
 $(BUILD)/third_party/newlib/%.o: CFLAGS += -fno-builtin -Ithird_party/newlib
+
+# The game's own flags, which its port is built with.
+$(BUILD)/third_party/wipeout/%.o: CFLAGS += -std=gnu99 -fno-strict-aliasing
 
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)

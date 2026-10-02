@@ -52,6 +52,7 @@ static const struct bench *const BENCHES[] = {
     &bench_memcpy_var_large,
     &bench_memmove_small,
     &bench_memmove_large,
+    &bench_wipeout_tris,
 };
 
 #define NBENCHES (sizeof(BENCHES) / sizeof(BENCHES[0]))
