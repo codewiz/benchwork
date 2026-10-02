@@ -14,6 +14,7 @@
 #include <proto/exec.h>
 #include <exec/tasks.h>
 #include <devices/timer.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +24,9 @@
 
 #ifndef BENCH_CFLAGS
 #define BENCH_CFLAGS "?"
+#endif
+#ifndef BENCH_VERSION
+#define BENCH_VERSION "?"
 #endif
 
 // ftgrays keeps its 16 KiB cell pool on the stack and the Amiga shell's
@@ -73,8 +77,8 @@ static void print_ms(ULONG us) {
 }
 
 // Set up, time and tear down one benchmark. Returns false on failure, after
-// saying which step failed.
-static bool run_bench(const struct bench *b, int iters) {
+// saying which step failed; on success *BEST_US is the fastest iteration.
+static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
     ULONG best = ~0UL, total = 0, check = 0, first = 0;
     bool ok = true;
 
@@ -120,6 +124,7 @@ static bool run_bench(const struct bench *b, int iters) {
         print_ms(best);
         print_ms(total / (ULONG)iters);
         printf("   %08lx\n", (unsigned long)check);
+        *best_us = best;
     }
     if (b->teardown)
         b->teardown();
@@ -127,7 +132,10 @@ static bool run_bench(const struct bench *b, int iters) {
 }
 
 static int iters = 3;
-static bool selected[NBENCHES], any;
+// The benchmarks to run, in the order given on the command line, repeats
+// included; all of them, in table order, when none is named.
+static const struct bench **selected;
+static size_t nselected;
 static bool fastmem;
 
 // Allocate a benchmark buffer, released with bench_free(). WHAT names it if
@@ -167,15 +175,28 @@ void bench_zfree(void *opaque, void *address) {
     bench_free(address);
 }
 
-// Run the selected benchmarks. Returns the failure count.
+// Run the selected benchmarks, then the geometric mean of their fastest
+// iterations when more than one ran: the one number that weighs a 10%
+// change on a short workload the same as on a long one. Returns the failure
+// count.
 static int run_all(void) {
-    int failures = 0;
+    int failures = 0, ran = 0;
+    double logsum = 0;
 
-    for (size_t j = 0; j < NBENCHES; j++) {
-        if (any && !selected[j])
-            continue;
-        if (!run_bench(BENCHES[j], iters))
+    for (size_t j = 0; j < nselected; j++) {
+        ULONG best;
+
+        if (!run_bench(selected[j], iters, &best)) {
             failures++;
+            continue;
+        }
+        logsum += log((double)best);
+        ran++;
+    }
+    if (ran > 1) {
+        printf("%-12s %5s ", "geomean", "");
+        print_ms((ULONG)(exp(logsum / ran) + 0.5));
+        printf("\n");
     }
     return failures;
 }
@@ -189,6 +210,13 @@ int main(int argc, char **argv) {
         printf("benchwork needs a %lu byte stack, got %lu: run \"stack %lu\" first\n",
                (unsigned long)STACK_NEEDED, (unsigned long)stack,
                (unsigned long)STACK_NEEDED * 2);
+        return 20;
+    }
+
+    selected = malloc(((size_t)argc > NBENCHES ? (size_t)argc : NBENCHES)
+                      * sizeof *selected);
+    if (!selected) {
+        printf("out of memory\n");
         return 20;
     }
 
@@ -216,9 +244,13 @@ int main(int argc, char **argv) {
                 printf("unknown benchmark %s\n", argv[i]);
                 return 20;
             }
-            selected[j] = true;
-            any = true;
+            selected[nselected++] = BENCHES[j];
         }
+    }
+    if (!nselected) {
+        for (size_t j = 0; j < NBENCHES; j++)
+            selected[j] = BENCHES[j];
+        nselected = NBENCHES;
     }
 
     if (!timer_open()) {
@@ -226,7 +258,7 @@ int main(int argc, char **argv) {
         return 20;
     }
 
-    printf("benchwork: %s\n", __VERSION__);
+    printf("benchwork %s, built with gcc %s\n", BENCH_VERSION, __VERSION__);
     printf("CFLAGS: %s\n\n", BENCH_CFLAGS);
     printf("%-12s %5s %10s %10s   %s\n", "benchmark", "iters", "min ms",
            "mean ms", "check");
