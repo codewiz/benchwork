@@ -56,14 +56,14 @@
 
 // Repeats per phase, chosen so each benchmark lands around a second on a
 // 25 MHz 68040, in the same range as the other workloads.
-#define SMALL_REPS      4800
-#define SMALL_ODD_REPS  3200
-#define STRUCT_REPS     6400
-#define LARGE_REPS      1200
-#define VAR_SMALL_REPS  6000
-#define VAR_LARGE_REPS   900
-#define MOVE_SMALL_REPS 8000
-#define MOVE_LARGE_REPS  600
+#define SMALL_REPS       9600
+#define SMALL_ODD_REPS   6400
+#define STRUCT_REPS     12800
+#define LARGE_REPS       3600
+#define VAR_SMALL_REPS  18000
+#define VAR_LARGE_REPS   3600
+#define MOVE_SMALL_REPS 32000
+#define MOVE_LARGE_REPS  3600
 
 static UBYTE *src;
 static UBYTE *dst;
