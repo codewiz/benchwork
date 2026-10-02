@@ -5,8 +5,8 @@ programs actually run.
 
 Everything works on memory buffers, so the timed region contains only
 compiler-generated code: no disk, display or OS calls.[^libc]
-Numbers for the release binaries and a compiler comparison are in
-[RESULTS.md](RESULTS.md).
+
+Numbers for the release binaries on a reference target are in [RESULTS.md](RESULTS.md).
 
 | benchmark | source | what it measures |
 |---|---|---|
