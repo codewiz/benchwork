@@ -1,6 +1,11 @@
 # SPDX-License-Identifier: 0BSD
 
-CC ?= m68k-amigaos-gcc
+# make predefines CC as "cc", so "?=" would never apply; override only that
+# built-in default and keep a CC given on the command line or in the
+# environment.
+ifeq ($(origin CC),default)
+CC = m68k-amigaos-gcc
+endif
 BUILD ?= build
 TARGET = benchwork
 
