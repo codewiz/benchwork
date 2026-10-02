@@ -202,7 +202,7 @@ static int run_all(void) {
         ran++;
     }
     if (ran > 1) {
-        printf("%-12s %5s ", "geomean", "");
+        printf("%-12s %5s ", "GEOMEAN", "");
         print_ms((ULONG)(exp(logsum / ran) + 0.5));
         printf("\n");
     }

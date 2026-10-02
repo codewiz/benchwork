@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: 0BSD
 #
 # Turn benchwork output files into one Markdown table: a row per benchmark,
-# a column per file holding its fastest iteration in ms, then the geomean
-# row. Usage:
+# a column per file holding its fastest iteration in ms, then the GEOMEAN
+# row. Columns after the first also show their change against the first
+# column in parentheses. Usage:
 #
 #   tools/results-table.py LABEL=FILE [LABEL=FILE ...]
 #
@@ -25,9 +26,18 @@ def parse(path):
             if m:
                 times[m[1]] = float(m[3])
                 checks[m[1]] = m[5]
-            elif line.startswith("geomean"):
+            elif line.lower().startswith("geomean"):
                 geomean = float(line.split()[1])
     return times, checks, geomean
+
+
+def cell(value, base, first):
+    if value is None:
+        return ""
+    text = f"{value:.0f}"
+    if not first and base:
+        text += f" ({(value - base) / base * 100:+.2f}%)"
+    return text
 
 
 def main(args):
@@ -52,11 +62,13 @@ def main(args):
 
     print("| benchmark | " + " | ".join(c[0] for c in columns) + " |")
     print("|---|" + "---:|" * len(columns))
+    base_times = columns[0][1]
     for name in names:
-        cells = [f"{c[1][name]:.0f}" if name in c[1] else "" for c in columns]
+        cells = [cell(c[1].get(name), base_times.get(name), i == 0)
+                 for i, c in enumerate(columns)]
         print(f"| {name} | " + " | ".join(cells) + " |")
-    cells = [f"{c[3]:.0f}" if c[3] is not None else "" for c in columns]
-    print("| **geomean** | " + " | ".join(f"**{v}**" for v in cells) + " |")
+    cells = [cell(c[3], columns[0][3], i == 0) for i, c in enumerate(columns)]
+    print("| **GEOMEAN** | " + " | ".join(f"**{v}**" for v in cells) + " |")
     return status
 
 
