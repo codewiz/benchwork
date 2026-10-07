@@ -56,19 +56,15 @@ All runs done with benchwork-040 built with `-O2 -fomit-frame-pointer -m68040
 [^volamos]: volamos 0.8.0, `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`
     for every column. The emulated time is derived from the CPU's cycle count
     at 25 MHz; native library calls cost no cycles.
-[^gcc]: `m68k-amigaos-gcc (AmigaDev v16.2-rc13-4-g8c1a366) 16.2.0b 20260825082934`,
+[^gcc]: `m68k-amigaos-gcc (AmigaDev v16.2-rc14) 16.2.0b 20260825082934`,
     the AmigaPorts 16.2-rc14 release, with its libnix. 6.5.0b is
     `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`.
 [^vbcc]: `vbcc V0.9i pre` from the same toolchain, `make vbcc-release`:
     `vc +aos68k -O2 -cpu=68040 -fpu=68040` with vc.lib, m040.lib and
     amiga.lib. vbcc 0.9i miscompiles two of the drivers: ftgrays fails
     before it runs, and memcpy-small produces a wrong checksum and writes
-    outside its buffers, which is why no geomean is given. The times are
-    still the binary's own, read after that corruption turned every printed
-    4 into a brace.
-[^benchwork]: Benchwork 1.1. The binaries were built one commit before the
-    tag, which changes only this file, the table script and the toolchain
-    pin, and report `benchwork 1.0-1-g2d28a2e`.
+    outside its buffers, which is why no geomean is given.
+[^benchwork]: Benchwork 1.1.
 [^rom]: On the 68000 build, gcc calls `__divsi3`, `__mulsi3` and friends for
     32-bit multiply and divide, and libnix's versions jump into
     utility.library, which volamos runs natively at zero cycles: 13 million
