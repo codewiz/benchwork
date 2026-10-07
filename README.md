@@ -35,8 +35,8 @@ Numbers for the release binaries on a reference target are in [RESULTS.md](RESUL
 
 ## Building
 
-The compiler is taken from `PATH`; override `CC` to compare toolchains, and
-`BUILD` to keep their objects apart:
+The compiler defaults to cc; override `CC` to compare toolchains,
+and `BUILD` to keep their objects apart:
 
 ```
 make CC=gcc-6.5/bin/m68k-amigaos-gcc BUILD=build-gcc6 TARGET=benchwork-gcc6
@@ -44,6 +44,20 @@ make CC=gcc-6.5/bin/m68k-amigaos-gcc BUILD=build-gcc6 TARGET=benchwork-gcc6
 
 `CPUFLAGS` (default `-m68020-60`) and `OPT` (default `-O2 -fomit-frame-pointer`)
 are the knobs a comparison usually turns.
+
+### VBCC
+
+vbcc from the same toolchain builds `benchwork-vbcc` with `make vbcc`, and
+`benchwork-vbcc-000/020/040` with `make vbcc-release`; the flags are
+spelled its way:
+
+```
+make vbcc CPUFLAGS=-cpu=68020 OPT=-O2
+```
+
+NOTE: vbcc 0.9i miscompiles two of the benchmarks, so until the compiler
+is fixed `ftgrays` reports `run 1 failed` with all CPUs and `memcpy-small`
+gives a wrong checksum and scribbles over memory with `-cpu=68040`.
 
 ## Running
 

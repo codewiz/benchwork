@@ -39,6 +39,14 @@
 		_a + ((b) - _a) * (t); \
 	})
 
+/* clamp() is the one of these kernel.c uses. The game's version is a GNU
+   statement expression; other compilers get a plain one, which evaluates
+   its arguments more than once. */
+#ifndef __GNUC__
+#undef clamp
+#define clamp(v, min, max) ((v) > (max) ? (max) : (v) < (min) ? (min) : (v))
+#endif
+
 #define len(A) (sizeof(A) / sizeof(A[0]))
 #define clear(A) memset(A, 0, sizeof(A))
 

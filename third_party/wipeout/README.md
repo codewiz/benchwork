@@ -8,4 +8,5 @@ standalone benchmark for AmigaPorts/m68k-amigaos-gcc#89.
 `kernel.c` is the function verbatim, with the GPU submission replaced by the
 `bench_consume()` callback the harness provides; `source.sha256` records the
 hash of the function body. `types.h`, `utils.h` and
-`render_gl_legacy_types.h` are the game headers it needs, unchanged.
+`render_gl_legacy_types.h` are the game headers it needs; `types.h` and
+`utils.h` carry fallbacks for compilers without the GNU extensions they use.

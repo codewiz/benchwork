@@ -3,7 +3,7 @@
 #define RENDER_TRIS_BUFFER_CAPACITY 16
 #define TEXTURES_MAX 2048
 typedef struct { vec2i_t size; vec2_t scale; uint32_t texId; } render_texture_t;
-static tris_t tris_buffer[RENDER_TRIS_BUFFER_CAPACITY] __attribute__((aligned(8)));
+static tris_t tris_buffer[RENDER_TRIS_BUFFER_CAPACITY] ALIGNED(8);
 static uint32_t tris_len;
 static render_texture_t textures[TEXTURES_MAX];
 static uint32_t textures_len;

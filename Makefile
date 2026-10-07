@@ -9,25 +9,62 @@ endif
 BUILD ?= build
 TARGET = benchwork
 
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null | sed 's/^v//' || echo unknown)
+DATE := $(shell date '+%-d.%-m.%Y')
+
+INCLUDES = -Isrc -Ithird_party/zlib -Ithird_party/libpng
+
+# vbcc from the same toolchain: make CC="vc +aos68k" (vc, vbccm68k, vasm and
+# vlink on PATH). vc rejects every flag it does not know, so the gcc-only
+# spellings live in these variables and switch together.
+ifeq ($(notdir $(firstword $(CC))),vc)
+BUILD := $(BUILD)-vbcc
+TARGET := $(TARGET)-vbcc
+# vc's -O2 is the full optimizer; -speed adds unrolling and inlining.
+CPUFLAGS ?= -cpu=68020
+OPT ?= -O2
+LANG_FLAGS = -c99
+# vbcc's C library has no sys/types.h and no gcc-style dependency output.
+NDK_INCLUDE = $(dir $(shell command -v vc))../m68k-amigaos/ndk-include
+INCLUDES += -Icompat -I$(NDK_INCLUDE)
+# vc keeps every argument as one word, so a string with spaces needs the
+# shell quoting that vbccm68k will see. vbcc has no version macro; the name
+# comes from its banner.
+VBCC_VERSION = $(shell vbccm68k -o=/dev/null /dev/null | sed -n '1s/^vbcc \(V[^ ]*\( pre\)\{0,1\}\).*/vbcc \1/p')
+DEFINES = -DBENCH_CFLAGS='"\"$(REPORTED_CFLAGS)\""' -DBENCH_VERSION='"\"$(VERSION)\""' \
+	-DBENCH_DATE='"\"$(DATE)\""' -DBENCH_COMPILER='"\"$(VBCC_VERSION)\""'
+# amiga.lib for the exec and timer calls, which vbcc's NDK headers do not
+# inline; mieee.lib is the soft-float math library, m040.lib the FPU one.
+LIBS = -lmieee -lamiga
+LIBS_040 = -lm040 -lamiga
+# zconf.h's SEEK_SET fallback disagrees with vbcc's stdio.h; Z_SOLO leaves
+# out the gz layer that pulls stdio in. The benchmarks bring their own
+# allocators, which is all Z_SOLO otherwise takes away.
+ZLIB_FLAGS = -DZ_SOLO
+else
 CPUFLAGS ?= -m68020-60
 OPT ?= -O2 -fomit-frame-pointer
+LIBC_FLAGS = -noixemul
+DEP_FLAGS = -MMD -MP
+KNR_FLAGS = -std=gnu11
+NO_BUILTIN = -fno-builtin
+WIPEOUT_FLAGS = -std=gnu99 -fno-strict-aliasing
+LIBS = -lm
+# The harness is held to a stricter standard than the code it measures,
+# which is compiled the way its own build systems compile it.
+WARNINGS = -Wall -Wextra -Wshadow -Wpointer-arith -Wwrite-strings \
+	-Wstrict-prototypes -Wmissing-prototypes -Wvla
+DEFINES = -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' -DBENCH_VERSION='"$(VERSION)"' \
+	-DBENCH_DATE='"$(DATE)"'
+endif
+
 CFLAGS ?= $(OPT) $(CPUFLAGS)
 
 # What the binary reports it was built with: taken now, before the
 # per-directory additions below.
 REPORTED_CFLAGS := $(CFLAGS)
-VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null | sed 's/^v//' || echo unknown)
-DATE := $(shell date '+%-d.%-m.%Y')
 
-# The harness is held to a stricter standard than the code it measures,
-# which is compiled the way its own build systems compile it.
-WARNINGS = -Wall -Wextra -Wshadow -Wpointer-arith -Wwrite-strings \
-	-Wstrict-prototypes -Wmissing-prototypes -Wvla
-
-INCLUDES = -Isrc -Ithird_party/zlib -Ithird_party/libpng
-
-ALL_CFLAGS = $(CFLAGS) -noixemul $(INCLUDES) -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
-	-DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"'
+ALL_CFLAGS = $(CFLAGS) $(LANG_FLAGS) $(LIBC_FLAGS) $(INCLUDES) $(DEFINES)
 
 HARNESS_SRCS = \
 	src/main.c \
@@ -103,26 +140,28 @@ OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -noixemul -o $@ $(OBJS) -lm
+	$(CC) $(CFLAGS) $(LIBC_FLAGS) -o $@ $(OBJS) $(LIBS)
 
 $(BUILD)/src/%.o $(BUILD)/benches/%.o: CFLAGS += $(WARNINGS)
 
 # LHa for UNIX is K&R C, which C23 rejects; the rest of the vendored code
 # compiles at the compiler's default standard.
-$(BUILD)/third_party/lha/%.o: CFLAGS += -std=gnu11
+$(BUILD)/third_party/lha/%.o: CFLAGS += $(KNR_FLAGS)
+
+$(BUILD)/third_party/zlib/%.o: CFLAGS += $(ZLIB_FLAGS)
 
 # ftgrays.c's stand-alone mode: no FreeType build system or headers needed.
 $(BUILD)/third_party/freetype/%.o: CFLAGS += -DSTANDALONE_
 
 # A function named memcpy must not have its loop turned into a memcpy call.
-$(BUILD)/third_party/newlib/%.o: CFLAGS += -fno-builtin -Ithird_party/newlib
+$(BUILD)/third_party/newlib/%.o: CFLAGS += $(NO_BUILTIN) -Ithird_party/newlib
 
 # The game's own flags, which its port is built with.
-$(BUILD)/third_party/wipeout/%.o: CFLAGS += -std=gnu99 -fno-strict-aliasing
+$(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
 
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(ALL_CFLAGS) -MMD -MP -c -o $@ $<
+	$(CC) $(ALL_CFLAGS) $(DEP_FLAGS) -c -o $@ $<
 
 # Regenerate the glyph tables with the host FreeType.
 tools/dumpglyphs: tools/dumpglyphs.c
@@ -137,18 +176,33 @@ glyphs: tools/dumpglyphs
 # uses the FPU; the others are soft float, as a program shipped for those
 # machines would be.
 RELEASE_CPUS = 000 020 040
+ifeq ($(notdir $(firstword $(CC))),vc)
+CPUFLAGS_000 = -cpu=68000
+CPUFLAGS_020 = -cpu=68020
+CPUFLAGS_040 = -cpu=68040 -fpu=68040
+else
 CPUFLAGS_000 = -m68000
 CPUFLAGS_020 = -m68020
 CPUFLAGS_040 = -m68040 -mhard-float
+endif
 
 release: $(RELEASE_CPUS:%=release-%)
 
 $(RELEASE_CPUS:%=release-%): release-%:
-	$(MAKE) BUILD=build-$* TARGET=benchwork-$* CPUFLAGS="$(CPUFLAGS_$*)"
+	$(MAKE) BUILD=$(BUILD)-$* TARGET=$(TARGET)-$* CPUFLAGS="$(CPUFLAGS_$*)" \
+		LIBS="$(or $(LIBS_$*),$(LIBS))"
+
+# Shortcuts for the vbcc build: benchwork-vbcc, and its three release
+# binaries. Other variables (CPUFLAGS, OPT) pass through.
+vbcc:
+	$(MAKE) CC="vc +aos68k"
+
+vbcc-release:
+	$(MAKE) CC="vc +aos68k" release
 
 clean:
-	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=build-%) $(RELEASE_CPUS:%=benchwork-%)
+	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=$(BUILD)-%) $(RELEASE_CPUS:%=$(TARGET)-%)
 
 -include $(OBJS:.o=.d)
 
-.PHONY: all clean glyphs release $(RELEASE_CPUS:%=release-%)
+.PHONY: all clean glyphs release $(RELEASE_CPUS:%=release-%) vbcc vbcc-release

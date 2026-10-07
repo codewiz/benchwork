@@ -27,7 +27,6 @@ QUICKREF
         memcpy ansi pure
 	*/
 
-#include <_ansi.h>
 #include <string.h>
 
 /* Nonzero if either X or Y is not aligned on a "long" boundary.  */
@@ -44,8 +43,8 @@ QUICKREF
 #define TOO_SMALL(LEN)  ((LEN) < BIGBLOCKSIZE)
 
 void *
-memcpy (void *__restrict dst0,
-	const void *__restrict src0,
+memcpy (void *restrict dst0,
+	const void *restrict src0,
 	size_t len0)
 {
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__)

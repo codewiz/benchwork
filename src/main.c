@@ -20,6 +20,7 @@
 #include <string.h>
 
 #include "bench.h"
+#include "compiler.h"
 #include "timer.h"
 
 #ifndef BENCH_CFLAGS
@@ -31,9 +32,17 @@
 #ifndef BENCH_DATE
 #define BENCH_DATE "?"
 #endif
+// vbcc has no version macro; its build passes the name from the Makefile.
+#ifndef BENCH_COMPILER
+#ifdef __GNUC__
+#define BENCH_COMPILER "gcc " __VERSION__
+#else
+#define BENCH_COMPILER "unknown compiler"
+#endif
+#endif
 
 // For the AmigaOS "version" command.
-static const char version_tag[] __attribute__((used)) =
+static const char version_tag[] USED =
     "$VER: benchwork " BENCH_VERSION " (" BENCH_DATE ")";
 
 // ftgrays keeps its 16 KiB cell pool on the stack and the Amiga shell's
@@ -266,7 +275,7 @@ int main(int argc, char **argv) {
         return 20;
     }
 
-    printf("benchwork %s, built with gcc %s\n", BENCH_VERSION, __VERSION__);
+    printf("benchwork %s, built with %s\n", BENCH_VERSION, BENCH_COMPILER);
     printf("CFLAGS: %s\n\n", BENCH_CFLAGS);
     printf("%-12s %5s %10s %10s   %s\n", "benchmark", "iters", "min ms",
            "mean ms", "check");
