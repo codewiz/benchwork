@@ -6,7 +6,9 @@
 # row. Columns after the first also show their change against the first
 # column in parentheses. Usage:
 #
-#   tools/results-table.py LABEL=FILE [LABEL=FILE ...]
+#   tools/results-table.py [--best] LABEL=FILE [LABEL=FILE ...]
+#
+# --best puts the fastest cell of each row in bold.
 #
 # The check values are compared across the files and a mismatch is reported
 # on stderr, since differing output means the times cannot be compared.
@@ -41,8 +43,11 @@ def cell(value, base, first):
 
 
 def main(args):
+    best = "--best" in args
     columns = []
     for arg in args:
+        if arg == "--best":
+            continue
         label, _, path = arg.partition("=")
         columns.append((label, *parse(path)))
 
@@ -64,8 +69,13 @@ def main(args):
     print("|---|" + "---:|" * len(columns))
     base_times = columns[0][1]
     for name in names:
-        cells = [cell(c[1].get(name), base_times.get(name), i == 0)
-                 for i, c in enumerate(columns)]
+        values = [c[1].get(name) for c in columns]
+        fastest = min(v for v in values if v is not None)
+        cells = [cell(v, base_times.get(name), i == 0)
+                 for i, v in enumerate(values)]
+        if best:
+            cells = [f"**{text}**" if v == fastest else text
+                     for v, text in zip(values, cells)]
         print(f"| {name} | " + " | ".join(cells) + " |")
     cells = [cell(c[3], columns[0][3], i == 0) for i, c in enumerate(columns)]
     print("| **GEOMEAN** | " + " | ".join(f"**{v}**" for v in cells) + " |")
