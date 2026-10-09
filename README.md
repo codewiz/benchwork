@@ -87,19 +87,6 @@ checksum of its output that must be identical across compilers.
 
 ## License
 
-The harness is 0BSD. The vendored code keeps its own license, in each
-`third_party/` directory:
-* newlib string functions (BSD, Red Hat)
-* zlib (zlib)
-* libpng (PNG Reference Library License)
-* FreeType (FTL)
-* LHa for UNIX (its redistribution terms, in Japanese)
-* Dhrystone (Reinhold Weicker's original terms) via xSysInfo (BSD-2-Clause)
-* The glyph outlines in `src/glyphs.c` are derived from DejaVu Sans (Bitstream Vera license).
-
-Portions of this software are copyright (C) 1996-2022 The FreeType Project
-(www.freetype.org). All rights reserved.
-
-Because of the LHa terms, binaries must be distributed together with this
-source, and the program must not be used as the main product of a
-commercial offering.
+The harness is 0BSD ([LICENSE](LICENSE)); the vendored code keeps its own
+licenses, listed in [third_party/LICENSE.md](third_party/LICENSE.md), and
+the LHa terms mean binaries must be distributed together with this source.
