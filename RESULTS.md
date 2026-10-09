@@ -35,6 +35,16 @@ All runs done with benchwork-040 built with `-O2 -fomit-frame-pointer -m68040
 C library, so the memcpy and memmove rows compare the compiler together with
 its runtime.
 
+### Time relative to gcc 6.5.0b
+
+![Time of each benchmark relative to gcc 6.5.0b](results/compilers-040.svg)
+
+Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is
+faster and gcc 6.5.0b sits at 1.0. Bars more than 25% away from it carry
+their ratio.
+
+### Milliseconds
+
 The fastest cell of each row is in bold.
 
 | benchmark | 6.5.0b | 16.2-rc14 | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |

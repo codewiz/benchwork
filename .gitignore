@@ -5,3 +5,4 @@ benchwork
 benchwork-*
 tools/dumpglyphs
 tmp/
+__pycache__/
