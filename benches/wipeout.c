@@ -161,5 +161,5 @@ const struct bench bench_wipeout_tris = {
     "Wipeout's triangle submission: float UVs, byte clamps, 96-byte copies",
     wipeout_setup,
     wipeout_run,
-    wipeout_teardown,
+    wipeout_teardown
 };

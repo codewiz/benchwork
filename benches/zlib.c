@@ -95,7 +95,7 @@ const struct bench bench_zlib_deflate = {
     "zlib level 6 compression of 256 KiB of text",
     zlib_setup,
     deflate_run,
-    zlib_teardown,
+    zlib_teardown
 };
 
 const struct bench bench_zlib_inflate = {
@@ -103,5 +103,5 @@ const struct bench bench_zlib_inflate = {
     "zlib decompression back to 256 KiB",
     zlib_setup,
     inflate_run,
-    zlib_teardown,
+    zlib_teardown
 };
