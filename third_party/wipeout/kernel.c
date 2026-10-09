@@ -15,6 +15,9 @@ static void render_flush(void) {
     tris_len = 0;
 }
 void render_push_tris(tris_t tris, uint16_t texture_index) {
+	render_texture_t *t;
+	int i;
+
 	error_if(texture_index >= textures_len, "Invalid texture %d", texture_index);
 
 	if (tris_len >= RENDER_TRIS_BUFFER_CAPACITY) {
@@ -25,9 +28,9 @@ void render_push_tris(tris_t tris, uint16_t texture_index) {
 	}
 	texture_index_prev = texture_index;
 
-	render_texture_t *t = &textures[texture_index];
+	t = &textures[texture_index];
 
-	for (int i = 0; i < 3; i++) {
+	for (i = 0; i < 3; i++) {
 		
 		// resize back to (0,1) uv space
 		tris.vertices[i].uv.x = (tris.vertices[i].uv.x / t->size.x) * t->scale.x;
@@ -69,12 +72,16 @@ void render_push_tris(tris_t tris, uint16_t texture_index) {
 }
 
 void bench_reset(void) {
+    unsigned i;
+
     tris_len = 0;
     texture_index_prev = 0;
     textures_len = 8;
-    for (unsigned i = 0; i < textures_len; ++i) {
-        textures[i].size = (vec2i_t){32 << (i % 3), 32 << ((i + 1) % 3)};
-        textures[i].scale = (vec2_t){1.0f, 0.5f};
+    for (i = 0; i < textures_len; ++i) {
+        textures[i].size.x = 32 << (i % 3);
+        textures[i].size.y = 32 << ((i + 1) % 3);
+        textures[i].scale.x = 1.0f;
+        textures[i].scale.y = 0.5f;
     }
 }
 void bench_finish(void) { render_flush(); }

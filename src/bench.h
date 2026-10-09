@@ -8,7 +8,8 @@
 #define BENCHWORK_BENCH_H
 
 #include <exec/types.h>
-#include <stdbool.h>
+
+#include "compiler.h"
 
 struct bench {
     const char *name;

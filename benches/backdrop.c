@@ -72,9 +72,10 @@ static void backdrop(UBYTE *px, SHORT w, SHORT h, bool truecolor) {
     int sun_x = w * 7 / 10, sun_y = h * 7 / 25, sun_r = h / 7;
     int boat_x = w / 4, boat_y = horizon + h / 5;
     int boat_w = w / 6, boat_h = h / 12;
+    SHORT x, y;
 
-    for (SHORT y = 0; y < h; y++) {
-        for (SHORT x = 0; x < w; x++) {
+    for (y = 0; y < h; y++) {
+        for (x = 0; x < w; x++) {
             // Scaled to a bit under one palette step, so the dither shapes
             // the boundary between two adjacent shades rather than adding
             // visible speckle.

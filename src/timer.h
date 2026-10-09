@@ -6,7 +6,7 @@
 #define BENCHWORK_TIMER_H
 
 #include <devices/timer.h>
-#include <stdbool.h>
+#include "compiler.h"
 
 bool timer_open(void);
 void timer_close(void);

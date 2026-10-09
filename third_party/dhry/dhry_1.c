@@ -37,6 +37,8 @@ int             Arr_2_Glob [50] [50];
 
 int Dhry_Initialize(void)
 {
+  int i, j;
+
   if (Ptr_Glob == Null)
     Ptr_Glob = (Rec_Pointer) malloc (sizeof (Rec_Type));
   if (Next_Ptr_Glob == Null)
@@ -49,9 +51,9 @@ int Dhry_Initialize(void)
   memset (Next_Ptr_Glob, 0, sizeof (Rec_Type));
 
   /* memset only clears the first line, use nested loop instead */
-  for (int i = 0; i < 50; ++i) {
+  for (i = 0; i < 50; ++i) {
     Arr_1_Glob[i] = 0;
-    for (int j = 0; j < 50; ++j) {
+    for (j = 0; j < 50; ++j) {
       Arr_2_Glob[i][j] = 0;
     }
   }

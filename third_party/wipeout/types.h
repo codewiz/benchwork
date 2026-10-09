@@ -4,7 +4,6 @@
 #include "compiler.h"
 
 #include <stdint.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -45,6 +44,9 @@ typedef union {
 
 #include "render_gl_legacy_types.h"
 
+/* The constructors are C99 compound literals and the helpers below use
+   them; kernel.c needs none of this, so C89 compilers skip it. */
+#if __STDC_VERSION__ >= 199901L
 #define rgba(R, G, B, A) ((rgba_t){.r = R, .g = G, .b = B, .a = A})
 #define vec2(X, Y) ((vec2_t){.x = X, .y = Y})
 #define vec3(X, Y, Z) ((vec3_t){.x = X, .y = Y, .z = Z})
@@ -164,6 +166,7 @@ static inline float wrap_angle(float a) {
 	}
 	return a - M_PI;
 }
+#endif
 
 rgba_t rgba_from_u32(uint32_t v);
 float vec3_angle(vec3_t a, vec3_t b);

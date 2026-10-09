@@ -31,7 +31,7 @@
 #include <string.h>
 
 #include "bench.h"
-#include "../third_party/wipeout/bench.h"
+#include "third_party/wipeout/bench.h"
 
 // Triangles per pass, as in the original harness.
 #define N 1024
@@ -53,7 +53,9 @@ static ULONG hash;
 // the same arithmetic as the game's, written as multiplications by exact
 // reciprocals, so it is independent of how the kernel was compiled.
 static void reference(tris_t *t, unsigned texture) {
-    for (unsigned j = 0; j < 3; j++) {
+    unsigned j;
+
+    for (j = 0; j < 3; j++) {
         vertex_t *v = &t->vertices[j];
 
         v->uv.x *= 1.0f / (float)(32 << (texture % 3));
@@ -69,8 +71,10 @@ static void reference(tris_t *t, unsigned texture) {
 // The kernel's flush. While timing it only counts; in the check pass it
 // hashes the batch and compares it with the reference.
 void bench_consume(const tris_t *tris, uint32_t count) {
+    uint32_t i;
+
     if (checking) {
-        for (uint32_t i = 0; i < count; i++) {
+        for (i = 0; i < count; i++) {
             ULONG k = (consumed + i) % N;
             tris_t want = input[k];
 
@@ -84,41 +88,51 @@ void bench_consume(const tris_t *tris, uint32_t count) {
 }
 
 static bool wipeout_setup(void) {
+    unsigned i, j, m;
+
     input = bench_alloc(N * sizeof *input, "triangles");
     tex = bench_alloc(3 * N * sizeof *tex, "texture indices");
     if (!input || !tex)
         return false;
 
     memset(input, 0, N * sizeof *input);
-    for (unsigned i = 0; i < N; i++) {
-        for (unsigned j = 0; j < 3; j++) {
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < 3; j++) {
             vertex_t *v = &input[i].vertices[j];
 
-            v->pos = (vec3_t){ (float)i, (float)j, (float)(i + j) };
-            v->uv = (vec2_t){ (float)((i * 7 + j) % 256),
-                              (float)((i + j * 13) % 256) };
-            v->color = (rgba_t){ i % 256, (i + j * 31) % 256,
-                                 (i * 3 + j) % 256, i % 7 ? 255 : 0 };
+            v->pos.x = (float)i;
+            v->pos.y = (float)j;
+            v->pos.z = (float)(i + j);
+            v->uv.x = (float)((i * 7 + j) % 256);
+            v->uv.y = (float)((i + j * 13) % 256);
+            v->color.r = i % 256;
+            v->color.g = (i + j * 31) % 256;
+            v->color.b = (i * 3 + j) % 256;
+            v->color.a = i % 7 ? 255 : 0;
         }
-        for (unsigned m = 0; m < 3; m++)
+        for (m = 0; m < 3; m++)
             tex[m * N + i] = (i / RUNS[m]) % 8;
     }
     return true;
 }
 
 static void submit(unsigned passes) {
+    unsigned p, i;
+
     consumed = 0;
     bench_reset();
-    for (unsigned p = 0; p < passes; p++)
-        for (unsigned i = 0; i < N; i++)
+    for (p = 0; p < passes; p++)
+        for (i = 0; i < N; i++)
             render_push_tris(input[i], tex_cur[i]);
     bench_finish();
 }
 
 static bool wipeout_run(ULONG *check) {
+    unsigned m;
+
     hash = 0;
     bad = false;
-    for (unsigned m = 0; m < 3; m++) {
+    for (m = 0; m < 3; m++) {
         tex_cur = tex + m * N;
 
         checking = false;

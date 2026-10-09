@@ -21,7 +21,7 @@
 
 #include "bench.h"
 #include "corpus.h"
-#include "../third_party/lha/lha.h"
+#include "third_party/lha/lha.h"
 
 static UBYTE *plain;
 static struct lha_stream input, packed, unpacked;

@@ -34,8 +34,12 @@
 #endif
 // vbcc has no version macro; its build passes the name from the Makefile.
 #ifndef BENCH_COMPILER
-#ifdef __GNUC__
+#if defined(__GNUC__)
 #define BENCH_COMPILER "gcc " __VERSION__
+#elif defined(__SASC)
+#define STR_(x) #x
+#define STR(x) STR_(x)
+#define BENCH_COMPILER "SAS/C " STR(__VERSION__) "." STR(__REVISION__)
 #else
 #define BENCH_COMPILER "unknown compiler"
 #endif
@@ -51,6 +55,13 @@ static const char version_tag[] USED =
 // function's locals stay on the other stack), so the program checks the
 // stack it was given and asks for a bigger one instead.
 #define STACK_NEEDED (32 * 1024)
+
+#ifdef __SASC
+// SAS/C's startup code swaps to a stack of this size when the shell's is
+// smaller, which is the stack check below done for us. It looks for the
+// variable in the near data section, whatever the data model.
+__near long __stack = STACK_NEEDED * 2;
+#endif
 
 static const struct bench *const BENCHES[] = {
     &bench_dhry,
@@ -98,12 +109,13 @@ static void print_ms(ULONG us) {
 static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
     ULONG best = ~0UL, total = 0, check = 0, first = 0;
     bool ok = true;
+    int i;
 
     if (!b->setup()) {
         printf("%-12s setup failed\n", b->name);
         return false;
     }
-    for (int i = 0; i < iters; i++) {
+    for (i = 0; i < iters; i++) {
         struct EClockVal t0, t1;
         ULONG us;
 
@@ -199,8 +211,9 @@ void bench_zfree(void *opaque, void *address) {
 static int run_all(void) {
     int failures = 0, ran = 0;
     double logsum = 0;
+    size_t j;
 
-    for (size_t j = 0; j < nselected; j++) {
+    for (j = 0; j < nselected; j++) {
         ULONG best;
 
         if (!run_bench(selected[j], iters, &best)) {
@@ -222,6 +235,7 @@ int main(int argc, char **argv) {
     struct Task *task = FindTask(NULL);
     ULONG stack = (ULONG)task->tc_SPUpper - (ULONG)task->tc_SPLower;
     int failures, i;
+    size_t j;
 
     if (stack < STACK_NEEDED) {
         printf("benchwork needs a %lu byte stack, got %lu: run \"stack %lu\" first\n",
@@ -245,15 +259,13 @@ int main(int argc, char **argv) {
         } else if (!strcmp(argv[i], "--fastmem")) {
             fastmem = true;
         } else if (!strcmp(argv[i], "-l")) {
-            for (size_t j = 0; j < NBENCHES; j++)
+            for (j = 0; j < NBENCHES; j++)
                 printf("%-12s %s\n", BENCHES[j]->name, BENCHES[j]->desc);
             return 0;
         } else if (argv[i][0] == '-') {
             usage();
             return 20;
         } else {
-            size_t j;
-
             for (j = 0; j < NBENCHES; j++)
                 if (!strcmp(argv[i], BENCHES[j]->name))
                     break;
@@ -265,7 +277,7 @@ int main(int argc, char **argv) {
         }
     }
     if (!nselected) {
-        for (size_t j = 0; j < NBENCHES; j++)
+        for (j = 0; j < NBENCHES; j++)
             selected[j] = BENCHES[j];
         nselected = NBENCHES;
     }

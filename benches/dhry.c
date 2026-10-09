@@ -10,7 +10,7 @@
 // objects and leaves LTO off.
 
 #include "bench.h"
-#include "../third_party/dhry/dhry.h"
+#include "third_party/dhry/dhry.h"
 
 // dhry_1.c's globals, which dhry.h does not declare.
 extern Rec_Pointer Ptr_Glob;

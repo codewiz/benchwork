@@ -72,6 +72,7 @@ static void png_bench_free(png_structp png, png_voidp ptr) {
 static bool encode(void) {
     png_structp png;
     png_infop info;
+    SHORT y;
 
     encoded.len = 0;
     png = png_create_write_struct_2(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL,
@@ -87,7 +88,7 @@ static bool encode(void) {
     png_set_IHDR(png, info, (png_uint_32)width, (png_uint_32)height, 8,
                  PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-    for (SHORT y = 0; y < height; y++)
+    for (y = 0; y < height; y++)
         rows[y] = pixels + (ULONG)y * width * 3;
     png_write_info(png, info);
     png_write_image(png, rows);
@@ -103,6 +104,7 @@ static bool decode(void) {
     png_infop info;
     png_uint_32 w, h;
     int depth, color;
+    SHORT y;
 
     encoded.pos = 0;
     png = png_create_read_struct_2(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL,
@@ -120,7 +122,7 @@ static bool decode(void) {
     if (w != (png_uint_32)width || h != (png_uint_32)height || depth != 8 ||
         color != PNG_COLOR_TYPE_RGB)
         png_error(png, "unexpected image format");
-    for (SHORT y = 0; y < height; y++)
+    for (y = 0; y < height; y++)
         rows[y] = decoded + (ULONG)y * width * 3;
     png_read_image(png, rows);
     png_read_end(png, NULL);

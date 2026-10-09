@@ -22,6 +22,7 @@ typedef png_libpng_version_1_6_58 Your_png_h_is_not_version_1_6_58;
  * (1) The first check is that the PNG_CHUNK(cHNK, index) 'index' values must
  * increment from 0 to the last value.
  */
+#ifndef __SASC /* its preprocessor rejects these macro tricks */
 #define PNG_CHUNK(cHNK, index) != (index) || ((index)+1)
 
 #if 0 PNG_KNOWN_CHUNKS < 0
@@ -41,6 +42,7 @@ typedef png_libpng_version_1_6_58 Your_png_h_is_not_version_1_6_58;
 #endif
 
 #undef PNG_CHUNK
+#endif /* !__SASC */
 
 /* Tells libpng that we have already handled the first "num_bytes" bytes
  * of the PNG file signature.  If the PNG data is embedded into another

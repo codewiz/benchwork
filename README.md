@@ -33,7 +33,10 @@ Numbers for the release binaries on a reference target are in [RESULTS.md](RESUL
 [^pieces]: 128 bytes is the size up to which the AmigaOS by-pieces hook
     expands a copy inline.
 
+
 ## Building
+
+### m68k-amigaos-gcc
 
 The compiler defaults to cc; override `CC` to compare toolchains,
 and `BUILD` to keep their objects apart:
@@ -44,6 +47,7 @@ make CC=gcc-6.5/bin/m68k-amigaos-gcc BUILD=build-gcc6 TARGET=benchwork-gcc6
 
 `CPUFLAGS` (default `-m68020-60`) and `OPT` (default `-O2 -fomit-frame-pointer`)
 are the knobs a comparison usually turns.
+
 
 ### VBCC
 
@@ -58,6 +62,15 @@ make vbcc CPUFLAGS=-cpu=68020 OPT=-O2
 NOTE: vbcc 0.9i miscompiles two of the benchmarks, so until the compiler
 is fixed `ftgrays` reports `run 1 failed` with all CPUs and `memcpy-small`
 gives a wrong checksum and scribbles over memory with `-cpu=68040`.
+We emailed both bug reports to the vbcc maintainer.
+
+
+### SAS/C
+
+SAS/C 6.58 builds `benchwork-sasc` with `make sasc`, and the release
+binaries with `make sasc-release`; `SC=sc-volamos` names a wrapper that
+runs sc under volamos, with slink reached the same way.
+
 
 ## Running
 
@@ -70,6 +83,7 @@ refuses to start on the shell's default 4 KiB stack: `stack 65536` first.
 
 Each benchmark reports its fastest and mean iteration in milliseconds, and a
 checksum of its output that must be identical across compilers.
+
 
 ## License
 

@@ -24,7 +24,7 @@
 #define FT_BEGIN_HEADER
 #define FT_END_HEADER
 #define FT_STATIC_BYTE_CAST(type, var) (type)(unsigned char)(var)
-#include "../third_party/freetype/ftgrays.h"
+#include "third_party/freetype/ftgrays.h"
 
 #include "bench.h"
 #include "glyphs.h"
@@ -56,13 +56,13 @@ static bool draw_glyph(const struct glyph *g, int size, int pen_x, int baseline)
     FT_Bitmap bitmap;
     FT_Raster_Params params;
     long xmin = 0, xmax = 0, ymin = 0, ymax = 0;
-    int left, top, w, h;
+    int left, top, w, h, i;
 
     if (g->n_points == 0)
         return true;
 
     // Scale the master outline to this size. 26.6 in, 26.6 out.
-    for (int i = 0; i < g->n_points; i++) {
+    for (i = 0; i < g->n_points; i++) {
         long x = (long)GLYPH_POINTS[g->first_point + i][0] * size / GLYPH_PIXELS;
         long y = (long)GLYPH_POINTS[g->first_point + i][1] * size / GLYPH_PIXELS;
 
@@ -78,7 +78,7 @@ static bool draw_glyph(const struct glyph *g, int size, int pen_x, int baseline)
         points[i].y = y;
         tags[i] = GLYPH_TAGS[g->first_point + i];
     }
-    for (int i = 0; i < g->n_contours; i++)
+    for (i = 0; i < g->n_contours; i++)
         contours[i] = GLYPH_CONTOURS[g->first_contour + i];
 
     // The glyph's pixel box, and the outline moved so that it sits at the
@@ -90,7 +90,7 @@ static bool draw_glyph(const struct glyph *g, int size, int pen_x, int baseline)
     h = top - (int)(ymin >> 6);
     if (w <= 0 || h <= 0)
         return true;
-    for (int i = 0; i < g->n_points; i++) {
+    for (i = 0; i < g->n_points; i++) {
         points[i].x -= (long)left << 6;
         points[i].y -= (long)(top - h) << 6;
     }
@@ -128,15 +128,17 @@ static bool draw_glyph(const struct glyph *g, int size, int pen_x, int baseline)
 // starting at the top of the page.
 static bool draw_page(void) {
     int baseline = 0;
+    size_t s;
 
     memset(page, 0, PAGE_W * PAGE_H);
-    for (size_t s = 0; s < NSIZES; s++) {
+    for (s = 0; s < NSIZES; s++) {
         int size = SIZES[s];
         int line = (GLYPH_LINE_HEIGHT * size / GLYPH_PIXELS + 63) >> 6;
         int pen_x = 0;
+        int i;
 
         baseline += (GLYPH_ASCENT * size / GLYPH_PIXELS + 63) >> 6;
-        for (int i = 0; i < NGLYPHS; i++) {
+        for (i = 0; i < NGLYPHS; i++) {
             const struct glyph *g = &GLYPHS[i];
             int advance = (int)((g->advance * size / GLYPH_PIXELS + 63) >> 6);
 
@@ -154,7 +156,9 @@ static bool draw_page(void) {
 }
 
 static bool ftgrays_setup(void) {
-    for (int i = 0; i < NGLYPHS; i++) {
+    int i;
+
+    for (i = 0; i < NGLYPHS; i++) {
         if (GLYPHS[i].n_points > max_points)
             max_points = GLYPHS[i].n_points;
         if (GLYPHS[i].n_contours > max_contours)
@@ -185,7 +189,9 @@ static void ftgrays_teardown(void) {
 }
 
 static bool ftgrays_run(ULONG *check) {
-    for (int pass = 0; pass < PASSES; pass++)
+    int pass;
+
+    for (pass = 0; pass < PASSES; pass++)
         if (!draw_page())
             return false;
     *check = checksum(0, page, PAGE_W * PAGE_H);

@@ -13,6 +13,8 @@
 
 #include <proto/exec.h>
 #include <exec/memory.h>
+
+#include "compiler.h"
 #include <string.h>
 
 #include "bench.h"
@@ -58,7 +60,16 @@ static const char *const WORDS[] = {
 static ULONG seed = 12345;
 
 static ULONG next(ULONG limit) {
+#ifdef HAVE_LONG_LONG
     seed = (ULONG)(((unsigned long long)seed * 48271) % 2147483647UL);
+#else
+    // The same step without a 64-bit product: Schrage's method, with
+    // 2147483647 = 48271 * 44488 + 3399.
+    ULONG hi = seed / 44488, lo = seed % 44488;
+    LONG t = (LONG)(48271 * lo) - (LONG)(3399 * hi);
+
+    seed = t > 0 ? (ULONG)t : (ULONG)t + 2147483647UL;
+#endif
     return seed % limit;
 }
 
@@ -84,8 +95,9 @@ UBYTE *corpus_alloc(void) {
     while (p < end) {
         int words = 4 + (int)next(13);
         int in_paragraph = 6 + (int)next(9);
+        int i;
 
-        for (int i = 0; i < words && p < end; i++) {
+        for (i = 0; i < words && p < end; i++) {
             char num[12];
             const char *w = WORDS[next(NWORDS)];
 

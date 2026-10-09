@@ -53,6 +53,7 @@
 
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
+#if __STDC_VERSION__ >= 199901L
 #define die(...) \
 	printf("Abort at " TOSTRING(__FILE__) " line " TOSTRING(__LINE__) ": " __VA_ARGS__); \
 	printf("\n"); \
@@ -62,6 +63,19 @@
 	if (TEST) { \
 		die(__VA_ARGS__); \
 	}
+#else
+/* No variadic macros in C89; kernel.c's one use passes a format and one
+   argument. */
+#define die(FMT, ARG) \
+	printf("Abort at " TOSTRING(__FILE__) " line " TOSTRING(__LINE__) ": " FMT, ARG); \
+	printf("\n"); \
+	exit(1)
+
+#define error_if(TEST, FMT, ARG) \
+	if (TEST) { \
+		die(FMT, ARG); \
+	}
+#endif
 
 
 #define flags_add(FLAGS, F)  (FLAGS |= (F))
