@@ -13,15 +13,11 @@ its runtime.
 
 ### Time relative to gcc 6.5.0b
 
+Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is faster.
+
 ![Time of each benchmark relative to gcc 6.5.0b](results/compilers-040.svg)
 
-Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is
-faster and gcc 6.5.0b sits at 1.0. Bars more than 25% away from it carry
-their ratio.
-
-### Milliseconds
-
-The fastest cell of each row is in bold.
+Same data in tabular form (time in milliseconds):
 
 | benchmark | 6.5.0b | 16.2-rc14[^gcc] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
 |---|---:|---:|---:|---:|
@@ -42,6 +38,37 @@ The fastest cell of each row is in bold.
 | memmove-large | **4011** | 4127 (+2.89%) | 12458 (+210.62%) | 8911 (+122.20%) |
 | wipeout-tris | **507** | 519 (+2.38%) | 943 (+86.08%) | 672 (+32.73%) |
 | **GEOMEAN** | **1149** | **1162 (+1.17%)** | | **1491 (+29.78%)** |
+
+## Comparing GCC optimization levels
+
+benchwork-040 built with m68k-amigaos-gcc 16.2-rc14[^gcc] and
+`-fomit-frame-pointer -m68040 -m68881` at each level.
+
+| benchmark | -O2 | -Os | -O3 |
+|---|---:|---:|---:|
+| dhrystone | 421 | 559 (+32.67%) | **416 (-1.14%)** |
+| backdrop | 1941 | 3187 (+64.18%) | **1685 (-13.21%)** |
+| lha-pack | 4439 | 4942 (+11.33%) | **4360 (-1.78%)** |
+| lha-unpack | **1382** | 1469 (+6.29%) | 1389 (+0.45%) |
+| zlib-deflate | **3698** | 3904 (+5.57%) | 3701 (+0.08%) |
+| zlib-inflate | 511 | **487 (-4.61%)** | 499 (-2.19%) |
+| png-encode | 7543 | 8638 (+14.51%) | **7508 (-0.47%)** |
+| png-decode | 1587 | 1840 (+15.94%) | **1527 (-3.78%)** |
+| ftgrays | 858 | 889 (+3.58%) | **836 (-2.60%)** |
+| memcpy-small | **193** | 267 (+38.42%) | **193 (+0.00%)** |
+| memcpy-large | **326** | 468 (+43.22%) | **326 (+0.00%)** |
+| memcpy-var-small | **565** | 584 (+3.44%) | **565 (+0.00%)** |
+| memcpy-var-large | **635** | 637 (+0.41%) | **635 (+0.00%)** |
+| memmove-small | **2351** | 2361 (+0.44%) | **2351 (+0.00%)** |
+| memmove-large | **4127** | 4128 (+0.02%) | 4127 (+0.00%) |
+| wipeout-tris | 519 | 569 (+9.68%) | **507 (-2.23%)** |
+| **GEOMEAN** | **1162** | **1324 (+13.97%)** | **1142 (-1.74%)** |
+| **CODE SIZE** | 296608 | 262164 (-11.61%) | 365820 (+23.33%) |
+
+The run-time-sized copies and the moves call newlib's assembler routines,
+which do not change with the level. The constant-size copies are expanded
+inline at every level, but `-Os` turns more of them into loops where `-O2`
+and `-O3` unroll.
 
 ## Comparing GCC code generation for 68000, 68020, 68040-FP
 
