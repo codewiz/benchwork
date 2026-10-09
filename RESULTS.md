@@ -31,27 +31,28 @@ Benchwork 1.1[^benchwork], built with `make release`.
 ## m68k compiler comparison
 
 All runs done with benchwork-040 built with `-O2 -fomit-frame-pointer -m68040
--mhard-float`, or vbcc's equivalent. The fastest cell of each row is in bold.
+-mhard-float`, or the equivalent for vbcc and SAS/C. The fastest cell of each
+row is in bold.
 
-| benchmark | 6.5.0b | 16.2-rc14 | vbcc 0.9i[^vbcc] |
-|---|---:|---:|---:|
-| dhrystone | 512 | **417 (-18.57%)** | 599 (+16.89%) |
-| backdrop | 2891 | **1941 (-32.87%)** | 4238 (+46.57%) |
-| lha-pack | **4431** | 4569 (+3.13%) | 4870 (+9.91%) |
-| lha-unpack | **1397** | 1441 (+3.15%) | 1457 (+4.28%) |
-| zlib-deflate | **3096** | 3625 (+17.09%) | 4274 (+38.06%) |
-| zlib-inflate | **465** | 571 (+22.68%) | 551 (+18.51%) |
-| png-encode | **6541** | 7527 (+15.07%) | 10221 (+56.27%) |
-| png-decode | **1842** | 1941 (+5.40%) | 2357 (+27.98%) |
-| ftgrays | **834** | 849 (+1.83%) | failed |
-| memcpy-small | **186** | 193 (+4.14%) | wrong output |
-| memcpy-large | 328 | **326 (-0.44%)** | 1267 (+286.43%) |
-| memcpy-var-small | 821 | 951 (+15.87%) | **654 (-20.30%)** |
-| memcpy-var-large | **670** | 837 (+24.92%) | 1616 (+141.13%) |
-| memmove-small | 839 | **811 (-3.35%)** | 4320 (+414.66%) |
-| memmove-large | **689** | 740 (+7.48%) | 12458 (+1708.63%) |
-| wipeout-tris | **556** | 592 (+6.32%) | 943 (+69.40%) |
-| **GEOMEAN** | **1023** | **1057 (+3.41%)** | |
+| benchmark | 6.5.0b | 16.2-rc14 | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
+|---|---:|---:|---:|---:|
+| dhrystone | 512 | **417 (-18.57%)** | 599 (+16.89%) | 581 (+13.38%) |
+| backdrop | 2891 | **1941 (-32.87%)** | 4238 (+46.57%) | 4267 (+47.57%) |
+| lha-pack | **4431** | 4569 (+3.13%) | 4870 (+9.91%) | 5022 (+13.34%) |
+| lha-unpack | **1397** | 1441 (+3.15%) | 1457 (+4.28%) | 1507 (+7.84%) |
+| zlib-deflate | **3096** | 3625 (+17.09%) | 4274 (+38.06%) | 4096 (+32.30%) |
+| zlib-inflate | **465** | 571 (+22.68%) | 551 (+18.51%) | 492 (+5.76%) |
+| png-encode | **6541** | 7527 (+15.07%) | 10221 (+56.27%) | 9483 (+44.99%) |
+| png-decode | **1842** | 1941 (+5.40%) | 2357 (+27.98%) | 1985 (+7.78%) |
+| ftgrays | **834** | 849 (+1.83%) | failed | 942 (+13.04%) |
+| memcpy-small | **186** | 193 (+4.14%) | wrong output | 348 (+87.63%) |
+| memcpy-large | 328 | **326 (-0.44%)** | 1267 (+286.43%) | 501 (+52.81%) |
+| memcpy-var-small | 821 | 951 (+15.87%) | 654 (-20.30%) | **423 (-48.42%)** |
+| memcpy-var-large | 670 | 837 (+24.92%) | 1616 (+141.13%) | **644 (-3.92%)** |
+| memmove-small | 839 | **811 (-3.35%)** | 4320 (+414.66%) | 3110 (+270.54%) |
+| memmove-large | **689** | 740 (+7.48%) | 12458 (+1708.63%) | 8911 (+1193.77%) |
+| wipeout-tris | **556** | 592 (+6.32%) | 943 (+69.40%) | 672 (+20.83%) |
+| **GEOMEAN** | **1023** | **1057 (+3.41%)** | | **1491 (+45.78%)** |
 
 [^volamos]: volamos 0.8.0, `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`
     for every column. The emulated time is derived from the CPU's cycle count
@@ -64,6 +65,11 @@ All runs done with benchwork-040 built with `-O2 -fomit-frame-pointer -m68040
     amiga.lib. vbcc 0.9i miscompiles two of the drivers: ftgrays fails
     before it runs, and memcpy-small produces a wrong checksum and writes
     outside its buffers, which is why no geomean is given.
+[^sasc]: SAS/C 6.58, `make sasc-release`: `CPU=68040 MATH=68881` with
+    `OPTIMIZE OPTIMIZERTIME OPTIMIZERINLINELOCAL OPTIMIZERSCHEDULER` and the
+    optimizer depths at 8, `PARAMETERS=REGISTERS CODE=FAR DATA=FAR`, linked
+    with scm040.lib, sc.lib and amiga.lib. Its memcpy and memmove are the
+    C library's own when the harness does not supply them.
 [^benchwork]: Benchwork 1.1.
 [^rom]: On the 68000 build, gcc calls `__divsi3`, `__mulsi3` and friends for
     32-bit multiply and divide, and libnix's versions jump into
