@@ -2,6 +2,7 @@
 
 Fastest iteration in milliseconds under volamos[^volamos].
 The cycle count makes all iterations identical.
+
 Percentages are against the first column.
 
 ## Release binaries, m68k-amigaos-gcc 16.2-rc14[^gcc]
@@ -31,8 +32,9 @@ Benchwork 1.1[^benchwork], built with `make release`.
 ## m68k compiler comparison
 
 All runs done with benchwork-040 built with `-O2 -fomit-frame-pointer -m68040
--mhard-float`, or the equivalent for vbcc and SAS/C. The fastest cell of each
-row is in bold.
+-mhard-float`, or the equivalent for vbcc and SAS/C.
+
+The fastest cell of each row is in bold.
 
 | benchmark | 6.5.0b | 16.2-rc14 | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
 |---|---:|---:|---:|---:|
