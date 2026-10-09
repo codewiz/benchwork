@@ -103,8 +103,7 @@ struct matchdata {
 };
 
 int
-encode_alloc(method)
-    int method;
+encode_alloc(int method)
 {
     switch (method) {
     case LZHUFF1_METHOD_NUM:
@@ -147,7 +146,7 @@ encode_alloc(method)
 }
 
 static void
-init_slide()
+init_slide(void)
 {
     unsigned int i;
 
@@ -159,9 +158,7 @@ init_slide()
 
 /* update dictionary */
 static void
-update_dict(pos, crc)
-    unsigned int *pos;
-    unsigned int *crc;
+update_dict(unsigned int *pos, unsigned int *crc)
 {
     unsigned int i, j;
     long n;
@@ -186,21 +183,16 @@ update_dict(pos, crc)
 
 /* associate position with token */
 static void
-insert_hash(token, pos)
-    unsigned int token;
-    unsigned int pos;
+insert_hash(unsigned int token, unsigned int pos)
 {
     prev[pos & (dicsiz - 1)] = hash[token].pos; /* chain the previous pos. */
     hash[token].pos = pos;
 }
 
 static void
-search_dict_1(token, pos, off, max, m)
-    unsigned int token;
-    unsigned int pos;
-    unsigned int off;
-    unsigned int max;           /* max. length of matching string */
-    struct matchdata *m;
+search_dict_1(unsigned int token, unsigned int pos, unsigned int off,
+              unsigned int max,           /* max. length of matching string */
+              struct matchdata *m)
 {
     unsigned int chain = 0;
     unsigned int scan_pos = hash[token].pos;
@@ -246,11 +238,10 @@ search_dict_1(token, pos, off, max, m)
 
 /* search the longest token matching to current token */
 static void
-search_dict(token, pos, min, m)
-    unsigned int token;         /* search token */
-    unsigned int pos;           /* position of token */
-    int min;                    /* min. length of matching string */
-    struct matchdata *m;
+search_dict(unsigned int token,         /* search token */
+            unsigned int pos,           /* position of token */
+            int min,                    /* min. length of matching string */
+            struct matchdata *m)
 {
     unsigned int off, tok, max;
 
@@ -283,10 +274,7 @@ search_dict(token, pos, min, m)
 
 /* slide dictionary */
 static void
-next_token(token, pos, crc)
-    unsigned int *token;
-    unsigned int *pos;
-    unsigned int *crc;
+next_token(unsigned int *token, unsigned int *pos, unsigned int *crc)
 {
     remainder--;
     if (++*pos >= txtsiz - maxmatch) {
@@ -299,8 +287,7 @@ next_token(token, pos, crc)
 }
 
 unsigned int
-encode(interface)
-    struct interfacing *interface;
+encode(struct interfacing *interface)
 {
     unsigned int token, pos, crc;
     off_t count;
@@ -389,8 +376,7 @@ encode(interface)
 }
 
 unsigned int
-decode(interface)
-    struct interfacing *interface;
+decode(struct interfacing *interface)
 {
     unsigned int i, c;
     unsigned int dicsiz1, adjust;

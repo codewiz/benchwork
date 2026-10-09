@@ -81,10 +81,7 @@ count_t_freq(/*void*/)
 
 /* ------------------------------------------------------------------------ */
 static void
-write_pt_len(n, nbit, i_special)
-    short           n;
-    short           nbit;
-    short           i_special;
+write_pt_len(short n, short nbit, short i_special)
 {
     short           i, k;
 
@@ -98,7 +95,7 @@ write_pt_len(n, nbit, i_special)
             putbits(3, k);
         else
             /* k=7 -> 1110  k=8 -> 11110  k=9 -> 111110 ... */
-            putbits(k - 3, USHRT_MAX << 1);
+            putbits(k - 3, (unsigned short)(USHRT_MAX << 1));
         if (i == i_special) {
             while (i < 6 && pt_len[i] == 0)
                 i++;
@@ -151,16 +148,14 @@ write_c_len(/*void*/)
 
 /* ------------------------------------------------------------------------ */
 static void
-encode_c(c)
-    short           c;
+encode_c(short c)
 {
     putcode(c_len[c], c_code[c]);
 }
 
 /* ------------------------------------------------------------------------ */
 static void
-encode_p(p)
-    unsigned short  p;
+encode_p(unsigned short p)
 {
     unsigned short  c, q;
 
@@ -234,9 +229,7 @@ send_block( /* void */ )
 /* ------------------------------------------------------------------------ */
 /* lh4, 5, 6, 7 */
 void
-output_st1(c, p)
-    unsigned int  c;
-    unsigned int  p;
+output_st1(unsigned int c, unsigned int p)
 {
     static unsigned short cpos;
 
@@ -321,10 +314,7 @@ encode_end_st1( /* void */ )
 /*                              decoding                                    */
 /* ------------------------------------------------------------------------ */
 static void
-read_pt_len(nn, nbit, i_special)
-    short           nn;
-    short           nbit;
-    short           i_special;
+read_pt_len(short nn, short nbit, short i_special)
 {
     int           i, c, n;
 

@@ -11,9 +11,9 @@
 
 static unsigned char subbitbuf, bitcount;
 
+/* Shift bitbuf n bits left, read n bits */
 void
-fillbuf(n)          /* Shift bitbuf n bits left, read n bits */
-    unsigned char   n;
+fillbuf(unsigned char n)
 {
     while (n > bitcount) {
         n -= bitcount;
@@ -36,8 +36,7 @@ fillbuf(n)          /* Shift bitbuf n bits left, read n bits */
 }
 
 unsigned short
-getbits(n)
-    unsigned char   n;
+getbits(unsigned char n)
 {
     unsigned short  x;
 
@@ -46,10 +45,9 @@ getbits(n)
     return x;
 }
 
+/* Write leftmost n bits of x */
 void
-putcode(n, x)           /* Write leftmost n bits of x */
-    unsigned char   n;
-    unsigned short  x;
+putcode(unsigned char n, unsigned short x)
 {
     while (n >= bitcount) {
         n -= bitcount;
@@ -70,10 +68,9 @@ putcode(n, x)           /* Write leftmost n bits of x */
     bitcount -= n;
 }
 
+/* Write rightmost n bits of x */
 void
-putbits(n, x)           /* Write rightmost n bits of x */
-    unsigned char   n;
-    unsigned short  x;
+putbits(unsigned char n, unsigned short x)
 {
     x <<= USHRT_BIT - n;
     putcode(n, x);

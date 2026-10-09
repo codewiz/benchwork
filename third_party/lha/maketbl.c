@@ -9,11 +9,8 @@
 #include "lha.h"
 
 void
-make_table(nchar, bitlen, tablebits, table)
-    short           nchar;
-    unsigned char   bitlen[];
-    short           tablebits;
-    unsigned short  table[];
+make_table(short nchar, unsigned char bitlen[], short tablebits,
+           unsigned short table[])
 {
     unsigned short  count[17];  /* count of bitlen */
     unsigned short  weight[17]; /* 0x10000ul >> bitlen */

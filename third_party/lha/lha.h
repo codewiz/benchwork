@@ -143,11 +143,12 @@ extern unsigned int crctable[UCHAR_MAX + 1];
 
 /* --- from prototypes.h -------------------------------------------------- */
 
-/* bitio.c */
-void fillbuf(int n);
-unsigned short getbits(int n);
-void putcode(int n, int x);
-void putbits(int n, int x);
+/* bitio.c: the parameter types of the definitions, which were K&R and
+ * relied on the narrowing on entry. */
+void fillbuf(unsigned char n);
+unsigned short getbits(unsigned char n);
+void putcode(unsigned char n, unsigned short x);
+void putbits(unsigned char n, unsigned short x);
 void init_getbits(void);
 void init_putbits(void);
 
@@ -168,7 +169,7 @@ unsigned short decode_p_st1(void);
 void decode_start_st1(void);
 
 /* maketbl.c */
-void make_table(int nchar, unsigned char bitlen[], int tablebits,
+void make_table(short nchar, unsigned char bitlen[], short tablebits,
                 unsigned short table[]);
 
 /* maketree.c */

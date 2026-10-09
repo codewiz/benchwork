@@ -9,11 +9,9 @@
 #include "lha.h"
 
 static void
-make_code(nchar, bitlen, code, leaf_num)
-    int            nchar;
-    unsigned char  *bitlen;
-    unsigned short *code;       /* table */
-    unsigned short *leaf_num;
+make_code(int nchar, unsigned char *bitlen,
+          unsigned short *code,       /* table */
+          unsigned short *leaf_num)
 {
     unsigned short  weight[17]; /* 0x10000ul >> bitlen */
     unsigned short  start[17];  /* start code */
@@ -34,12 +32,9 @@ make_code(nchar, bitlen, code, leaf_num)
     }
 }
 
+/* call with node = root */
 static void
-count_leaf(node, nchar, leaf_num, depth) /* call with node = root */
-    int node;
-    int nchar;
-    unsigned short leaf_num[];
-    int depth;
+count_leaf(int node, int nchar, unsigned short leaf_num[], int depth)
 {
     if (node < nchar)
         leaf_num[depth < 16 ? depth : 16]++;
@@ -50,11 +45,9 @@ count_leaf(node, nchar, leaf_num, depth) /* call with node = root */
 }
 
 static void
-make_len(nchar, bitlen, sort, leaf_num)
-    int nchar;
-    unsigned char *bitlen;
-    unsigned short *sort;       /* sorted characters */
-    unsigned short *leaf_num;
+make_len(int nchar, unsigned char *bitlen,
+         unsigned short *sort,       /* sorted characters */
+         unsigned short *leaf_num)
 {
     int i, k;
     unsigned int cum;
@@ -91,11 +84,7 @@ make_len(nchar, bitlen, sort, leaf_num)
 
 /* priority queue; send i-th entry down heap */
 static void
-downheap(i, heap, heapsize, freq)
-    int i;
-    short *heap;
-    size_t heapsize;
-    unsigned short *freq;
+downheap(int i, short *heap, size_t heapsize, unsigned short *freq)
 {
     short j, k;
 
@@ -113,11 +102,8 @@ downheap(i, heap, heapsize, freq)
 
 /* make tree, calculate bitlen[], return root */
 short
-make_tree(nchar, freq, bitlen, code)
-    int             nchar;
-    unsigned short  *freq;
-    unsigned char   *bitlen;
-    unsigned short  *code;
+make_tree(int nchar, unsigned short *freq, unsigned char *bitlen,
+          unsigned short *code)
 {
     short i, j, avail, root;
     unsigned short *sort;
