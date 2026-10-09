@@ -13,6 +13,7 @@
 # The check values are compared across the files and a mismatch is reported
 # on stderr, since differing output means the times cannot be compared.
 
+import math
 import re
 import sys
 
@@ -20,7 +21,7 @@ ROW = re.compile(r"^([a-z][a-z0-9-]*) +(\d+) +(\d+\.\d+) +(\d+\.\d+) +([0-9a-f]{
 
 
 def parse(path):
-    times, checks, geomean = {}, {}, None
+    times, checks, printed = {}, {}, None
     with open(path) as f:
         for line in f:
             line = line.rstrip()
@@ -29,7 +30,15 @@ def parse(path):
                 times[m[1]] = float(m[3])
                 checks[m[1]] = m[5]
             elif line.lower().startswith("geomean"):
-                geomean = float(line.split()[1])
+                printed = float(line.split()[1])
+    # The geomean is recomputed from the rows rather than taken from the
+    # binary, whose own log() and exp() are part of what is under test.
+    geomean = None
+    if times:
+        geomean = math.exp(sum(map(math.log, times.values())) / len(times))
+        if printed is not None and abs(printed - geomean) > geomean / 1000:
+            print(f"{path}: the binary printed GEOMEAN {printed:.3f}, the rows "
+                  f"give {geomean:.3f}", file=sys.stderr)
     return times, checks, geomean
 
 

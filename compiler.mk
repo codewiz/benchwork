@@ -92,12 +92,13 @@ else  # AmigaDev GCC 16.2 or newer
     OPT ?= -O2 -fomit-frame-pointer
     CPUFLAGS_000 = -m68000
     CPUFLAGS_020 = -m68020
-    CPUFLAGS_040 = -m68040 -mhard-float
-    LIBC_FLAGS = -noixemul
+    # -m68881 rather than its synonym -mhard-float: only the former selects
+    # the hard-float multilib, and with the soft-float libm the FPU caller
+    # reads log() and exp() results from the wrong registers.
+    CPUFLAGS_040 = -m68040 -m68881
     INCLUDE_FLAG = -I
     DEFINE_FLAG = -D
     KNR_FLAGS = -std=gnu11
-    NO_BUILTIN = -fno-builtin
     WIPEOUT_FLAGS = -std=gnu99 -fno-strict-aliasing
     LIBS = -lm
     # The harness is held to a stricter standard than the code it measures,
@@ -107,6 +108,6 @@ else  # AmigaDev GCC 16.2 or newer
     DEFINES = -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
         -DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"'
     COMPILE = $(CC) $(ALL_CFLAGS) -MMD -MP -c -o $@ $<
-    LINK = $(CC) $(CFLAGS) $(LIBC_FLAGS) -o $@ $(OBJS) $(LIBS)
+    LINK = $(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
 
 endif

@@ -27,9 +27,11 @@ Numbers for the release binaries on a reference target are in [RESULTS.md](RESUL
 | memmove-large | overlapping moves of 2048 and 4096 bytes, both ways | the same past the by-pieces limit |
 | wipeout-tris | render_push_tris() from arczi84's Wipeout port | a game's per-triangle path: float UV scaling, byte clamps, 96-byte struct copies |
 
-[^libc]: `memcpy`, `memset` and `strcmp` are newlib's C versions linked ahead
-    of the C library, so they too are compiled by the compiler under test;
-    libnix's memcpy would hand the work to exec `CopyMem`.
+[^libc]: Out-of-line `memcpy`, `memset` and `memmove` are each compiler's
+    own C library's, so these rows compare the compiler together with its
+    runtime. gcc links the toolchain's default newlib, whose memcpy is
+    assembler; libnix's hands the work to exec `CopyMem`, which an
+    emulator may run for free, so the gcc build does not use `-noixemul`.
 [^pieces]: 128 bytes is the size up to which the AmigaOS by-pieces hook
     expands a copy inline.
 

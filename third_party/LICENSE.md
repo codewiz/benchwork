@@ -4,7 +4,6 @@ The harness itself is 0BSD, see [../LICENSE](../LICENSE). The code under
 `third_party/` keeps its own license, in the `LICENSE` file of each
 directory:
 
-* newlib string functions (BSD, Red Hat)
 * zlib (zlib)
 * libpng (PNG Reference Library License)
 * FreeType (FTL)

@@ -22,7 +22,7 @@ REPORTED_CFLAGS := $(CFLAGS)
 
 INCLUDES = $(addprefix $(INCLUDE_FLAG),. src third_party/zlib third_party/libpng \
 	$(EXTRA_INCLUDES))
-ALL_CFLAGS = $(CFLAGS) $(LANG_FLAGS) $(LIBC_FLAGS) $(INCLUDES) $(DEFINES)
+ALL_CFLAGS = $(CFLAGS) $(LANG_FLAGS) $(INCLUDES) $(DEFINES)
 
 HARNESS_SRCS = \
 	src/main.c \
@@ -78,21 +78,10 @@ LIBPNG_SRCS = \
 
 FREETYPE_SRCS = third_party/freetype/ftgrays.c
 
-# newlib's C versions of the string functions the timed code calls out of
-# line, linked ahead of the C library so the calls land in code the
-# compiler under test generated: libnix's memcpy hands off to exec CopyMem,
-# and the rest of libnix.a was compiled by whatever built the toolchain.
-# The functions libnix's string.h inlines (memmove, memcmp, strcpy, strlen)
-# stay as they are: callers get the best implementation the headers offer.
-NEWLIB_SRCS = \
-	third_party/newlib/memcpy.c \
-	third_party/newlib/memset.c \
-	third_party/newlib/strcmp.c
-
 WIPEOUT_SRCS = third_party/wipeout/kernel.c
 
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS) $(NEWLIB_SRCS) $(WIPEOUT_SRCS)
+	$(FREETYPE_SRCS) $(WIPEOUT_SRCS)
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 
 all: $(TARGET)
@@ -115,9 +104,6 @@ $(BUILD)/third_party/libpng/%.o: CFLAGS += $(LIBPNG_FLAGS)
 
 # ftgrays.c's stand-alone mode: no FreeType build system or headers needed.
 $(BUILD)/third_party/freetype/%.o: CFLAGS += $(DEFINE_FLAG)STANDALONE_
-
-# A function named memcpy must not have its loop turned into a memcpy call.
-$(BUILD)/third_party/newlib/%.o: CFLAGS += $(NO_BUILTIN) $(INCLUDE_FLAG)third_party/newlib
 
 # The game's own flags, which its port is built with.
 $(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
