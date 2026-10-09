@@ -164,11 +164,25 @@
 typedef ptrdiff_t  FT_PtrDist;
 
 
+#ifndef _DCC
 #define Smooth_Err_Ok                    0
 #define Smooth_Err_Invalid_Outline      -1
 #define Smooth_Err_Cannot_Render_Glyph  -2
 #define Smooth_Err_Invalid_Argument     -3
 #define Smooth_Err_Raster_Overflow      -4
+#else
+  /* DICE-nx's dcpp does not rescan the result of ##, so FT_ERR_CAT's
+   * Smooth_Err_x must already be a C identifier with this value:
+   * https://github.com/dice-nx/dice-nx/issues/31 */
+enum
+{
+  Smooth_Err_Ok                  =  0,
+  Smooth_Err_Invalid_Outline     = -1,
+  Smooth_Err_Cannot_Render_Glyph = -2,
+  Smooth_Err_Invalid_Argument    = -3,
+  Smooth_Err_Raster_Overflow     = -4
+};
+#endif
 
 #define FT_BEGIN_HEADER
 #define FT_END_HEADER

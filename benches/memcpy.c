@@ -304,7 +304,7 @@ const struct bench bench_memcpy_small = {
     "constant copies up to 128 bytes, aligned, odd and struct",
     memcpy_setup,
     small_run,
-    memcpy_teardown,
+    memcpy_teardown
 };
 
 const struct bench bench_memcpy_large = {
@@ -312,7 +312,7 @@ const struct bench bench_memcpy_large = {
     "constant copies from 256 to 4096 bytes",
     memcpy_setup,
     large_run,
-    memcpy_teardown,
+    memcpy_teardown
 };
 
 const struct bench bench_memcpy_var_small = {
@@ -320,7 +320,7 @@ const struct bench bench_memcpy_var_small = {
     "small copies sized at run time: the call into newlib's memcpy",
     memcpy_setup,
     var_small_run,
-    memcpy_teardown,
+    memcpy_teardown
 };
 
 const struct bench bench_memcpy_var_large = {
@@ -328,7 +328,7 @@ const struct bench bench_memcpy_var_large = {
     "large copies sized at run time: newlib's memcpy loop",
     memcpy_setup,
     var_large_run,
-    memcpy_teardown,
+    memcpy_teardown
 };
 
 const struct bench bench_memmove_small = {
@@ -336,7 +336,7 @@ const struct bench bench_memmove_small = {
     "overlapping moves up to 128 bytes, both directions",
     memcpy_setup,
     move_small_run,
-    memcpy_teardown,
+    memcpy_teardown
 };
 
 const struct bench bench_memmove_large = {
@@ -344,5 +344,5 @@ const struct bench bench_memmove_large = {
     "overlapping moves of 2048 and 4096 bytes, both directions",
     memcpy_setup,
     move_large_run,
-    memcpy_teardown,
+    memcpy_teardown
 };

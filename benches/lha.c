@@ -110,7 +110,7 @@ const struct bench bench_lha_pack = {
     "LHa -lh5- compression of 256 KiB of text",
     lha_setup,
     pack_run,
-    lha_teardown,
+    lha_teardown
 };
 
 const struct bench bench_lha_unpack = {
@@ -118,5 +118,5 @@ const struct bench bench_lha_unpack = {
     "LHa -lh5- decompression back to 256 KiB",
     lha_setup,
     unpack_run,
-    lha_teardown,
+    lha_teardown
 };

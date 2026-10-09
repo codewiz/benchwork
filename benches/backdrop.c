@@ -194,5 +194,5 @@ const struct bench bench_backdrop = {
     "p96cts landscape scene, 320x240, truecolor and 8-bit",
     backdrop_setup,
     backdrop_run,
-    backdrop_teardown,
+    backdrop_teardown
 };

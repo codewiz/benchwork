@@ -15,10 +15,15 @@
 
 #include <proto/exec.h>
 #include <exec/memory.h>
-#include <png.h>
 #include <string.h>
 
 #include "bench.h"
+
+// A build without libpng, for a compiler that cannot compile it, keeps the
+// two benchmarks so the table still has their rows; their setup fails.
+#ifndef BENCH_NO_LIBPNG
+
+#include <png.h>
 
 struct buf {
     UBYTE *data;
@@ -170,12 +175,33 @@ static bool decode_run(ULONG *check) {
     return true;
 }
 
+#else
+
+static bool png_setup(void) {
+    return false;
+}
+
+static void png_teardown(void) {
+}
+
+static bool encode_run(ULONG *check) {
+    (void)check;
+    return false;
+}
+
+static bool decode_run(ULONG *check) {
+    (void)check;
+    return false;
+}
+
+#endif
+
 const struct bench bench_png_encode = {
     "png-encode",
     "libpng encode of the 640x480 scene",
     png_setup,
     encode_run,
-    png_teardown,
+    png_teardown
 };
 
 const struct bench bench_png_decode = {
@@ -183,5 +209,5 @@ const struct bench bench_png_decode = {
     "libpng decode of the same PNG",
     png_setup,
     decode_run,
-    png_teardown,
+    png_teardown
 };
