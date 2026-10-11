@@ -42,33 +42,41 @@ Same data in tabular form (time in milliseconds):
 ## Comparing GCC optimization levels
 
 benchwork-040 built with m68k-amigaos-gcc 16.2-rc14[^gcc] and
-`-fomit-frame-pointer -m68040 -m68881` at each level.
+`-fomit-frame-pointer -m68040 -m68881` at each level, and with link-time
+optimization at -O2 and -O3.
 
-| benchmark | -O2 | -Os | -O3 |
-|---|---:|---:|---:|
-| dhrystone | 421 | 559 (+32.67%) | **416 (-1.14%)** |
-| backdrop | 1941 | 3187 (+64.18%) | **1685 (-13.21%)** |
-| lha-pack | 4439 | 4942 (+11.33%) | **4360 (-1.78%)** |
-| lha-unpack | **1382** | 1469 (+6.29%) | 1389 (+0.45%) |
-| zlib-deflate | **3698** | 3904 (+5.57%) | 3701 (+0.08%) |
-| zlib-inflate | 511 | **487 (-4.61%)** | 499 (-2.19%) |
-| png-encode | 7543 | 8638 (+14.51%) | **7508 (-0.47%)** |
-| png-decode | 1587 | 1840 (+15.94%) | **1527 (-3.78%)** |
-| ftgrays | 858 | 889 (+3.58%) | **836 (-2.60%)** |
-| memcpy-small | **193** | 267 (+38.42%) | **193 (+0.00%)** |
-| memcpy-large | **326** | 468 (+43.22%) | **326 (+0.00%)** |
-| memcpy-var-small | **565** | 584 (+3.44%) | **565 (+0.00%)** |
-| memcpy-var-large | **635** | 637 (+0.41%) | **635 (+0.00%)** |
-| memmove-small | **2351** | 2361 (+0.44%) | **2351 (+0.00%)** |
-| memmove-large | **4127** | 4128 (+0.02%) | 4127 (+0.00%) |
-| wipeout-tris | 519 | 569 (+9.68%) | **507 (-2.23%)** |
-| **GEOMEAN** | **1162** | **1324 (+13.97%)** | **1142 (-1.74%)** |
-| **CODE SIZE** | 296608 | 262164 (-11.61%) | 365820 (+23.33%) |
+| benchmark | -O2 | -Os | -O3 | -O2 -flto | -O3 -flto |
+|---|---:|---:|---:|---:|---:|
+| dhrystone[^dhry-lto] | 421 | 559 (+32.67%) | 416 (-1.14%) | **54 (-87.08%)** | **54 (-87.08%)** |
+| backdrop | 1941 | 3187 (+64.18%) | **1685 (-13.21%)** | 1941 (0.00%) | **1685 (-13.21%)** |
+| lha-pack | 4439 | 4942 (+11.33%) | **4360 (-1.78%)** | **4360 (-1.79%)** | 4396 (-0.97%) |
+| lha-unpack | 1382 | 1469 (+6.29%) | 1389 (+0.45%) | **1318 (-4.65%)** | 1390 (+0.59%) |
+| zlib-deflate | **3698** | 3904 (+5.57%) | 3701 (+0.08%) | 3706 (+0.21%) | 3712 (+0.36%) |
+| zlib-inflate | 511 | **487 (-4.61%)** | 499 (-2.19%) | 507 (-0.61%) | 498 (-2.46%) |
+| png-encode | 7543 | 8638 (+14.51%) | **7508 (-0.47%)** | 7675 (+1.75%) | 7599 (+0.75%) |
+| png-decode | 1587 | 1840 (+15.94%) | **1527 (-3.78%)** | 1726 (+8.76%) | 1593 (+0.38%) |
+| ftgrays | 858 | 889 (+3.58%) | **836 (-2.60%)** | 878 (+2.26%) | 855 (-0.37%) |
+| memcpy-small | **193** | 267 (+38.42%) | **193 (0.00%)** | **193 (0.00%)** | **193 (0.00%)** |
+| memcpy-large | **326** | 468 (+43.22%) | **326 (0.00%)** | **326 (0.00%)** | **326 (0.00%)** |
+| memcpy-var-small | **565** | 584 (+3.44%) | **565 (0.00%)** | **565 (0.00%)** | **565 (0.00%)** |
+| memcpy-var-large | **635** | 637 (+0.41%) | **635 (0.00%)** | **635 (0.00%)** | **635 (0.00%)** |
+| memmove-small | **2351** | 2361 (+0.44%) | **2351 (0.00%)** | **2351 (0.00%)** | **2351 (0.00%)** |
+| memmove-large | **4127** | 4128 (+0.02%) | **4127 (0.00%)** | **4127 (0.00%)** | **4127 (0.00%)** |
+| wipeout-tris | 519 | 569 (+9.68%) | 507 (-2.23%) | **468 (-9.79%)** | 505 (-2.57%) |
+| **GEOMEAN** | **1162** | **1324 (+13.97%)** | **1142 (-1.74%)** | **1020 (-12.27%)** | **1011 (-13.02%)** |
+| **CODE SIZE** | 296608 | 262164 (-11.61%) | 365820 (+23.33%) | 238488 (-19.59%) | 315296 (+6.30%) |
 
 The run-time-sized copies and the moves call newlib's assembler routines,
 which do not change with the level. The constant-size copies are expanded
 inline at every level, but `-Os` turns more of them into loops where `-O2`
 and `-O3` unroll.
+
+Link-time optimization cannot reach newlib, which is built separately, so
+it only helps where a hot loop calls a function in another of our source
+files: LHa's bit I/O and Huffman coders, and the wipeout kernel. Apart from
+Dhrystone, `-O2 -flto` is 0.33% faster than `-O2` and `-O3 -flto` is 0.55%
+slower than `-O3`, with png-decode losing up to 8.76%. LTO does shrink the
+code, by a fifth at `-O2`.
 
 ## Comparing GCC code generation for 68000, 68020, 68040-FP
 
@@ -115,6 +123,10 @@ being allowed each CPU's instructions, not how fast those CPUs are.
     `OPTIMIZE OPTIMIZERTIME OPTIMIZERINLINELOCAL OPTIMIZERSCHEDULER` and the
     optimizer depths at 8, `PARAMETERS=REGISTERS CODE=FAR DATA=FAR`, linked
     with scm040.lib, sc.lib and amiga.lib.
+[^dhry-lto]: Dhrystone splits its procedures between dhry_1.c and
+    dhry_2.c so that the compiler cannot inline across them. LTO defeats
+    that, and the 54 ms does not measure a faster CPU or better code
+    generation.
 [^softfloat]: The 68000 and 68020 builds are soft float, and newlib's float
     arithmetic is a stub into the mathieeesingbas ROM library, which volamos
     runs natively at zero cycles: 370,000 calls in wipeout-tris. Those two

@@ -8,7 +8,8 @@
 #
 #   tools/results-table.py [--best] LABEL=FILE [LABEL=FILE ...]
 #
-# --best puts the fastest cell of each row in bold.
+# --best puts the fastest cell of each row in bold, every one of them when
+# several tie at whole milliseconds.
 #
 # The check values are compared across the files and a mismatch is reported
 # on stderr, since differing output means the times cannot be compared.
@@ -47,7 +48,9 @@ def cell(value, base, first):
         return ""
     text = f"{value:.0f}"
     if not first and base:
-        text += f" ({(value - base) / base * 100:+.2f}%)"
+        # A change that rounds to zero is written without a sign.
+        change = round((value - base) / base * 100, 2)
+        text += f" ({change:+.2f}%)" if change else " (0.00%)"
     return text
 
 
@@ -79,11 +82,13 @@ def main(args):
     base_times = columns[0][1]
     for name in names:
         values = [c[1].get(name) for c in columns]
-        fastest = min(v for v in values if v is not None)
+        # Ties are judged at the printed precision, whole milliseconds.
+        fastest = min(round(v) for v in values if v is not None)
         cells = [cell(v, base_times.get(name), i == 0)
                  for i, v in enumerate(values)]
         if best:
-            cells = [f"**{text}**" if v == fastest else text
+            cells = [f"**{text}**" if v is not None and round(v) == fastest
+                     else text
                      for v, text in zip(values, cells)]
         print(f"| {name} | " + " | ".join(cells) + " |")
     cells = [cell(c[3], columns[0][3], i == 0) for i, c in enumerate(columns)]
