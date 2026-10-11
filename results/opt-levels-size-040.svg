@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="174" viewBox="0 0 940 174" role="img" aria-label="Code size relative to -O2">
+<style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.s0{fill:#2a78d6}.s1{fill:#eb6834}.s2{fill:#1baf7a}.s3{fill:#eda100}.s4{fill:#e87ba4}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.s0{fill:#3987e5}.s1{fill:#d95926}.s2{fill:#199e70}.s3{fill:#c98500}.s4{fill:#d55181}}</style>
+<rect class="bg" width="940" height="174"/>
+<line class="grid" x1="180.0" y1="8" x2="180.0" y2="148"/>
+<text class="t axis" x="180.0" y="166" text-anchor="middle">0.0x</text>
+<line class="grid" x1="410.0" y1="8" x2="410.0" y2="148"/>
+<text class="t axis" x="410.0" y="166" text-anchor="middle">0.5x</text>
+<line class="ref" x1="640.0" y1="8" x2="640.0" y2="148"/>
+<text class="t axis" x="640.0" y="166" text-anchor="middle">1.0x</text>
+<line class="grid" x1="870.0" y1="8" x2="870.0" y2="148"/>
+<text class="t axis" x="870.0" y="166" text-anchor="middle">1.5x</text>
+<text class="t big" x="168" y="27.0" text-anchor="end">-O2</text>
+<path class="s0" d="M180,16.0 h456.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-456.0 z"/>
+<text class="t muted" x="645.0" y="26.0">296608</text>
+<text class="t big" x="168" y="55.0" text-anchor="end">-Os</text>
+<path class="s1" d="M180,44.0 h402.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-402.6 z"/>
+<text class="t muted" x="645.0" y="54.0">262164 (-11.61%)</text>
+<text class="t big" x="168" y="83.0" text-anchor="end">-O3</text>
+<path class="s2" d="M180,72.0 h563.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-563.3 z"/>
+<text class="t muted" x="752.3" y="82.0">365820 (+23.33%)</text>
+<text class="t big" x="168" y="111.0" text-anchor="end">-O2 -flto</text>
+<path class="s3" d="M180,100.0 h365.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-365.9 z"/>
+<text class="t muted" x="645.0" y="110.0">238488 (-19.59%)</text>
+<text class="t big" x="168" y="139.0" text-anchor="end">-O3 -flto</text>
+<path class="s4" d="M180,128.0 h485.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-485.0 z"/>
+<text class="t muted" x="674.0" y="138.0">315296 (+6.30%)</text>
+</svg>

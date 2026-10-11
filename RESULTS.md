@@ -45,10 +45,19 @@ benchwork-040 built with m68k-amigaos-gcc 16.2-rc14[^gcc] and
 `-fomit-frame-pointer -m68040 -m68881` at each level, and with link-time
 optimization at -O2 and -O3.
 
+### GCC 16.2 optimization levels
+
+Each bar is the build's time divided by `-O2`'s, so shorter is faster, and
+`-O2` itself is the 1.0 line. The Dhrystone LTO bars do not measure faster code[^dhry-lto].
+
+![Time of each benchmark relative to -O2](results/opt-levels-040.svg)
+
+Same data in tabular form (time in milliseconds):
+
 | benchmark | -O2 | -Os | -O3 | -O2 -flto | -O3 -flto |
 |---|---:|---:|---:|---:|---:|
 | dhrystone[^dhry-lto] | 421 | 559 (+32.67%) | 416 (-1.14%) | **54 (-87.08%)** | **54 (-87.08%)** |
-| backdrop | 1941 | 3187 (+64.18%) | **1685 (-13.21%)** | 1941 (0.00%) | **1685 (-13.21%)** |
+| backdrop | 1941 | 3187 (+64.18%) | **1685 (-13.21%)** | 1941 | **1685 (-13.21%)** |
 | lha-pack | 4439 | 4942 (+11.33%) | **4360 (-1.78%)** | **4360 (-1.79%)** | 4396 (-0.97%) |
 | lha-unpack | 1382 | 1469 (+6.29%) | 1389 (+0.45%) | **1318 (-4.65%)** | 1390 (+0.59%) |
 | zlib-deflate | **3698** | 3904 (+5.57%) | 3701 (+0.08%) | 3706 (+0.21%) | 3712 (+0.36%) |
@@ -56,12 +65,12 @@ optimization at -O2 and -O3.
 | png-encode | 7543 | 8638 (+14.51%) | **7508 (-0.47%)** | 7675 (+1.75%) | 7599 (+0.75%) |
 | png-decode | 1587 | 1840 (+15.94%) | **1527 (-3.78%)** | 1726 (+8.76%) | 1593 (+0.38%) |
 | ftgrays | 858 | 889 (+3.58%) | **836 (-2.60%)** | 878 (+2.26%) | 855 (-0.37%) |
-| memcpy-small | **193** | 267 (+38.42%) | **193 (0.00%)** | **193 (0.00%)** | **193 (0.00%)** |
-| memcpy-large | **326** | 468 (+43.22%) | **326 (0.00%)** | **326 (0.00%)** | **326 (0.00%)** |
-| memcpy-var-small | **565** | 584 (+3.44%) | **565 (0.00%)** | **565 (0.00%)** | **565 (0.00%)** |
-| memcpy-var-large | **635** | 637 (+0.41%) | **635 (0.00%)** | **635 (0.00%)** | **635 (0.00%)** |
-| memmove-small | **2351** | 2361 (+0.44%) | **2351 (0.00%)** | **2351 (0.00%)** | **2351 (0.00%)** |
-| memmove-large | **4127** | 4128 (+0.02%) | **4127 (0.00%)** | **4127 (0.00%)** | **4127 (0.00%)** |
+| memcpy-small | **193** | 267 (+38.42%) | **193** | **193** | **193** |
+| memcpy-large | **326** | 468 (+43.22%) | **326** | **326** | **326** |
+| memcpy-var-small | **565** | 584 (+3.44%) | **565** | **565** | **565** |
+| memcpy-var-large | **635** | 637 (+0.41%) | **635** | **635** | **635** |
+| memmove-small | **2351** | 2361 (+0.44%) | **2351** | **2351** | **2351** |
+| memmove-large | **4127** | 4128 (+0.02%) | **4127** | **4127** | **4127** |
 | wipeout-tris | 519 | 569 (+9.68%) | 507 (-2.23%) | **468 (-9.79%)** | 505 (-2.57%) |
 | **GEOMEAN** | **1162** | **1324 (+13.97%)** | **1142 (-1.74%)** | **1020 (-12.27%)** | **1011 (-13.02%)** |
 | **CODE SIZE** | 296608 | 262164 (-11.61%) | 365820 (+23.33%) | 238488 (-19.59%) | 315296 (+6.30%) |
@@ -77,6 +86,12 @@ files: LHa's bit I/O and Huffman coders, and the wipeout kernel. Apart from
 Dhrystone, `-O2 -flto` is 0.33% faster than `-O2` and `-O3 -flto` is 0.55%
 slower than `-O3`, with png-decode losing up to 8.76%. LTO does shrink the
 code, by a fifth at `-O2`.
+
+### Code size relative to -O2
+
+The text size of each binary in bytes, as `m68k-amigaos-size` reports it.
+
+![Code size of each build relative to -O2](results/opt-levels-size-040.svg)
 
 ## Comparing GCC code generation for 68000, 68020, 68040-FP
 

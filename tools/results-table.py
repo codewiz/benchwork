@@ -48,9 +48,10 @@ def cell(value, base, first):
         return ""
     text = f"{value:.0f}"
     if not first and base:
-        # A change that rounds to zero is written without a sign.
+        # A change that rounds to zero is left out.
         change = round((value - base) / base * 100, 2)
-        text += f" ({change:+.2f}%)" if change else " (0.00%)"
+        if change:
+            text += f" ({change:+.2f}%)"
     return text
 
 
