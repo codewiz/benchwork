@@ -47,8 +47,8 @@ optimization at -O2 and -O3.
 
 ### GCC 16.2 optimization levels
 
-Each bar is the build's time divided by `-O2`'s, so shorter is faster, and
-`-O2` itself is the 1.0 line. The Dhrystone LTO bars do not measure faster code[^dhry-lto].
+Each bar is the build's time divided by `-O2`'s, so shorter is faster. The
+Dhrystone LTO bars do not measure faster code[^dhry-lto].
 
 ![Time of each benchmark relative to -O2](results/opt-levels-040.svg)
 

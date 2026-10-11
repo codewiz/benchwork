@@ -5,11 +5,10 @@
 # benchmark (and one for the geomean), one bar per file, with the times
 # normalized to the first file so its bars all sit at 1.0. Usage:
 #
-#   tools/results-chart.py [-o chart.svg] [-t TITLE] [--hide-first] LABEL=FILE ...
+#   tools/results-chart.py [-o chart.svg] [-t TITLE] LABEL=FILE ...
 #   tools/results-chart.py --sizes [-o chart.svg] [-t TITLE] LABEL=BYTES ...
 #
-# --hide-first leaves out the first file's bars, which all sit on the 1.0
-# line. --sizes draws one bar per build for its code size instead.
+# --sizes draws one bar per build for its code size instead.
 #
 # The files are read with results-table.py's parser, so the same arguments
 # serve both. Up to five files: the colors are a fixed, validated set, and a
@@ -35,10 +34,11 @@ BAR = 12          # bar thickness
 GAP = 2           # surface gap between bars of a cluster
 PAD = 16          # air between clusters
 LEFT = 180        # room for the benchmark names
-RIGHT = 70        # room for the labels past the longest bar
+RIGHT = 130       # room for the labels past the longest bar
 WIDTH = 940
 TOP = 36          # the legend
 AXIS = 26         # the axis below the plot
+LABEL_MIN = 0.05  # the smallest change that gets a label on the time charts
 
 
 def esc(s):
@@ -99,6 +99,15 @@ def bar(out, i, y, w):
                f'a{rx},{rx} 0 0 1 -{rx},{rx} h-{w - rx:.1f} z"/>')
 
 
+def label_x(x, ratio, text):
+    """Where a label goes: just past its bar, or past the 1.0 line when the
+    label would cross it. 12px digits are about 6.5px wide."""
+    end = x(ratio) + 5
+    if end + 6.5 * len(text) > x(1.0) - 4 and ratio < 1.0:
+        end = x(1.0) + 5
+    return end
+
+
 def sizes(opts):
     """One bar per build, each labeled with its own name, so no legend."""
     columns = []
@@ -122,8 +131,7 @@ def sizes(opts):
         text = f"{size}"
         if i > 0:
             text += f" ({(ratio - 1) * 100:+.2f}%)"
-        # Past the 1.0 line too, which would cross a shorter bar's label.
-        out.append(f'<text class="t muted" x="{max(x(ratio), x(1.0)) + 5:.1f}" '
+        out.append(f'<text class="t muted" x="{label_x(x, ratio, text):.1f}" '
                    f'y="{y + BAR - 2}">{text}</text>')
     out.append("</svg>")
     return out
@@ -137,8 +145,6 @@ def main(args):
     ap.add_argument("-t", "--title", default="Time relative to the first compiler")
     ap.add_argument("--sizes", action="store_true",
                     help="the arguments are LABEL=BYTES: chart the code sizes")
-    ap.add_argument("--hide-first", action="store_true",
-                    help="draw no bars for the first file, which the 1.0 line stands for")
     ap.add_argument("columns", nargs="+", metavar="LABEL=FILE")
     opts = ap.parse_args(args)
     if len(opts.columns) > len(COLORS):
@@ -180,10 +186,7 @@ def main(args):
 
     ratios = [r for _, rs in rows for r in rs if isinstance(r, float)]
     xmax, x = scale(ratios)
-    # The files drawn; the others keep their colors when the first is hidden.
-    first = 1 if opts.hide_first else 0
-    drawn = len(columns) - first
-    cluster_h = drawn * BAR + (drawn - 1) * GAP
+    cluster_h = len(columns) * BAR + (len(columns) - 1) * GAP
     pitch = cluster_h + PAD
     plot_h = len(rows) * pitch
     height = TOP + plot_h + AXIS
@@ -192,11 +195,7 @@ def main(args):
     # Legend.
     lx = LEFT
     for i, (label, _, _, _) in enumerate(columns):
-        if i < first:
-            # The hidden file is the 1.0 line: its swatch is a piece of it.
-            out.append(f'<line class="ref" x1="{lx + 7}" y1="7" x2="{lx + 7}" y2="23"/>')
-        else:
-            out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
+        out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
         out.append(f'<text class="t big" x="{lx + 20}" y="21">{esc(label)}</text>')
         # A rough width of the label at 16px: dashes, spaces and thin
         # letters take about half the room of the others.
@@ -206,22 +205,23 @@ def main(args):
 
     for r, (name, rs) in enumerate(rows):
         y0 = TOP + r * pitch
+        base = base_geomean if name == "geomean" else base_times.get(name)
         cls = "t big name" if name == "geomean" else "t big"
         out.append(f'<text class="{cls}" x="{LEFT - 12}" y="{y0 + cluster_h / 2 + 5:.1f}" '
                    f'text-anchor="end">{esc(name)}</text>')
         for i, ratio in enumerate(rs):
-            if i < first:
-                continue
-            y = y0 + (i - first) * (BAR + GAP)
+            y = y0 + i * (BAR + GAP)
             if not isinstance(ratio, float):
                 text = {"wrong": "wrong output"}.get(ratio, ratio)
                 out.append(f'<text class="t muted" x="{LEFT + 6}" y="{y + BAR - 2}">'
                            f'{text}</text>')
                 continue
             bar(out, i, y, x(ratio) - LEFT)
-            if i > 0 and abs(ratio - 1) >= 0.25:
-                out.append(f'<text class="t muted" x="{x(ratio) + 5:.1f}" '
-                           f'y="{y + BAR - 2}">{ratio:.2f}x</text>')
+            # The time and the change, as results-table.py writes them.
+            if i > 0 and abs(ratio - 1) >= LABEL_MIN:
+                text = f"{ratio * base:.0f} ms ({(ratio - 1) * 100:+.2f}%)"
+                out.append(f'<text class="t muted" x="{label_x(x, ratio, text):.1f}" '
+                           f'y="{y + BAR - 2}">{text}</text>')
     out.append("</svg>")
     write(opts.output, out)
 
