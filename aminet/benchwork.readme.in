@@ -1,0 +1,41 @@
+Short:        CPU benchmarks for Amiga compilers
+Author:       Bernie Innocenti <bernie@codewiz.org>
+Uploader:     Bernie Innocenti <bernie@codewiz.org>
+Type:         util/moni
+Version:      @VERSION@
+Architecture: m68k-amigaos >= 2.0.4
+Requires:     5 MB of free RAM, 64 KiB stack, 68040 and FPU for benchwork-040
+Distribution: Aminet
+Kurz:         CPU-Benchmarks fuer Amiga-Compiler
+
+Benchwork is a set of CPU benchmarks for comparing m68k compilers, built
+from code that Amiga programs actually run: LHa, zlib, libpng, the FreeType
+rasterizer, Dhrystone, a dithered landscape renderer, a triangle setup loop
+from a Wipeout port, and memcpy/memmove patterns. Everything works on memory
+buffers, so the timed region contains only compiler-generated code: no disk,
+display or OS calls.
+
+Project's home and documentation: https://github.com/codewiz/benchwork
+
+
+Binaries
+--------
+
+  benchwork-000   68000, soft float
+  benchwork-020   68020, soft float
+  benchwork-040   68040 with FPU
+
+All three are built with m68k-amigaos-gcc 16.2 at -O2.
+
+
+License
+-------
+
+The harness is 0BSD. The vendored code keeps its own licenses, listed in
+source/third_party/LICENSE.md: zlib, libpng, FreeType (FTL), LHa for UNIX,
+Dhrystone, and glyphs derived from DejaVu Sans. The Wipeout kernel is
+included with its author's permission. The LHa terms require binaries to be
+distributed together with their source, which is why it is in this archive.
+
+Portions of this software are copyright (C) 1996-2022 The FreeType Project
+(www.freetype.org). All rights reserved.

@@ -1,7 +1,8 @@
 name: Binaries
 
 # Builds benchwork-000, benchwork-020 and benchwork-040 with a pinned
-# m68k-amigaos-gcc release and uploads them as one artifact. The compiler
+# m68k-amigaos-gcc release, packs them for Aminet as benchwork.lha and
+# benchwork.readme, and uploads those two as one artifact. The compiler
 # version is part of what a benchmark binary measures, so it is fixed here
 # rather than taken from whatever is current; bump it deliberately.
 on:
@@ -38,14 +39,18 @@ jobs:
           tar -xJf m68k-amigaos-gcc-*.tar.xz -C "$HOME"
           rm m68k-amigaos-gcc-*.tar.xz
 
-      - name: Build the release binaries
+      # The toolchain also brings the lha that packs the Aminet archive.
+      - name: Build the release
         run: |
           export PATH="$HOME/m68k-amigaos-gcc-16.2/bin:$PATH"
           m68k-amigaos-gcc --version | head -1
+          lha --version | head -1
           make -j "$(nproc)" release
 
-      - name: Upload the binaries
+      - name: Upload the release files
         uses: actions/upload-artifact@v7
         with:
           name: benchwork
-          path: benchwork-0*
+          path: |
+            benchwork.lha
+            benchwork.readme

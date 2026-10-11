@@ -126,7 +126,7 @@ glyphs: tools/dumpglyphs
 # machines would be.
 RELEASE_CPUS = 000 020 040
 
-release: $(RELEASE_CPUS:%=release-%)
+release-binaries: $(RELEASE_CPUS:%=release-%)
 
 $(RELEASE_CPUS:%=release-%): release-%:
 	$(MAKE) BUILD=$(BUILD)-$* TARGET=$(TARGET)-$* CPUFLAGS="$(CPUFLAGS_$*)" \
@@ -138,7 +138,7 @@ vbcc:
 	$(MAKE) CC="vc +aos68k"
 
 vbcc-release:
-	$(MAKE) CC="vc +aos68k" release
+	$(MAKE) CC="vc +aos68k" release-binaries
 
 # The same for SAS/C; SC=sc-volamos runs it under volamos.
 SC ?= sc
@@ -147,12 +147,29 @@ sasc:
 	$(MAKE) CC=$(SC)
 
 sasc-release:
-	$(MAKE) CC=$(SC) release
+	$(MAKE) CC=$(SC) release-binaries
+
+# The release: the binaries, and the Aminet upload made of them.
+# benchwork.lha holds a Benchwork drawer with the binaries, the readme and,
+# as the LHa terms require, the source of the committed tree, documents
+# included; benchwork.readme also goes beside it. The readme says gcc, so
+# the vbcc and SAS/C builds above stop at the binaries.
+AMINET_DIR = build-aminet/Benchwork
+
+release: release-binaries
+	rm -rf build-aminet benchwork.lha benchwork.readme
+	mkdir -p $(AMINET_DIR)
+	cp $(RELEASE_CPUS:%=$(TARGET)-%) LICENSE $(AMINET_DIR)/
+	git archive --prefix=Benchwork/source/ HEAD | tar -x -C build-aminet
+	sed 's/@VERSION@/$(VERSION)/' aminet/benchwork.readme.in > benchwork.readme
+	cp benchwork.readme $(AMINET_DIR)/
+	cd build-aminet && lha aq ../benchwork.lha Benchwork
 
 clean:
 	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=$(BUILD)-%) $(RELEASE_CPUS:%=$(TARGET)-%)
+	rm -rf build-aminet benchwork.lha benchwork.readme
 
 -include $(OBJS:.o=.d)
 
-.PHONY: all clean glyphs release $(RELEASE_CPUS:%=release-%) vbcc vbcc-release \
+.PHONY: all clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) vbcc vbcc-release \
 	sasc sasc-release

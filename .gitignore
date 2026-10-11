@@ -3,6 +3,8 @@ build*.log
 build*.out
 benchwork
 benchwork-*
+/benchwork.lha
+/benchwork.readme
 tools/dumpglyphs
 tmp/
 __pycache__/

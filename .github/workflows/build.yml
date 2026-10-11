@@ -1,7 +1,7 @@
 name: Build
 
-# The release binaries on every push and pull request, so a tag push is never
-# the first build of them; release.yml publishes the same binaries for a tag.
+# The release on every push and pull request, so a tag push is never the
+# first build of it; release.yml publishes the same archive for a tag.
 on:
   push:
     branches:
