@@ -145,6 +145,9 @@ def main(args):
     ap.add_argument("-t", "--title", default="Time relative to the first compiler")
     ap.add_argument("--sizes", action="store_true",
                     help="the arguments are LABEL=BYTES: chart the code sizes")
+    ap.add_argument("--geomean-skip", default="", metavar="NAME,...",
+                    help="benchmarks left out of the geomean, which some "
+                    "compilers cannot build")
     ap.add_argument("columns", nargs="+", metavar="LABEL=FILE")
     opts = ap.parse_args(args)
     if len(opts.columns) > len(COLORS):
@@ -153,10 +156,11 @@ def main(args):
         write(opts.output, sizes(opts))
         return
 
+    skip = set(filter(None, opts.geomean_skip.split(",")))
     columns = []
     for arg in opts.columns:
         label, _, path = arg.partition("=")
-        times, checks, geomean = results_table.parse(path)
+        times, checks, geomean = results_table.parse(path, skip)
         columns.append((label, times, checks, geomean))
 
     names = []
@@ -169,16 +173,18 @@ def main(args):
     # A cell is a ratio to the first column, "failed" when the benchmark did
     # not run, or "wrong" when its output differs from the first column's,
     # which makes its time meaningless. A column with any such cell gets no
-    # geomean.
+    # geomean. A benchmark left out of the geomean that a column lacks was
+    # not built for it, which costs that column nothing.
     def cell(c, n):
         if n not in c[1] or n not in base_times:
-            return "failed"
+            return "not built" if n in skip else "failed"
         if c[2].get(n) != base_checks.get(n):
             return "wrong"
         return c[1][n] / base_times[n]
 
     rows = [(n, [cell(c, n) for c in columns]) for n in names]
-    complete = [all(isinstance(r[1][i], float) for r in rows)
+    complete = [all(isinstance(r[1][i], float) or r[1][i] == "not built"
+                    for r in rows)
                 for i in range(len(columns))]
     base_geomean = columns[0][3]
     rows.append(("geomean", [c[3] / base_geomean if complete[i] else "n/a"
