@@ -81,6 +81,10 @@ static const struct bench *const BENCHES[] = {
     &bench_memmove_small,
     &bench_memmove_large,
     &bench_wipeout_tris,
+#ifdef BENCH_HAVE_NFS3
+    &bench_nfs3_project,
+    &bench_nfs3_clip,
+#endif
 };
 
 #define NBENCHES (sizeof(BENCHES) / sizeof(BENCHES[0]))

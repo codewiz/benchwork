@@ -11,9 +11,10 @@ Kurz:         CPU-Benchmarks fuer Amiga-Compiler
 Benchwork is a set of CPU benchmarks for comparing m68k compilers, built
 from code that Amiga programs actually run: LHa, zlib, libpng, the FreeType
 rasterizer, Dhrystone, a dithered landscape renderer, a triangle setup loop
-from a Wipeout port, and memcpy/memmove patterns. Everything works on memory
-buffers, so the timed region contains only compiler-generated code: no disk,
-display or OS calls.
+from a Wipeout port, the vertex projection and polygon clipper of an NFS3
+port, and memcpy/memmove patterns. Everything works on memory buffers, so
+the timed region contains only compiler-generated code: no disk, display or
+OS calls.
 
 Project's home and documentation: https://github.com/codewiz/benchwork
 Source of this release: https://github.com/codewiz/benchwork/tree/v@VERSION@
@@ -34,10 +35,10 @@ License
 
 The harness is 0BSD. The vendored code keeps its own licenses, listed in
 third_party/LICENSE.md with each license text beside it: zlib, libpng,
-FreeType (FTL), LHa for UNIX, Dhrystone, and glyphs derived from DejaVu
-Sans. The Wipeout kernel is included with its author's permission. The LHa
-terms forbid distributing the binaries without their source, which is at
-the link above.
+FreeType (FTL), LHa for UNIX, Dhrystone, the NFS3 kernels (0BSD), and
+glyphs derived from DejaVu Sans. The Wipeout kernel is included with its
+author's permission. The LHa terms forbid distributing the binaries
+without their source, which is at the link above.
 
 Portions of this software are copyright (C) 1996-2022 The FreeType Project
 (www.freetype.org). All rights reserved.

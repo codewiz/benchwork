@@ -81,8 +81,8 @@ FREETYPE_SRCS = third_party/freetype/ftgrays.c
 WIPEOUT_SRCS = third_party/wipeout/kernel.c
 
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS) $(WIPEOUT_SRCS)
-OBJS = $(SRCS:%.c=$(BUILD)/%.o)
+	$(FREETYPE_SRCS) $(WIPEOUT_SRCS) $(NFS3_SRCS)
+OBJS = $(patsubst %.cpp,$(BUILD)/%.o,$(SRCS:%.c=$(BUILD)/%.o))
 
 all: $(TARGET)
 
@@ -111,6 +111,10 @@ $(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(COMPILE)
+
+$(BUILD)/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(COMPILE_CXX)
 
 # Regenerate the glyph tables with the host FreeType.
 tools/dumpglyphs: tools/dumpglyphs.c
