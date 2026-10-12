@@ -173,8 +173,8 @@ def main(args):
     # A cell is a ratio to the first column, "failed" when the benchmark did
     # not run, or "wrong" when its output differs from the first column's,
     # which makes its time meaningless. A column with any such cell gets no
-    # geomean. A benchmark left out of the geomean that a column lacks was
-    # not built for it, which costs that column nothing.
+    # geomean. A benchmark left out of the geomean costs no column its
+    # geomean, and one that a column lacks was not built for it.
     def cell(c, n):
         if n not in c[1] or n not in base_times:
             return "not built" if n in skip else "failed"
@@ -183,8 +183,7 @@ def main(args):
         return c[1][n] / base_times[n]
 
     rows = [(n, [cell(c, n) for c in columns]) for n in names]
-    complete = [all(isinstance(r[1][i], float) or r[1][i] == "not built"
-                    for r in rows)
+    complete = [all(isinstance(r[1][i], float) or r[0] in skip for r in rows)
                 for i in range(len(columns))]
     base_geomean = columns[0][3]
     rows.append(("geomean", [c[3] / base_geomean if complete[i] else "n/a"
