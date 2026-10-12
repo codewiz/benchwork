@@ -112,7 +112,7 @@ static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
     int i;
 
     if (!b->setup()) {
-        printf("%-12s setup failed\n", b->name);
+        printf("%-16s setup failed\n", b->name);
         return false;
     }
     for (i = 0; i < iters; i++) {
@@ -126,7 +126,7 @@ static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
         timer_now(&t0);
         if (!b->run(&check)) {
             Permit();
-            printf("%-12s run %d failed\n", b->name, i + 1);
+            printf("%-16s run %d failed\n", b->name, i + 1);
             ok = false;
             break;
         }
@@ -140,7 +140,7 @@ static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
             // benchmark with state leaking between iterations, or a
             // miscompile that depends on stale memory. Either way the times
             // mean nothing.
-            printf("%-12s checksum changed between iterations\n", b->name);
+            printf("%-16s checksum changed between iterations\n", b->name);
             ok = false;
             break;
         }
@@ -149,7 +149,7 @@ static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
         total += us;
     }
     if (ok) {
-        printf("%-12s %5d ", b->name, iters);
+        printf("%-16s %5d ", b->name, iters);
         print_ms(best);
         print_ms(total / (ULONG)iters);
         printf("   %08lx\n", (unsigned long)check);
@@ -224,7 +224,7 @@ static int run_all(void) {
         ran++;
     }
     if (ran > 1) {
-        printf("%-12s %5s ", "GEOMEAN", "");
+        printf("%-16s %5s ", "GEOMEAN", "");
         print_ms((ULONG)(exp(logsum / ran) + 0.5));
         printf("\n");
     }
@@ -260,7 +260,7 @@ int main(int argc, char **argv) {
             fastmem = true;
         } else if (!strcmp(argv[i], "-l")) {
             for (j = 0; j < NBENCHES; j++)
-                printf("%-12s %s\n", BENCHES[j]->name, BENCHES[j]->desc);
+                printf("%-16s %s\n", BENCHES[j]->name, BENCHES[j]->desc);
             return 0;
         } else if (argv[i][0] == '-') {
             usage();
@@ -289,8 +289,8 @@ int main(int argc, char **argv) {
 
     printf("benchwork %s, built with %s\n", BENCH_VERSION, BENCH_COMPILER);
     printf("CFLAGS: %s\n\n", BENCH_CFLAGS);
-    printf("%-12s %5s %10s %10s   %s\n", "benchmark", "iters", "min ms",
-           "mean ms", "check");
+    printf("%-16s %5s %10s%10s   %s\n", "BENCHMARK", "ITERS", "MIN MS",
+           "MEAN MS", "CHECK");
 
     failures = run_all();
 
