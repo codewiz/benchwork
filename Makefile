@@ -150,17 +150,18 @@ sasc-release:
 	$(MAKE) CC=$(SC) release-binaries
 
 # The release: the binaries, and the Aminet upload made of them.
-# benchwork.lha holds a Benchwork drawer with the binaries, the readme and,
-# as the LHa terms require, the source of the committed tree, documents
-# included; benchwork.readme also goes beside it. The readme says gcc, so
-# the vbcc and SAS/C builds above stop at the binaries.
+# benchwork.lha holds a Benchwork drawer with the binaries, the readme and
+# the license texts; benchwork.readme also goes beside it. The source stays
+# out, so the archive fits on a floppy: the readme links the tagged tree
+# instead. The readme says gcc, so the vbcc and SAS/C builds above stop at
+# the binaries.
 AMINET_DIR = build-aminet/Benchwork
 
 release: release-binaries
 	rm -rf build-aminet benchwork.lha benchwork.readme
 	mkdir -p $(AMINET_DIR)
 	cp $(RELEASE_CPUS:%=$(TARGET)-%) LICENSE $(AMINET_DIR)/
-	git archive --prefix=Benchwork/source/ HEAD | tar -x -C build-aminet
+	cp --parents third_party/LICENSE.md third_party/*/LICENSE $(AMINET_DIR)/
 	sed 's/@VERSION@/$(VERSION)/' aminet/benchwork.readme.in > benchwork.readme
 	cp benchwork.readme $(AMINET_DIR)/
 	cd build-aminet && lha aq ../benchwork.lha Benchwork

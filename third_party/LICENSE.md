@@ -17,6 +17,6 @@ directory:
 Portions of this software are copyright (C) 1996-2022 The FreeType Project
 (www.freetype.org). All rights reserved.
 
-Because of the LHa terms, binaries must be distributed together with this
-source, and the program must not be used as the main product of a
+Because of the LHa terms, binaries must not be distributed without this
+source (a release links the tagged tree it was built from), and the program must not be used as the main product of a
 commercial offering.

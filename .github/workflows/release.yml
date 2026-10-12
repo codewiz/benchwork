@@ -26,7 +26,7 @@ jobs:
         with:
           name: benchwork
 
-      # The Aminet archive, which holds the binaries and their source. The
+      # The Aminet archive, beside the source archives GitHub adds. The
       # tag message, subject and body, is the release text; write it with
       # "git tag -a" or "git tag -s".
       - name: Create release
