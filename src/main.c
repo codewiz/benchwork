@@ -12,6 +12,7 @@
 // output that must agree across compilers.
 
 #include <proto/exec.h>
+#include <dos/dos.h>
 #include <exec/tasks.h>
 #include <devices/timer.h>
 #include <math.h>
@@ -207,7 +208,7 @@ void bench_zfree(void *opaque, void *address) {
 // Run the selected benchmarks, then the geometric mean of their fastest
 // iterations when more than one ran: the one number that weighs a 10%
 // change on a short workload the same as on a long one. Returns the failure
-// count.
+// count, or -1 on Ctrl-C.
 static int run_all(void) {
     int failures = 0, ran = 0;
     double logsum = 0;
@@ -216,6 +217,12 @@ static int run_all(void) {
     for (j = 0; j < nselected; j++) {
         ULONG best;
 
+        // Only some C libraries check for Ctrl-C in their stdio (libnix
+        // does, newlib does not), so look for it between benchmarks.
+        if (SetSignal(0, SIGBREAKF_CTRL_C) & SIGBREAKF_CTRL_C) {
+            printf("***Break\n");
+            return -1;
+        }
         if (!run_bench(selected[j], iters, &best)) {
             failures++;
             continue;
@@ -295,5 +302,7 @@ int main(int argc, char **argv) {
     failures = run_all();
 
     timer_close();
+    if (failures < 0)
+        return RETURN_WARN;
     return failures ? 10 : 0;
 }
