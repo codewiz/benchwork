@@ -48,5 +48,5 @@ const struct bench bench_dhry = {
     "Dhrystone 2.1, 20000 runs",
     dhry_setup,
     dhry_run,
-    NULL,
+    NULL
 };

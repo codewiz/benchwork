@@ -203,5 +203,5 @@ const struct bench bench_ftgrays = {
     "FreeType smooth rasterizer, 94 glyphs at 12/24/48 px, 2 passes",
     ftgrays_setup,
     ftgrays_run,
-    ftgrays_teardown,
+    ftgrays_teardown
 };

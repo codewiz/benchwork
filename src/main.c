@@ -23,6 +23,12 @@
 #include "compiler.h"
 #include "timer.h"
 
+// For a compiler whose -D cannot carry a string with spaces (dcc's), the
+// build writes the BENCH_* strings into a header instead.
+#ifdef BENCH_DEFINES_H
+#include "bench-defines.h"
+#endif
+
 #ifndef BENCH_CFLAGS
 #define BENCH_CFLAGS "?"
 #endif

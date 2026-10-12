@@ -18,7 +18,7 @@ CFLAGS ?= $(OPT) $(CPUFLAGS)
 
 # What the binary reports it was built with: taken now, before the
 # per-directory additions below.
-REPORTED_CFLAGS := $(CFLAGS)
+REPORTED_CFLAGS := $(strip $(CFLAGS))
 
 INCLUDES = $(addprefix $(INCLUDE_FLAG),. src third_party/zlib third_party/libpng \
 	$(EXTRA_INCLUDES))
@@ -80,8 +80,10 @@ FREETYPE_SRCS = third_party/freetype/ftgrays.c
 
 WIPEOUT_SRCS = third_party/wipeout/kernel.c
 
-SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS) $(WIPEOUT_SRCS)
+# NO_LIBPNG (set by compiler.mk for a compiler that cannot build libpng)
+# leaves it out; png-encode and png-decode then fail their setup.
+SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) \
+	$(if $(NO_LIBPNG),,$(LIBPNG_SRCS)) $(FREETYPE_SRCS) $(WIPEOUT_SRCS)
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 
 all: $(TARGET)
@@ -111,6 +113,16 @@ $(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(COMPILE)
+
+# The BENCH_* strings as a header, for compilers that set GENERATED_DEFINES.
+ifdef GENERATED_DEFINES
+$(BUILD)/src/main.o: $(GENERATED_DEFINES)
+
+$(GENERATED_DEFINES):
+	@mkdir -p $(dir $@)
+	printf '#define BENCH_CFLAGS "%s"\n#define BENCH_VERSION "%s"\n#define BENCH_DATE "%s"\n#define BENCH_COMPILER "%s"\n' \
+		'$(REPORTED_CFLAGS)' '$(VERSION)' '$(DATE)' '$(DICE_VERSION)' > $@
+endif
 
 # Regenerate the glyph tables with the host FreeType.
 tools/dumpglyphs: tools/dumpglyphs.c

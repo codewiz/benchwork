@@ -86,6 +86,42 @@ else ifneq (,$(filter sc sc-%,$(notdir $(firstword $(CC)))))
     COMPILE = $(CC) $(ALL_CFLAGS) NOLINK OBJECTNAME=$@ $<
     LINK = $(LD) FROM LIB:c.o $(OBJS) TO $@ LIB $(LIBS)
 
+# DICE-nx: make CC=dcc, or CC=dcc-volamos to run it under volamos.
+else ifneq (,$(filter dcc dcc-%,$(notdir $(firstword $(CC)))))
+
+    BUILD := $(BUILD)-dice
+    TARGET := $(TARGET)-dice
+    # dc1 always optimizes; it has no levels to choose from.
+    CPUFLAGS ?= -020
+    OPT ?=
+    CPUFLAGS_000 =
+    CPUFLAGS_020 = -020
+    # No 68040 code generation and no usable FPU code (its -881 is
+    # documented as unfinished), so the 040 binary is the 020 one.
+    CPUFLAGS_040 = -020
+    # The OS 3.2 headers and amiga.lib, and C++ comments. The small data
+    # model throughout, since the libraries that auto-open the math and OS
+    # libraries exist only for it, except for the Wipeout kernel, whose
+    # texture table alone fills most of the 64 KB it reaches.
+    LANG_FLAGS = -3.2 -//
+    WIPEOUT_FLAGS = -mD
+    INCLUDE_FLAG = -I
+    DEFINE_FLAG = -D
+    # dcpp looks up quoted includes on the include path only, not beside
+    # the including file.
+    EXTRA_INCLUDES = compat third_party/freetype third_party/wipeout $(BUILD)
+    # dcpp does not rescan the result of ##, which libpng's chunk tables
+    # need: https://github.com/dice-nx/dice-nx/issues/31
+    NO_LIBPNG = 1
+    # dcc drops the quoting when it hands a -D on to dcpp, so a string
+    # with spaces goes through a generated header instead.
+    DEFINES = -DBENCH_NO_LIBPNG -DBENCH_DEFINES_H
+    GENERATED_DEFINES = $(BUILD)/bench-defines.h
+    DICE_VERSION = $(shell $(CC) 2>&1 | sed -n '1s/^DCC \([0-9.]*\).*/DICE-nx \1/p')
+    LIBS = -lm
+    COMPILE = $(CC) $(ALL_CFLAGS) -c -o $@ $<
+    LINK = $(CC) $(CFLAGS) $(LANG_FLAGS) -o $@ $(OBJS) $(LIBS)
+
 else  # AmigaDev GCC 16.2 or newer
 
     CPUFLAGS ?= -m68020-60
