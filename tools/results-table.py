@@ -6,10 +6,13 @@
 # row. Columns after the first also show their change against the first
 # column in parentheses. Usage:
 #
-#   tools/results-table.py [--best] LABEL=FILE [LABEL=FILE ...]
+#   tools/results-table.py [--best] [--geomean-skip=NAME,...] LABEL=FILE ...
 #
 # --best puts the fastest cell of each row in bold, every one of them when
 # several tie at whole milliseconds.
+#
+# --geomean-skip leaves the named benchmarks out of every column's geomean,
+# so that columns where some compilers cannot build them stay comparable.
 #
 # The check values are compared across the files and a mismatch is reported
 # on stderr, since differing output means the times cannot be compared.
@@ -21,7 +24,7 @@ import sys
 ROW = re.compile(r"^([a-z][a-z0-9-]*) +(\d+) +(\d+\.\d+) +(\d+\.\d+) +([0-9a-f]{8})$")
 
 
-def parse(path):
+def parse(path, skip=()):
     times, checks, printed = {}, {}, None
     with open(path) as f:
         for line in f:
@@ -35,9 +38,13 @@ def parse(path):
     # The geomean is recomputed from the rows rather than taken from the
     # binary, whose own log() and exp() are part of what is under test.
     geomean = None
-    if times:
-        geomean = math.exp(sum(map(math.log, times.values())) / len(times))
-        if printed is not None and abs(printed - geomean) > geomean / 1000:
+    kept = [t for name, t in times.items() if name not in skip]
+    if kept:
+        geomean = math.exp(sum(map(math.log, kept)) / len(kept))
+        # The binary's own geomean covers every row, so it is only
+        # comparable when none was skipped.
+        if (printed is not None and len(kept) == len(times)
+                and abs(printed - geomean) > geomean / 1000):
             print(f"{path}: the binary printed GEOMEAN {printed:.3f}, the rows "
                   f"give {geomean:.3f}", file=sys.stderr)
     return times, checks, geomean
@@ -57,12 +64,19 @@ def cell(value, base, first):
 
 def main(args):
     best = "--best" in args
-    columns = []
+    skip = set()
+    files = []
     for arg in args:
         if arg == "--best":
             continue
+        if arg.startswith("--geomean-skip="):
+            skip.update(arg.partition("=")[2].split(","))
+            continue
+        files.append(arg)
+    columns = []
+    for arg in files:
         label, _, path = arg.partition("=")
-        columns.append((label, *parse(path)))
+        columns.append((label, *parse(path, skip)))
 
     names = []
     for _, times, _, _ in columns:
