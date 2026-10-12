@@ -10,6 +10,7 @@
 #   LIBS, LIBS_040    the libraries to link, and the FPU build's
 #   CPUFLAGS_000/020/040   the release binaries' CPU settings
 #   COMPILE, LINK     the recipes for one object and for the binary
+#   NFS3_SRCS, COMPILE_CXX   the C++ benchmark and its recipe, gcc only
 #   plus the per-directory flags the Makefile's pattern rules add.
 
 # vbcc from the same toolchain: make CC="vc +aos68k" (vc, vbccm68k, vasm and
@@ -106,8 +107,18 @@ else  # AmigaDev GCC 16.2 or newer
     WARNINGS = -Wall -Wextra -Wshadow -Wpointer-arith -Wwrite-strings \
         -Wstrict-prototypes -Wmissing-prototypes -Wvla
     DEFINES = -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
-        -DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"'
+        -DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"' \
+        -DBENCH_HAVE_NFS3
     COMPILE = $(CC) $(ALL_CFLAGS) -MMD -MP -c -o $@ $<
     LINK = $(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
+
+    # The NFS3 kernels are C++, so only this branch builds them. Without
+    # exceptions, RTTI or thread-safe statics they need nothing from
+    # libstdc++, and the C link above takes them as they are.
+    NFS3_SRCS = benches/nfs3.c third_party/nfs3/kernel.cpp
+    CXX = $(patsubst %gcc,%g++,$(CC))
+    CXX_FLAGS = -fno-exceptions -fno-rtti -fno-threadsafe-statics
+    COMPILE_CXX = $(CXX) $(CFLAGS) $(CXX_FLAGS) $(INCLUDES) $(DEFINES) \
+        -MMD -MP -c -o $@ $<
 
 endif

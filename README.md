@@ -26,6 +26,8 @@ Numbers for the release binaries on a reference target are in [RESULTS.md](RESUL
 | memmove-small | overlapping moves up to 128 bytes, both ways | the backwards path a block-move expander gets wrong |
 | memmove-large | overlapping moves of 2048 and 4096 bytes, both ways | the same past the by-pieces limit |
 | wipeout-tris | render_push_tris() from arczi84's Wipeout port | a game's per-triangle path: float UV scaling, byte clamps, 96-byte struct copies |
+| nfs3-project | projectObjectVertex() from arczi84's NFS3 port (C++, gcc only) | float multiply-add chains, a perspective divide, bit tests on float results |
+| nfs3-clip | PolygonClipWork::run() from arczi84's NFS3 port (C++, gcc only) | triangle clipping: float compares, divides, interpolation |
 
 [^libc]: Out-of-line `memcpy`, `memset` and `memmove` are each compiler's
     own C library's, so these rows compare the compiler together with its

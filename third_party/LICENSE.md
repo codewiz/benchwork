@@ -11,6 +11,7 @@ directory:
 * Dhrystone (Reinhold Weicker's original terms) via xSysInfo (BSD-2-Clause)
 * The Wipeout kernel in `wipeout/` has no license file yet: its upstream
   has not stated one
+* The NFS3 kernels in `nfs3/` (0BSD)
 * The glyph outlines in `../src/glyphs.c` are derived from DejaVu Sans
   (Bitstream Vera license).
 
