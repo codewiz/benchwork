@@ -108,9 +108,10 @@ static void usage(void) {
     printf("  --fastmem  require MEMF_FAST for benchmark buffers\n");
 }
 
-// Milliseconds with three decimals, right-aligned in 10 columns.
+// Milliseconds with three decimals, right-aligned in 11 columns, so that
+// times up to 999999 ms keep a space before them.
 static void print_ms(ULONG us) {
-    printf("%6lu.%03lu", (unsigned long)(us / 1000), (unsigned long)(us % 1000));
+    printf("%7lu.%03lu", (unsigned long)(us / 1000), (unsigned long)(us % 1000));
 }
 
 // Set up, time and tear down one benchmark. Returns false on failure, after
@@ -158,7 +159,7 @@ static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
         total += us;
     }
     if (ok) {
-        printf("%-16s %5d ", b->name, iters);
+        printf("%-16s %5d", b->name, iters);
         print_ms(best);
         print_ms(total / (ULONG)iters);
         printf("   %08lx\n", (unsigned long)check);
@@ -239,7 +240,7 @@ static int run_all(void) {
         ran++;
     }
     if (ran > 1) {
-        printf("%-16s %5s ", "GEOMEAN", "");
+        printf("%-16s %5s", "GEOMEAN", "");
         print_ms((ULONG)(exp(logsum / ran) + 0.5));
         printf("\n");
     }
@@ -304,7 +305,7 @@ int main(int argc, char **argv) {
 
     printf("benchwork %s, built with %s\n", BENCH_VERSION, BENCH_COMPILER);
     printf("CFLAGS: %s\n\n", BENCH_CFLAGS);
-    printf("%-16s %5s %10s%10s   %s\n", "BENCHMARK", "ITERS", "MIN MS",
+    printf("%-16s %5s%11s%11s   %s\n", "BENCHMARK", "ITERS", "MIN MS",
            "MEAN MS", "CHECK");
 
     failures = run_all();
