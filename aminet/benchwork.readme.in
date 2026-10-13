@@ -33,13 +33,8 @@ All three are built with m68k-amigaos-gcc 16.2 at -O2.
 License
 -------
 
-The harness is 0BSD. The vendored code keeps its own licenses, listed in
-third_party/LICENSE.md with each license text beside it: zlib, libpng,
-FreeType (FTL), LHa for UNIX, Dhrystone, the NFS3 kernels (0BSD), the
-OpenSSL code from AmiSSL (Apache-2.0), and glyphs derived from DejaVu
-Sans. The Wipeout kernel is included with its author's permission. The
-LHa terms forbid distributing the binaries without their source, which is
-at the link above.
+The harness is 0BSD; the vendored code keeps its own licenses, listed in
+third_party/LICENSE.md. The source is at the link above.
 
 Portions of this software are copyright (C) 1996-2022 The FreeType Project
 (www.freetype.org). All rights reserved.
