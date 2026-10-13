@@ -49,6 +49,10 @@ extern const struct bench bench_wipeout_tris;
 extern const struct bench bench_nfs3_project;
 extern const struct bench bench_nfs3_clip;
 #endif
+#ifdef BENCH_HAVE_AMISSL
+extern const struct bench bench_sha512;
+extern const struct bench bench_aesgcm;
+#endif
 
 // Fowler-Noll-Vo hash of a buffer, folded into a running checksum. Used by
 // the benchmarks for their check value; cheap enough not to matter next to

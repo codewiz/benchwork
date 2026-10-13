@@ -80,8 +80,17 @@ FREETYPE_SRCS = third_party/freetype/ftgrays.c
 
 WIPEOUT_SRCS = third_party/wipeout/kernel.c
 
+# SHA-512 and GHASH need long long, so compiler.mk only picks these up for
+# compilers that have it.
+AMISSL_LONGLONG_SRCS = \
+	benches/sha512.c \
+	benches/aesgcm.c \
+	third_party/amissl/sha512.c \
+	third_party/amissl/aes_core.c \
+	third_party/amissl/gcm128.c
+
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS) $(WIPEOUT_SRCS) $(NFS3_SRCS)
+	$(FREETYPE_SRCS) $(WIPEOUT_SRCS) $(NFS3_SRCS) $(AMISSL_SRCS)
 OBJS = $(patsubst %.cpp,$(BUILD)/%.o,$(SRCS:%.c=$(BUILD)/%.o))
 
 all: $(TARGET)
@@ -107,6 +116,13 @@ $(BUILD)/third_party/freetype/%.o: CFLAGS += $(DEFINE_FLAG)STANDALONE_
 
 # The game's own flags, which its port is built with.
 $(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
+
+# AmiSSL's AmigaOS 3 configuration defines B_ENDIAN; the shim stands in for
+# the OpenSSL headers the AmiSSL sources include.
+$(BUILD)/third_party/amissl/%.o: CFLAGS += $(DEFINE_FLAG)B_ENDIAN \
+	$(INCLUDE_FLAG)third_party/amissl/shim
+$(BUILD)/benches/sha512.o $(BUILD)/benches/aesgcm.o: \
+	CFLAGS += $(INCLUDE_FLAG)third_party/amissl/shim
 
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
