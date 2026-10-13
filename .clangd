@@ -1,0 +1,118 @@
+# clangd only; the real build flags live in the Makefile and compiler.mk. The
+# point here is to make the editor see the same world the cross-compiler
+# does: AmigaOS headers, no host glibc, 32-bit pointers, and the
+# per-directory flags the Makefile's pattern rules add.
+#
+# Paths are absolute because clangd expands neither ~ nor $HOME, and because a
+# relative -I would resolve against each file's own directory. Adjust them if
+# the toolchain or this checkout lives elsewhere.
+CompileFlags:
+  Compiler: clang
+  Add:
+    # 32-bit pointers. LLVM does not know the "amigaos" OS field and ignores
+    # it; only the arch matters.
+    - --target=m68k-unknown-amigaos
+    # gcc 16's default, which the harness and benches are written against.
+    - -std=gnu23
+    # -nostdlibinc plus -isystem, not -I: the host's /usr/include must not be
+    # searched at all. Not -nostdinc, which would also drop clang's own
+    # stddef.h and friends, which newlib's headers expect the compiler to
+    # supply.
+    - -nostdlibinc
+    # ...but newlib's stdint.h defines max_align_t itself, so clang's stddef.h
+    # must be told to leave it alone.
+    - -D__CLANG_MAX_ALIGN_T_DEFINED
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/m68k-amigaos/ndk-include
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/m68k-amigaos/sys-include
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/m68k-amigaos/include
+    # The NDK's inline glue is m68k register asm that clang cannot parse; the
+    # clib prototypes are enough for navigation and diagnostics.
+    - -D_NO_INLINE
+    # bebbo's calling-convention attributes, which clang does not know.
+    - -D__stdargs=
+    - -D__regargs=
+    - -D__saveds=
+    # What the cross-gcc predefines and clang's m68k target does not.
+    - -Dmc68000=1
+    - -D__amiga__=1
+    - -D__amigaos__=1
+    # The Makefile's INCLUDES and DEFINES for the gcc build.
+    - -I/home/bernie/amiga/src/benchwork
+    - -I/home/bernie/amiga/src/benchwork/src
+    - -I/home/bernie/amiga/src/benchwork/third_party/zlib
+    - -I/home/bernie/amiga/src/benchwork/third_party/libpng
+    - -DBENCH_CFLAGS="clangd"
+    - -DBENCH_VERSION="clangd"
+    - -DBENCH_DATE="clangd"
+    - -DBENCH_HAVE_NFS3
+    - -DBENCH_HAVE_AMISSL
+  Remove:
+    - -m68*
+
+---
+# clangd would parse a header on its own as Objective-C++; all ours are C.
+If:
+  PathMatch: .*\.h
+CompileFlags:
+  Add: [-xc-header]
+
+---
+If:
+  PathMatch: third_party/nfs3/.*\.cpp
+CompileFlags:
+  Add:
+    - -xc++
+    - -std=gnu++20
+    # libstdc++'s headers, for the 040 multilib. They must come before the C
+    # headers, which <cmath> reaches with #include_next <math.h>, so the
+    # C directories above are removed and added again after them.
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/lib/gcc/m68k-amigaos/16/include/c++
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/lib/gcc/m68k-amigaos/16/include/c++/m68k-amigaos/libm020/libm881
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/lib/gcc/m68k-amigaos/16/include/c++/backward
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/m68k-amigaos/ndk-include
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/m68k-amigaos/sys-include
+    - -isystem/home/bernie/amiga/m68k-amigaos-gcc-16.2/m68k-amigaos/include
+  Remove:
+    - -std=gnu23
+    - -isystem*
+
+---
+If:
+  PathMatch: third_party/lha/.*
+CompileFlags:
+  Add: [-std=gnu11]
+  Remove: [-std=gnu23]
+
+---
+If:
+  PathMatch: third_party/wipeout/.*
+CompileFlags:
+  Add: [-std=gnu99, -fno-strict-aliasing]
+  Remove: [-std=gnu23]
+
+---
+If:
+  PathMatch: third_party/zlib/.*
+CompileFlags:
+  Add: [-DZ_SOLO]
+
+---
+If:
+  PathMatch: third_party/freetype/.*
+CompileFlags:
+  Add: [-DSTANDALONE_]
+
+---
+If:
+  PathMatch: third_party/amissl/.*
+CompileFlags:
+  Add:
+    - -DB_ENDIAN
+    - -I/home/bernie/amiga/src/benchwork/third_party/amissl/shim
+
+---
+If:
+  PathMatch: benches/(sha512|aesgcm)\.c
+CompileFlags:
+  Add:
+    - -I/home/bernie/amiga/src/benchwork/third_party/amissl/shim
