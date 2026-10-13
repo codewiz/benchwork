@@ -28,6 +28,8 @@ Numbers for the release binaries on a reference target are in [RESULTS.md](RESUL
 | wipeout-tris | render_push_tris() from arczi84's Wipeout port | a game's per-triangle path: float UV scaling, byte clamps, 96-byte struct copies |
 | nfs3-project | projectObjectVertex() from arczi84's NFS3 port (C++, gcc only) | float multiply-add chains, a perspective divide, bit tests on float results |
 | nfs3-clip | PolygonClipWork::run() from arczi84's NFS3 port (C++, gcc only) | triangle clipping: float compares, divides, interpolation |
+| sha512 | AmiSSL's OpenSSL 4.0.3 SHA-512 and SHA-384 (gcc and vbcc) | 64-bit rotates, shifts and adds split into 32-bit halves |
+| aesgcm | AmiSSL's OpenSSL 4.0.3 AES-128-GCM on TLS 1.3 records (gcc and vbcc) | AES table lookups, then GHASH's 64-bit shifts and XORs (about 60% of the time) |
 
 [^libc]: Out-of-line `memcpy`, `memset` and `memmove` are each compiler's
     own C library's, so these rows compare the compiler together with its

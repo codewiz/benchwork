@@ -11,6 +11,7 @@
 #   CPUFLAGS_000/020/040   the release binaries' CPU settings
 #   COMPILE, LINK     the recipes for one object and for the binary
 #   NFS3_SRCS, COMPILE_CXX   the C++ benchmark and its recipe, gcc only
+#   AMISSL_SRCS       the AmiSSL benchmarks, for compilers with long long
 #   plus the per-directory flags the Makefile's pattern rules add.
 
 # vbcc from the same toolchain: make CC="vc +aos68k" (vc, vbccm68k, vasm and
@@ -37,7 +38,8 @@ ifeq ($(notdir $(firstword $(CC))),vc)
     VBCC_VERSION = $(shell vbccm68k -o=/dev/null /dev/null | sed -n '1s/^vbcc \(V[^ ]*\( pre\)\{0,1\}\).*/vbcc \1/p')
     DEFINES = -DBENCH_CFLAGS='"\"$(REPORTED_CFLAGS)\""' \
         -DBENCH_VERSION='"\"$(VERSION)\""' -DBENCH_DATE='"\"$(DATE)\""' \
-        -DBENCH_COMPILER='"\"$(VBCC_VERSION)\""'
+        -DBENCH_COMPILER='"\"$(VBCC_VERSION)\""' -DBENCH_HAVE_AMISSL
+    AMISSL_SRCS = $(AMISSL_LONGLONG_SRCS)
     # amiga.lib for the exec and timer calls, which vbcc's NDK headers do
     # not inline; mieee.lib is the soft-float math library, m040.lib the
     # FPU one.
@@ -108,7 +110,8 @@ else  # AmigaDev GCC 16.2 or newer
         -Wstrict-prototypes -Wmissing-prototypes -Wvla
     DEFINES = -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
         -DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"' \
-        -DBENCH_HAVE_NFS3
+        -DBENCH_HAVE_NFS3 -DBENCH_HAVE_AMISSL
+    AMISSL_SRCS = $(AMISSL_LONGLONG_SRCS)
     COMPILE = $(CC) $(ALL_CFLAGS) -MMD -MP -c -o $@ $<
     LINK = $(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
 
