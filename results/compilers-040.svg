@@ -4,7 +4,7 @@
 <rect class="s0" x="180" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="200" y="21">gcc 6.5.0b</text>
 <rect class="s1" x="306" y="8" width="14" height="14" rx="2"/>
-<text class="t big" x="326" y="21">gcc 16.2-rc14</text>
+<text class="t big" x="326" y="21">gcc 16.2-rc17</text>
 <rect class="s2" x="451" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="471" y="21">vbcc 0.9i</text>
 <rect class="s3" x="568" y="8" width="14" height="14" rx="2"/>
@@ -154,15 +154,15 @@
 <text class="t muted" x="186" y="1278">not built</text>
 <text class="t big" x="168" y="1328.0" text-anchor="end">sha512</text>
 <path class="s0" d="M180,1296 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1310 h195.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-195.3 z"/>
-<text class="t muted" x="384.3" y="1320">1220 ms (+26.55%)</text>
+<path class="s1" d="M180,1310 h166.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-166.7 z"/>
+<text class="t muted" x="355.7" y="1320">1045 ms (+8.38%)</text>
 <path class="s2" d="M180,1324 h620.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-620.9 z"/>
 <text class="t muted" x="809.9" y="1334">3824 ms (+296.79%)</text>
 <text class="t muted" x="186" y="1348">not built</text>
 <text class="t big" x="168" y="1398.0" text-anchor="end">aesgcm</text>
 <path class="s0" d="M180,1366 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1380 h165.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-165.4 z"/>
-<text class="t muted" x="354.4" y="1390">1205 ms (+7.54%)</text>
+<path class="s1" d="M180,1380 h122.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-122.9 z"/>
+<text class="t muted" x="342.5" y="1390">903 ms (-19.42%)</text>
 <path class="s2" d="M180,1394 h458.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-458.5 z"/>
 <text class="t muted" x="647.5" y="1404">3290 ms (+193.62%)</text>
 <text class="t muted" x="186" y="1418">not built</text>

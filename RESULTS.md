@@ -19,7 +19,7 @@ Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is faster.
 
 Same data in tabular form (time in milliseconds):
 
-| benchmark | 6.5.0b | 16.2-rc14[^gcc] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
+| benchmark | 6.5.0b | 16.2-rc17[^rc17] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
 |---|---:|---:|---:|---:|
 | dhrystone | **420** | 421 (+0.25%) | 599 (+42.49%) | 581 (+38.20%) |
 | backdrop | 2891 | **1941 (-32.87%)** | 4238 (+46.57%) | 4267 (+47.57%) |
@@ -39,9 +39,63 @@ Same data in tabular form (time in milliseconds):
 | wipeout-tris | **507** | 519 (+2.38%) | 943 (+86.08%) | 672 (+32.73%) |
 | nfs3-project[^cxx] | 1168 | **1064 (-8.90%)** | not built | not built |
 | nfs3-clip[^cxx] | 1005 | **951 (-5.40%)** | not built | not built |
-| sha512[^longlong] | **964** | 1220 (+26.55%) | 3824 (+296.79%) | not built |
-| aesgcm[^longlong] | **1121** | 1205 (+7.54%) | 3290 (+193.62%) | not built |
+| sha512[^longlong] | **964** | 1045 (+8.38%) | 3824 (+296.79%) | not built |
+| aesgcm[^longlong] | 1121 | **903 (-19.42%)** | 3290 (+193.62%) | not built |
 | **GEOMEAN** | **1149** | **1162 (+1.15%)** | | **1491 (+29.74%)** |
+
+## Comparing GCC 16.2 releases
+
+benchwork-040 built with `-O2 -fomit-frame-pointer -m68040 -m68881` by the
+AmigaPorts release candidates[^releases], from 16.2-rc5, the oldest one
+still published, to the latest. All of them link newlib, so the memcpy and
+memmove rows also follow the library each release shipped. Three releases
+account for nearly all of the change:
+
+- rc11 made LRA the default register allocator and inlined small
+  constant-size copies.
+- rc14 brought in Bebbo's code generation work: tuned instruction costs,
+  dbra loops, and inline block copies and fills.
+- rc17 merged GCC 16.2.1 and priced 64-bit integer operations as two
+  words, so that they get split into 32-bit ones.
+
+### Time per release
+
+Every release from rc5 to rc17 along the horizontal axis, one line per
+benchmark and a thicker black one for the geomean, colored by kind of
+workload. The vertical axis is in milliseconds on a log scale, so the same
+percentage change has the same slope at any height; lower is faster.
+
+![Time of each benchmark in every release from 16.2-rc5 to 16.2-rc17](results/gcc-releases-040.svg)
+
+The table shows only rc5 and the three releases above (time in
+milliseconds). rc6 to rc10 are within 1% of rc5 on every benchmark. rc12
+and rc13 have the same geomean as rc11, though individual rows move by up
+to 3%. rc15 and rc16 match rc14, apart from sha512 at +0.5% in rc16.
+
+| benchmark | rc5 | rc11 | rc14 | rc17 |
+|---|---:|---:|---:|---:|
+| dhrystone | 516 | 516 | **421 (-18.37%)** | **421 (-18.37%)** |
+| backdrop | 2083 | 2082 (-0.05%) | **1941 (-6.81%)** | **1941 (-6.81%)** |
+| lha-pack | **4108** | 4380 (+6.62%) | 4439 (+8.05%) | 4439 (+8.05%) |
+| lha-unpack | **1330** | 1371 (+3.05%) | 1382 (+3.93%) | 1382 (+3.93%) |
+| zlib-deflate | 3824 | 3822 (-0.05%) | **3698 (-3.28%)** | **3698 (-3.28%)** |
+| zlib-inflate | **495** | 497 (+0.51%) | 511 (+3.21%) | 511 (+3.21%) |
+| png-encode | 7913 | 7912 (-0.01%) | **7543 (-4.67%)** | **7543 (-4.67%)** |
+| png-decode | 1743 | 1733 (-0.53%) | **1587 (-8.94%)** | **1587 (-8.94%)** |
+| ftgrays | 860 | 862 (+0.20%) | **858 (-0.17%)** | **858 (-0.17%)** |
+| memcpy-small | 514 | 476 (-7.33%) | **193 (-62.38%)** | **193 (-62.38%)** |
+| memcpy-large | 505 | 505 | **326 (-35.38%)** | **326 (-35.38%)** |
+| memcpy-var-small | **559** | **559** | 565 (+0.95%) | 565 (+0.95%) |
+| memcpy-var-large | 636 | 636 | **635 (-0.23%)** | **635 (-0.23%)** |
+| memmove-small | 2484 | 2715 (+9.27%) | **2351 (-5.36%)** | **2351 (-5.36%)** |
+| memmove-large | 5053 | 5069 (+0.32%) | **4127 (-18.33%)** | **4127 (-18.33%)** |
+| wipeout-tris | 666 | 538 (-19.23%) | **519 (-22.20%)** | **519 (-22.20%)** |
+| nfs3-project | **1002** | 1066 (+6.39%) | 1064 (+6.19%) | 1064 (+6.19%) |
+| nfs3-clip | 962 | 963 (+0.03%) | **951 (-1.17%)** | **951 (-1.17%)** |
+| sha512 | **965** | 1226 (+26.99%) | 1220 (+26.35%) | 1045 (+8.21%) |
+| aesgcm | 1156 | 1242 (+7.38%) | 1205 (+4.20%) | **903 (-21.92%)** |
+| **GEOMEAN** | **1265** | **1282 (+1.36%)** | **1150 (-9.04%)** | **1125 (-11.03%)** |
+| **CODE SIZE** | 393436 | 380648 (-3.25%) | 357496 (-9.13%) | 348252 (-11.48%) |
 
 ## Comparing GCC optimization levels
 
@@ -136,14 +190,25 @@ being allowed each CPU's instructions, not how fast those CPUs are.
 | **GEOMEAN** | **1610** | **1281 (-20.45%)** | **1150 (-28.54%)** |
 
 [^volamos]: volamos 0.9.0, `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`
-    for every column. The emulated time is derived from the CPU's cycle count
-    at 25 MHz; native library calls cost no cycles. The geomean is computed
-    from the rows by `tools/results-table.py`, not taken from the binary.
+    for every column; the release runs other than rc14 used 0.10.0, which
+    times the rc14 binary the same to within 2 us. The emulated time is
+    derived from the CPU's cycle count at 25 MHz; native library calls cost
+    no cycles. The geomean is computed from the rows by
+    `tools/results-table.py`, not taken from the binary.
 [^gcc]: `m68k-amigaos-gcc (AmigaDev v16.2-rc14) 16.2.0b 20260825082934`,
     the AmigaPorts 16.2-rc14 release, with its default newlib runtime. 6.5.0b
     is `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`, also with newlib. The
     040 build says `-m68881` rather than its synonym `-mhard-float` because
     only the former selects the hard-float multilib in rc14.
+[^rc17]: `m68k-amigaos-gcc (AmigaDev v16.2-rc17) 16.2.1b 20261010182711`,
+    the AmigaPorts 16.2-rc17 release, with its default newlib runtime. Its
+    gains over the earlier releases in sha512 and aesgcm are left out of
+    this table's geomean, as are the NFS3 kernels.
+[^releases]: The x86_64 Linux tarball of each release on the AmigaPorts
+    GitHub page, unchanged; each one's default runtime is newlib. rc5
+    reports `16.2.0b 20260819152818` and rc6 to rc16 `16.2.0b
+    20260825082934`. Code size is the text size of the binary, as
+    `m68k-amigaos-size` reports it.
 [^vbcc]: `vbcc V0.9i pre` from the same toolchain, `make vbcc-release`:
     `vc +aos68k -O2 -cpu=68040 -fpu=68040` with vc.lib, m040.lib and
     amiga.lib. vbcc 0.9i miscompiles two of the drivers: ftgrays fails
