@@ -19,7 +19,7 @@ Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is faster.
 
 Same data in tabular form (time in milliseconds):
 
-| benchmark | 6.5.0b | 16.2-rc17[^rc17] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
+| benchmark | 6.5.0b[^gcc6] | 16.2-rc17[^rc17] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
 |---|---:|---:|---:|---:|
 | dhrystone | **420** | 421 (+0.25%) | 599 (+42.49%) | 581 (+38.20%) |
 | backdrop | 2891 | **1941 (-32.87%)** | 4238 (+46.57%) | 4267 (+47.57%) |
@@ -136,7 +136,7 @@ cuts the code by a fifth.
 ## Comparing GCC code generation for 68000, 68020, 68040-FP
 
 The three release binaries, built with
-m68k-amigaos-gcc 16.2-rc14[^gcc] by `make release`, all run on the same
+m68k-amigaos-gcc 16.2-rc17[^rc17] by `make release`, all run on the same
 emulated 68040[^volamos]. The columns therefore show what the compiler gains from
 being allowed each CPU's instructions, not how fast those CPUs are.
 
@@ -160,18 +160,15 @@ being allowed each CPU's instructions, not how fast those CPUs are.
 | wipeout-tris[^softfloat] | 879 | 810 (-7.89%) | 519 (-41.00%) |
 | nfs3-project[^softfloat] | 2480 | 2436 (-1.77%) | 1064 (-57.10%) |
 | nfs3-clip[^softfloat] | 2127 | 2027 (-4.70%) | 951 (-55.28%) |
-| sha512 | 1240 | 1193 (-3.75%) | 1220 (-1.60%) |
-| aesgcm | 1318 | 1274 (-3.30%) | 1205 (-8.56%) |
-| **GEOMEAN** | **1610** | **1281 (-20.45%)** | **1150 (-28.54%)** |
+| sha512 | 1012 | 960 (-5.18%) | 1045 (+3.19%) |
+| aesgcm | 1028 | 887 (-13.69%) | 903 (-12.16%) |
+| **GEOMEAN** | **1574** | **1244 (-20.96%)** | **1125 (-28.51%)** |
+| **CODE SIZE** | 371384 | 360348 (-2.97%) | 348252 (-6.23%) |
 
 [^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`.
     The emulated time is derived from the CPU's cycle count at 25 MHz;
     native library calls cost no cycles.
-[^gcc]: `m68k-amigaos-gcc (AmigaDev v16.2-rc14) 16.2.0b 20260825082934`,
-    the AmigaPorts 16.2-rc14 release, with its default newlib runtime. 6.5.0b
-    is `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`, also with newlib. The
-    040 build says `-m68881` rather than its synonym `-mhard-float` because
-    only the former selects the hard-float multilib in rc14.
+[^gcc6]: `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`, with newlib.
 [^rc17]: `m68k-amigaos-gcc (AmigaDev v16.2-rc17) 16.2.1b 20261010182711`,
     with its default newlib runtime.
 [^releases]: The released x86_64 Linux tarballs, with their default newlib
