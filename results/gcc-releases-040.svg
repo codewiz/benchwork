@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="940" height="680" viewBox="0 0 940 680" role="img" aria-label="GCC 16.2 releases on benchwork-040, time in ms">
 <style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}.s3{fill:#eda100}.k3{stroke:#eda100}.s4{fill:#e87ba4}.k4{stroke:#e87ba4}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}.s3{fill:#c98500}.k3{stroke:#c98500}.s4{fill:#d55181}.k4{stroke:#d55181}}</style>
 <rect class="bg" width="940" height="680"/>
+<text class="t muted" x="928" y="21" text-anchor="end">&#9660; Time: less is better</text>
 <rect class="s0" x="56" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="76" y="21">compression</text>
 <rect class="s1" x="199" y="8" width="14" height="14" rx="2"/>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="174" viewBox="0 0 940 174" role="img" aria-label="Code size of each optimization level relative to -O2">
+<style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}.s3{fill:#eda100}.k3{stroke:#eda100}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}.s3{fill:#c98500}.k3{stroke:#c98500}}</style>
+<rect class="bg" width="940" height="174"/>
+<text class="t muted" x="928" y="21" text-anchor="end">&#9664; Size: less is better</text>
+<line class="grid" x1="180.0" y1="36" x2="180.0" y2="148"/>
+<text class="t axis" x="180.0" y="166" text-anchor="middle">0.0x</text>
+<line class="grid" x1="390.0" y1="36" x2="390.0" y2="148"/>
+<text class="t axis" x="390.0" y="166" text-anchor="middle">0.5x</text>
+<line class="ref" x1="600.0" y1="36" x2="600.0" y2="148"/>
+<text class="t axis" x="600.0" y="166" text-anchor="middle">1.0x</text>
+<line class="grid" x1="810.0" y1="36" x2="810.0" y2="148"/>
+<text class="t axis" x="810.0" y="166" text-anchor="middle">1.5x</text>
+<text class="t big" x="168" y="55.0" text-anchor="end">-O2</text>
+<path class="s0" d="M180,44.0 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t muted" x="605.0" y="54.0">348320</text>
+<text class="t big" x="168" y="83.0" text-anchor="end">-Os</text>
+<path class="s1" d="M180,72.0 h368.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-368.3 z"/>
+<text class="t muted" x="605.0" y="82.0">308728 (-11.37%)</text>
+<text class="t big" x="168" y="111.0" text-anchor="end">-O3</text>
+<path class="s2" d="M180,100.0 h587.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-587.4 z"/>
+<text class="t muted" x="776.4" y="110.0">490492 (+40.82%)</text>
+<text class="t big" x="168" y="139.0" text-anchor="end">-O2 -flto</text>
+<path class="s3" d="M180,128.0 h335.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-335.9 z"/>
+<text class="t muted" x="605.0" y="138.0">281868 (-19.08%)</text>
+</svg>

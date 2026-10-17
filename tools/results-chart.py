@@ -122,6 +122,13 @@ def label_x(x, ratio, text):
     return end
 
 
+def better(out, text):
+    """The which-way-is-better note, top right; text starts with an entity
+    for the arrow."""
+    out.append(f'<text class="t muted" x="{WIDTH - 12}" y="21" '
+               f'text-anchor="end">{text}: less is better</text>')
+
+
 def sizes(opts):
     """One bar per build, each labeled with its own name, so no legend."""
     columns = []
@@ -132,10 +139,11 @@ def sizes(opts):
     ratios = [size / base for _, size in columns]
     xmax, x = scale(ratios, least=1.0)
     pitch = BAR + PAD
-    top = 8
+    top = TOP
     plot_h = len(columns) * pitch
     height = top + plot_h + AXIS
     out = start(opts.title, height, len(columns))
+    better(out, "&#9664; Size")
     grid(out, xmax, x, top, plot_h)
     for i, ((label, size), ratio) in enumerate(zip(columns, ratios)):
         y = top + i * pitch + PAD / 2
@@ -163,6 +171,7 @@ def lines(opts, columns):
     x = lambda i: left + i / (len(columns) - 1) * w
     y = lambda v: top + (hi - math.log(v)) / (hi - lo) * h
     out = start(opts.title, height, len(FAMILIES))
+    better(out, "&#9660; Time")
     lx = left
     for i, (family, _) in enumerate(FAMILIES):
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
@@ -284,6 +293,7 @@ def main(args):
     plot_h = len(rows) * pitch
     height = TOP + plot_h + AXIS
     out = start(opts.title, height, len(columns))
+    better(out, "&#9664; Time")
 
     # Legend.
     lx = LEFT

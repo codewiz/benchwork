@@ -1,6 +1,6 @@
 # Results
 
-Fastest iteration in milliseconds under volamos[^volamos].
+Fastest iteration in milliseconds under [volamos](https://github.com/sidick/volamos) 0.10.0.
 The cycle count makes all iterations identical.
 Percentages are against the first column.
 
@@ -52,6 +52,8 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
 - rc14: Bebbo's code generation work (costs, dbra, inline block copies).
 - rc17: GCC 16.2.1, 64-bit integer operations split into 32-bit ones.
 
+All tests ran on an emulated 25MHz 68040, except where noted[^volamos].
+
 The chart skips the releases that time within 1% of the one before them.
 Its vertical axis is logarithmic, so equal slopes are equal percentages.
 
@@ -84,70 +86,58 @@ Its vertical axis is logarithmic, so equal slopes are equal percentages.
 
 ## Comparing GCC optimization levels
 
-benchwork-040 built with m68k-amigaos-gcc 16.2-rc14[^gcc] and
-`-fomit-frame-pointer -m68040 -m68881` at each level, and with link-time
-optimization at -O2 and -O3.
+benchwork built with m68k-amigaos-gcc 16.2-rc17[^rc17] and
+`-fomit-frame-pointer -m68030 -m68881` at each level, run on a 68030 with
+its 256-byte instruction cache modeled[^cache].
 
 ### GCC 16.2 optimization levels
 
-Each bar is the build's time divided by `-O2`'s, so shorter is faster. The
-Dhrystone LTO bars do not measure faster code[^dhry-lto].
+Each bar is the build's time divided by `-O2`'s. The Dhrystone LTO bar
+does not measure faster code[^dhry-lto].
 
-![Time of each benchmark relative to -O2](results/opt-levels-040.svg)
+![Time of each benchmark relative to -O2](results/opt-levels-030.svg)
 
-Same data in tabular form (time in milliseconds):
+| benchmark | -O2 | -Os | -O3 | -O2 -flto |
+|---|---:|---:|---:|---:|
+| dhrystone[^dhry-lto] | 1657 | 2120 (+27.90%) | 1643 (-0.87%) | **242 (-85.42%)** |
+| backdrop | 8826 | 14320 (+62.26%) | **6482 (-26.56%)** | 8813 (-0.14%) |
+| lha-pack | 15950 | 17567 (+10.14%) | 16068 (+0.74%) | **14879 (-6.71%)** |
+| lha-unpack | 5119 | 5335 (+4.23%) | 5160 (+0.82%) | **4559 (-10.93%)** |
+| zlib-deflate | 13445 | 14113 (+4.96%) | **13094 (-2.61%)** | 13613 (+1.25%) |
+| zlib-inflate | 1765 | **1728 (-2.09%)** | 1731 (-1.95%) | 1762 (-0.19%) |
+| png-encode | 24566 | 27419 (+11.62%) | **23550 (-4.13%)** | 24611 (+0.19%) |
+| png-decode | 5844 | 6372 (+9.03%) | **5636 (-3.57%)** | 6412 (+9.72%) |
+| ftgrays | 3364 | 3502 (+4.10%) | **3337 (-0.80%)** | 3396 (+0.96%) |
+| memcpy-small | 1138 | 1313 (+15.39%) | 1138 | **1136 (-0.20%)** |
+| memcpy-large | **1933** | 2262 (+17.04%) | **1933** | 1938 (+0.28%) |
+| memcpy-var-small | 2330 | 2461 (+5.63%) | 2318 (-0.49%) | **2295 (-1.48%)** |
+| memcpy-var-large | 3039 | 3077 (+1.26%) | 3040 (+0.04%) | **3037 (-0.08%)** |
+| memmove-small | 8147 | 8265 (+1.45%) | 8177 (+0.36%) | **8137 (-0.13%)** |
+| memmove-large | 16046 | 16047 (+0.01%) | **16041 (-0.03%)** | 16045 (-0.01%) |
+| wipeout-tris | 2045 | 2115 (+3.43%) | 2090 (+2.18%) | **1971 (-3.61%)** |
+| nfs3-project | 4310 | 9580 (+122.27%) | **3426 (-20.51%)** | 3430 (-20.42%) |
+| nfs3-clip | 3293 | 8491 (+157.84%) | **3195 (-2.97%)** | 3228 (-1.98%) |
+| sha512 | 4699 | 4718 (+0.42%) | **4541 (-3.35%)** | 4699 |
+| aesgcm | 3626 | 3748 (+3.35%) | **3600 (-0.74%)** | 3649 (+0.62%) |
+| **GEOMEAN** | **4539** | **5362 (+18.12%)** | **4380 (-3.51%)** | **4047 (-10.83%)** |
+| **CODE SIZE** | 348320 | 308728 (-11.37%) | 490492 (+40.82%) | 281868 (-19.08%) |
 
-| benchmark | -O2 | -Os | -O3 | -O2 -flto | -O3 -flto |
-|---|---:|---:|---:|---:|---:|
-| dhrystone[^dhry-lto] | 421 | 559 (+32.67%) | 416 (-1.14%) | **54 (-87.08%)** | **54 (-87.08%)** |
-| backdrop | 1941 | 3187 (+64.18%) | **1685 (-13.21%)** | 1941 | 1705 (-12.16%) |
-| lha-pack | 4439 | 4942 (+11.33%) | **4360 (-1.78%)** | **4360 (-1.79%)** | 4396 (-0.97%) |
-| lha-unpack | 1382 | 1469 (+6.29%) | 1389 (+0.45%) | **1318 (-4.65%)** | 1390 (+0.59%) |
-| zlib-deflate | **3698** | 3904 (+5.57%) | 3701 (+0.08%) | 3706 (+0.21%) | 3712 (+0.36%) |
-| zlib-inflate | 511 | **487 (-4.61%)** | 499 (-2.19%) | 507 (-0.61%) | 498 (-2.46%) |
-| png-encode | 7543 | 8638 (+14.51%) | **7508 (-0.47%)** | 7675 (+1.75%) | 7529 (-0.19%) |
-| png-decode | 1587 | 1840 (+15.94%) | **1527 (-3.78%)** | 1726 (+8.76%) | 1593 (+0.38%) |
-| ftgrays | 858 | 889 (+3.58%) | **836 (-2.60%)** | 878 (+2.26%) | 855 (-0.37%) |
-| memcpy-small | **193** | 267 (+38.42%) | **193** | **193** | **193** |
-| memcpy-large | **326** | 468 (+43.22%) | **326** | **326** | **326** |
-| memcpy-var-small | **565** | 584 (+3.44%) | **565** | **565** | **565** |
-| memcpy-var-large | **635** | 637 (+0.41%) | **635** | **635** | **635** |
-| memmove-small | **2351** | 2361 (+0.44%) | **2351** | **2351** | **2351** |
-| memmove-large | **4127** | 4128 (+0.02%) | **4127** | **4127** | **4127** |
-| wipeout-tris | 519 | 569 (+9.68%) | 507 (-2.23%) | **468 (-9.79%)** | 505 (-2.57%) |
-| nfs3-project | 1064 | 2604 (+144.74%) | 872 (-18.04%) | **866 (-18.61%)** | 870 (-18.23%) |
-| nfs3-clip | 951 | 2355 (+147.55%) | 858 (-9.79%) | 868 (-8.73%) | **818 (-13.99%)** |
-| sha512 | 1220 | **1077 (-11.66%)** | 1201 (-1.51%) | 1226 (+0.51%) | 1201 (-1.51%) |
-| aesgcm | 1205 | 1203 (-0.12%) | **1195 (-0.79%)** | 1213 (+0.70%) | 1269 (+5.30%) |
-| **GEOMEAN** | **1150** | **1389 (+20.73%)** | **1116 (-2.98%)** | **1021 (-11.22%)** | **1013 (-11.95%)** |
-| **CODE SIZE** | 357476 | 316760 (-11.39%) | 514312 (+43.87%) | 290128 (-18.84%) | 446524 (+24.91%) |
-
-The run-time-sized copies and the moves call newlib's assembler routines,
-which do not change with the level. The constant-size copies are expanded
-inline at every level, but `-Os` turns more of them into loops where `-O2`
-and `-O3` unroll. `-Os` also keeps the NFS3 kernels' `GuardedFloatMath`
-operations out of line, so every float operation there becomes a call.
-
-Link-time optimization cannot reach newlib, which is built separately, so
-it mostly helps where a hot loop calls a function in another of our source
-files: LHa's bit I/O and Huffman coders, and the wipeout kernel. The NFS3
-kernels gain too, although each lives in a single file. Apart from
-Dhrystone, `-O2 -flto` is 1.74% faster than `-O2`, most of it in the NFS3
-kernels, although png-decode loses 8.76%; `-O3 -flto` is 0.50% slower than
-`-O3`, losing most in aesgcm (6.19%) and png-decode (4.32%). LTO does
-shrink the code, by a fifth at `-O2`.
+`-Os` turns constant-size copies into loops and keeps the NFS3 kernels'
+`GuardedFloatMath` operations out of line, which more than doubles their
+time. `-O3`'s larger loops no longer fit the cache in LHa and wipeout,
+which lose 1 to 2%, but it still wins overall. LTO helps where a hot loop
+calls into another file (LHa, wipeout, NFS3), costs png-decode 9.7%, and
+cuts the code by a fifth.
 
 ### Code size relative to -O2
 
-The text size of each binary in bytes, as `m68k-amigaos-size` reports it.
-
-![Code size of each build relative to -O2](results/opt-levels-size-040.svg)
+![Code size of each build relative to -O2](results/opt-levels-size-030.svg)
 
 ## Comparing GCC code generation for 68000, 68020, 68040-FP
 
 The three release binaries, built with
 m68k-amigaos-gcc 16.2-rc14[^gcc] by `make release`, all run on the same
-emulated 68040. The columns therefore show what the compiler gains from
+emulated 68040[^volamos]. The columns therefore show what the compiler gains from
 being allowed each CPU's instructions, not how fast those CPUs are.
 
 | benchmark | 68000 | 68020 | 68040-FP |
@@ -174,12 +164,9 @@ being allowed each CPU's instructions, not how fast those CPUs are.
 | aesgcm | 1318 | 1274 (-3.30%) | 1205 (-8.56%) |
 | **GEOMEAN** | **1610** | **1281 (-20.45%)** | **1150 (-28.54%)** |
 
-[^volamos]: volamos 0.9.0 (0.10.0 for most release runs, which agrees to
-    within 2 us), `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`
-    for every column. The emulated time is
-    derived from the CPU's cycle count at 25 MHz; native library calls cost
-    no cycles. The geomean is computed from the rows by
-    `tools/results-table.py`, not taken from the binary.
+[^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`.
+    The emulated time is derived from the CPU's cycle count at 25 MHz;
+    native library calls cost no cycles.
 [^gcc]: `m68k-amigaos-gcc (AmigaDev v16.2-rc14) 16.2.0b 20260825082934`,
     the AmigaPorts 16.2-rc14 release, with its default newlib runtime. 6.5.0b
     is `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`, also with newlib. The
@@ -200,8 +187,11 @@ being allowed each CPU's instructions, not how fast those CPUs are.
     with scm040.lib, sc.lib and amiga.lib.
 [^dhry-lto]: Dhrystone splits its procedures between dhry_1.c and
     dhry_2.c so that the compiler cannot inline across them. LTO defeats
-    that, and the 54 ms does not measure a faster CPU or better code
+    that, and its LTO time does not measure a faster CPU or better code
     generation.
+[^cache]: volamos `--cache`: a direct-mapped instruction cache, so a miss
+    costs a memory fetch. It does not model the data cache or bus wait
+    states, nor yet the 68040, so the other sections run without it.
 [^softfloat]: The 68000 and 68020 builds are soft float, and newlib's float
     arithmetic is a stub into the mathieeesingbas ROM library, which volamos
     runs natively at zero cycles: 370,000 calls in wipeout-tris, and most of
