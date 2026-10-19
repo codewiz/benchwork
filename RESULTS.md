@@ -51,6 +51,7 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
 - rc11: LRA by default, small constant-size copies inlined.
 - rc14: Bebbo's code generation work (costs, dbra, inline block copies).
 - rc17: GCC 16.2.1, 64-bit integer operations split into 32-bit ones.
+- rc18-pre: newlib upstream merge (memmove), 68040 cost fix (sha512).
 
 All tests ran on an emulated 25MHz 68040, except where noted[^volamos].
 
@@ -59,30 +60,30 @@ Its vertical axis is logarithmic, so equal slopes are equal percentages.
 
 ![Time of each benchmark in the 16.2 releases from rc5 to rc17](results/gcc-releases-040.svg)
 
-| benchmark | rc5 | rc11 | rc14 | rc17 |
-|---|---:|---:|---:|---:|
-| dhrystone | 516 | 516 | **421 (-18.37%)** | **421 (-18.37%)** |
-| backdrop | 2083 | 2082 (-0.05%) | **1941 (-6.81%)** | **1941 (-6.81%)** |
-| lha-pack | **4108** | 4380 (+6.62%) | 4439 (+8.05%) | 4439 (+8.05%) |
-| lha-unpack | **1330** | 1371 (+3.05%) | 1382 (+3.93%) | 1382 (+3.93%) |
-| zlib-deflate | 3824 | 3822 (-0.05%) | **3698 (-3.28%)** | **3698 (-3.28%)** |
-| zlib-inflate | **495** | 497 (+0.51%) | 511 (+3.21%) | 511 (+3.21%) |
-| png-encode | 7913 | 7912 (-0.01%) | **7543 (-4.67%)** | **7543 (-4.67%)** |
-| png-decode | 1743 | 1733 (-0.53%) | **1587 (-8.94%)** | **1587 (-8.94%)** |
-| ftgrays | 860 | 862 (+0.20%) | **858 (-0.17%)** | **858 (-0.17%)** |
-| memcpy-small | 514 | 476 (-7.33%) | **193 (-62.38%)** | **193 (-62.38%)** |
-| memcpy-large | 505 | 505 | **326 (-35.38%)** | **326 (-35.38%)** |
-| memcpy-var-small | **559** | **559** | 565 (+0.95%) | 565 (+0.95%) |
-| memcpy-var-large | 636 | 636 | **635 (-0.23%)** | **635 (-0.23%)** |
-| memmove-small | 2484 | 2715 (+9.27%) | **2351 (-5.36%)** | **2351 (-5.36%)** |
-| memmove-large | 5053 | 5069 (+0.32%) | **4127 (-18.33%)** | **4127 (-18.33%)** |
-| wipeout-tris | 666 | 538 (-19.23%) | **519 (-22.20%)** | **519 (-22.20%)** |
-| nfs3-project | **1002** | 1066 (+6.39%) | 1064 (+6.19%) | 1064 (+6.19%) |
-| nfs3-clip | 962 | 963 (+0.03%) | **951 (-1.17%)** | **951 (-1.17%)** |
-| sha512 | **965** | 1226 (+26.99%) | 1220 (+26.35%) | 1045 (+8.21%) |
-| aesgcm | 1156 | 1242 (+7.38%) | 1205 (+4.20%) | **903 (-21.92%)** |
-| **GEOMEAN** | **1265** | **1282 (+1.36%)** | **1150 (-9.04%)** | **1125 (-11.03%)** |
-| **CODE SIZE** | 393436 | 380648 (-3.25%) | 357496 (-9.13%) | 348252 (-11.48%) |
+| benchmark | rc5 | rc11 | rc14 | rc17 | rc18-pre[^ml2060] |
+|---|---:|---:|---:|---:|---:|
+| dhrystone | 516 | 516 | 421 (-18.37%) | 421 (-18.37%) | **420 (-18.53%)** |
+| backdrop | 2083 | 2082 (-0.05%) | **1941 (-6.81%)** | **1941 (-6.81%)** | **1941 (-6.81%)** |
+| lha-pack | **4108** | 4380 (+6.62%) | 4439 (+8.05%) | 4439 (+8.05%) | 4439 (+8.05%) |
+| lha-unpack | **1330** | 1371 (+3.05%) | 1382 (+3.93%) | 1382 (+3.93%) | 1383 (+3.98%) |
+| zlib-deflate | 3824 | 3822 (-0.05%) | **3698 (-3.28%)** | **3698 (-3.28%)** | **3698 (-3.28%)** |
+| zlib-inflate | **495** | 497 (+0.51%) | 511 (+3.21%) | 511 (+3.21%) | 509 (+2.81%) |
+| png-encode | 7913 | 7912 (-0.01%) | **7543 (-4.67%)** | **7543 (-4.67%)** | **7543 (-4.67%)** |
+| png-decode | 1743 | 1733 (-0.53%) | 1587 (-8.94%) | 1587 (-8.94%) | **1586 (-8.97%)** |
+| ftgrays | 860 | 862 (+0.20%) | **858 (-0.17%)** | **858 (-0.17%)** | **858 (-0.16%)** |
+| memcpy-small | 514 | 476 (-7.33%) | **193 (-62.38%)** | **193 (-62.38%)** | **193 (-62.38%)** |
+| memcpy-large | 505 | 505 | **326 (-35.38%)** | **326 (-35.38%)** | **326 (-35.38%)** |
+| memcpy-var-small | **559** | **559** | 565 (+0.95%) | 565 (+0.95%) | 565 (+0.95%) |
+| memcpy-var-large | 636 | 636 | **635 (-0.23%)** | **635 (-0.23%)** | **635 (-0.23%)** |
+| memmove-small | 2484 | 2715 (+9.27%) | 2351 (-5.36%) | 2351 (-5.36%) | **1920 (-22.72%)** |
+| memmove-large | 5053 | 5069 (+0.32%) | 4127 (-18.33%) | 4127 (-18.33%) | **1481 (-70.69%)** |
+| wipeout-tris | 666 | 538 (-19.23%) | 519 (-22.20%) | 519 (-22.20%) | **518 (-22.22%)** |
+| nfs3-project | **1002** | 1066 (+6.39%) | 1064 (+6.19%) | 1064 (+6.19%) | 1064 (+6.19%) |
+| nfs3-clip | 962 | 963 (+0.03%) | **951 (-1.17%)** | **951 (-1.17%)** | 952 (-1.10%) |
+| sha512 | 965 | 1226 (+26.99%) | 1220 (+26.35%) | 1045 (+8.21%) | **960 (-0.57%)** |
+| aesgcm | 1156 | 1242 (+7.38%) | 1205 (+4.20%) | **903 (-21.92%)** | **903 (-21.89%)** |
+| **GEOMEAN** | **1265** | **1282 (+1.36%)** | **1150 (-9.04%)** | **1125 (-11.03%)** | **1053 (-16.70%)** |
+| **CODE SIZE** | 393436 | 380648 (-3.25%) | 357496 (-9.13%) | 348252 (-11.48%) | 348252 (-11.48%) |
 
 ## Comparing GCC optimization levels
 
@@ -165,6 +166,38 @@ being allowed each CPU's instructions, not how fast those CPUs are.
 | **GEOMEAN** | **1574** | **1244 (-20.96%)** | **1125 (-28.51%)** |
 | **CODE SIZE** | 371384 | 360348 (-2.97%) | 348252 (-6.23%) |
 
+### On a 68060
+
+There is no point in building with `-m68060` yet: until GCC gets 68060
+cost tables, it generates practically the same code as `-m68020-60`,
+which also runs on every other 68020+. Emulated 50 MHz 68060 with its
+caches modeled[^cache], `-m68020-60` multilibs[^ml2060]:
+
+| benchmark | -m68020-60 -m68881 | -m68060 -m68881 |
+|---|---:|---:|
+| dhrystone | **256** | **256** |
+| backdrop | **992** | **992** |
+| lha-pack | **2539** | **2539** |
+| lha-unpack | **757** | 759 (+0.30%) |
+| zlib-deflate | **2034** | **2034** |
+| zlib-inflate | **268** | **268** |
+| png-encode | **3906** | **3906** |
+| png-decode | **732** | **732** |
+| ftgrays | **458** | **458** |
+| memcpy-small | **97** | **97** |
+| memcpy-large | **155** | **155** |
+| memcpy-var-small | **329** | **329** |
+| memcpy-var-large | **288** | **288** |
+| memmove-small | **844** | **844** |
+| memmove-large | **604** | **604** |
+| wipeout-tris | **264** | **264** |
+| nfs3-project | **616** | **616** |
+| nfs3-clip | **532** | **532** |
+| sha512 | 480 | **477 (-0.64%)** |
+| aesgcm | **464** | **464** |
+| **GEOMEAN** | **542** | **542 (-0.02%)** |
+| **CODE SIZE** | 349348 | 348688 (-0.19%) |
+
 [^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`.
     The emulated time is derived from the CPU's cycle count at 25 MHz;
     native library calls cost no cycles.
@@ -189,11 +222,15 @@ being allowed each CPU's instructions, not how fast those CPUs are.
 [^cache]: volamos `--cache`: a direct-mapped instruction cache, so a miss
     costs a memory fetch. It does not model the data cache or bus wait
     states, nor yet the 68040, so the other sections run without it.
-[^softfloat]: The 68000 and 68020 builds are soft float, and newlib's float
-    arithmetic is a stub into the mathieeesingbas ROM library, which volamos
-    runs natively at zero cycles: 370,000 calls in wipeout-tris, and most of
-    the work of the NFS3 kernels. Those two columns measure everything in
-    these benchmarks except their float math.
+[^ml2060]: An unreleased build of the `integration-68020-60` branch (with
+    AmigaPorts/gcc#99 and AmigaPorts/gcc#102), proposed for rc18 in
+    AmigaPorts/m68k-amigaos-gcc#177; to be redone with rc18. The 68060
+    table ran with `volamos --clock-mhz 50 --cpu 68060 --fpu --cache`.
+[^softfloat]: The 68000 and 68020 builds are soft float, and newlib's
+    float arithmetic is a stub into the mathieeesingbas ROM library, which
+    volamos runs natively at zero cycles: 370,000 calls in wipeout-tris,
+    and most of the work of the NFS3 kernels. Those two columns measure
+    everything in these benchmarks except their float math.
 [^cxx]: The NFS3 kernels are C++, which of these compilers only gcc builds.
     The geomean of this table leaves them out, so that it covers the same
     benchmarks for every compiler; the other tables include them.
