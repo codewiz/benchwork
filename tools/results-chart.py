@@ -87,7 +87,7 @@ def start(title, height, ncolors):
     return out
 
 
-def scale(ratios, least=2.0):
+def scale(ratios, least=1.0):
     """The axis end, the next half above the longest bar, and the x mapping."""
     xmax = max(least, (int(max(ratios) * 2) + 1) / 2)
     plot_w = WIDTH - LEFT - RIGHT
@@ -137,7 +137,7 @@ def sizes(opts):
         columns.append((label, int(size)))
     base = columns[0][1]
     ratios = [size / base for _, size in columns]
-    xmax, x = scale(ratios, least=1.0)
+    xmax, x = scale(ratios)
     pitch = BAR + PAD
     top = TOP
     plot_h = len(columns) * pitch
@@ -239,13 +239,15 @@ def main(args):
     ap.add_argument("--geomean-skip", default="", metavar="NAME,...",
                     help="benchmarks left out of the geomean, which some "
                     "compilers cannot build")
+    ap.add_argument("--hide-base", action="store_true",
+                    help="do not draw the first file's bars, which are all 1.0")
     ap.add_argument("--lines", action="store_true",
                     help="one line per benchmark across the files in order, "
                     "in ms, for a series of releases")
     ap.add_argument("columns", nargs="+", metavar="LABEL=FILE")
     opts = ap.parse_args(args)
-    if len(opts.columns) > len(COLORS) and not opts.lines:
-        sys.exit(f"at most {len(COLORS)} files")
+    if len(opts.columns) - opts.hide_base > len(COLORS) and not opts.lines:
+        sys.exit(f"at most {len(COLORS)} files drawn")
     if opts.sizes:
         write(opts.output, sizes(opts))
         return
@@ -288,16 +290,20 @@ def main(args):
 
     ratios = [r for _, rs in rows for r in rs if isinstance(r, float)]
     xmax, x = scale(ratios)
-    cluster_h = len(columns) * BAR + (len(columns) - 1) * GAP
+    # With --hide-base the first file is only the reference: its bars would
+    # all sit at 1.0, which the reference line already shows.
+    first = 1 if opts.hide_base else 0
+    shown = len(columns) - first
+    cluster_h = shown * BAR + (shown - 1) * GAP
     pitch = cluster_h + PAD
     plot_h = len(rows) * pitch
     height = TOP + plot_h + AXIS
-    out = start(opts.title, height, len(columns))
+    out = start(opts.title, height, shown)
     better(out, "&#9664; Time")
 
     # Legend.
     lx = LEFT
-    for i, (label, _, _, _) in enumerate(columns):
+    for i, (label, _, _, _) in enumerate(columns[first:]):
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
         out.append(f'<text class="t big" x="{lx + 20}" y="21">{esc(label)}</text>')
         # A rough width of the label at 16px: dashes, spaces and thin
@@ -313,13 +319,15 @@ def main(args):
         out.append(f'<text class="{cls}" x="{LEFT - 12}" y="{y0 + cluster_h / 2 + 5:.1f}" '
                    f'text-anchor="end">{esc(name)}</text>')
         for i, ratio in enumerate(rs):
-            y = y0 + i * (BAR + GAP)
+            if i < first:
+                continue
+            y = y0 + (i - first) * (BAR + GAP)
             if not isinstance(ratio, float):
                 text = {"wrong": "wrong output"}.get(ratio, ratio)
                 out.append(f'<text class="t muted" x="{LEFT + 6}" y="{y + BAR - 2}">'
                            f'{text}</text>')
                 continue
-            bar(out, i, y, x(ratio) - LEFT)
+            bar(out, i - first, y, x(ratio) - LEFT)
             # The time and the change, as results-table.py writes them.
             if i > 0 and abs(ratio - 1) >= LABEL_MIN:
                 text = f"{ratio * base:.0f} ms ({(ratio - 1) * 100:+.2f}%)"
