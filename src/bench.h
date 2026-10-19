@@ -52,6 +52,7 @@ extern const struct bench bench_nfs3_clip;
 #ifdef BENCH_HAVE_AMISSL
 extern const struct bench bench_sha512;
 extern const struct bench bench_aesgcm;
+extern const struct bench bench_chacha20poly1305;
 #endif
 
 // Fowler-Noll-Vo hash of a buffer, folded into a running checksum. Used by

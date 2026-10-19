@@ -1,7 +1,8 @@
 /* Shim for the Benchwork build of the AmiSSL code: OpenSSL's openssl/crypto.h,
-   of which only gcm128.c needs anything: its context allocator and the
-   constant-time tag compare.  The compare follows OpenSSL's portable C
-   CRYPTO_memcmp() (4.0.3, Apache License 2.0, see ../../LICENSE). */
+   reduced to what gcm128.c and poly1305.c use: gcm128.c's context allocator
+   and constant-time tag compare, and poly1305.c's OPENSSL_cleanse().  The
+   compare follows OpenSSL's portable C CRYPTO_memcmp() (4.0.3, Apache
+   License 2.0, see ../../LICENSE). */
 #ifndef BENCHWORK_OPENSSL_CRYPTO_H
 #define BENCHWORK_OPENSSL_CRYPTO_H
 
@@ -32,6 +33,16 @@ static inline int CRYPTO_memcmp(const void *in_a, const void *in_b, size_t len)
         x |= a[i] ^ b[i];
 
     return x;
+}
+
+/* Clears a context the way the caller asked; the volatile stores keep the
+   compiler from dropping them as dead. */
+static inline void OPENSSL_cleanse(void *ptr, size_t len)
+{
+    volatile unsigned char *p = ptr;
+
+    while (len--)
+        *p++ = 0;
 }
 
 #endif
