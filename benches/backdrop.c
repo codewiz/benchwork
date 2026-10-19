@@ -1,30 +1,27 @@
 // SPDX-License-Identifier: 0BSD
 //
-// The p96cts backdrop scene: a dithered landscape with an off-center sun over
-// two ridges, rippled water and a boat, synthesized per pixel. The scene is
-// taken from p96cts's backdrop.c with the RastPort blit removed; the pixel
-// loop is verbatim.
+// The p96cts backdrop scene: a landscape with an off-center sun over two
+// ridges, rippled water and a boat, synthesized per pixel, then
+// Floyd-Steinberg dithered to a truecolor RGB444 frame and an 8-bit 3-3-2 pen
+// frame. The scene is taken from p96cts's backdrop.c with the RastPort blit
+// removed; p96cts dithers with a 4x4 Bayer matrix instead.
 //
 // It is a good compiler workload because it is what a software renderer
-// looks like: a dozen 32-bit multiplies and divides per pixel, a table
-// lookup for the dither, a handful of data-dependent branches, and byte
-// stores. Nothing is vectorizable and nothing hoists, so what is left is
-// how well the compiler schedules plain integer code and keeps the loop's
-// invariants in registers.
+// looks like: a dozen 32-bit multiplies and divides per pixel, a handful of
+// data-dependent branches, and byte stores, then error diffusion that carries
+// signed values from pixel to pixel and row to row. Nothing is vectorizable
+// and nothing hoists, so what is left is how well the compiler schedules
+// plain integer code and keeps the loops' invariants in registers.
 
 #include <proto/exec.h>
 #include <exec/memory.h>
+#include <string.h>
 
 #include "bench.h"
 
-// The benchmark renders a quarter of a 640x480 screen: at full size the
-// dozen divides per pixel put one frame near four seconds on a 25 MHz
-// 68040. The PNG benchmark takes the full-size scene, once, at setup.
+// A PAL low-res screen. The PNG benchmark encodes the truecolor frame.
 #define WIDTH 320
-#define HEIGHT 240
-
-#define PNG_WIDTH 640
-#define PNG_HEIGHT 480
+#define HEIGHT 256
 
 // Integer hash of one value, for the terrain outline. Knuth's multiplicative
 // constant; the shift picks bits that vary quickly.
@@ -32,17 +29,6 @@ static int hash8(int i) {
     unsigned int u = (unsigned int)i * 2654435761U;
     return (int)((u >> 13) & 0xFF);
 }
-
-// Ordered (Bayer) dither, the classic 4x4 recursive matrix. Preferred over
-// error diffusion here because it is a pure function of the coordinates: the
-// scene stays identical whatever order a driver happens to render in, and it
-// costs one table lookup per pixel.
-static const UBYTE BAYER[4][4] = {
-    { 0,  8,  2, 10},
-    {12,  4, 14,  6},
-    { 3, 11,  1,  9},
-    {15,  7, 13,  5},
-};
 
 // A ridge line: hashed control points every `step` pixels, linearly
 // interpolated. Irregular and non-repeating, unlike a sine.
@@ -57,17 +43,8 @@ static UBYTE clamp8(int v) {
     return (UBYTE)(v < 0 ? 0 : (v > 255 ? 255 : v));
 }
 
-// Quantize to the 3-3-2 palette cube. Pens 0-5 are named colors in p96cts,
-// so a scene color landing on one is pushed up into the blue half of the
-// cube instead.
-static UBYTE pen_of(int r, int g, int b) {
-    int pen = (clamp8(r) >> 5) | ((clamp8(g) >> 5) << 3) | ((clamp8(b) >> 6) << 6);
-    return (UBYTE)(pen < 6 ? pen | 0x40 : pen);
-}
-
-// Synthesize the scene into px, w*h*3 bytes of R8G8B8 when truecolor, else
-// w*h pens.
-static void backdrop(UBYTE *px, SHORT w, SHORT h, bool truecolor) {
+// Synthesize the scene into px, w*h*3 bytes of R8G8B8.
+static void backdrop(UBYTE *px, SHORT w, SHORT h) {
     int horizon = h * 3 / 5;
     int sun_x = w * 7 / 10, sun_y = h * 7 / 25, sun_r = h / 7;
     int boat_x = w / 4, boat_y = horizon + h / 5;
@@ -76,12 +53,9 @@ static void backdrop(UBYTE *px, SHORT w, SHORT h, bool truecolor) {
 
     for (y = 0; y < h; y++) {
         for (x = 0; x < w; x++) {
-            // Scaled to a bit under one palette step, so the dither shapes
-            // the boundary between two adjacent shades rather than adding
-            // visible speckle.
-            int d = (BAYER[y & 3][x & 3] - 8) * 3;
             int dx = x - sun_x, dy = y - sun_y;
             int r, g, b;
+            ULONG p;
 
             if (y < horizon) {
                 // Sky: deep blue overhead warming to orange at the horizon.
@@ -142,56 +116,116 @@ static void backdrop(UBYTE *px, SHORT w, SHORT h, bool truecolor) {
                 b = 210;
             }
 
-            if (truecolor) {
-                ULONG p = ((ULONG)y * w + x) * 3;
-                px[p] = clamp8(r + d);
-                px[p + 1] = clamp8(g + d);
-                px[p + 2] = clamp8(b + d);
-            } else {
-                px[y * w + x] = pen_of(r + d, g + d, b + d);
-            }
+            p = ((ULONG)y * w + x) * 3;
+            px[p] = clamp8(r);
+            px[p + 1] = clamp8(g);
+            px[p + 2] = clamp8(b);
         }
     }
 }
 
-static UBYTE *pixels;
+// Floyd-Steinberg error diffusion of the R8G8B8 scene to levels[c] levels
+// per channel. With rgb set, the quantized colors go to out as R8G8B8 scaled
+// back to 0-255; otherwise the level indices go to out as 3-3-2 pens, the
+// way p96cts packs them: pens 0-5 are named colors there, so a color landing
+// on one is pushed up into the blue half of the cube instead. `err` holds two
+// rows of carried error, (w + 2) * 3 ints each, as ints so the diffusion
+// does not clamp.
+static void dither(const UBYTE *scene, UBYTE *out, SHORT w, SHORT h,
+                   const int levels[3], bool rgb, int *err) {
+    int *cur = err + 3, *next = err + (w + 2) * 3 + 3;
+    SHORT x, y;
+    int c;
 
-static bool backdrop_setup(void) {
-    pixels = bench_alloc(WIDTH * HEIGHT * 3, "backdrop frame");
-    return pixels != NULL;
+    memset(err, 0, (ULONG)(w + 2) * 3 * 2 * sizeof(int));
+    for (y = 0; y < h; y++) {
+        for (x = 0; x < w; x++) {
+            const UBYTE *s = scene + ((ULONG)y * w + x) * 3;
+            int pen = 0;
+
+            for (c = 0; c < 3; c++) {
+                int top = levels[c] - 1;
+                int v = s[c] + cur[x * 3 + c], i, q, e;
+
+                v = v < 0 ? 0 : (v > 255 ? 255 : v);
+                i = (v * top + 127) / 255;
+                q = i * 255 / top;
+                e = v - q;
+                if (rgb)
+                    out[((ULONG)y * w + x) * 3 + c] = (UBYTE)q;
+                else
+                    pen |= i << (c * 3);
+                cur[(x + 1) * 3 + c] += e * 7 / 16;
+                next[(x - 1) * 3 + c] += e * 3 / 16;
+                next[x * 3 + c] += e * 5 / 16;
+                next[(x + 1) * 3 + c] += e / 16;
+            }
+            if (!rgb)
+                out[(ULONG)y * w + x] = (UBYTE)(pen < 6 ? pen | 0x40 : pen);
+        }
+        // The next row becomes the current one, and the old one is cleared
+        // to collect the row after.
+        {
+            int *t = cur;
+            cur = next;
+            next = t;
+            memset(next - 3, 0, (ULONG)(w + 2) * 3 * sizeof(int));
+        }
+    }
 }
 
-// One truecolor frame and one 8-bit frame, so both the byte-triple store
-// path and the pen quantization are measured.
+static const int RGB444[3] = {16, 16, 16};
+static const int PEN332[3] = {8, 8, 4};
+
+static UBYTE *scene, *frame;
+static int *err;
+
+static bool backdrop_setup(void) {
+    scene = bench_alloc(WIDTH * HEIGHT * 3, "backdrop scene");
+    frame = bench_alloc(WIDTH * HEIGHT * 3, "backdrop frame");
+    err = bench_alloc((WIDTH + 2) * 3 * 2 * sizeof(int), "dither rows");
+    return scene && frame && err;
+}
+
+// One truecolor frame and one 8-bit frame from the same scene, so both the
+// byte-triple store path and the pen packing are measured.
 static bool backdrop_run(ULONG *check) {
-    backdrop(pixels, WIDTH, HEIGHT, true);
-    *check = checksum(0, pixels, WIDTH * HEIGHT * 3);
-    backdrop(pixels, WIDTH, HEIGHT, false);
-    *check = checksum(*check, pixels, WIDTH * HEIGHT);
+    backdrop(scene, WIDTH, HEIGHT);
+    dither(scene, frame, WIDTH, HEIGHT, RGB444, true, err);
+    *check = checksum(0, frame, WIDTH * HEIGHT * 3);
+    dither(scene, frame, WIDTH, HEIGHT, PEN332, false, err);
+    *check = checksum(*check, frame, WIDTH * HEIGHT);
     return true;
 }
 
 static void backdrop_teardown(void) {
-    bench_free(pixels);
-    pixels = NULL;
+    bench_free(scene);
+    bench_free(frame);
+    bench_free(err);
+    scene = frame = NULL;
+    err = NULL;
 }
 
-// For the PNG benchmark, which needs a picture to encode: the 640x480 R8G8B8
-// scene in a buffer the caller frees with bench_free(), or NULL.
+// For the PNG benchmark, which needs a picture to encode: the truecolor
+// frame, in a buffer the caller frees with bench_free(), or NULL.
 UBYTE *backdrop_rgb(SHORT *w, SHORT *h) {
-    UBYTE *px = bench_alloc(PNG_WIDTH * PNG_HEIGHT * 3, "backdrop scene");
+    UBYTE *px = NULL;
 
-    if (!px)
-        return NULL;
-    backdrop(px, PNG_WIDTH, PNG_HEIGHT, true);
-    *w = PNG_WIDTH;
-    *h = PNG_HEIGHT;
+    if (backdrop_setup()) {
+        backdrop(scene, WIDTH, HEIGHT);
+        dither(scene, frame, WIDTH, HEIGHT, RGB444, true, err);
+        px = frame;
+        frame = NULL;
+        *w = WIDTH;
+        *h = HEIGHT;
+    }
+    backdrop_teardown();
     return px;
 }
 
 const struct bench bench_backdrop = {
     "backdrop",
-    "p96cts landscape scene, 320x240, truecolor and 8-bit",
+    "p96cts landscape scene, 320x256, truecolor and 8-bit",
     backdrop_setup,
     backdrop_run,
     backdrop_teardown,

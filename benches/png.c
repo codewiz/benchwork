@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: 0BSD
 //
-// libpng encoding and decoding of the 640x480 backdrop scene, entirely in
+// libpng encoding and decoding of the 320x256 backdrop scene, entirely in
 // memory. This is the pngbench that the m68k-amigaos-gcc issue tracker
 // measures the toolchain's libpng with, made self-contained: the picture is
 // synthesized rather than loaded, and libpng and zlib are built here rather
@@ -55,8 +55,10 @@ static void mem_flush(png_structp png) {
     (void)png;
 }
 
-// Encode the scene into `encoded` with libpng's defaults: 8-bit RGB,
-// adaptive filtering, zlib level 6. Returns false on a libpng error.
+// Encode the scene into `encoded`: 8-bit RGB, libpng's adaptive filtering,
+// zlib level 4, which compresses the dithered scene about 9.5:1, like a real
+// image, and keeps the encode from being a second zlib-deflate. Returns false
+// on a libpng error.
 // libpng allocates its row buffers and zlib's state through these, so
 // --fastmem covers them too. Like libpng's own default, they do not clear.
 static png_voidp png_bench_malloc(png_structp png, png_alloc_size_t size) {
@@ -88,6 +90,7 @@ static bool encode(void) {
     png_set_IHDR(png, info, (png_uint_32)width, (png_uint_32)height, 8,
                  PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+    png_set_compression_level(png, 4);
     for (y = 0; y < height; y++)
         rows[y] = pixels + (ULONG)y * width * 3;
     png_write_info(png, info);
@@ -172,7 +175,7 @@ static bool decode_run(ULONG *check) {
 
 const struct bench bench_png_encode = {
     "png-encode",
-    "libpng encode of the 640x480 scene",
+    "libpng encode of the 320x256 scene",
     png_setup,
     encode_run,
     png_teardown,
