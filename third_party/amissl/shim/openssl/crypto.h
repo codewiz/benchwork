@@ -1,6 +1,6 @@
 /* Shim for the Benchwork build of the AmiSSL code: OpenSSL's openssl/crypto.h,
-   reduced to what gcm128.c and poly1305.c use: gcm128.c's context allocator
-   and constant-time tag compare, and poly1305.c's OPENSSL_cleanse().  The
+   reduced to what gcm128.c, poly1305.c and curve25519.c use: gcm128.c's
+   context allocator, the constant-time compare and OPENSSL_cleanse().  The
    compare follows OpenSSL's portable C CRYPTO_memcmp() (4.0.3, Apache
    License 2.0, see ../../LICENSE). */
 #ifndef BENCHWORK_OPENSSL_CRYPTO_H

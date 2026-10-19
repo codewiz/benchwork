@@ -12,8 +12,8 @@ Benchwork is a set of CPU benchmarks for comparing m68k compilers, built
 from code that Amiga programs actually run: LHa, zlib, libpng, the FreeType
 rasterizer, Dhrystone, a dithered landscape renderer, a triangle setup loop
 from a Wipeout port, the vertex projection and polygon clipper of an NFS3
-port, AmiSSL's SHA-512, AES-GCM and ChaCha20-Poly1305, and memcpy/memmove
-patterns.
+port, AmiSSL's SHA-512, AES-GCM, ChaCha20-Poly1305 and X25519, and
+memcpy/memmove patterns.
 Everything works on memory buffers, so the timed region contains only
 compiler-generated code: no disk, display or OS calls.
 

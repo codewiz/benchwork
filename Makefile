@@ -80,17 +80,19 @@ FREETYPE_SRCS = third_party/freetype/ftgrays.c
 
 WIPEOUT_SRCS = third_party/wipeout/kernel.c
 
-# SHA-512, GHASH and Poly1305 need long long, so compiler.mk only picks these
-# up for compilers that have it.
+# SHA-512, GHASH, Poly1305 and the X25519 field arithmetic need long long, so
+# compiler.mk only picks these up for compilers that have it.
 AMISSL_LONGLONG_SRCS = \
 	benches/sha512.c \
 	benches/aesgcm.c \
 	benches/chacha20poly1305.c \
+	benches/x25519.c \
 	third_party/amissl/sha512.c \
 	third_party/amissl/aes_core.c \
 	third_party/amissl/gcm128.c \
 	third_party/amissl/chacha_enc.c \
-	third_party/amissl/poly1305.c
+	third_party/amissl/poly1305.c \
+	third_party/amissl/curve25519.c
 
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
 	$(FREETYPE_SRCS) $(WIPEOUT_SRCS) $(NFS3_SRCS) $(AMISSL_SRCS)
@@ -125,7 +127,7 @@ $(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
 $(BUILD)/third_party/amissl/%.o: CFLAGS += $(DEFINE_FLAG)B_ENDIAN \
 	$(INCLUDE_FLAG)third_party/amissl/shim
 $(BUILD)/benches/sha512.o $(BUILD)/benches/aesgcm.o \
-$(BUILD)/benches/chacha20poly1305.o: \
+$(BUILD)/benches/chacha20poly1305.o $(BUILD)/benches/x25519.o: \
 	CFLAGS += $(INCLUDE_FLAG)third_party/amissl/shim
 
 $(BUILD)/%.o: %.c

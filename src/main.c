@@ -89,6 +89,7 @@ static const struct bench *const BENCHES[] = {
     &bench_sha512,
     &bench_aesgcm,
     &bench_chacha20poly1305,
+    &bench_x25519,
 #endif
 };
 

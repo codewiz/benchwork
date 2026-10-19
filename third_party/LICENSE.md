@@ -12,8 +12,8 @@ directory:
 * The Wipeout kernel in `wipeout/` has no license file yet: its upstream
   has not stated one
 * The NFS3 kernels in `nfs3/` (0BSD)
-* OpenSSL's SHA-512, AES, GCM, ChaCha20 and Poly1305 code as AmiSSL ships
-  it, in `amissl/` (Apache-2.0)
+* OpenSSL's SHA-512, AES, GCM, ChaCha20, Poly1305 and Curve25519 code as
+  AmiSSL ships it, in `amissl/` (Apache-2.0)
 * The glyph outlines in `../src/glyphs.c` are derived from DejaVu Sans
   (Bitstream Vera license).
 

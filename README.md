@@ -31,6 +31,7 @@ Numbers for the release binaries on a reference target are in [RESULTS.md](RESUL
 | sha512 | AmiSSL's OpenSSL 4.0.3 SHA-512 and SHA-384 (gcc and vbcc) | 64-bit rotates, shifts and adds split into 32-bit halves |
 | aesgcm | AmiSSL's OpenSSL 4.0.3 AES-128-GCM on TLS 1.3 records (gcc and vbcc) | AES table lookups, then GHASH's 64-bit shifts and XORs (about 60% of the time) |
 | chacha20poly1305 | AmiSSL's OpenSSL 4.0.3 ChaCha20-Poly1305 on TLS 1.3 records (gcc and vbcc) | ChaCha20's 32-bit adds, XORs and rotates, then Poly1305's 32x32->64 multiplies (about 47% of the time) |
+| x25519 | AmiSSL's OpenSSL 4.0.3 X25519, both ends of a TLS key exchange (gcc and vbcc) | signed 32x32->64 multiplies and carries over ten 26-bit limbs, constant-time table lookups |
 
 [^libc]: Out-of-line `memcpy`, `memset` and `memmove` are each compiler's
     own C library's, so these rows compare the compiler together with its
