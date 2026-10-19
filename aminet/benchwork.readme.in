@@ -4,7 +4,7 @@ Uploader:     Bernie Innocenti <bernie@codewiz.org>
 Type:         util/moni
 Version:      @VERSION@
 Architecture: m68k-amigaos >= 2.0.4
-Requires:     5 MB of free RAM, 64 KiB stack, 68040 and FPU for benchwork-040
+Requires:     5 MB of free RAM, 64 KiB stack, FPU for benchwork-020fp/040/060
 Distribution: Aminet
 Kurz:         CPU-Benchmarks fuer Amiga-Compiler
 
@@ -24,11 +24,13 @@ Source of this release: https://github.com/codewiz/benchwork/tree/v@VERSION@
 Binaries
 --------
 
-  benchwork-000   68000, soft float
-  benchwork-020   68020, soft float
-  benchwork-040   68040 with FPU
+  benchwork-000      68000, soft float
+  benchwork-020      68020, soft float
+  benchwork-020fp    68020 to 68060 with FPU
+  benchwork-040      68040 with FPU
+  benchwork-060      68060 with FPU
 
-All three are built with m68k-amigaos-gcc 16.2 at -O2.
+All are built with m68k-amigaos-gcc 16.2 at -O2.
 
 
 License

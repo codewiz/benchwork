@@ -147,10 +147,11 @@ FONT ?= /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf
 glyphs: tools/dumpglyphs
 	tools/dumpglyphs $(FONT) > src/glyphs.c
 
-# The release binaries: one per CPU generation, named after it. The 68040 one
-# uses the FPU; the others are soft float, as a program shipped for those
-# machines would be.
-RELEASE_CPUS = 000 020 040
+# The release binaries: 000 and 020 soft float, as a program shipped for
+# those machines would be; 020fp for any 68020 or later with an FPU, the
+# build most FPU programs ship as; 040 and 060 tuned for those machines, to
+# measure on real hardware what that buys.
+RELEASE_CPUS = 000 020 020fp 040 060
 
 release-binaries: $(RELEASE_CPUS:%=release-%)
 
@@ -158,8 +159,8 @@ $(RELEASE_CPUS:%=release-%): release-%:
 	$(MAKE) BUILD=$(BUILD)-$* TARGET=$(TARGET)-$* CPUFLAGS="$(CPUFLAGS_$*)" \
 		LIBS="$(or $(LIBS_$*),$(LIBS))"
 
-# Shortcuts for the vbcc build: benchwork-vbcc, and its three release
-# binaries. Other variables (CPUFLAGS, OPT) pass through.
+# Shortcuts for the vbcc build: benchwork-vbcc, and its release binaries.
+# Other variables (CPUFLAGS, OPT) pass through.
 vbcc:
 	$(MAKE) CC="vc +aos68k"
 
