@@ -148,10 +148,10 @@ glyphs: tools/dumpglyphs
 	tools/dumpglyphs $(FONT) > src/glyphs.c
 
 # The release binaries: 000 and 020 soft float, as a program shipped for
-# those machines would be; 020fp for any 68020 or later with an FPU, the
+# those machines would be; 020-060fp for any 68020 or later with an FPU, the
 # build most FPU programs ship as; 040 and 060 tuned for those machines, to
 # measure on real hardware what that buys.
-RELEASE_CPUS = 000 020 020fp 040 060
+RELEASE_CPUS = 000 020 020-060fp 040 060
 
 release-binaries: $(RELEASE_CPUS:%=release-%)
 

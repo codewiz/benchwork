@@ -1,6 +1,6 @@
 name: Binaries
 
-# Builds benchwork-000, -020, -020fp, -040 and -060 with a pinned
+# Builds benchwork-000, -020, -020-060fp, -040 and -060 with a pinned
 # m68k-amigaos-gcc release, packs them for Aminet as benchwork.lha and
 # benchwork.readme, and uploads those two as one artifact. The compiler
 # version is part of what a benchmark binary measures, so it is fixed here
