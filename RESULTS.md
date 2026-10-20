@@ -19,31 +19,31 @@ Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is faster.
 
 Same data in tabular form (time in milliseconds):
 
-| benchmark | 6.5.0b[^gcc6] | 16.2-rc17[^rc17] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
+| benchmark | 6.5.0b[^gcc6] | 16.2-rc18[^rc18] | vbcc 0.9i[^vbcc] | SAS/C 6.58[^sasc] |
 |---|---:|---:|---:|---:|
-| dhrystone | **420** | 421 (+0.26%) | 599 (+42.49%) | 581 (+38.21%) |
+| dhrystone | **420** | **420 (+0.06%)** | 599 (+42.49%) | 581 (+38.21%) |
 | backdrop | 3976 | **3137 (-21.12%)** | 5849 (+47.09%) | 5611 (+41.10%) |
 | lha-pack | **4377** | 4439 (+1.42%) | 4870 (+11.26%) | 4951 (+13.12%) |
-| lha-unpack | 1385 | **1382 (-0.18%)** | 1457 (+5.21%) | 1512 (+9.16%) |
+| lha-unpack | 1385 | **1383 (-0.13%)** | 1457 (+5.21%) | 1512 (+9.16%) |
 | zlib-deflate | **3172** | 3698 (+16.59%) | 4274 (+34.75%) | 4096 (+29.13%) |
-| zlib-inflate | **447** | 511 (+14.21%) | 551 (+23.32%) | 492 (+10.05%) |
+| zlib-inflate | **447** | 509 (+13.77%) | 551 (+23.32%) | 492 (+10.05%) |
 | png-encode | **1971** | 2247 (+14.02%) | 3010 (+52.70%) | 2771 (+40.61%) |
-| png-decode | **467** | 500 (+7.12%) | 706 (+51.26%) | 592 (+26.72%) |
+| png-decode | **467** | 501 (+7.21%) | 706 (+51.26%) | 592 (+26.72%) |
 | ftgrays | **845** | 858 (+1.56%) | failed | 942 (+11.48%) |
 | memcpy-small | **186** | 193 (+4.14%) | wrong output | 348 (+87.63%) |
 | memcpy-large | 328 | **326 (-0.44%)** | 1267 (+286.43%) | 501 (+52.81%) |
 | memcpy-var-small | 588 | 565 (-3.92%) | 654 (+11.34%) | **423 (-27.94%)** |
 | memcpy-var-large | 638 | **635 (-0.52%)** | 1616 (+153.27%) | 644 (+0.92%) |
-| memmove-small | **2247** | 2351 (+4.61%) | 4320 (+92.22%) | 3110 (+38.40%) |
-| memmove-large | **4011** | 4127 (+2.89%) | 12458 (+210.62%) | 8911 (+122.20%) |
-| wipeout-tris | **507** | 519 (+2.38%) | 943 (+86.08%) | 672 (+32.73%) |
+| memmove-small | 2247 | **1920 (-14.58%)** | 4320 (+92.22%) | 3110 (+38.40%) |
+| memmove-large | 4011 | **1481 (-63.08%)** | 12458 (+210.62%) | 8911 (+122.20%) |
+| wipeout-tris | **507** | 518 (+2.34%) | 943 (+86.08%) | 672 (+32.73%) |
 | nfs3-project[^cxx] | 1168 | **1064 (-8.90%)** | not built | not built |
-| nfs3-clip[^cxx] | 1005 | **951 (-5.40%)** | not built | not built |
-| sha512[^longlong] | **959** | 1045 (+8.93%) | 3824 (+298.80%) | not built |
-| aesgcm[^longlong] | 1121 | **903 (-19.42%)** | 3290 (+193.62%) | not built |
+| nfs3-clip[^cxx] | 1005 | **952 (-5.33%)** | not built | not built |
+| sha512[^longlong] | **959** | 960 (+0.09%) | 3824 (+298.80%) | not built |
+| aesgcm[^longlong] | 1121 | **903 (-19.39%)** | 3290 (+193.62%) | not built |
 | chacha20poly1305[^longlong] | **428** | 450 (+5.07%) | 1092 (+155.09%) | not built |
-| x25519[^longlong] | **539** | 547 (+1.57%) | failed | not built |
-| **GEOMEAN** | **1010** | **1033 (+2.32%)** | | **1301 (+28.87%)** |
+| x25519[^longlong] | **539** | 547 (+1.53%) | failed | not built |
+| **GEOMEAN** | **1010** | **956 (-5.26%)** | | **1301 (+28.87%)** |
 
 ## Comparing GCC 16.2 releases
 
@@ -53,7 +53,7 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
 - rc11: LRA by default, small constant-size copies inlined.
 - rc14: Bebbo's code generation work (costs, dbra, inline block copies).
 - rc17: GCC 16.2.1, 64-bit integer operations split into 32-bit ones.
-- rc18-pre: newlib upstream merge (memmove), 68040 cost fix (sha512),
+- rc18: newlib upstream merge (memmove), 68040 cost fix (sha512),
   `-m68020-60` multilibs.
 
 All tests ran on an emulated 25MHz 68040, except where noted[^volamos].
@@ -61,9 +61,9 @@ All tests ran on an emulated 25MHz 68040, except where noted[^volamos].
 The chart skips the releases that time within 1% of the one before them.
 Its vertical axis is logarithmic, so equal slopes are equal percentages.
 
-![Time of each benchmark in the 16.2 releases from rc5 to rc18-pre](results/gcc-releases-040.svg)
+![Time of each benchmark in the 16.2 releases from rc5 to rc18](results/gcc-releases-040.svg)
 
-| benchmark | rc5 | rc11 | rc14 | rc17 | rc18-pre[^rc18pre] |
+| benchmark | rc5 | rc11 | rc14 | rc17 | rc18 |
 |---|---:|---:|---:|---:|---:|
 | dhrystone | 516 | 516 | 421 (-18.37%) | 421 (-18.37%) | **420 (-18.53%)** |
 | backdrop | 3768 | 3798 (+0.80%) | **3137 (-16.76%)** | **3137 (-16.76%)** | **3137 (-16.76%)** |
@@ -83,16 +83,16 @@ Its vertical axis is logarithmic, so equal slopes are equal percentages.
 | wipeout-tris | 666 | 538 (-19.23%) | 519 (-22.20%) | 519 (-22.20%) | **518 (-22.22%)** |
 | nfs3-project | **1002** | 1066 (+6.39%) | 1064 (+6.19%) | 1064 (+6.19%) | 1064 (+6.19%) |
 | nfs3-clip | 962 | 963 (+0.03%) | **951 (-1.17%)** | **951 (-1.17%)** | 952 (-1.10%) |
-| sha512 | 957 | 1234 (+29.03%) | 1220 (+27.49%) | 1045 (+9.19%) | **954 (-0.32%)** |
+| sha512 | **957** | 1234 (+29.03%) | 1220 (+27.49%) | 1045 (+9.19%) | 960 (+0.32%) |
 | aesgcm | 1156 | 1242 (+7.38%) | 1205 (+4.20%) | **903 (-21.92%)** | **903 (-21.89%)** |
 | chacha20poly1305 | **433** | 446 (+3.00%) | 450 (+3.92%) | 450 (+3.92%) | 450 (+3.92%) |
 | x25519 | **494** | 515 (+4.25%) | 546 (+10.64%) | 547 (+10.81%) | 547 (+10.76%) |
-| **GEOMEAN** | **1063** | **1080 (+1.67%)** | **978 (-7.95%)** | **959 (-9.78%)** | **903 (-15.04%)** |
-| **CODE SIZE** | 446788 | 434460 (-2.76%) | 411300 (-7.94%) | 401816 (-10.07%) | 403356 (-9.72%) |
+| **GEOMEAN** | **1063** | **1080 (+1.67%)** | **978 (-7.95%)** | **959 (-9.78%)** | **903 (-15.02%)** |
+| **CODE SIZE** | 446788 | 434460 (-2.76%) | 411300 (-7.94%) | 401816 (-10.07%) | 401948 (-10.04%) |
 
 ## Comparing GCC optimization levels
 
-benchwork built with m68k-amigaos-gcc 16.2-rc17[^rc17] and
+benchwork built with m68k-amigaos-gcc 16.2-rc18[^rc18] and
 `-fomit-frame-pointer -m68030 -m68881` at each level, run on a 68030 with
 its 256-byte instruction cache modeled[^cache].
 
@@ -105,35 +105,35 @@ does not measure faster code[^dhry-lto].
 
 | benchmark | -O2 | -Os | -O3 | -O2 -flto |
 |---|---:|---:|---:|---:|
-| dhrystone[^dhry-lto] | 1658 | 2122 (+27.99%) | 1647 (-0.68%) | **242 (-85.43%)** |
+| dhrystone[^dhry-lto] | 1668 | 2123 (+27.24%) | 1643 (-1.53%) | **242 (-85.52%)** |
 | backdrop | 12792 | 16765 (+31.06%) | **9226 (-27.87%)** | 12782 (-0.08%) |
-| lha-pack | 15952 | 17546 (+9.99%) | 16077 (+0.79%) | **15122 (-5.21%)** |
-| lha-unpack | 5119 | 5335 (+4.23%) | 5160 (+0.82%) | **4590 (-10.33%)** |
+| lha-pack | 15967 | 17601 (+10.23%) | 16089 (+0.76%) | **15122 (-5.29%)** |
+| lha-unpack | 5134 | 5347 (+4.14%) | 5159 (+0.49%) | **4590 (-10.60%)** |
 | zlib-deflate | 13445 | 14113 (+4.96%) | **13094 (-2.61%)** | 13613 (+1.25%) |
-| zlib-inflate | 1765 | **1728 (-2.08%)** | 1731 (-1.95%) | 1762 (-0.19%) |
+| zlib-inflate | 1765 | **1728 (-2.09%)** | 1731 (-1.95%) | 1762 (-0.19%) |
 | png-encode | 7685 | 8389 (+9.16%) | **7410 (-3.58%)** | 7687 (+0.02%) |
-| png-decode | 1838 | 1939 (+5.51%) | **1766 (-3.90%)** | 1980 (+7.76%) |
-| ftgrays | 3365 | 3502 (+4.09%) | **3338 (-0.80%)** | 3392 (+0.81%) |
+| png-decode | 1838 | 1939 (+5.51%) | **1766 (-3.89%)** | 1980 (+7.76%) |
+| ftgrays | 3364 | 3502 (+4.10%) | **3337 (-0.81%)** | 3392 (+0.81%) |
 | memcpy-small | 1138 | 1313 (+15.39%) | 1138 | **1136 (-0.20%)** |
-| memcpy-large | **1933** | 2261 (+16.98%) | **1933** | 1938 (+0.28%) |
-| memcpy-var-small | **2299** | 2455 (+6.76%) | 2347 (+2.07%) | 2322 (+0.97%) |
-| memcpy-var-large | 3039 | 3079 (+1.34%) | 3039 | **3037 (-0.08%)** |
-| memmove-small | **8130** | 8246 (+1.42%) | 8180 (+0.61%) | 8147 (+0.20%) |
-| memmove-large | 16045 | 16049 (+0.03%) | **16039 (-0.03%)** | 16044 |
-| wipeout-tris | 2045 | 2115 (+3.40%) | 2090 (+2.21%) | **1974 (-3.47%)** |
+| memcpy-large | **1933** | 2257 (+16.79%) | **1933** | 1938 (+0.28%) |
+| memcpy-var-small | 2348 | 2263 (-3.62%) | **2195 (-6.53%)** | 2286 (-2.67%) |
+| memcpy-var-large | **3040** | 3046 (+0.19%) | 3058 (+0.58%) | 3058 (+0.59%) |
+| memmove-small | 6300 | 6344 (+0.69%) | 6327 (+0.43%) | **6273 (-0.43%)** |
+| memmove-large | 6170 | 6175 (+0.08%) | 6168 (-0.03%) | **6165 (-0.07%)** |
+| wipeout-tris | 2043 | 2115 (+3.51%) | 2090 (+2.30%) | **1976 (-3.30%)** |
 | nfs3-project | 4310 | 9580 (+122.27%) | **3426 (-20.51%)** | 3430 (-20.42%) |
-| nfs3-clip | 3293 | 8447 (+156.50%) | **3198 (-2.89%)** | 3228 (-1.98%) |
-| sha512 | 4699 | 4718 (+0.42%) | **4541 (-3.35%)** | 4696 (-0.05%) |
+| nfs3-clip | 3293 | 8571 (+160.26%) | **3196 (-2.96%)** | 3228 (-1.98%) |
+| sha512 | 4729 | 4718 (-0.23%) | **4695 (-0.71%)** | 4727 (-0.05%) |
 | aesgcm | 3626 | 3748 (+3.35%) | **3600 (-0.74%)** | 3647 (+0.56%) |
 | chacha20poly1305 | 1924 | 2025 (+5.21%) | **1871 (-2.75%)** | 1944 (+1.01%) |
 | x25519 | **2457** | 2747 (+11.79%) | 2488 (+1.28%) | 2459 (+0.09%) |
-| **GEOMEAN** | **3883** | **4497 (+15.81%)** | **3759 (-3.20%)** | **3505 (-9.73%)** |
-| **CODE SIZE** | 403700 | 363820 (-9.88%) | 562904 (+39.44%) | 335864 (-16.80%) |
+| **GEOMEAN** | **3681** | **4241 (+15.20%)** | **3552 (-3.50%)** | **3316 (-9.91%)** |
+| **CODE SIZE** | 403920 | 364044 (-9.87%) | 563116 (+39.41%) | 335588 (-16.92%) |
 
 `-Os` turns constant-size copies into loops and keeps the NFS3 kernels'
 `GuardedFloatMath` operations out of line, which more than doubles their
 time. `-O3`'s larger loops no longer fit the cache in LHa and wipeout,
-which lose up to 2%, but it still wins overall. LTO helps where a hot loop
+which lose up to 2.3%, but it still wins overall. LTO helps where a hot loop
 calls into another file (LHa, wipeout, NFS3), costs png-decode 7.8%, and
 cuts the code by a sixth.
 
@@ -141,59 +141,59 @@ cuts the code by a sixth.
 
 ![Code size of each build relative to -O2](results/opt-levels-size-030.svg)
 
-## Comparing GCC code generation for 68000, 68020, 68020-FP, 68040-FP
+## Comparing GCC code generation for 68000, 68020, 68020-60-FP, 68040-FP
 
 The release binaries that run on a 68040, built with
-m68k-amigaos-gcc 16.2-rc17[^rc17] by `make release`, all run on the same
+m68k-amigaos-gcc 16.2-rc18[^rc18] by `make release`, all run on the same
 emulated 68040[^volamos]. The columns therefore show what the compiler gains from
 being allowed each CPU's instructions, not how fast those CPUs are.
-68020-FP is `-m68020-60 -m68881`, which runs on any 68020 or later with an FPU.
+68020-60-FP is benchwork-020-060fp, built with `-m68020-60 -m68881`, which
+runs on any 68020 or later with an FPU.
 
 `-m68020-60` cannot use the 64-bit `mulu.l`, which the 68060 lacks, so
-rc17 calls `__muldi3` for chacha20poly1305 and x25519, and is also 26%
-slower on backdrop. rc18-pre[^rc18pre] tunes `-m68020-60` with the 68040
-costs (backdrop 3077 ms) and multiplies inline with four 16-bit `mulu.w`
-(chacha20poly1305 747 ms, x25519 1959 ms): code the 68060 can run, but on
-a 68040 still slower than its own 64-bit `mulu.l`.
+chacha20poly1305 and x25519 call `__muldi3`, which multiplies 16 bits at a
+time. Inlining that multiply (AmigaPorts/gcc#112, not in rc18) brings them
+down to 747 and 1959 ms.
 
-| benchmark | 68000 | 68020 | 68020-FP | 68040-FP |
+| benchmark | 68000 | 68020 | 68020-60-FP | 68040-FP |
 |---|---:|---:|---:|---:|
-| dhrystone | 452 | 420 (-7.07%) | 421 (-6.90%) | 421 (-6.90%) |
-| backdrop | 11500 | 3230 (-71.91%) | 3955 (-65.61%) | 3137 (-72.73%) |
-| lha-pack | 4974 | 4515 (-9.23%) | 4489 (-9.75%) | 4439 (-10.76%) |
-| lha-unpack | 1454 | 1393 (-4.21%) | 1388 (-4.52%) | 1382 (-4.91%) |
-| zlib-deflate | 3899 | 3736 (-4.17%) | 3713 (-4.78%) | 3698 (-5.14%) |
-| zlib-inflate | 526 | 481 (-8.50%) | 507 (-3.46%) | 511 (-2.86%) |
-| png-encode | 2375 | 2311 (-2.72%) | 2291 (-3.56%) | 2247 (-5.38%) |
-| png-decode | 580 | 496 (-14.47%) | 498 (-14.05%) | 500 (-13.71%) |
-| ftgrays | 1477 | 864 (-41.47%) | 856 (-42.01%) | 858 (-41.87%) |
-| memcpy-small | 452 | 202 (-55.19%) | 208 (-53.88%) | 193 (-57.23%) |
-| memcpy-large | 740 | 327 (-55.80%) | 327 (-55.76%) | 326 (-55.90%) |
-| memcpy-var-small | 587 | 565 (-3.75%) | 565 (-3.75%) | 565 (-3.75%) |
-| memcpy-var-large | 647 | 634 (-2.11%) | 635 (-1.93%) | 635 (-1.93%) |
-| memmove-small | 2362 | 2351 (-0.44%) | 2351 (-0.44%) | 2351 (-0.44%) |
-| memmove-large | 4137 | 4127 (-0.25%) | 4127 (-0.25%) | 4127 (-0.25%) |
-| wipeout-tris[^softfloat] | 879 | 810 (-7.89%) | 528 (-39.92%) | 519 (-41.00%) |
-| nfs3-project[^softfloat] | 2480 | 2436 (-1.77%) | 1064 (-57.10%) | 1064 (-57.10%) |
-| nfs3-clip[^softfloat] | 2127 | 2027 (-4.70%) | 951 (-55.31%) | 951 (-55.28%) |
-| sha512 | 1023 | 954 (-6.79%) | 1038 (+1.50%) | 1045 (+2.10%) |
-| aesgcm | 1028 | 887 (-13.69%) | 891 (-13.30%) | 903 (-12.16%) |
-| chacha20poly1305 | 1666 | 441 (-73.53%) | 637 (-61.74%) | 450 (-73.00%) |
-| x25519 | 5252 | 556 (-89.41%) | 1456 (-72.27%) | 547 (-89.58%) |
-| **GEOMEAN** | **1507** | **1050 (-30.36%)** | **1034 (-31.40%)** | **959 (-36.39%)** |
-| **CODE SIZE** | 431148 | 415752 (-3.57%) | 404852 (-6.10%) | 401816 (-6.80%) |
+| dhrystone | 452 | 420 (-7.07%) | 420 (-7.07%) | 420 (-7.07%) |
+| backdrop | 11500 | 3230 (-71.91%) | 3087 (-73.16%) | 3137 (-72.73%) |
+| lha-pack | 4986 | 4515 (-9.44%) | 4439 (-10.97%) | 4439 (-10.97%) |
+| lha-unpack | 1454 | 1393 (-4.20%) | 1383 (-4.91%) | 1383 (-4.91%) |
+| zlib-deflate | 3899 | 3736 (-4.17%) | 3698 (-5.14%) | 3698 (-5.14%) |
+| zlib-inflate | 526 | 481 (-8.50%) | 507 (-3.51%) | 509 (-3.24%) |
+| png-encode | 2375 | 2311 (-2.72%) | 2247 (-5.38%) | 2247 (-5.38%) |
+| png-decode | 580 | 496 (-14.48%) | 500 (-13.68%) | 501 (-13.64%) |
+| ftgrays | 1477 | 864 (-41.47%) | 858 (-41.87%) | 858 (-41.87%) |
+| memcpy-small | 452 | 202 (-55.19%) | 193 (-57.23%) | 193 (-57.23%) |
+| memcpy-large | 741 | 327 (-55.83%) | 326 (-55.92%) | 326 (-55.92%) |
+| memcpy-var-small | 608 | 565 (-7.17%) | 565 (-7.17%) | 565 (-7.17%) |
+| memcpy-var-large | 650 | 634 (-2.56%) | 635 (-2.39%) | 635 (-2.39%) |
+| memmove-small | 1970 | 1920 (-2.55%) | 1920 (-2.55%) | 1920 (-2.55%) |
+| memmove-large | 1929 | 1481 (-23.25%) | 1481 (-23.25%) | 1481 (-23.25%) |
+| wipeout-tris[^softfloat] | 879 | 810 (-7.89%) | 518 (-41.02%) | 518 (-41.02%) |
+| nfs3-project[^softfloat] | 2474 | 2430 (-1.78%) | 1064 (-56.99%) | 1064 (-56.99%) |
+| nfs3-clip[^softfloat] | 2121 | 2021 (-4.71%) | 955 (-54.98%) | 952 (-55.11%) |
+| sha512 | 1023 | 954 (-6.79%) | 954 (-6.79%) | 960 (-6.19%) |
+| aesgcm | 1028 | 887 (-13.69%) | 902 (-12.26%) | 903 (-12.13%) |
+| chacha20poly1305 | 1666 | 441 (-73.53%) | 1035 (-37.86%) | 450 (-73.00%) |
+| x25519 | 5252 | 556 (-89.41%) | 2967 (-43.52%) | 547 (-89.59%) |
+| **GEOMEAN** | **1446** | **992 (-31.39%)** | **1012 (-30.05%)** | **903 (-37.57%)** |
+| **CODE SIZE** | 429348 | 415672 (-3.19%) | 407212 (-5.16%) | 401948 (-6.38%) |
 
 ### On a 68060
 
 There is no point in building with `-m68060` yet: until GCC gets 68060
 cost tables, it generates practically the same code as `-m68020-60`,
 which also runs on every other 68020+. Emulated 50 MHz 68060 with its
-caches modeled[^cache], built by rc18-pre[^rc18pre]:
+caches modeled[^cache], built by rc18[^rc18] with
+`volamos --clock-mhz 50 --cpu 68060 --fpu --cache`:
 
 | benchmark | -m68020-60 -m68881 | -m68060 -m68881 |
 |---|---:|---:|
 | dhrystone | **256** | **256** |
-| backdrop | **1785** | **1785** |
+| backdrop | **1790** | **1790** |
 | lha-pack | **2539** | **2539** |
 | lha-unpack | **757** | 759 (+0.30%) |
 | zlib-deflate | **2034** | **2034** |
@@ -210,18 +210,18 @@ caches modeled[^cache], built by rc18-pre[^rc18pre]:
 | wipeout-tris | **264** | **264** |
 | nfs3-project | **616** | **616** |
 | nfs3-clip | **532** | **532** |
-| sha512 | **477** | 480 (+0.64%) |
+| sha512 | 480 | **477 (-0.64%)** |
 | aesgcm | **464** | **464** |
-| chacha20poly1305 | **286** | **286** |
-| x25519 | **648** | **648** |
-| **GEOMEAN** | **492** | **492 (+0.04%)** |
-| **CODE SIZE** | 427020 | 426360 (-0.15%) |
+| chacha20poly1305 | **446** | **446** |
+| x25519 | **1208** | **1208** |
+| **GEOMEAN** | **516** | **516 (-0.02%)** |
+| **CODE SIZE** | 407212 | 406552 (-0.16%) |
 
 [^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`.
     The emulated time is derived from the CPU's cycle count at 25 MHz;
     native library calls cost no cycles.
 [^gcc6]: `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`, with newlib.
-[^rc17]: `m68k-amigaos-gcc (AmigaDev v16.2-rc17) 16.2.1b 20261010182711`,
+[^rc18]: `m68k-amigaos-gcc (AmigaDev v16.2-rc18) 16.2.1b 20261010182711`,
     with its default newlib runtime.
 [^releases]: The released x86_64 Linux tarballs, with their default newlib
     runtime. Code size is the text size `m68k-amigaos-size` reports.
@@ -242,13 +242,6 @@ caches modeled[^cache], built by rc18-pre[^rc18pre]:
 [^cache]: volamos `--cache`: a direct-mapped instruction cache, so a miss
     costs a memory fetch. It does not model the data cache or bus wait
     states, nor yet the 68040, so the other sections run without it.
-[^rc18pre]: A local build of m68k-amigaos-gcc master after rc17
-    (v16.2-rc17-36), with the 68040 and 68060 cost fixes of
-    AmigaPorts/gcc#102, the `-m68020-60` multilibs of
-    AmigaPorts/m68k-amigaos-gcc#177, the inline 32x32->64 multiplies of
-    AmigaPorts/gcc#112 for `-m68020-60` and `-m68060` and the newlib upstream
-    merge; to be redone with rc18. The 68060 table ran with
-    `volamos --clock-mhz 50 --cpu 68060 --fpu --cache`.
 [^softfloat]: The 68000 and 68020 builds are soft float, and newlib's
     float arithmetic is a stub into the mathieeesingbas ROM library, which
     volamos runs natively at zero cycles: 370,000 calls in wipeout-tris,

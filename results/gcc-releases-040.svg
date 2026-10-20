@@ -37,7 +37,7 @@
 <text class="t axis" x="345.6" y="670" text-anchor="middle">rc12</text>
 <text class="t axis" x="490.4" y="670" text-anchor="middle">rc14</text>
 <text class="t axis" x="635.2" y="670" text-anchor="middle">rc17</text>
-<text class="t axis" x="780.0" y="670" text-anchor="middle">rc18-pre</text>
+<text class="t axis" x="780.0" y="670" text-anchor="middle">rc18</text>
 <path class="k4" d="M56.0,459.9L200.8,459.9L345.6,458.8L490.4,495.4L635.2,495.4L780.0,495.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>dhrystone</title></path>
 <circle class="s4 ring" cx="56.0" cy="459.9" r="4"/>
 <circle cx="56.0" cy="459.9" r="7" fill="transparent"><title>dhrystone rc5: 516 ms (+0.00%)</title></circle>
@@ -50,7 +50,7 @@
 <circle class="s4 ring" cx="635.2" cy="495.4" r="4"/>
 <circle cx="635.2" cy="495.4" r="7" fill="transparent"><title>dhrystone rc17: 421 ms (-18.37%)</title></circle>
 <circle class="s4 ring" cx="780.0" cy="495.7" r="4"/>
-<circle cx="780.0" cy="495.7" r="7" fill="transparent"><title>dhrystone rc18-pre: 420 ms (-18.53%)</title></circle>
+<circle cx="780.0" cy="495.7" r="7" fill="transparent"><title>dhrystone rc18: 420 ms (-18.53%)</title></circle>
 <path class="grid" d="M782,495.7 L790,522.2 h6" fill="none"/>
 <text class="t" x="800" y="526.2">dhrystone</text>
 <path class="k2" d="M56.0,112.5L200.8,111.1L345.6,107.6L490.4,144.5L635.2,144.5L780.0,144.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>backdrop</title></path>
@@ -65,7 +65,7 @@
 <circle class="s2 ring" cx="635.2" cy="144.5" r="4"/>
 <circle cx="635.2" cy="144.5" r="7" fill="transparent"><title>backdrop rc17: 3137 ms (-16.76%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="144.5" r="4"/>
-<circle cx="780.0" cy="144.5" r="7" fill="transparent"><title>backdrop rc18-pre: 3137 ms (-16.76%)</title></circle>
+<circle cx="780.0" cy="144.5" r="7" fill="transparent"><title>backdrop rc18: 3137 ms (-16.76%)</title></circle>
 <path class="grid" d="M782,144.5 L790,144.5 h6" fill="none"/>
 <text class="t" x="800" y="148.5">backdrop</text>
 <path class="k0" d="M56.0,97.4L200.8,86.2L345.6,87.0L490.4,83.8L635.2,83.8L780.0,83.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>lha-pack</title></path>
@@ -80,7 +80,7 @@
 <circle class="s0 ring" cx="635.2" cy="83.8" r="4"/>
 <circle cx="635.2" cy="83.8" r="7" fill="transparent"><title>lha-pack rc17: 4439 ms (+8.05%)</title></circle>
 <circle class="s0 ring" cx="780.0" cy="83.8" r="4"/>
-<circle cx="780.0" cy="83.8" r="7" fill="transparent"><title>lha-pack rc18-pre: 4439 ms (+8.05%)</title></circle>
+<circle cx="780.0" cy="83.8" r="7" fill="transparent"><title>lha-pack rc18: 4439 ms (+8.05%)</title></circle>
 <path class="grid" d="M782,83.8 L790,83.8 h6" fill="none"/>
 <text class="t" x="800" y="87.8">lha-pack</text>
 <path class="k0" d="M56.0,294.5L200.8,289.2L345.6,288.4L490.4,287.7L635.2,287.7L780.0,287.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>lha-unpack</title></path>
@@ -95,7 +95,7 @@
 <circle class="s0 ring" cx="635.2" cy="287.7" r="4"/>
 <circle cx="635.2" cy="287.7" r="7" fill="transparent"><title>lha-unpack rc17: 1382 ms (+3.93%)</title></circle>
 <circle class="s0 ring" cx="780.0" cy="287.7" r="4"/>
-<circle cx="780.0" cy="287.7" r="7" fill="transparent"><title>lha-unpack rc18-pre: 1383 ms (+3.98%)</title></circle>
+<circle cx="780.0" cy="287.7" r="7" fill="transparent"><title>lha-unpack rc18: 1383 ms (+3.98%)</title></circle>
 <path class="grid" d="M782,287.7 L790,288.7 h6" fill="none"/>
 <text class="t" x="800" y="292.7">lha-unpack</text>
 <path class="k0" d="M56.0,109.9L200.8,110.0L345.6,114.7L490.4,115.7L635.2,115.7L780.0,115.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>zlib-deflate</title></path>
@@ -110,7 +110,7 @@
 <circle class="s0 ring" cx="635.2" cy="115.7" r="4"/>
 <circle cx="635.2" cy="115.7" r="7" fill="transparent"><title>zlib-deflate rc17: 3698 ms (-3.28%)</title></circle>
 <circle class="s0 ring" cx="780.0" cy="115.7" r="4"/>
-<circle cx="780.0" cy="115.7" r="7" fill="transparent"><title>zlib-deflate rc18-pre: 3698 ms (-3.28%)</title></circle>
+<circle cx="780.0" cy="115.7" r="7" fill="transparent"><title>zlib-deflate rc18: 3698 ms (-3.28%)</title></circle>
 <path class="grid" d="M782,115.7 L790,115.7 h6" fill="none"/>
 <text class="t" x="800" y="119.7">zlib-deflate</text>
 <path class="k0" d="M56.0,467.3L200.8,466.4L345.6,466.4L490.4,461.8L635.2,461.8L780.0,462.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>zlib-inflate</title></path>
@@ -125,7 +125,7 @@
 <circle class="s0 ring" cx="635.2" cy="461.8" r="4"/>
 <circle cx="635.2" cy="461.8" r="7" fill="transparent"><title>zlib-inflate rc17: 511 ms (+3.21%)</title></circle>
 <circle class="s0 ring" cx="780.0" cy="462.5" r="4"/>
-<circle cx="780.0" cy="462.5" r="7" fill="transparent"><title>zlib-inflate rc18-pre: 509 ms (+2.81%)</title></circle>
+<circle cx="780.0" cy="462.5" r="7" fill="transparent"><title>zlib-inflate rc18: 509 ms (+2.81%)</title></circle>
 <path class="grid" d="M782,462.5 L790,483.2 h6" fill="none"/>
 <text class="t" x="800" y="487.2">zlib-inflate</text>
 <path class="k0" d="M56.0,196.4L200.8,196.5L345.6,196.9L490.4,202.8L635.2,202.8L780.0,202.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>png-encode</title></path>
@@ -140,7 +140,7 @@
 <circle class="s0 ring" cx="635.2" cy="202.8" r="4"/>
 <circle cx="635.2" cy="202.8" r="7" fill="transparent"><title>png-encode rc17: 2247 ms (-3.61%)</title></circle>
 <circle class="s0 ring" cx="780.0" cy="202.8" r="4"/>
-<circle cx="780.0" cy="202.8" r="7" fill="transparent"><title>png-encode rc18-pre: 2247 ms (-3.61%)</title></circle>
+<circle cx="780.0" cy="202.8" r="7" fill="transparent"><title>png-encode rc18: 2247 ms (-3.61%)</title></circle>
 <path class="grid" d="M782,202.8 L790,202.8 h6" fill="none"/>
 <text class="t" x="800" y="206.8">png-encode</text>
 <path class="k0" d="M56.0,453.7L200.8,454.5L345.6,454.3L490.4,465.4L635.2,465.4L780.0,465.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>png-decode</title></path>
@@ -155,7 +155,7 @@
 <circle class="s0 ring" cx="635.2" cy="465.4" r="4"/>
 <circle cx="635.2" cy="465.4" r="7" fill="transparent"><title>png-decode rc17: 500 ms (-6.49%)</title></circle>
 <circle class="s0 ring" cx="780.0" cy="465.2" r="4"/>
-<circle cx="780.0" cy="465.2" r="7" fill="transparent"><title>png-decode rc18-pre: 501 ms (-6.41%)</title></circle>
+<circle cx="780.0" cy="465.2" r="7" fill="transparent"><title>png-decode rc18: 501 ms (-6.41%)</title></circle>
 <path class="grid" d="M782,465.2 L790,496.2 h6" fill="none"/>
 <text class="t" x="800" y="500.2">png-decode</text>
 <path class="k2" d="M56.0,370.7L200.8,370.4L345.6,369.2L490.4,371.0L635.2,371.0L780.0,371.0" fill="none" stroke-width="2" stroke-linejoin="round"><title>ftgrays</title></path>
@@ -170,9 +170,9 @@
 <circle class="s2 ring" cx="635.2" cy="371.0" r="4"/>
 <circle cx="635.2" cy="371.0" r="7" fill="transparent"><title>ftgrays rc17: 858 ms (-0.17%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="371.0" r="4"/>
-<circle cx="780.0" cy="371.0" r="7" fill="transparent"><title>ftgrays rc18-pre: 858 ms (-0.16%)</title></circle>
-<path class="grid" d="M782,371.0 L790,404.6 h6" fill="none"/>
-<text class="t" x="800" y="408.6">ftgrays</text>
+<circle cx="780.0" cy="371.0" r="7" fill="transparent"><title>ftgrays rc18: 858 ms (-0.16%)</title></circle>
+<path class="grid" d="M782,371.0 L790,403.5 h6" fill="none"/>
+<text class="t" x="800" y="407.5">ftgrays</text>
 <path class="k1" d="M56.0,460.7L200.8,474.0L345.6,474.0L490.4,631.6L635.2,631.6L780.0,631.6" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-small</title></path>
 <circle class="s1 ring" cx="56.0" cy="460.7" r="4"/>
 <circle cx="56.0" cy="460.7" r="7" fill="transparent"><title>memcpy-small rc5: 514 ms (+0.00%)</title></circle>
@@ -185,7 +185,7 @@
 <circle class="s1 ring" cx="635.2" cy="631.6" r="4"/>
 <circle cx="635.2" cy="631.6" r="7" fill="transparent"><title>memcpy-small rc17: 193 ms (-62.38%)</title></circle>
 <circle class="s1 ring" cx="780.0" cy="631.6" r="4"/>
-<circle cx="780.0" cy="631.6" r="7" fill="transparent"><title>memcpy-small rc18-pre: 193 ms (-62.38%)</title></circle>
+<circle cx="780.0" cy="631.6" r="7" fill="transparent"><title>memcpy-small rc18: 193 ms (-62.38%)</title></circle>
 <path class="grid" d="M782,631.6 L790,631.6 h6" fill="none"/>
 <text class="t" x="800" y="635.6">memcpy-small</text>
 <path class="k1" d="M56.0,463.6L200.8,463.6L345.6,463.6L490.4,539.9L635.2,539.9L780.0,539.9" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-large</title></path>
@@ -200,7 +200,7 @@
 <circle class="s1 ring" cx="635.2" cy="539.9" r="4"/>
 <circle cx="635.2" cy="539.9" r="7" fill="transparent"><title>memcpy-large rc17: 326 ms (-35.38%)</title></circle>
 <circle class="s1 ring" cx="780.0" cy="539.9" r="4"/>
-<circle cx="780.0" cy="539.9" r="7" fill="transparent"><title>memcpy-large rc18-pre: 326 ms (-35.38%)</title></circle>
+<circle cx="780.0" cy="539.9" r="7" fill="transparent"><title>memcpy-large rc18: 326 ms (-35.38%)</title></circle>
 <path class="grid" d="M782,539.9 L790,539.9 h6" fill="none"/>
 <text class="t" x="800" y="543.9">memcpy-large</text>
 <path class="k1" d="M56.0,445.8L200.8,445.8L345.6,445.8L490.4,444.2L635.2,444.2L780.0,444.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-var-small</title></path>
@@ -215,7 +215,7 @@
 <circle class="s1 ring" cx="635.2" cy="444.2" r="4"/>
 <circle cx="635.2" cy="444.2" r="7" fill="transparent"><title>memcpy-var-small rc17: 565 ms (+0.95%)</title></circle>
 <circle class="s1 ring" cx="780.0" cy="444.2" r="4"/>
-<circle cx="780.0" cy="444.2" r="7" fill="transparent"><title>memcpy-var-small rc18-pre: 565 ms (+0.95%)</title></circle>
+<circle cx="780.0" cy="444.2" r="7" fill="transparent"><title>memcpy-var-small rc18: 565 ms (+0.95%)</title></circle>
 <path class="grid" d="M782,444.2 L790,444.2 h6" fill="none"/>
 <text class="t" x="800" y="448.2">memcpy-var-small</text>
 <path class="k1" d="M56.0,423.3L200.8,423.3L345.6,423.3L490.4,423.7L635.2,423.7L780.0,423.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-var-large</title></path>
@@ -230,7 +230,7 @@
 <circle class="s1 ring" cx="635.2" cy="423.7" r="4"/>
 <circle cx="635.2" cy="423.7" r="7" fill="transparent"><title>memcpy-var-large rc17: 635 ms (-0.23%)</title></circle>
 <circle class="s1 ring" cx="780.0" cy="423.7" r="4"/>
-<circle cx="780.0" cy="423.7" r="7" fill="transparent"><title>memcpy-var-large rc18-pre: 635 ms (-0.23%)</title></circle>
+<circle cx="780.0" cy="423.7" r="7" fill="transparent"><title>memcpy-var-large rc18: 635 ms (-0.23%)</title></circle>
 <path class="grid" d="M782,423.7 L790,423.7 h6" fill="none"/>
 <text class="t" x="800" y="427.7">memcpy-var-large</text>
 <path class="k1" d="M56.0,185.3L200.8,169.8L345.6,166.4L490.4,194.9L635.2,194.9L780.0,230.3" fill="none" stroke-width="2" stroke-linejoin="round"><title>memmove-small</title></path>
@@ -245,7 +245,7 @@
 <circle class="s1 ring" cx="635.2" cy="194.9" r="4"/>
 <circle cx="635.2" cy="194.9" r="7" fill="transparent"><title>memmove-small rc17: 2351 ms (-5.36%)</title></circle>
 <circle class="s1 ring" cx="780.0" cy="230.3" r="4"/>
-<circle cx="780.0" cy="230.3" r="7" fill="transparent"><title>memmove-small rc18-pre: 1920 ms (-22.72%)</title></circle>
+<circle cx="780.0" cy="230.3" r="7" fill="transparent"><title>memmove-small rc18: 1920 ms (-22.72%)</title></circle>
 <path class="grid" d="M782,230.3 L790,230.3 h6" fill="none"/>
 <text class="t" x="800" y="234.3">memmove-small</text>
 <path class="k1" d="M56.0,61.2L200.8,60.7L345.6,60.7L490.4,96.6L635.2,96.6L780.0,275.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>memmove-large</title></path>
@@ -260,7 +260,7 @@
 <circle class="s1 ring" cx="635.2" cy="96.6" r="4"/>
 <circle cx="635.2" cy="96.6" r="7" fill="transparent"><title>memmove-large rc17: 4127 ms (-18.33%)</title></circle>
 <circle class="s1 ring" cx="780.0" cy="275.7" r="4"/>
-<circle cx="780.0" cy="275.7" r="7" fill="transparent"><title>memmove-large rc18-pre: 1481 ms (-70.69%)</title></circle>
+<circle cx="780.0" cy="275.7" r="7" fill="transparent"><title>memmove-large rc18: 1481 ms (-70.69%)</title></circle>
 <path class="grid" d="M782,275.7 L790,275.7 h6" fill="none"/>
 <text class="t" x="800" y="279.7">memmove-large</text>
 <path class="k2" d="M56.0,415.2L200.8,452.5L345.6,452.5L490.4,459.1L635.2,459.1L780.0,459.1" fill="none" stroke-width="2" stroke-linejoin="round"><title>wipeout-tris</title></path>
@@ -275,7 +275,7 @@
 <circle class="s2 ring" cx="635.2" cy="459.1" r="4"/>
 <circle cx="635.2" cy="459.1" r="7" fill="transparent"><title>wipeout-tris rc17: 519 ms (-22.20%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="459.1" r="4"/>
-<circle cx="780.0" cy="459.1" r="7" fill="transparent"><title>wipeout-tris rc18-pre: 518 ms (-22.22%)</title></circle>
+<circle cx="780.0" cy="459.1" r="7" fill="transparent"><title>wipeout-tris rc18: 518 ms (-22.22%)</title></circle>
 <path class="grid" d="M782,459.1 L790,470.2 h6" fill="none"/>
 <text class="t" x="800" y="474.2">wipeout-tris</text>
 <path class="k2" d="M56.0,344.0L200.8,333.1L345.6,333.1L490.4,333.5L635.2,333.5L780.0,333.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>nfs3-project</title></path>
@@ -290,7 +290,7 @@
 <circle class="s2 ring" cx="635.2" cy="333.5" r="4"/>
 <circle cx="635.2" cy="333.5" r="7" fill="transparent"><title>nfs3-project rc17: 1064 ms (+6.19%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="333.5" r="4"/>
-<circle cx="780.0" cy="333.5" r="7" fill="transparent"><title>nfs3-project rc18-pre: 1064 ms (+6.19%)</title></circle>
+<circle cx="780.0" cy="333.5" r="7" fill="transparent"><title>nfs3-project rc18: 1064 ms (+6.19%)</title></circle>
 <path class="grid" d="M782,333.5 L790,333.5 h6" fill="none"/>
 <text class="t" x="800" y="337.5">nfs3-project</text>
 <path class="k2" d="M56.0,351.0L200.8,350.9L345.6,350.5L490.4,353.1L635.2,353.1L780.0,352.9" fill="none" stroke-width="2" stroke-linejoin="round"><title>nfs3-clip</title></path>
@@ -305,10 +305,10 @@
 <circle class="s2 ring" cx="635.2" cy="353.1" r="4"/>
 <circle cx="635.2" cy="353.1" r="7" fill="transparent"><title>nfs3-clip rc17: 951 ms (-1.17%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="352.9" r="4"/>
-<circle cx="780.0" cy="352.9" r="7" fill="transparent"><title>nfs3-clip rc18-pre: 952 ms (-1.10%)</title></circle>
-<path class="grid" d="M782,352.9 L790,365.6 h6" fill="none"/>
-<text class="t" x="800" y="369.6">nfs3-clip</text>
-<path class="k3" d="M56.0,352.0L200.8,307.5L345.6,308.7L490.4,309.6L635.2,336.7L780.0,352.6" fill="none" stroke-width="2" stroke-linejoin="round"><title>sha512</title></path>
+<circle cx="780.0" cy="352.9" r="7" fill="transparent"><title>nfs3-clip rc18: 952 ms (-1.10%)</title></circle>
+<path class="grid" d="M782,352.9 L790,364.5 h6" fill="none"/>
+<text class="t" x="800" y="368.5">nfs3-clip</text>
+<path class="k3" d="M56.0,352.0L200.8,307.5L345.6,308.7L490.4,309.6L635.2,336.7L780.0,351.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>sha512</title></path>
 <circle class="s3 ring" cx="56.0" cy="352.0" r="4"/>
 <circle cx="56.0" cy="352.0" r="7" fill="transparent"><title>sha512 rc5: 957 ms (+0.00%)</title></circle>
 <circle class="s3 ring" cx="200.8" cy="307.5" r="4"/>
@@ -319,10 +319,10 @@
 <circle cx="490.4" cy="309.6" r="7" fill="transparent"><title>sha512 rc14: 1220 ms (+27.49%)</title></circle>
 <circle class="s3 ring" cx="635.2" cy="336.7" r="4"/>
 <circle cx="635.2" cy="336.7" r="7" fill="transparent"><title>sha512 rc17: 1045 ms (+9.19%)</title></circle>
-<circle class="s3 ring" cx="780.0" cy="352.6" r="4"/>
-<circle cx="780.0" cy="352.6" r="7" fill="transparent"><title>sha512 rc18-pre: 954 ms (-0.32%)</title></circle>
-<path class="grid" d="M782,352.6 L790,352.6 h6" fill="none"/>
-<text class="t" x="800" y="356.6">sha512</text>
+<circle class="s3 ring" cx="780.0" cy="351.5" r="4"/>
+<circle cx="780.0" cy="351.5" r="7" fill="transparent"><title>sha512 rc18: 960 ms (+0.32%)</title></circle>
+<path class="grid" d="M782,351.5 L790,351.5 h6" fill="none"/>
+<text class="t" x="800" y="355.5">sha512</text>
 <path class="k3" d="M56.0,318.9L200.8,306.5L345.6,306.3L490.4,311.7L635.2,362.2L780.0,362.1" fill="none" stroke-width="2" stroke-linejoin="round"><title>aesgcm</title></path>
 <circle class="s3 ring" cx="56.0" cy="318.9" r="4"/>
 <circle cx="56.0" cy="318.9" r="7" fill="transparent"><title>aesgcm rc5: 1156 ms (+0.00%)</title></circle>
@@ -335,9 +335,9 @@
 <circle class="s3 ring" cx="635.2" cy="362.2" r="4"/>
 <circle cx="635.2" cy="362.2" r="7" fill="transparent"><title>aesgcm rc17: 903 ms (-21.92%)</title></circle>
 <circle class="s3 ring" cx="780.0" cy="362.1" r="4"/>
-<circle cx="780.0" cy="362.1" r="7" fill="transparent"><title>aesgcm rc18-pre: 903 ms (-21.89%)</title></circle>
-<path class="grid" d="M782,362.1 L790,378.6 h6" fill="none"/>
-<text class="t" x="800" y="382.6">aesgcm</text>
+<circle cx="780.0" cy="362.1" r="7" fill="transparent"><title>aesgcm rc18: 903 ms (-21.89%)</title></circle>
+<path class="grid" d="M782,362.1 L790,377.5 h6" fill="none"/>
+<text class="t" x="800" y="381.5">aesgcm</text>
 <path class="k3" d="M56.0,490.6L200.8,485.4L345.6,485.4L490.4,483.9L635.2,483.9L780.0,483.9" fill="none" stroke-width="2" stroke-linejoin="round"><title>chacha20poly1305</title></path>
 <circle class="s3 ring" cx="56.0" cy="490.6" r="4"/>
 <circle cx="56.0" cy="490.6" r="7" fill="transparent"><title>chacha20poly1305 rc5: 433 ms (+0.00%)</title></circle>
@@ -350,7 +350,7 @@
 <circle class="s3 ring" cx="635.2" cy="483.9" r="4"/>
 <circle cx="635.2" cy="483.9" r="7" fill="transparent"><title>chacha20poly1305 rc17: 450 ms (+3.92%)</title></circle>
 <circle class="s3 ring" cx="780.0" cy="483.9" r="4"/>
-<circle cx="780.0" cy="483.9" r="7" fill="transparent"><title>chacha20poly1305 rc18-pre: 450 ms (+3.92%)</title></circle>
+<circle cx="780.0" cy="483.9" r="7" fill="transparent"><title>chacha20poly1305 rc18: 450 ms (+3.92%)</title></circle>
 <path class="grid" d="M782,483.9 L790,509.2 h6" fill="none"/>
 <text class="t" x="800" y="513.2">chacha20poly1305</text>
 <path class="k3" d="M56.0,467.7L200.8,460.4L345.6,460.5L490.4,450.0L635.2,449.7L780.0,449.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>x25519</title></path>
@@ -365,10 +365,10 @@
 <circle class="s3 ring" cx="635.2" cy="449.7" r="4"/>
 <circle cx="635.2" cy="449.7" r="7" fill="transparent"><title>x25519 rc17: 547 ms (+10.81%)</title></circle>
 <circle class="s3 ring" cx="780.0" cy="449.8" r="4"/>
-<circle cx="780.0" cy="449.8" r="7" fill="transparent"><title>x25519 rc18-pre: 547 ms (+10.76%)</title></circle>
+<circle cx="780.0" cy="449.8" r="7" fill="transparent"><title>x25519 rc18: 547 ms (+10.76%)</title></circle>
 <path class="grid" d="M782,449.8 L790,457.2 h6" fill="none"/>
 <text class="t" x="800" y="461.2">x25519</text>
-<path class="ref" d="M56.0,333.7L200.8,330.8L345.6,330.6L490.4,348.2L635.2,351.7L780.0,362.2" fill="none" stroke-width="3" stroke-linejoin="round"><title>geomean</title></path>
+<path class="ref" d="M56.0,333.7L200.8,330.8L345.6,330.6L490.4,348.2L635.2,351.7L780.0,362.1" fill="none" stroke-width="3" stroke-linejoin="round"><title>geomean</title></path>
 <circle class="dot ring" cx="56.0" cy="333.7" r="4"/>
 <circle cx="56.0" cy="333.7" r="7" fill="transparent"><title>geomean rc5: 1063 ms (+0.00%)</title></circle>
 <circle class="dot ring" cx="200.8" cy="330.8" r="4"/>
@@ -379,8 +379,8 @@
 <circle cx="490.4" cy="348.2" r="7" fill="transparent"><title>geomean rc14: 978 ms (-7.95%)</title></circle>
 <circle class="dot ring" cx="635.2" cy="351.7" r="4"/>
 <circle cx="635.2" cy="351.7" r="7" fill="transparent"><title>geomean rc17: 959 ms (-9.78%)</title></circle>
-<circle class="dot ring" cx="780.0" cy="362.2" r="4"/>
-<circle cx="780.0" cy="362.2" r="7" fill="transparent"><title>geomean rc18-pre: 903 ms (-15.04%)</title></circle>
-<path class="grid" d="M782,362.2 L790,391.6 h6" fill="none"/>
-<text class="t name" x="800" y="395.6">geomean</text>
+<circle class="dot ring" cx="780.0" cy="362.1" r="4"/>
+<circle cx="780.0" cy="362.1" r="7" fill="transparent"><title>geomean rc18: 903 ms (-15.02%)</title></circle>
+<path class="grid" d="M782,362.1 L790,390.5 h6" fill="none"/>
+<text class="t name" x="800" y="394.5">geomean</text>
 </svg>

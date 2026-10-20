@@ -5,7 +5,7 @@
 <rect class="s0" x="180" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="200" y="21">gcc 6.5.0b</text>
 <rect class="s1" x="306" y="8" width="14" height="14" rx="2"/>
-<text class="t big" x="326" y="21">gcc 16.2-rc17</text>
+<text class="t big" x="326" y="21">gcc 16.2-rc18</text>
 <rect class="s2" x="451" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="471" y="21">vbcc 0.9i</text>
 <rect class="s3" x="568" y="8" width="14" height="14" rx="2"/>
@@ -30,7 +30,7 @@
 <text class="t axis" x="810.0" y="1664" text-anchor="middle">4.0x</text>
 <text class="t big" x="168" y="68.0" text-anchor="end">dhrystone</text>
 <path class="s0" d="M180,36 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,50 h153.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.9 z"/>
+<path class="s1" d="M180,50 h153.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.6 z"/>
 <path class="s2" d="M180,64 h220.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-220.4 z"/>
 <text class="t muted" x="409.4" y="74">599 ms (+42.49%)</text>
 <path class="s3" d="M180,78 h213.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-213.7 z"/>
@@ -52,7 +52,7 @@
 <text class="t muted" x="363.2" y="228">4951 ms (+13.12%)</text>
 <text class="t big" x="168" y="278.0" text-anchor="end">lha-unpack</text>
 <path class="s0" d="M180,246 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,260 h153.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.2 z"/>
+<path class="s1" d="M180,260 h153.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.3 z"/>
 <path class="s2" d="M180,274 h161.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-161.7 z"/>
 <text class="t muted" x="350.7" y="284">1457 ms (+5.21%)</text>
 <path class="s3" d="M180,288 h167.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-167.9 z"/>
@@ -67,8 +67,8 @@
 <text class="t muted" x="388.4" y="368">4096 ms (+29.13%)</text>
 <text class="t big" x="168" y="418.0" text-anchor="end">zlib-inflate</text>
 <path class="s0" d="M180,386 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,400 h175.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-175.9 z"/>
-<text class="t muted" x="364.9" y="410">511 ms (+14.21%)</text>
+<path class="s1" d="M180,400 h175.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-175.2 z"/>
+<text class="t muted" x="364.2" y="410">509 ms (+13.77%)</text>
 <path class="s2" d="M180,414 h190.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-190.2 z"/>
 <text class="t muted" x="379.2" y="424">551 ms (+23.32%)</text>
 <path class="s3" d="M180,428 h169.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-169.3 z"/>
@@ -83,15 +83,15 @@
 <text class="t muted" x="406.5" y="508">2771 ms (+40.61%)</text>
 <text class="t big" x="168" y="558.0" text-anchor="end">png-decode</text>
 <path class="s0" d="M180,526 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,540 h164.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-164.7 z"/>
-<text class="t muted" x="353.7" y="550">500 ms (+7.12%)</text>
+<path class="s1" d="M180,540 h164.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-164.9 z"/>
+<text class="t muted" x="353.9" y="550">501 ms (+7.21%)</text>
 <path class="s2" d="M180,554 h234.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-234.2 z"/>
 <text class="t muted" x="423.2" y="564">706 ms (+51.26%)</text>
 <path class="s3" d="M180,568 h195.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-195.6 z"/>
 <text class="t muted" x="384.6" y="578">592 ms (+26.72%)</text>
 <text class="t big" x="168" y="628.0" text-anchor="end">ftgrays</text>
 <path class="s0" d="M180,596 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,610 h155.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-155.9 z"/>
+<path class="s1" d="M180,610 h156.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-156.0 z"/>
 <text class="t muted" x="186" y="634">failed</text>
 <path class="s3" d="M180,638 h171.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-171.6 z"/>
 <text class="t muted" x="360.6" y="648">942 ms (+11.48%)</text>
@@ -123,14 +123,16 @@
 <path class="s3" d="M180,918 h154.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-154.9 z"/>
 <text class="t big" x="168" y="978.0" text-anchor="end">memmove-small</text>
 <path class="s0" d="M180,946 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,960 h160.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-160.8 z"/>
+<path class="s1" d="M180,960 h130.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-130.5 z"/>
+<text class="t muted" x="342.5" y="970">1920 ms (-14.58%)</text>
 <path class="s2" d="M180,974 h298.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-298.7 z"/>
 <text class="t muted" x="487.7" y="984">4320 ms (+92.22%)</text>
 <path class="s3" d="M180,988 h214.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-214.0 z"/>
 <text class="t muted" x="403.0" y="998">3110 ms (+38.40%)</text>
 <text class="t big" x="168" y="1048.0" text-anchor="end">memmove-large</text>
 <path class="s0" d="M180,1016 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1030 h158.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-158.1 z"/>
+<path class="s1" d="M180,1030 h54.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-54.2 z"/>
+<text class="t muted" x="342.5" y="1040">1481 ms (-63.08%)</text>
 <path class="s2" d="M180,1044 h485.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-485.2 z"/>
 <text class="t muted" x="674.2" y="1054">12458 ms (+210.62%)</text>
 <path class="s3" d="M180,1058 h346.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-346.0 z"/>
@@ -150,21 +152,20 @@
 <text class="t muted" x="186" y="1208">not built</text>
 <text class="t big" x="168" y="1258.0" text-anchor="end">nfs3-clip</text>
 <path class="s0" d="M180,1226 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1240 h145.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-145.0 z"/>
-<text class="t muted" x="342.5" y="1250">951 ms (-5.40%)</text>
+<path class="s1" d="M180,1240 h145.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-145.1 z"/>
+<text class="t muted" x="342.5" y="1250">952 ms (-5.33%)</text>
 <text class="t muted" x="186" y="1264">not built</text>
 <text class="t muted" x="186" y="1278">not built</text>
 <text class="t big" x="168" y="1328.0" text-anchor="end">sha512</text>
 <path class="s0" d="M180,1296 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1310 h167.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-167.6 z"/>
-<text class="t muted" x="356.6" y="1320">1045 ms (+8.93%)</text>
+<path class="s1" d="M180,1310 h153.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.6 z"/>
 <path class="s2" d="M180,1324 h624.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-624.1 z"/>
 <text class="t muted" x="813.1" y="1334">3824 ms (+298.80%)</text>
 <text class="t muted" x="186" y="1348">not built</text>
 <text class="t big" x="168" y="1398.0" text-anchor="end">aesgcm</text>
 <path class="s0" d="M180,1366 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1380 h122.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-122.9 z"/>
-<text class="t muted" x="342.5" y="1390">903 ms (-19.42%)</text>
+<path class="s1" d="M180,1380 h123.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-123.0 z"/>
+<text class="t muted" x="342.5" y="1390">903 ms (-19.39%)</text>
 <path class="s2" d="M180,1394 h458.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-458.5 z"/>
 <text class="t muted" x="647.5" y="1404">3290 ms (+193.62%)</text>
 <text class="t muted" x="186" y="1418">not built</text>
@@ -177,12 +178,13 @@
 <text class="t muted" x="186" y="1488">not built</text>
 <text class="t big" x="168" y="1538.0" text-anchor="end">x25519</text>
 <path class="s0" d="M180,1506 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1520 h156.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-156.0 z"/>
+<path class="s1" d="M180,1520 h155.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-155.9 z"/>
 <text class="t muted" x="186" y="1544">failed</text>
 <text class="t muted" x="186" y="1558">not built</text>
 <text class="t big name" x="168" y="1608.0" text-anchor="end">geomean</text>
 <path class="s0" d="M180,1576 h153.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-153.5 z"/>
-<path class="s1" d="M180,1590 h157.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-157.2 z"/>
+<path class="s1" d="M180,1590 h145.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-145.2 z"/>
+<text class="t muted" x="342.5" y="1600">956 ms (-5.26%)</text>
 <text class="t muted" x="186" y="1614">n/a</text>
 <path class="s3" d="M180,1618 h199.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-199.0 z"/>
 <text class="t muted" x="388.0" y="1628">1301 ms (+28.87%)</text>
