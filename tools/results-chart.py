@@ -39,7 +39,7 @@ COLORS = [("#2a78d6", "#3987e5"), ("#eb6834", "#d95926"),
 FAMILIES = [("compression", ["lha-", "zlib-", "png-"]),
             ("memory", ["memcpy-", "memmove-"]),
             ("graphics", ["backdrop", "ftgrays", "wipeout-", "nfs3-"]),
-            ("crypto", ["sha512", "aesgcm"]),
+            ("crypto", ["sha512", "aesgcm", "chacha20poly1305", "x25519"]),
             ("dhrystone", ["dhrystone"])]
 
 BAR = 12          # bar thickness
@@ -254,10 +254,15 @@ def main(args):
 
     skip = set(filter(None, opts.geomean_skip.split(",")))
     columns = []
+    # The benchmarks each column's run reported as failed, by label.
+    failed = {}
     for arg in opts.columns:
         label, _, path = arg.partition("=")
         times, checks, geomean = results_table.parse(path, skip)
         columns.append((label, times, checks, geomean))
+        with open(path) as f:
+            failed[label] = {line.split()[0] for line in f
+                             if line.rstrip().endswith(" failed")}
     if opts.lines:
         write(opts.output, lines(opts, columns))
         return
@@ -273,10 +278,11 @@ def main(args):
     # not run, or "wrong" when its output differs from the first column's,
     # which makes its time meaningless. A column with any such cell gets no
     # geomean. A benchmark left out of the geomean costs no column its
-    # geomean, and one that a column lacks was not built for it.
+    # geomean, and one that a column lacks was not built for it unless the
+    # run said it failed.
     def cell(c, n):
         if n not in c[1] or n not in base_times:
-            return "not built" if n in skip else "failed"
+            return "not built" if n in skip and n not in failed[c[0]] else "failed"
         if c[2].get(n) != base_checks.get(n):
             return "wrong"
         return c[1][n] / base_times[n]
