@@ -179,8 +179,7 @@ sasc-release:
 # The release: the binaries, and the Aminet upload made of them.
 # benchwork.lha holds a Benchwork drawer with the binaries, the readme and
 # the license texts; benchwork.readme also goes beside it. The source stays
-# out, so the archive fits on a floppy: the readme links the tagged tree
-# instead. The readme says gcc, so the vbcc and SAS/C builds above stop at
+# out to keep the archive small: the readme links the tagged tree instead. The readme says gcc, so the vbcc and SAS/C builds above stop at
 # the binaries.
 AMINET_DIR = build-aminet/Benchwork
 

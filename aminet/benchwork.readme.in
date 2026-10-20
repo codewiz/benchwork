@@ -4,7 +4,7 @@ Uploader:     Bernie Innocenti <bernie@codewiz.org>
 Type:         util/moni
 Version:      @VERSION@
 Architecture: m68k-amigaos >= 2.0.4
-Requires:     5 MB of free RAM, 64 KiB stack, FPU for benchwork-020-060fp/040/060
+Requires:     5 MB of free RAM, 64 KiB stack, an FPU for 020-060fp/040/060
 Distribution: Aminet
 Kurz:         CPU-Benchmarks fuer Amiga-Compiler
 
