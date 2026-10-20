@@ -245,8 +245,8 @@ caches modeled[^cache], built by rc18-pre[^rc18pre]:
 [^rc18pre]: A local build of m68k-amigaos-gcc master after rc17
     (v16.2-rc17-36), with the 68040 and 68060 cost fixes of
     AmigaPorts/gcc#102, the `-m68020-60` multilibs of
-    AmigaPorts/m68k-amigaos-gcc#177, inline 32x32->64 multiplies for
-    `-m68020-60` and `-m68060` (not yet merged) and the newlib upstream
+    AmigaPorts/m68k-amigaos-gcc#177, the inline 32x32->64 multiplies of
+    AmigaPorts/gcc#112 for `-m68020-60` and `-m68060` and the newlib upstream
     merge; to be redone with rc18. The 68060 table ran with
     `volamos --clock-mhz 50 --cpu 68060 --fpu --cache`.
 [^softfloat]: The 68000 and 68020 builds are soft float, and newlib's
