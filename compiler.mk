@@ -32,12 +32,14 @@ ifeq ($(notdir $(firstword $(CC))),vc)
     INCLUDE_FLAG = -I
     DEFINE_FLAG = -D
     # vbcc's C library has no sys/types.h and no gcc-style dependency output.
-    NDK_INCLUDE = $(dir $(shell command -v vc))../m68k-amigaos/ndk-include
+    # The rest of the toolchain is found next to vc, on PATH or not.
+    VBCC_BIN = $(dir $(shell command -v $(firstword $(CC))))
+    NDK_INCLUDE = $(VBCC_BIN)../m68k-amigaos/ndk-include
     EXTRA_INCLUDES = compat $(NDK_INCLUDE)
     # vc keeps every argument as one word, so a string with spaces needs the
     # shell quoting that vbccm68k will see. vbcc has no version macro; the
     # name comes from its banner.
-    VBCC_VERSION = $(shell vbccm68k -o=/dev/null /dev/null | sed -n '1s/^vbcc \(V[^ ]*\( pre\)\{0,1\}\).*/vbcc \1/p')
+    VBCC_VERSION = $(shell $(VBCC_BIN)vbccm68k -o=/dev/null /dev/null | sed -n '1s/^vbcc \(V[^ ]*\( pre\)\{0,1\}\).*/vbcc \1/p')
     DEFINES = -DBENCH_CFLAGS='"\"$(REPORTED_CFLAGS)\""' \
         -DBENCH_VERSION='"\"$(VERSION)\""' -DBENCH_DATE='"\"$(DATE)\""' \
         -DBENCH_COMPILER='"\"$(VBCC_VERSION)\""' -DBENCH_HAVE_AMISSL
