@@ -60,17 +60,18 @@ are the knobs a comparison usually turns.
 ### VBCC
 
 vbcc from the same toolchain builds `benchwork-vbcc` with `make vbcc`, and
-`benchwork-vbcc-000/020/040` with `make vbcc-release`; the flags are
-spelled its way:
+the release binaries `benchwork-vbcc-000` and so on with `make vbcc-release`;
+the flags are spelled its way:
 
 ```
 make vbcc CPUFLAGS=-cpu=68020 OPT=-O2
 ```
 
-NOTE: vbcc 0.9i miscompiles two of the benchmarks, so until the compiler
-is fixed `ftgrays` reports `run 1 failed` with all CPUs and `memcpy-small`
-gives a wrong checksum and scribbles over memory with `-cpu=68040`.
-We emailed both bug reports to the vbcc maintainer.
+NOTE: vbcc 0.9i miscompiles three of the benchmarks, so until the compiler
+is fixed `ftgrays` reports `run 1 failed` with all CPUs, `x25519` reports
+`setup failed` from `-O1` up, and `memcpy-small` gives a wrong checksum and
+scribbles over memory with `-cpu=68040`.
+We emailed the ftgrays and memcpy-small reports to the vbcc maintainer.
 
 
 ### SAS/C
