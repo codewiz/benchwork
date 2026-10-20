@@ -148,9 +148,11 @@ benchwork-040 built with m68k-amigaos-gcc 16.2-rc18[^rc18] and
 `-mregparm`[^regparm], on the 68040[^volamos].
 
 Passing arguments in registers makes the code 3% smaller and speeds up
-call-heavy code (Dhrystone 10%, LHa 2%), but slows down tight loops in
-zlib-inflate, png-decode and wipeout-tris by up to 4%, so on balance it
-is slightly slower. Allowing four register arguments instead of two
+call-heavy code (Dhrystone 10%, LHa 2%). The losses of up to 4% are
+Benchwork's own fault: the checksum each run takes of its output loses
+its `dbra` loop, about 2 cycles per byte, which is all that zlib-inflate,
+png-decode, backdrop and wipeout-tris lose; the benchmarks' own code
+runs as fast or faster. Allowing four register arguments instead of two
 changes little, and so does `-msasregparm`, which puts a third integer or
 pointer argument on the stack instead of in a register of the other kind.
 
