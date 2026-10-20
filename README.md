@@ -8,6 +8,10 @@ compiler-generated code: no disk, display or OS calls.[^libc]
 
 Numbers for the release binaries on a reference target are in [RESULTS.md](RESULTS.md).
 
+[![Time of each benchmark across the GCC 16.2 releases](results/gcc-releases-040.svg)](RESULTS.md#comparing-gcc-162-releases)
+
+## Benchmarks
+
 | benchmark | source | what it measures |
 |---|---|---|
 | dhrystone | Dhrystone 2.1, as used by xSysInfo | the classic integer mix |
