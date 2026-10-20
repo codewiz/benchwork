@@ -12,14 +12,14 @@
 <text class="t axis" x="810.0" y="166" text-anchor="middle">1.5x</text>
 <text class="t big" x="168" y="55.0" text-anchor="end">-O2</text>
 <path class="s0" d="M180,44.0 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
-<text class="t muted" x="605.0" y="54.0">348320</text>
+<text class="t muted" x="605.0" y="54.0">403700</text>
 <text class="t big" x="168" y="83.0" text-anchor="end">-Os</text>
-<path class="s1" d="M180,72.0 h368.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-368.3 z"/>
-<text class="t muted" x="605.0" y="82.0">308728 (-11.37%)</text>
+<path class="s1" d="M180,72.0 h374.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-374.5 z"/>
+<text class="t muted" x="605.0" y="82.0">363820 (-9.88%)</text>
 <text class="t big" x="168" y="111.0" text-anchor="end">-O3</text>
-<path class="s2" d="M180,100.0 h587.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-587.4 z"/>
-<text class="t muted" x="776.4" y="110.0">490492 (+40.82%)</text>
+<path class="s2" d="M180,100.0 h581.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-581.6 z"/>
+<text class="t muted" x="770.6" y="110.0">562904 (+39.44%)</text>
 <text class="t big" x="168" y="139.0" text-anchor="end">-O2 -flto</text>
-<path class="s3" d="M180,128.0 h335.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-335.9 z"/>
-<text class="t muted" x="605.0" y="138.0">281868 (-19.08%)</text>
+<path class="s3" d="M180,128.0 h345.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-345.4 z"/>
+<text class="t muted" x="605.0" y="138.0">335864 (-16.80%)</text>
 </svg>
