@@ -249,7 +249,13 @@ static int run_all(void) {
     return failures;
 }
 
-int main(int argc, char **argv) {
+// The startup code passes argc and argv on the stack, even when the program
+// is built with -mregparm.
+#ifndef __stdargs
+#define __stdargs
+#endif
+
+int __stdargs main(int argc, char **argv) {
     struct Task *task = FindTask(NULL);
     ULONG stack = (ULONG)task->tc_SPUpper - (ULONG)task->tc_SPLower;
     int failures, i;
