@@ -171,8 +171,8 @@
 <circle cx="635.2" cy="371.0" r="7" fill="transparent"><title>ftgrays rc17: 858 ms (-0.17%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="371.0" r="4"/>
 <circle cx="780.0" cy="371.0" r="7" fill="transparent"><title>ftgrays rc18-pre: 858 ms (-0.16%)</title></circle>
-<path class="grid" d="M782,371.0 L790,403.5 h6" fill="none"/>
-<text class="t" x="800" y="407.5">ftgrays</text>
+<path class="grid" d="M782,371.0 L790,404.6 h6" fill="none"/>
+<text class="t" x="800" y="408.6">ftgrays</text>
 <path class="k1" d="M56.0,460.7L200.8,474.0L345.6,474.0L490.4,631.6L635.2,631.6L780.0,631.6" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-small</title></path>
 <circle class="s1 ring" cx="56.0" cy="460.7" r="4"/>
 <circle cx="56.0" cy="460.7" r="7" fill="transparent"><title>memcpy-small rc5: 514 ms (+0.00%)</title></circle>
@@ -306,9 +306,9 @@
 <circle cx="635.2" cy="353.1" r="7" fill="transparent"><title>nfs3-clip rc17: 951 ms (-1.17%)</title></circle>
 <circle class="s2 ring" cx="780.0" cy="352.9" r="4"/>
 <circle cx="780.0" cy="352.9" r="7" fill="transparent"><title>nfs3-clip rc18-pre: 952 ms (-1.10%)</title></circle>
-<path class="grid" d="M782,352.9 L790,364.5 h6" fill="none"/>
-<text class="t" x="800" y="368.5">nfs3-clip</text>
-<path class="k3" d="M56.0,352.0L200.8,307.5L345.6,308.7L490.4,309.6L635.2,336.7L780.0,351.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>sha512</title></path>
+<path class="grid" d="M782,352.9 L790,365.6 h6" fill="none"/>
+<text class="t" x="800" y="369.6">nfs3-clip</text>
+<path class="k3" d="M56.0,352.0L200.8,307.5L345.6,308.7L490.4,309.6L635.2,336.7L780.0,352.6" fill="none" stroke-width="2" stroke-linejoin="round"><title>sha512</title></path>
 <circle class="s3 ring" cx="56.0" cy="352.0" r="4"/>
 <circle cx="56.0" cy="352.0" r="7" fill="transparent"><title>sha512 rc5: 957 ms (+0.00%)</title></circle>
 <circle class="s3 ring" cx="200.8" cy="307.5" r="4"/>
@@ -319,10 +319,10 @@
 <circle cx="490.4" cy="309.6" r="7" fill="transparent"><title>sha512 rc14: 1220 ms (+27.49%)</title></circle>
 <circle class="s3 ring" cx="635.2" cy="336.7" r="4"/>
 <circle cx="635.2" cy="336.7" r="7" fill="transparent"><title>sha512 rc17: 1045 ms (+9.19%)</title></circle>
-<circle class="s3 ring" cx="780.0" cy="351.5" r="4"/>
-<circle cx="780.0" cy="351.5" r="7" fill="transparent"><title>sha512 rc18-pre: 960 ms (+0.32%)</title></circle>
-<path class="grid" d="M782,351.5 L790,351.5 h6" fill="none"/>
-<text class="t" x="800" y="355.5">sha512</text>
+<circle class="s3 ring" cx="780.0" cy="352.6" r="4"/>
+<circle cx="780.0" cy="352.6" r="7" fill="transparent"><title>sha512 rc18-pre: 954 ms (-0.32%)</title></circle>
+<path class="grid" d="M782,352.6 L790,352.6 h6" fill="none"/>
+<text class="t" x="800" y="356.6">sha512</text>
 <path class="k3" d="M56.0,318.9L200.8,306.5L345.6,306.3L490.4,311.7L635.2,362.2L780.0,362.1" fill="none" stroke-width="2" stroke-linejoin="round"><title>aesgcm</title></path>
 <circle class="s3 ring" cx="56.0" cy="318.9" r="4"/>
 <circle cx="56.0" cy="318.9" r="7" fill="transparent"><title>aesgcm rc5: 1156 ms (+0.00%)</title></circle>
@@ -336,8 +336,8 @@
 <circle cx="635.2" cy="362.2" r="7" fill="transparent"><title>aesgcm rc17: 903 ms (-21.92%)</title></circle>
 <circle class="s3 ring" cx="780.0" cy="362.1" r="4"/>
 <circle cx="780.0" cy="362.1" r="7" fill="transparent"><title>aesgcm rc18-pre: 903 ms (-21.89%)</title></circle>
-<path class="grid" d="M782,362.1 L790,377.5 h6" fill="none"/>
-<text class="t" x="800" y="381.5">aesgcm</text>
+<path class="grid" d="M782,362.1 L790,378.6 h6" fill="none"/>
+<text class="t" x="800" y="382.6">aesgcm</text>
 <path class="k3" d="M56.0,490.6L200.8,485.4L345.6,485.4L490.4,483.9L635.2,483.9L780.0,483.9" fill="none" stroke-width="2" stroke-linejoin="round"><title>chacha20poly1305</title></path>
 <circle class="s3 ring" cx="56.0" cy="490.6" r="4"/>
 <circle cx="56.0" cy="490.6" r="7" fill="transparent"><title>chacha20poly1305 rc5: 433 ms (+0.00%)</title></circle>
@@ -368,7 +368,7 @@
 <circle cx="780.0" cy="449.8" r="7" fill="transparent"><title>x25519 rc18-pre: 547 ms (+10.76%)</title></circle>
 <path class="grid" d="M782,449.8 L790,457.2 h6" fill="none"/>
 <text class="t" x="800" y="461.2">x25519</text>
-<path class="ref" d="M56.0,333.7L200.8,330.8L345.6,330.6L490.4,348.2L635.2,351.7L780.0,362.1" fill="none" stroke-width="3" stroke-linejoin="round"><title>geomean</title></path>
+<path class="ref" d="M56.0,333.7L200.8,330.8L345.6,330.6L490.4,348.2L635.2,351.7L780.0,362.2" fill="none" stroke-width="3" stroke-linejoin="round"><title>geomean</title></path>
 <circle class="dot ring" cx="56.0" cy="333.7" r="4"/>
 <circle cx="56.0" cy="333.7" r="7" fill="transparent"><title>geomean rc5: 1063 ms (+0.00%)</title></circle>
 <circle class="dot ring" cx="200.8" cy="330.8" r="4"/>
@@ -379,8 +379,8 @@
 <circle cx="490.4" cy="348.2" r="7" fill="transparent"><title>geomean rc14: 978 ms (-7.95%)</title></circle>
 <circle class="dot ring" cx="635.2" cy="351.7" r="4"/>
 <circle cx="635.2" cy="351.7" r="7" fill="transparent"><title>geomean rc17: 959 ms (-9.78%)</title></circle>
-<circle class="dot ring" cx="780.0" cy="362.1" r="4"/>
-<circle cx="780.0" cy="362.1" r="7" fill="transparent"><title>geomean rc18-pre: 903 ms (-15.02%)</title></circle>
-<path class="grid" d="M782,362.1 L790,390.5 h6" fill="none"/>
-<text class="t name" x="800" y="394.5">geomean</text>
+<circle class="dot ring" cx="780.0" cy="362.2" r="4"/>
+<circle cx="780.0" cy="362.2" r="7" fill="transparent"><title>geomean rc18-pre: 903 ms (-15.04%)</title></circle>
+<path class="grid" d="M782,362.2 L790,391.6 h6" fill="none"/>
+<text class="t name" x="800" y="395.6">geomean</text>
 </svg>

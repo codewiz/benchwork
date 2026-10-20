@@ -83,12 +83,12 @@ Its vertical axis is logarithmic, so equal slopes are equal percentages.
 | wipeout-tris | 666 | 538 (-19.23%) | 519 (-22.20%) | 519 (-22.20%) | **518 (-22.22%)** |
 | nfs3-project | **1002** | 1066 (+6.39%) | 1064 (+6.19%) | 1064 (+6.19%) | 1064 (+6.19%) |
 | nfs3-clip | 962 | 963 (+0.03%) | **951 (-1.17%)** | **951 (-1.17%)** | 952 (-1.10%) |
-| sha512 | **957** | 1234 (+29.03%) | 1220 (+27.49%) | 1045 (+9.19%) | 960 (+0.32%) |
+| sha512 | 957 | 1234 (+29.03%) | 1220 (+27.49%) | 1045 (+9.19%) | **954 (-0.32%)** |
 | aesgcm | 1156 | 1242 (+7.38%) | 1205 (+4.20%) | **903 (-21.92%)** | **903 (-21.89%)** |
 | chacha20poly1305 | **433** | 446 (+3.00%) | 450 (+3.92%) | 450 (+3.92%) | 450 (+3.92%) |
 | x25519 | **494** | 515 (+4.25%) | 546 (+10.64%) | 547 (+10.81%) | 547 (+10.76%) |
-| **GEOMEAN** | **1063** | **1080 (+1.67%)** | **978 (-7.95%)** | **959 (-9.78%)** | **903 (-15.02%)** |
-| **CODE SIZE** | 446788 | 434460 (-2.76%) | 411300 (-7.94%) | 401816 (-10.07%) | 402072 (-10.01%) |
+| **GEOMEAN** | **1063** | **1080 (+1.67%)** | **978 (-7.95%)** | **959 (-9.78%)** | **903 (-15.04%)** |
+| **CODE SIZE** | 446788 | 434460 (-2.76%) | 411300 (-7.94%) | 401816 (-10.07%) | 403356 (-9.72%) |
 
 ## Comparing GCC optimization levels
 
@@ -150,11 +150,11 @@ being allowed each CPU's instructions, not how fast those CPUs are.
 68020-FP is `-m68020-60 -m68881`, which runs on any 68020 or later with an FPU.
 
 `-m68020-60` cannot use the 64-bit `mulu.l`, which the 68060 lacks, so
-chacha20poly1305 and x25519 call `__muldi3`. rc17's `-m68020-60` is also
-26% slower on backdrop. rc18-pre[^rc18pre], which tunes it with the 68040
-costs, gets backdrop down to 3087 ms, but its `-m68020-60` libgcc
-multiplies with 16-bit `mulu.w`: chacha20poly1305 takes 1035 ms and x25519
-2967 ms.
+rc17 calls `__muldi3` for chacha20poly1305 and x25519, and is also 26%
+slower on backdrop. rc18-pre[^rc18pre] tunes `-m68020-60` with the 68040
+costs (backdrop 3077 ms) and multiplies inline with four 16-bit `mulu.w`
+(chacha20poly1305 747 ms, x25519 1959 ms): code the 68060 can run, but on
+a 68040 still slower than its own 64-bit `mulu.l`.
 
 | benchmark | 68000 | 68020 | 68020-FP | 68040-FP |
 |---|---:|---:|---:|---:|
@@ -193,7 +193,7 @@ caches modeled[^cache], built by rc18-pre[^rc18pre]:
 | benchmark | -m68020-60 -m68881 | -m68060 -m68881 |
 |---|---:|---:|
 | dhrystone | **256** | **256** |
-| backdrop | **1790** | **1790** |
+| backdrop | **1785** | **1785** |
 | lha-pack | **2539** | **2539** |
 | lha-unpack | **757** | 759 (+0.30%) |
 | zlib-deflate | **2034** | **2034** |
@@ -210,12 +210,12 @@ caches modeled[^cache], built by rc18-pre[^rc18pre]:
 | wipeout-tris | **264** | **264** |
 | nfs3-project | **616** | **616** |
 | nfs3-clip | **532** | **532** |
-| sha512 | 480 | **477 (-0.64%)** |
+| sha512 | **477** | 480 (+0.64%) |
 | aesgcm | **464** | **464** |
-| chacha20poly1305 | **446** | **446** |
-| x25519 | **1208** | **1208** |
-| **GEOMEAN** | **516** | **516 (-0.02%)** |
-| **CODE SIZE** | 407352 | 406692 (-0.16%) |
+| chacha20poly1305 | **286** | **286** |
+| x25519 | **648** | **648** |
+| **GEOMEAN** | **492** | **492 (+0.04%)** |
+| **CODE SIZE** | 427020 | 426360 (-0.15%) |
 
 [^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1`.
     The emulated time is derived from the CPU's cycle count at 25 MHz;
@@ -245,8 +245,9 @@ caches modeled[^cache], built by rc18-pre[^rc18pre]:
 [^rc18pre]: A local build of m68k-amigaos-gcc master after rc17
     (v16.2-rc17-36), with the 68040 and 68060 cost fixes of
     AmigaPorts/gcc#102, the `-m68020-60` multilibs of
-    AmigaPorts/m68k-amigaos-gcc#177 and the newlib upstream merge; to be
-    redone with rc18. The 68060 table ran with
+    AmigaPorts/m68k-amigaos-gcc#177, inline 32x32->64 multiplies for
+    `-m68020-60` and `-m68060` (not yet merged) and the newlib upstream
+    merge; to be redone with rc18. The 68060 table ran with
     `volamos --clock-mhz 50 --cpu 68060 --fpu --cache`.
 [^softfloat]: The 68000 and 68020 builds are soft float, and newlib's
     float arithmetic is a stub into the mathieeesingbas ROM library, which
