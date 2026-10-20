@@ -75,7 +75,8 @@ def main(args):
         files.append(arg)
     columns = []
     for arg in files:
-        label, _, path = arg.partition("=")
+        # The last "=", so that a label can be a flag like -mregparm=2.
+        label, _, path = arg.rpartition("=")
         columns.append((label, *parse(path, skip)))
 
     names = []

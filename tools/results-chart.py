@@ -133,7 +133,7 @@ def sizes(opts):
     """One bar per build, each labeled with its own name, so no legend."""
     columns = []
     for arg in opts.columns:
-        label, _, size = arg.partition("=")
+        label, _, size = arg.rpartition("=")
         columns.append((label, int(size)))
     base = columns[0][1]
     ratios = [size / base for _, size in columns]
@@ -257,7 +257,8 @@ def main(args):
     # The benchmarks each column's run reported as failed, by label.
     failed = {}
     for arg in opts.columns:
-        label, _, path = arg.partition("=")
+        # The last "=", so that a label can be a flag like -mregparm=2.
+        label, _, path = arg.rpartition("=")
         times, checks, geomean = results_table.parse(path, skip)
         columns.append((label, times, checks, geomean))
         with open(path) as f:
