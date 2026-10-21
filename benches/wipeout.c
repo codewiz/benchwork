@@ -40,7 +40,7 @@
 // passes timed under each. Together about a second on a 25 MHz 68040 with
 // soft float.
 static const unsigned RUNS[3] = { 1024, 8, 1 };
-static const unsigned PASSES[3] = { 8, 8, 4 };
+static const unsigned PASSES[3] = { 32, 32, 16 };
 
 static tris_t *input;
 static UWORD *tex;      // 3 * N texture indices, one set per pattern

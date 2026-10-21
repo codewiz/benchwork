@@ -175,9 +175,18 @@ static bool encode_verify(void *state, const void *result, ULONG *check) {
     return true;
 }
 
+// Decoding is about 7 times faster than encoding, so a run decodes the PNG
+// this many times to take about as long as the other benchmarks.
+#define DECODES 3
+
 static const void *decode_run(void *state) {
+    int i;
+
     (void)state;
-    return decode() ? decoded : NULL;
+    for (i = 0; i < DECODES; i++)
+        if (!decode())
+            return NULL;
+    return decoded;
 }
 
 static bool decode_verify(void *state, const void *result, ULONG *check) {

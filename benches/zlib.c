@@ -9,7 +9,8 @@
 //
 // Separate from the PNG benchmark so a change in zlib is measured on its
 // own: a 256 KiB stream in one deflate() call, and inflated back in one
-// inflate() call, the way compress2() and uncompress() do it.
+// inflate() call, the way compress2() and uncompress() do it, three times
+// per run.
 
 #include <proto/exec.h>
 #include <exec/memory.h>
@@ -77,24 +78,30 @@ static bool deflate_verify(void *state, const void *result, ULONG *check) {
     return true;
 }
 
+// Inflating is about 12 times faster than deflating, so a run inflates the
+// stream this many times to take about as long as the other benchmarks.
+#define INFLATES 3
+
 static const void *inflate_run(void *state) {
     z_stream strm;
-    int rc;
+    int rc, i;
 
     (void)state;
-    memset(&strm, 0, sizeof(strm));
-    strm.zalloc = bench_zalloc;
-    strm.zfree = bench_zfree;
-    if (inflateInit(&strm) != Z_OK)
-        return NULL;
-    strm.next_in = packed;
-    strm.avail_in = packed_len;
-    strm.next_out = unpacked;
-    strm.avail_out = CORPUS_SIZE;
-    rc = inflate(&strm, Z_FINISH);
-    inflateEnd(&strm);
-    if (rc != Z_STREAM_END || strm.total_out != CORPUS_SIZE)
-        return NULL;
+    for (i = 0; i < INFLATES; i++) {
+        memset(&strm, 0, sizeof(strm));
+        strm.zalloc = bench_zalloc;
+        strm.zfree = bench_zfree;
+        if (inflateInit(&strm) != Z_OK)
+            return NULL;
+        strm.next_in = packed;
+        strm.avail_in = packed_len;
+        strm.next_out = unpacked;
+        strm.avail_out = CORPUS_SIZE;
+        rc = inflate(&strm, Z_FINISH);
+        inflateEnd(&strm);
+        if (rc != Z_STREAM_END || strm.total_out != CORPUS_SIZE)
+            return NULL;
+    }
     return unpacked;
 }
 

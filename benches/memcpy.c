@@ -56,9 +56,9 @@
 
 // Repeats per phase, chosen so each benchmark lands around a second on a
 // 25 MHz 68040, in the same range as the other workloads.
-#define SMALL_REPS       9600
-#define SMALL_ODD_REPS   6400
-#define STRUCT_REPS     12800
+#define SMALL_REPS      57600
+#define SMALL_ODD_REPS  38400
+#define STRUCT_REPS     76800
 #define LARGE_REPS       3600
 #define VAR_SMALL_REPS  18000
 #define VAR_LARGE_REPS   3600
