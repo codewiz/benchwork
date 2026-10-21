@@ -177,56 +177,84 @@ static void dither(const UBYTE *scene, UBYTE *out, SHORT w, SHORT h,
 static const int RGB444[3] = {16, 16, 16};
 static const int PEN332[3] = {8, 8, 4};
 
-static UBYTE *scene, *frame;
-static int *err;
+struct backdrop_state {
+    UBYTE *scene;   // the rendered scene, 8-bit RGB
+    UBYTE *frame;   // dithered to RGB444, still 8-bit RGB
+    UBYTE *pens;    // dithered to 8-bit pens
+    int *err;       // two rows of dither error
+};
 
-static bool backdrop_setup(void) {
-    scene = bench_alloc(WIDTH * HEIGHT * 3, "backdrop scene");
-    frame = bench_alloc(WIDTH * HEIGHT * 3, "backdrop frame");
-    err = bench_alloc((WIDTH + 2) * 3 * 2 * sizeof(int), "dither rows");
-    return scene && frame && err;
+static void backdrop_teardown(void *state) {
+    struct backdrop_state *s = state;
+
+    if (s) {
+        bench_free(s->scene);
+        bench_free(s->frame);
+        bench_free(s->pens);
+        bench_free(s->err);
+        bench_free(s);
+    }
+}
+
+static void *backdrop_setup(void) {
+    struct backdrop_state *s = bench_alloc(sizeof *s, "backdrop state");
+
+    if (!s)
+        return NULL;
+    s->scene = bench_alloc(WIDTH * HEIGHT * 3, "backdrop scene");
+    s->frame = bench_alloc(WIDTH * HEIGHT * 3, "backdrop frame");
+    s->pens = bench_alloc(WIDTH * HEIGHT, "backdrop pens");
+    s->err = bench_alloc((WIDTH + 2) * 3 * 2 * sizeof(int), "dither rows");
+    if (!s->scene || !s->frame || !s->pens || !s->err) {
+        backdrop_teardown(s);
+        return NULL;
+    }
+    return s;
 }
 
 // One truecolor frame and one 8-bit frame from the same scene, so both the
 // byte-triple store path and the pen packing are measured.
-static bool backdrop_run(ULONG *check) {
-    backdrop(scene, WIDTH, HEIGHT);
-    dither(scene, frame, WIDTH, HEIGHT, RGB444, true, err);
-    *check = checksum(0, frame, WIDTH * HEIGHT * 3);
-    dither(scene, frame, WIDTH, HEIGHT, PEN332, false, err);
-    *check = checksum(*check, frame, WIDTH * HEIGHT);
-    return true;
+static const void *backdrop_run(void *state) {
+    struct backdrop_state *s = state;
+
+    backdrop(s->scene, WIDTH, HEIGHT);
+    dither(s->scene, s->frame, WIDTH, HEIGHT, RGB444, true, s->err);
+    dither(s->scene, s->pens, WIDTH, HEIGHT, PEN332, false, s->err);
+    return s;
 }
 
-static void backdrop_teardown(void) {
-    bench_free(scene);
-    bench_free(frame);
-    bench_free(err);
-    scene = frame = NULL;
-    err = NULL;
+static bool backdrop_verify(void *state, const void *result, ULONG *check) {
+    const struct backdrop_state *s = result;
+
+    (void)state;
+    *check = checksum(0, s->frame, WIDTH * HEIGHT * 3);
+    *check = checksum(*check, s->pens, WIDTH * HEIGHT);
+    return true;
 }
 
 // For the PNG benchmark, which needs a picture to encode: the truecolor
 // frame, in a buffer the caller frees with bench_free(), or NULL.
 UBYTE *backdrop_rgb(SHORT *w, SHORT *h) {
+    struct backdrop_state *s = backdrop_setup();
     UBYTE *px = NULL;
 
-    if (backdrop_setup()) {
-        backdrop(scene, WIDTH, HEIGHT);
-        dither(scene, frame, WIDTH, HEIGHT, RGB444, true, err);
-        px = frame;
-        frame = NULL;
+    if (s) {
+        backdrop(s->scene, WIDTH, HEIGHT);
+        dither(s->scene, s->frame, WIDTH, HEIGHT, RGB444, true, s->err);
+        px = s->frame;
+        s->frame = NULL;
         *w = WIDTH;
         *h = HEIGHT;
     }
-    backdrop_teardown();
+    backdrop_teardown(s);
     return px;
 }
 
-const struct bench bench_backdrop = {
+const struct Bench bench_backdrop = {
     "backdrop",
     "p96cts landscape scene, 320x256, truecolor and 8-bit",
     backdrop_setup,
     backdrop_run,
+    backdrop_verify,
     backdrop_teardown,
 };

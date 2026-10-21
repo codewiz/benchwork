@@ -146,21 +146,35 @@ static bool self_test(void) {
         && memcmp(tag, TV_TAG, TAG_SIZE) == 0;
 }
 
-static bool chacha20poly1305_setup(void) {
+static void chacha20poly1305_teardown(void *state) {
+    (void)state;
+    bench_free(plain);
+    bench_free(cipher);
+    bench_free(corpus);
+    plain = NULL;
+    cipher = NULL;
+    corpus = NULL;
+}
+
+// The buffers and keys stay in this file's globals; the hooks get the
+// corpus as their state.
+static void *chacha20poly1305_setup(void) {
     if (!self_test())
-        return false;
+        return NULL;
 
     // The connection's key and IV, from bytes of the corpus as a TLS key
     // schedule would derive them; the key schedule is outside the timing.
     corpus = corpus_alloc();
     cipher = bench_alloc(RECORDS * (RECORD_SIZE + TAG_SIZE),
                          "chacha20poly1305 records");
-    plain = bench_alloc(RECORD_SIZE, "chacha20poly1305 plaintext");
-    if (corpus == NULL || cipher == NULL || plain == NULL)
-        return false;
+    plain = bench_alloc(RECORDS * RECORD_SIZE, "chacha20poly1305 plaintext");
+    if (corpus == NULL || cipher == NULL || plain == NULL) {
+        chacha20poly1305_teardown(NULL);
+        return NULL;
+    }
     load_key(key, corpus + RECORDS * RECORD_SIZE);
     memcpy(iv, corpus + RECORDS * RECORD_SIZE + 32, sizeof(iv));
-    return true;
+    return corpus;
 }
 
 // The per-record nonce: the IV with the record number XORed into its end.
@@ -172,7 +186,7 @@ static void record_nonce(UBYTE nonce[12], ULONG record) {
         nonce[11 - i] ^= (UBYTE)(record >> (8 * i));
 }
 
-static bool chacha20poly1305_run(ULONG *check) {
+static const void *chacha20poly1305_run(void *state) {
     // TLS 1.3's record header: application data, version 3.3, length.
     static const UBYTE header[5] = {
         0x17, 0x03, 0x03,
@@ -186,42 +200,41 @@ static bool chacha20poly1305_run(ULONG *check) {
         UBYTE *out = cipher + r * (RECORD_SIZE + TAG_SIZE);
 
         record_nonce(nonce, r);
-        aead_crypt(key, nonce, corpus + r * RECORD_SIZE, out, RECORD_SIZE);
+        aead_crypt(key, nonce, (const UBYTE *)state + r * RECORD_SIZE, out,
+                   RECORD_SIZE);
         aead_tag(key, nonce, header, sizeof(header), out, RECORD_SIZE,
                  out + RECORD_SIZE);
     }
 
-    // The receiver checks each record's tag, decrypts it whole, as the TLS
-    // record layer does, and compares with what was sent.
+    // The receiver checks each record's tag and decrypts it whole, as the
+    // TLS record layer does.
     for (r = 0; r < RECORDS; r++) {
         const UBYTE *in = cipher + r * (RECORD_SIZE + TAG_SIZE);
 
         record_nonce(nonce, r);
         aead_tag(key, nonce, header, sizeof(header), in, RECORD_SIZE, tag);
         if (memcmp(tag, in + RECORD_SIZE, TAG_SIZE) != 0)
-            return false;
-        aead_crypt(key, nonce, in, plain, RECORD_SIZE);
-        if (memcmp(plain, corpus + r * RECORD_SIZE, RECORD_SIZE) != 0)
-            return false;
+            return NULL;
+        aead_crypt(key, nonce, in, plain + r * RECORD_SIZE, RECORD_SIZE);
     }
+    return cipher;
+}
 
-    *check = checksum(0, cipher, RECORDS * (RECORD_SIZE + TAG_SIZE));
+// What was received must be what was sent; the check value covers the
+// records as they went over the wire.
+static bool chacha20poly1305_verify(void *state, const void *result,
+                                    ULONG *check) {
+    if (memcmp(plain, state, RECORDS * RECORD_SIZE) != 0)
+        return false;
+    *check = checksum(0, result, RECORDS * (RECORD_SIZE + TAG_SIZE));
     return true;
 }
 
-static void chacha20poly1305_teardown(void) {
-    bench_free(plain);
-    bench_free(cipher);
-    bench_free(corpus);
-    plain = NULL;
-    cipher = NULL;
-    corpus = NULL;
-}
-
-const struct bench bench_chacha20poly1305 = {
+const struct Bench bench_chacha20poly1305 = {
     "chacha20poly1305",
     "AmiSSL ChaCha20-Poly1305, sending and receiving TLS records",
     chacha20poly1305_setup,
     chacha20poly1305_run,
+    chacha20poly1305_verify,
     chacha20poly1305_teardown,
 };

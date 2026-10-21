@@ -89,20 +89,34 @@ static bool self_test(void) {
         && memcmp(tag, TC4_TAG, TAG_SIZE) == 0;
 }
 
-static bool aesgcm_setup(void) {
+static void aesgcm_teardown(void *state) {
+    (void)state;
+    bench_free(plain);
+    bench_free(cipher);
+    bench_free(corpus);
+    plain = NULL;
+    cipher = NULL;
+    corpus = NULL;
+}
+
+// The buffers and the cipher context stay in this file's globals; the hooks
+// get the corpus as their state.
+static void *aesgcm_setup(void) {
     if (!self_test())
-        return false;
+        return NULL;
 
     // The connection's key and IV, from bytes of the corpus as a TLS key
     // schedule would derive them; the key schedule is outside the timing.
     corpus = corpus_alloc();
     cipher = bench_alloc(RECORDS * (RECORD_SIZE + TAG_SIZE), "aesgcm records");
-    plain = bench_alloc(RECORD_SIZE, "aesgcm plaintext");
-    if (corpus == NULL || cipher == NULL || plain == NULL)
-        return false;
+    plain = bench_alloc(RECORDS * RECORD_SIZE, "aesgcm plaintext");
+    if (corpus == NULL || cipher == NULL || plain == NULL) {
+        aesgcm_teardown(NULL);
+        return NULL;
+    }
     AES_set_encrypt_key(corpus + RECORDS * RECORD_SIZE, 128, &key);
     CRYPTO_gcm128_init(&gcm, &key, (block128_f)AES_encrypt);
-    return true;
+    return corpus;
 }
 
 // The per-record nonce: the IV with the record number XORed into its end.
@@ -116,7 +130,7 @@ static void set_nonce(ULONG record) {
     CRYPTO_gcm128_setiv(&gcm, nonce, sizeof(nonce));
 }
 
-static bool aesgcm_run(ULONG *check) {
+static const void *aesgcm_run(void *state) {
     // TLS 1.3's record header: application data, version 3.3, length.
     static const UBYTE header[5] = {
         0x17, 0x03, 0x03,
@@ -129,42 +143,42 @@ static bool aesgcm_run(ULONG *check) {
 
         set_nonce(r);
         if (CRYPTO_gcm128_aad(&gcm, header, sizeof(header)) != 0
-            || CRYPTO_gcm128_encrypt(&gcm, corpus + r * RECORD_SIZE, out,
+            || CRYPTO_gcm128_encrypt(&gcm, (const UBYTE *)state
+                                     + r * RECORD_SIZE, out,
                                      RECORD_SIZE) != 0)
-            return false;
+            return NULL;
         CRYPTO_gcm128_tag(&gcm, out + RECORD_SIZE, TAG_SIZE);
     }
 
     // The receiver decrypts each record whole, as the TLS record layer
-    // does, checks the tag, and compares with what was sent.
+    // does, and checks the tag.
     for (r = 0; r < RECORDS; r++) {
         const UBYTE *in = cipher + r * (RECORD_SIZE + TAG_SIZE);
 
         set_nonce(r);
         if (CRYPTO_gcm128_aad(&gcm, header, sizeof(header)) != 0
-            || CRYPTO_gcm128_decrypt(&gcm, in, plain, RECORD_SIZE) != 0
-            || CRYPTO_gcm128_finish(&gcm, in + RECORD_SIZE, TAG_SIZE) != 0
-            || memcmp(plain, corpus + r * RECORD_SIZE, RECORD_SIZE) != 0)
-            return false;
+            || CRYPTO_gcm128_decrypt(&gcm, in, plain + r * RECORD_SIZE,
+                                     RECORD_SIZE) != 0
+            || CRYPTO_gcm128_finish(&gcm, in + RECORD_SIZE, TAG_SIZE) != 0)
+            return NULL;
     }
+    return cipher;
+}
 
-    *check = checksum(0, cipher, RECORDS * (RECORD_SIZE + TAG_SIZE));
+// What was received must be what was sent; the check value covers the
+// records as they went over the wire.
+static bool aesgcm_verify(void *state, const void *result, ULONG *check) {
+    if (memcmp(plain, state, RECORDS * RECORD_SIZE) != 0)
+        return false;
+    *check = checksum(0, result, RECORDS * (RECORD_SIZE + TAG_SIZE));
     return true;
 }
 
-static void aesgcm_teardown(void) {
-    bench_free(plain);
-    bench_free(cipher);
-    bench_free(corpus);
-    plain = NULL;
-    cipher = NULL;
-    corpus = NULL;
-}
-
-const struct bench bench_aesgcm = {
+const struct Bench bench_aesgcm = {
     "aesgcm",
     "AmiSSL AES-128-GCM, sending and receiving TLS records",
     aesgcm_setup,
     aesgcm_run,
+    aesgcm_verify,
     aesgcm_teardown,
 };

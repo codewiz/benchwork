@@ -155,26 +155,8 @@ static bool draw_page(void) {
     return true;
 }
 
-static bool ftgrays_setup(void) {
-    int i;
-
-    for (i = 0; i < NGLYPHS; i++) {
-        if (GLYPHS[i].n_points > max_points)
-            max_points = GLYPHS[i].n_points;
-        if (GLYPHS[i].n_contours > max_contours)
-            max_contours = GLYPHS[i].n_contours;
-    }
-    page = bench_alloc(PAGE_W * PAGE_H, "ftgrays page");
-    points = bench_alloc((ULONG)max_points * sizeof(*points), "ftgrays points");
-    tags = bench_alloc((ULONG)max_points, "ftgrays tags");
-    contours = bench_alloc((ULONG)max_contours * sizeof(*contours),
-                           "ftgrays contours");
-    if (!page || !points || !tags || !contours)
-        return false;
-    return ft_grays_raster.raster_new(NULL, &raster) == 0;
-}
-
-static void ftgrays_teardown(void) {
+static void ftgrays_teardown(void *state) {
+    (void)state;
     if (raster)
         ft_grays_raster.raster_done(raster);
     bench_free(page);
@@ -188,20 +170,50 @@ static void ftgrays_teardown(void) {
     raster = NULL;
 }
 
-static bool ftgrays_run(ULONG *check) {
+// The rasterizer and its buffers stay in this file's globals; the hooks get
+// the page as their state.
+static void *ftgrays_setup(void) {
+    int i;
+
+    for (i = 0; i < NGLYPHS; i++) {
+        if (GLYPHS[i].n_points > max_points)
+            max_points = GLYPHS[i].n_points;
+        if (GLYPHS[i].n_contours > max_contours)
+            max_contours = GLYPHS[i].n_contours;
+    }
+    page = bench_alloc(PAGE_W * PAGE_H, "ftgrays page");
+    points = bench_alloc((ULONG)max_points * sizeof(*points), "ftgrays points");
+    tags = bench_alloc((ULONG)max_points, "ftgrays tags");
+    contours = bench_alloc((ULONG)max_contours * sizeof(*contours),
+                           "ftgrays contours");
+    if (!page || !points || !tags || !contours ||
+        ft_grays_raster.raster_new(NULL, &raster) != 0) {
+        ftgrays_teardown(NULL);
+        return NULL;
+    }
+    return page;
+}
+
+static const void *ftgrays_run(void *state) {
     int pass;
 
     for (pass = 0; pass < PASSES; pass++)
         if (!draw_page())
-            return false;
-    *check = checksum(0, page, PAGE_W * PAGE_H);
+            return NULL;
+    return state;
+}
+
+static bool ftgrays_verify(void *state, const void *result, ULONG *check) {
+    (void)state;
+    *check = checksum(0, result, PAGE_W * PAGE_H);
     return true;
 }
 
-const struct bench bench_ftgrays = {
+const struct Bench bench_ftgrays = {
     "ftgrays",
     "FreeType smooth rasterizer, 94 glyphs at 12/24/48 px, 2 passes",
     ftgrays_setup,
     ftgrays_run,
+    ftgrays_verify,
     ftgrays_teardown,
 };

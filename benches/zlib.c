@@ -44,64 +44,81 @@ static bool deflate_corpus(void) {
     return rc == Z_STREAM_END;
 }
 
-static bool zlib_setup(void) {
-    plain = corpus_alloc();
-    packed_cap = (ULONG)deflateBound(NULL, CORPUS_SIZE);
-    packed = bench_alloc(packed_cap, "zlib deflate buffer");
-    unpacked = bench_alloc(CORPUS_SIZE, "zlib inflate buffer");
-    if (!plain || !packed || !unpacked)
-        return false;
-    return deflate_corpus();
-}
-
-static void zlib_teardown(void) {
+static void zlib_teardown(void *state) {
+    (void)state;
     bench_free(plain);
     bench_free(packed);
     bench_free(unpacked);
     plain = packed = unpacked = NULL;
 }
 
-static bool deflate_run(ULONG *check) {
-    if (!deflate_corpus())
-        return false;
-    *check = checksum(0, packed, packed_len);
+// The buffers stay in this file's globals; the hooks get the corpus as
+// their state.
+static void *zlib_setup(void) {
+    plain = corpus_alloc();
+    packed_cap = (ULONG)deflateBound(NULL, CORPUS_SIZE);
+    packed = bench_alloc(packed_cap, "zlib deflate buffer");
+    unpacked = bench_alloc(CORPUS_SIZE, "zlib inflate buffer");
+    if (!plain || !packed || !unpacked || !deflate_corpus()) {
+        zlib_teardown(NULL);
+        return NULL;
+    }
+    return plain;
+}
+
+static const void *deflate_run(void *state) {
+    (void)state;
+    return deflate_corpus() ? packed : NULL;
+}
+
+static bool deflate_verify(void *state, const void *result, ULONG *check) {
+    (void)state;
+    *check = checksum(0, result, packed_len);
     return true;
 }
 
-static bool inflate_run(ULONG *check) {
+static const void *inflate_run(void *state) {
     z_stream strm;
     int rc;
 
+    (void)state;
     memset(&strm, 0, sizeof(strm));
     strm.zalloc = bench_zalloc;
     strm.zfree = bench_zfree;
     if (inflateInit(&strm) != Z_OK)
-        return false;
+        return NULL;
     strm.next_in = packed;
     strm.avail_in = packed_len;
     strm.next_out = unpacked;
     strm.avail_out = CORPUS_SIZE;
     rc = inflate(&strm, Z_FINISH);
     inflateEnd(&strm);
-    if (rc != Z_STREAM_END || strm.total_out != CORPUS_SIZE ||
-        memcmp(unpacked, plain, CORPUS_SIZE))
+    if (rc != Z_STREAM_END || strm.total_out != CORPUS_SIZE)
+        return NULL;
+    return unpacked;
+}
+
+static bool inflate_verify(void *state, const void *result, ULONG *check) {
+    if (memcmp(result, state, CORPUS_SIZE))
         return false;
-    *check = checksum(0, unpacked, CORPUS_SIZE);
+    *check = checksum(0, result, CORPUS_SIZE);
     return true;
 }
 
-const struct bench bench_zlib_deflate = {
+const struct Bench bench_zlib_deflate = {
     "zlib-deflate",
     "zlib level 6 compression of 256 KiB of text",
     zlib_setup,
     deflate_run,
+    deflate_verify,
     zlib_teardown,
 };
 
-const struct bench bench_zlib_inflate = {
+const struct Bench bench_zlib_inflate = {
     "zlib-inflate",
     "zlib decompression back to 256 KiB",
     zlib_setup,
     inflate_run,
+    inflate_verify,
     zlib_teardown,
 };

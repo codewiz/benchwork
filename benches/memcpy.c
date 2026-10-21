@@ -98,14 +98,26 @@ struct big { ULONG w[32]; };
 #define SMALL_BASE(r) (((r) * 512) & (BUFSIZE - 4096))
 #define LARGE_BASE(r) (((r) * 4096) & (BUFSIZE / 2 - 1) & ~4095L)
 
-static bool memcpy_setup(void) {
+static void memcpy_teardown(void *state) {
+    (void)state;
+    bench_free(src);
+    bench_free(dst);
+    src = NULL;
+    dst = NULL;
+}
+
+// The buffers stay in this file's globals; the hooks get the destination,
+// which every phase writes, as their state and result.
+static void *memcpy_setup(void) {
     ULONG i;
     ULONG x = 2463534242UL;
 
     src = bench_alloc(BUFSIZE, "block move source");
     dst = bench_alloc(BUFSIZE, "block move destination");
-    if (!src || !dst)
-        return false;
+    if (!src || !dst) {
+        memcpy_teardown(NULL);
+        return NULL;
+    }
 
     // Xorshift, so the bytes are not compressible and not all equal: a copy
     // that drops or repeats a run then shows up in the checksum.
@@ -124,7 +136,7 @@ static bool memcpy_setup(void) {
         x ^= x << 5;
         dst[i] = (UBYTE)(x >> 24);
     }
-    return true;
+    return dst;
 }
 
 // Constant sizes up to the by-pieces limit, at aligned offsets.
@@ -254,95 +266,94 @@ static void phase_move_large(void) {
     }
 }
 
-static bool small_run(ULONG *check) {
+static const void *small_run(void *state) {
     phase_small();
     phase_small_odd();
     phase_struct();
-    *check = checksum(0, dst, BUFSIZE);
-    return true;
+    return state;
 }
 
-static bool large_run(ULONG *check) {
+static const void *large_run(void *state) {
     phase_large();
-    *check = checksum(0, dst, BUFSIZE);
-    return true;
+    return state;
 }
 
-static bool var_small_run(ULONG *check) {
+static const void *var_small_run(void *state) {
     phase_var(VAR_SMALL_SIZES, NVAR_SMALL, VAR_SMALL_REPS, 256);
-    *check = checksum(0, dst, BUFSIZE);
-    return true;
+    return state;
 }
 
-static bool var_large_run(ULONG *check) {
+static const void *var_large_run(void *state) {
     phase_var(VAR_LARGE_SIZES, NVAR_LARGE, VAR_LARGE_REPS, 4096);
-    *check = checksum(0, dst, BUFSIZE);
-    return true;
+    return state;
 }
 
-static bool move_small_run(ULONG *check) {
+static const void *move_small_run(void *state) {
     phase_move_small();
-    *check = checksum(0, dst, BUFSIZE);
-    return true;
+    return state;
 }
 
-static bool move_large_run(ULONG *check) {
+static const void *move_large_run(void *state) {
     phase_move_large();
-    *check = checksum(0, dst, BUFSIZE);
+    return state;
+}
+
+static bool memcpy_verify(void *state, const void *result, ULONG *check) {
+    (void)state;
+    *check = checksum(0, result, BUFSIZE);
     return true;
 }
 
-static void memcpy_teardown(void) {
-    bench_free(src);
-    bench_free(dst);
-    src = NULL;
-    dst = NULL;
-}
-
-const struct bench bench_memcpy_small = {
+const struct Bench bench_memcpy_small = {
     "memcpy-small",
     "constant copies up to 128 bytes, aligned, odd and struct",
     memcpy_setup,
     small_run,
+    memcpy_verify,
     memcpy_teardown,
 };
 
-const struct bench bench_memcpy_large = {
+const struct Bench bench_memcpy_large = {
     "memcpy-large",
     "constant copies from 256 to 4096 bytes",
     memcpy_setup,
     large_run,
+    memcpy_verify,
     memcpy_teardown,
 };
 
-const struct bench bench_memcpy_var_small = {
+const struct Bench bench_memcpy_var_small = {
     "memcpy-var-small",
     "small copies sized at run time: the call into newlib's memcpy",
     memcpy_setup,
     var_small_run,
+    memcpy_verify,
     memcpy_teardown,
 };
 
-const struct bench bench_memcpy_var_large = {
+const struct Bench bench_memcpy_var_large = {
     "memcpy-var-large",
     "large copies sized at run time: newlib's memcpy loop",
     memcpy_setup,
     var_large_run,
+    memcpy_verify,
     memcpy_teardown,
 };
 
-const struct bench bench_memmove_small = {
+const struct Bench bench_memmove_small = {
     "memmove-small",
     "overlapping moves up to 128 bytes, both directions",
     memcpy_setup,
     move_small_run,
+    memcpy_verify,
     memcpy_teardown,
 };
 
-const struct bench bench_memmove_large = {
+const struct Bench bench_memmove_large = {
     "memmove-large",
     "overlapping moves of 2048 and 4096 bytes, both directions",
     memcpy_setup,
     move_large_run,
+    memcpy_verify,
     memcpy_teardown,
 };

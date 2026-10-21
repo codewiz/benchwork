@@ -54,42 +54,59 @@ static const UBYTE TV_SHARED[32] = {
     0x76, 0xf0, 0x9b, 0x3c, 0x1e, 0x16, 0x17, 0x42,
 };
 
-static bool x25519_setup(void) {
+// What both ends of the exchange computed.
+struct exchange {
+    UBYTE client_pub[32], server_pub[32];
+    UBYTE client_shared[32], server_shared[32];
+};
+
+static struct exchange exchange;
+
+static void *x25519_setup(void) {
     UBYTE pub[32];
     UBYTE shared[32];
 
     ossl_x25519_public_from_private(pub, TV_ALICE_PRIV);
     if (memcmp(pub, TV_ALICE_PUB, 32) != 0)
-        return false;
+        return NULL;
     ossl_x25519_public_from_private(pub, TV_BOB_PRIV);
     if (memcmp(pub, TV_BOB_PUB, 32) != 0)
-        return false;
+        return NULL;
     if (!ossl_x25519(shared, TV_ALICE_PRIV, TV_BOB_PUB))
-        return false;
-    return memcmp(shared, TV_SHARED, 32) == 0;
+        return NULL;
+    return memcmp(shared, TV_SHARED, 32) == 0 ? &exchange : NULL;
 }
 
 // Alice is the client and Bob the server.
-static bool x25519_run(ULONG *check) {
-    UBYTE client_pub[32], server_pub[32];
-    UBYTE client_shared[32], server_shared[32];
+static const void *x25519_run(void *state) {
+    struct exchange *e = state;
 
-    ossl_x25519_public_from_private(client_pub, TV_ALICE_PRIV);
-    ossl_x25519_public_from_private(server_pub, TV_BOB_PRIV);
-    if (!ossl_x25519(client_shared, TV_ALICE_PRIV, server_pub)
-        || !ossl_x25519(server_shared, TV_BOB_PRIV, client_pub)
-        || memcmp(client_shared, server_shared, 32) != 0)
+    ossl_x25519_public_from_private(e->client_pub, TV_ALICE_PRIV);
+    ossl_x25519_public_from_private(e->server_pub, TV_BOB_PRIV);
+    if (!ossl_x25519(e->client_shared, TV_ALICE_PRIV, e->server_pub)
+        || !ossl_x25519(e->server_shared, TV_BOB_PRIV, e->client_pub))
+        return NULL;
+    return e;
+}
+
+// Both ends must agree on the secret.
+static bool x25519_verify(void *state, const void *result, ULONG *check) {
+    const struct exchange *e = result;
+
+    (void)state;
+    if (memcmp(e->client_shared, e->server_shared, 32) != 0)
         return false;
-
-    *check = checksum(checksum(checksum(0, client_pub, 32), server_pub, 32),
-                      client_shared, 32);
+    *check = checksum(checksum(checksum(0, e->client_pub, 32),
+                               e->server_pub, 32),
+                      e->client_shared, 32);
     return true;
 }
 
-const struct bench bench_x25519 = {
+const struct Bench bench_x25519 = {
     "x25519",
     "AmiSSL X25519, both ends of a TLS key exchange",
     x25519_setup,
     x25519_run,
+    x25519_verify,
     NULL,
 };

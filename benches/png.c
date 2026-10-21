@@ -133,22 +133,8 @@ static bool decode(void) {
     return true;
 }
 
-static bool png_setup(void) {
-    pixels = backdrop_rgb(&width, &height);
-    if (!pixels)
-        return false;
-    // An encode is never bigger than the raw pixels plus libpng's per-row
-    // filter byte and a zlib worst case, so this is generous but bounded.
-    encoded.capacity = (ULONG)width * height * 3 + height + 65536;
-    encoded.data = bench_alloc(encoded.capacity, "png encode buffer");
-    decoded = bench_alloc((ULONG)width * height * 3, "png pixel buffer");
-    rows = bench_alloc((ULONG)height * sizeof(png_bytep), "png row table");
-    if (!encoded.data || !decoded || !rows)
-        return false;
-    return encode();
-}
-
-static void png_teardown(void) {
+static void png_teardown(void *state) {
+    (void)state;
     bench_free(pixels);
     bench_free(encoded.data);
     bench_free(decoded);
@@ -157,34 +143,65 @@ static void png_teardown(void) {
     rows = NULL;
 }
 
-static bool encode_run(ULONG *check) {
-    if (!encode())
-        return false;
-    *check = checksum(0, encoded.data, encoded.len);
+// The buffers stay in this file's globals, which libpng's I/O callbacks
+// reach through png_get_io_ptr(); the hooks get the encoded PNG as their
+// state.
+static void *png_setup(void) {
+    pixels = backdrop_rgb(&width, &height);
+    if (!pixels)
+        return NULL;
+    // An encode is never bigger than the raw pixels plus libpng's per-row
+    // filter byte and a zlib worst case, so this is generous but bounded.
+    encoded.capacity = (ULONG)width * height * 3 + height + 65536;
+    encoded.data = bench_alloc(encoded.capacity, "png encode buffer");
+    decoded = bench_alloc((ULONG)width * height * 3, "png pixel buffer");
+    rows = bench_alloc((ULONG)height * sizeof(png_bytep), "png row table");
+    if (!encoded.data || !decoded || !rows || !encode()) {
+        png_teardown(NULL);
+        return NULL;
+    }
+    return &encoded;
+}
+
+static const void *encode_run(void *state) {
+    return encode() ? state : NULL;
+}
+
+static bool encode_verify(void *state, const void *result, ULONG *check) {
+    const struct buf *b = result;
+
+    (void)state;
+    *check = checksum(0, b->data, b->len);
     return true;
 }
 
-static bool decode_run(ULONG *check) {
-    if (!decode())
+static const void *decode_run(void *state) {
+    (void)state;
+    return decode() ? decoded : NULL;
+}
+
+static bool decode_verify(void *state, const void *result, ULONG *check) {
+    (void)state;
+    if (memcmp(result, pixels, (ULONG)width * height * 3))
         return false;
-    if (memcmp(decoded, pixels, (ULONG)width * height * 3))
-        return false;
-    *check = checksum(0, decoded, (ULONG)width * height * 3);
+    *check = checksum(0, result, (ULONG)width * height * 3);
     return true;
 }
 
-const struct bench bench_png_encode = {
+const struct Bench bench_png_encode = {
     "png-encode",
     "libpng encode of the 320x256 scene",
     png_setup,
     encode_run,
+    encode_verify,
     png_teardown,
 };
 
-const struct bench bench_png_decode = {
+const struct Bench bench_png_decode = {
     "png-decode",
     "libpng decode of the same PNG",
     png_setup,
     decode_run,
+    decode_verify,
     png_teardown,
 };

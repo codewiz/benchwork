@@ -22,11 +22,11 @@
 // A run submits 1024 triangles per pass under the three texture patterns
 // arczi84's harness uses: one texture for the whole pass, a switch every 8
 // triangles, and one every triangle, which takes the flush from only when
-// the buffer fills to every call. The check
-// value is a hash of one extra pass per pattern whose triangles are also
-// compared against a scalar reference computed here; the inputs are chosen
-// so the float results are exact, and a kernel that copies, scales or clamps
-// wrongly fails the run rather than merely changing the hash.
+// the buffer fills to every call. Checking is not timed: afterwards, one
+// more pass per pattern hashes the triangles and compares them against a
+// scalar reference computed here; the inputs are chosen so the float
+// results are exact, and a kernel that copies, scales or clamps wrongly
+// fails the run rather than merely changing the hash.
 
 #include <string.h>
 
@@ -68,8 +68,9 @@ static void reference(tris_t *t, unsigned texture) {
     }
 }
 
-// The kernel's flush. While timing it only counts; in the check pass it
-// hashes the batch and compares it with the reference.
+// The kernel's flush, which the vendored kernel calls by name, so what it
+// needs stays in this file's globals. While timing it only counts; in the
+// check passes it hashes the batch and compares it with the reference.
 void bench_consume(const tris_t *tris, uint32_t count) {
     uint32_t i;
 
@@ -87,13 +88,23 @@ void bench_consume(const tris_t *tris, uint32_t count) {
     consumed += count;
 }
 
-static bool wipeout_setup(void) {
+static void wipeout_teardown(void *state) {
+    (void)state;
+    bench_free(input);
+    bench_free(tex);
+    input = NULL;
+    tex = NULL;
+}
+
+static void *wipeout_setup(void) {
     unsigned i, j, m;
 
     input = bench_alloc(N * sizeof *input, "triangles");
     tex = bench_alloc(3 * N * sizeof *tex, "texture indices");
-    if (!input || !tex)
-        return false;
+    if (!input || !tex) {
+        wipeout_teardown(NULL);
+        return NULL;
+    }
 
     memset(input, 0, N * sizeof *input);
     for (i = 0; i < N; i++) {
@@ -113,7 +124,7 @@ static bool wipeout_setup(void) {
         for (m = 0; m < 3; m++)
             tex[m * N + i] = (i / RUNS[m]) % 8;
     }
-    return true;
+    return input;
 }
 
 static void submit(unsigned passes) {
@@ -127,20 +138,30 @@ static void submit(unsigned passes) {
     bench_finish();
 }
 
-static bool wipeout_run(ULONG *check) {
+static const void *wipeout_run(void *state) {
     unsigned m;
 
-    hash = 0;
-    bad = false;
+    checking = false;
     for (m = 0; m < 3; m++) {
         tex_cur = tex + m * N;
-
-        checking = false;
         submit(PASSES[m]);
         if (consumed != PASSES[m] * N)
-            return false;
+            return NULL;
+    }
+    return state;
+}
 
-        checking = true;
+// One pass per pattern through the same kernel, compared and hashed.
+static bool wipeout_verify(void *state, const void *result, ULONG *check) {
+    unsigned m;
+
+    (void)state;
+    (void)result;
+    hash = 0;
+    bad = false;
+    checking = true;
+    for (m = 0; m < 3; m++) {
+        tex_cur = tex + m * N;
         submit(1);
         if (bad || consumed != N)
             return false;
@@ -149,17 +170,11 @@ static bool wipeout_run(ULONG *check) {
     return true;
 }
 
-static void wipeout_teardown(void) {
-    bench_free(input);
-    bench_free(tex);
-    input = NULL;
-    tex = NULL;
-}
-
-const struct bench bench_wipeout_tris = {
+const struct Bench bench_wipeout_tris = {
     "wipeout-tris",
     "Wipeout's triangle submission: float UVs, byte clamps, 96-byte copies",
     wipeout_setup,
     wipeout_run,
+    wipeout_verify,
     wipeout_teardown,
 };

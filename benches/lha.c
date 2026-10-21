@@ -23,9 +23,18 @@
 #include "corpus.h"
 #include "third_party/lha/lha.h"
 
+// LHa's own state is in globals, so ours stays in globals too.
 static UBYTE *plain;
 static struct lha_stream input, packed, unpacked;
 static unsigned int plain_crc;
+
+// What a run produced: the stream it wrote and the CRC the format carries.
+struct lha_result {
+    const struct lha_stream *out;
+    unsigned int crc;
+};
+
+static struct lha_result lha_out;
 
 // Compress the corpus once so the unpack benchmark has its input. Also
 // what the pack benchmark does per iteration.
@@ -47,45 +56,46 @@ static bool pack(unsigned int *crc) {
     return !unpackable;
 }
 
-static bool lha_setup(void) {
-    plain = corpus_alloc();
-    if (!plain)
-        return false;
-    // The corpus compresses about 4:1, so this never fills; the encoder
-    // reports unpackable data rather than overflowing if it did.
-    packed.cap = CORPUS_SIZE;
-    packed.data = bench_alloc(packed.cap, "lha pack buffer");
-    unpacked.cap = CORPUS_SIZE;
-    unpacked.data = bench_alloc(unpacked.cap, "lha unpack buffer");
-    if (!packed.data || !unpacked.data)
-        return false;
-    make_crctable();
-    return pack(&plain_crc);
-}
-
-static void lha_teardown(void) {
+static void lha_teardown(void *state) {
+    (void)state;
     bench_free(plain);
     bench_free(packed.data);
     bench_free(unpacked.data);
     plain = packed.data = unpacked.data = NULL;
 }
 
-static bool pack_run(ULONG *check) {
-    unsigned int crc;
-
-    if (!pack(&crc))
-        return false;
-    *check = checksum(crc, packed.data, packed.len);
-    return true;
+static void *lha_setup(void) {
+    plain = corpus_alloc();
+    // The corpus compresses about 4:1, so this never fills; the encoder
+    // reports unpackable data rather than overflowing if it did.
+    packed.cap = CORPUS_SIZE;
+    packed.data = bench_alloc(packed.cap, "lha pack buffer");
+    unpacked.cap = CORPUS_SIZE;
+    unpacked.data = bench_alloc(unpacked.cap, "lha unpack buffer");
+    if (!plain || !packed.data || !unpacked.data) {
+        lha_teardown(NULL);
+        return NULL;
+    }
+    make_crctable();
+    if (!pack(&plain_crc)) {
+        lha_teardown(NULL);
+        return NULL;
+    }
+    return &lha_out;
 }
 
-// Decompress the packed corpus and verify it byte for byte: the check
-// value covers the output, so a decoder that produced the wrong bytes would
-// show up even without the compare, but the compare makes a broken build
-// fail loudly instead of merely reporting a strange checksum.
-static bool unpack_run(ULONG *check) {
+static const void *pack_run(void *state) {
+    struct lha_result *r = state;
+
+    if (!pack(&r->crc))
+        return NULL;
+    r->out = &packed;
+    return r;
+}
+
+static const void *unpack_run(void *state) {
+    struct lha_result *r = state;
     struct interfacing iface;
-    unsigned int crc;
 
     packed.pos = 0;
     unpacked.len = 0;
@@ -97,26 +107,46 @@ static bool unpack_run(ULONG *check) {
     iface.packed = packed.len;
     iface.method = LZHUFF5_METHOD_NUM;
     iface.dicbit = LZHUFF5_DICBIT;
-    crc = decode(&iface);
-    if (crc != plain_crc || unpacked.len != CORPUS_SIZE ||
-        memcmp(unpacked.data, plain, CORPUS_SIZE))
-        return false;
-    *check = checksum(crc, unpacked.data, unpacked.len);
+    r->crc = decode(&iface);
+    r->out = &unpacked;
+    return r;
+}
+
+static bool lha_verify(void *state, const void *result, ULONG *check) {
+    const struct lha_result *r = result;
+
+    (void)state;
+    *check = checksum(r->crc, r->out->data, r->out->len);
     return true;
 }
 
-const struct bench bench_lha_pack = {
+// Check the decompressed corpus byte for byte: the check value covers the
+// output, so a decoder that produced the wrong bytes would show up even
+// without the compare, but the compare makes a broken build fail loudly
+// instead of merely reporting a strange checksum.
+static bool unpack_verify(void *state, const void *result, ULONG *check) {
+    const struct lha_result *r = result;
+
+    if (r->crc != plain_crc || unpacked.len != CORPUS_SIZE ||
+        memcmp(unpacked.data, plain, CORPUS_SIZE))
+        return false;
+    return lha_verify(state, result, check);
+}
+
+const struct Bench bench_lha_pack = {
     "lha-pack",
     "LHa -lh5- compression of 256 KiB of text",
     lha_setup,
     pack_run,
+    lha_verify,
     lha_teardown,
 };
 
-const struct bench bench_lha_unpack = {
+const struct Bench bench_lha_unpack = {
     "lha-unpack",
     "LHa -lh5- decompression back to 256 KiB",
     lha_setup,
     unpack_run,
+    unpack_verify,
     lha_teardown,
 };

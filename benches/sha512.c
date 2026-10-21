@@ -37,7 +37,11 @@ static const UBYTE ABC_SHA512[SHA512_DIGEST_LENGTH] = {
     0x2a, 0x9a, 0xc9, 0x4f, 0xa5, 0x4c, 0xa4, 0x9f,
 };
 
-static bool sha512_setup(void) {
+// A run's digests, one per pass: SHA-512 on even passes, SHA-384 (the first
+// 48 bytes) on odd ones.
+static UBYTE digests[PASSES][SHA512_DIGEST_LENGTH];
+
+static void *sha512_setup(void) {
     SHA512_CTX ctx;
     UBYTE md[SHA512_DIGEST_LENGTH];
 
@@ -45,44 +49,54 @@ static bool sha512_setup(void) {
     SHA512_Update(&ctx, "abc", 3);
     SHA512_Final(md, &ctx);
     if (memcmp(md, ABC_SHA512, sizeof(md)) != 0)
-        return false;
+        return NULL;
 
     corpus = corpus_alloc();
-    return corpus != NULL;
+    return corpus;
 }
 
-static bool sha512_run(ULONG *check) {
+static const void *sha512_run(void *state) {
     SHA512_CTX ctx;
-    UBYTE md[SHA512_DIGEST_LENGTH];
-    ULONG sum = 0;
     int i;
 
     for (i = 0; i < PASSES; i++) {
         if (i & 1) {
             SHA384_Init(&ctx);
-            SHA384_Update(&ctx, corpus, HASH_SIZE);
-            SHA384_Final(md, &ctx);
-            sum = checksum(sum, md, SHA384_DIGEST_LENGTH);
+            SHA384_Update(&ctx, state, HASH_SIZE);
+            SHA384_Final(digests[i], &ctx);
         } else {
             SHA512_Init(&ctx);
-            SHA512_Update(&ctx, corpus, HASH_SIZE);
-            SHA512_Final(md, &ctx);
-            sum = checksum(sum, md, SHA512_DIGEST_LENGTH);
+            SHA512_Update(&ctx, state, HASH_SIZE);
+            SHA512_Final(digests[i], &ctx);
         }
     }
+    return digests;
+}
+
+static bool sha512_verify(void *state, const void *result, ULONG *check) {
+    const UBYTE (*md)[SHA512_DIGEST_LENGTH] = result;
+    ULONG sum = 0;
+    int i;
+
+    (void)state;
+    for (i = 0; i < PASSES; i++)
+        sum = checksum(sum, md[i],
+                       i & 1 ? SHA384_DIGEST_LENGTH : SHA512_DIGEST_LENGTH);
     *check = sum;
     return true;
 }
 
-static void sha512_teardown(void) {
+static void sha512_teardown(void *state) {
+    (void)state;
     bench_free(corpus);
     corpus = NULL;
 }
 
-const struct bench bench_sha512 = {
+const struct Bench bench_sha512 = {
     "sha512",
     "AmiSSL SHA-512 and SHA-384 over the corpus",
     sha512_setup,
     sha512_run,
+    sha512_verify,
     sha512_teardown,
 };

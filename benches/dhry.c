@@ -22,18 +22,26 @@ extern int Arr_2_Glob[50][50];
 // 68040.
 #define RUNS 20000UL
 
-static bool dhry_setup(void) {
-    return Dhry_Initialize() != 0;
+// Dhrystone keeps its state in dhry_1.c's globals, so there is no state of
+// our own to hand around: the hooks get one of those globals instead.
+static void *dhry_setup(void) {
+    return Dhry_Initialize() ? &Int_Glob : NULL;
+}
+
+// Proc_8() accumulates into Arr_2_Glob, so the records and arrays are reset
+// before every run; that is a memset of 10 KiB against a second of work.
+static const void *dhry_run(void *state) {
+    if (!Dhry_Initialize())
+        return NULL;
+    Dhry_Run(RUNS);
+    return state;
 }
 
 // The globals Dhrystone leaves behind are a function of the run count, so
-// they double as the check value. Proc_8() accumulates into Arr_2_Glob, so
-// the records and arrays are reset before every run; that is a memset of
-// 10 KiB against a second of work.
-static bool dhry_run(ULONG *check) {
-    if (!Dhry_Initialize())
-        return false;
-    Dhry_Run(RUNS);
+// they double as the check value.
+static bool dhry_verify(void *state, const void *result, ULONG *check) {
+    (void)state;
+    (void)result;
     *check = checksum(0, &Int_Glob, sizeof(Int_Glob));
     *check = checksum(*check, &Ch_1_Glob, sizeof(Ch_1_Glob));
     *check = checksum(*check, &Ch_2_Glob, sizeof(Ch_2_Glob));
@@ -43,10 +51,11 @@ static bool dhry_run(ULONG *check) {
     return true;
 }
 
-const struct bench bench_dhry = {
+const struct Bench bench_dhry = {
     "dhrystone",
     "Dhrystone 2.1, 20000 runs",
     dhry_setup,
     dhry_run,
+    dhry_verify,
     NULL,
 };

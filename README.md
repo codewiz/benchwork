@@ -95,7 +95,9 @@ The FreeType rasterizer keeps its cell pool on the stack, so the program
 refuses to start on the shell's default 4 KiB stack: `stack 65536` first.
 
 Each benchmark reports its fastest and mean iteration in milliseconds, and a
-checksum of its output that must be identical across compilers.
+checksum of its output that must be identical across compilers. Only the
+work itself is timed: checking the output and computing the checksum
+happen after each iteration.
 
 
 ## License

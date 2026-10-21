@@ -64,7 +64,7 @@ static const char version_tag[] USED =
 __near long __stack = STACK_NEEDED * 2;
 #endif
 
-static const struct bench *const BENCHES[] = {
+static const struct Bench *const BENCHES[] = {
     &bench_dhry,
     &bench_backdrop,
     &bench_lha_pack,
@@ -118,32 +118,41 @@ static void print_ms(ULONG us) {
 
 // Set up, time and tear down one benchmark. Returns false on failure, after
 // saying which step failed; on success *BEST_US is the fastest iteration.
-static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
+static bool run_bench(const struct Bench *b, int iters, ULONG *best_us) {
     ULONG best = ~0UL, total = 0, check = 0, first = 0;
     bool ok = true;
+    void *state;
     int i;
 
-    if (!b->setup()) {
+    state = b->setup();
+    if (!state) {
         printf("%-16s setup failed\n", b->name);
         return false;
     }
     for (i = 0; i < iters; i++) {
         struct EClockVal t0, t1;
+        const void *result;
         ULONG us;
 
         // No task switches during the timed region. Interrupts still run,
         // which is what keeps the E clock and the emulator's pacing honest;
-        // nothing inside a benchmark waits on the OS.
+        // nothing inside a benchmark waits on the OS. Only run() is timed:
+        // checking its output is verify()'s job, afterwards.
         Forbid();
         timer_now(&t0);
-        if (!b->run(&check)) {
-            Permit();
+        result = b->run(state);
+        timer_now(&t1);
+        Permit();
+        if (!result) {
             printf("%-16s run %d failed\n", b->name, i + 1);
             ok = false;
             break;
         }
-        timer_now(&t1);
-        Permit();
+        if (!b->verify(state, result, &check)) {
+            printf("%-16s run %d produced wrong output\n", b->name, i + 1);
+            ok = false;
+            break;
+        }
         us = eclock_micros(&t0, &t1);
         if (i == 0)
             first = check;
@@ -168,14 +177,14 @@ static bool run_bench(const struct bench *b, int iters, ULONG *best_us) {
         *best_us = best;
     }
     if (b->teardown)
-        b->teardown();
+        b->teardown(state);
     return ok;
 }
 
 static int iters = 3;
 // The benchmarks to run, in the order given on the command line, repeats
 // included; all of them, in table order, when none is named.
-static const struct bench **selected;
+static const struct Bench **selected;
 static size_t nselected;
 static bool fastmem;
 

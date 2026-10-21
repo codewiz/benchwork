@@ -24,32 +24,48 @@
 #define VERTICES 50000
 #define TRIANGLES 6000
 
-static bool nfs3_setup(void) {
+// The kernels hash their results as they go, so a run's output is that hash,
+// kept in memory for verify().
+static ULONG hash;
+
+static void *nfs3_setup(void) {
+    return &hash;
+}
+
+static const void *project_run(void *state) {
+    ULONG *h = state;
+
+    *h = nfs3_project(1, VERTICES);
+    return h;
+}
+
+static const void *clip_run(void *state) {
+    ULONG *h = state;
+
+    *h = nfs3_clip(1, TRIANGLES);
+    return h;
+}
+
+static bool nfs3_verify(void *state, const void *result, ULONG *check) {
+    (void)state;
+    *check = *(const ULONG *)result;
     return true;
 }
 
-static bool project_run(ULONG *check) {
-    *check = nfs3_project(1, VERTICES);
-    return true;
-}
-
-static bool clip_run(ULONG *check) {
-    *check = nfs3_clip(1, TRIANGLES);
-    return true;
-}
-
-const struct bench bench_nfs3_project = {
+const struct Bench bench_nfs3_project = {
     "nfs3-project",
     "NFS3's vertex projection: float multiply-adds, a divide, bit tests",
     nfs3_setup,
     project_run,
+    nfs3_verify,
     NULL,
 };
 
-const struct bench bench_nfs3_clip = {
+const struct Bench bench_nfs3_clip = {
     "nfs3-clip",
     "NFS3's triangle clipper: float compares, divides, interpolation",
     nfs3_setup,
     clip_run,
+    nfs3_verify,
     NULL,
 };
