@@ -6,9 +6,9 @@ programs actually run.
 Everything works on memory buffers, so the timed region contains only
 compiler-generated code: no disk, display or OS calls.[^libc]
 
-Numbers for the release binaries on a reference target are in [RESULTS.md](RESULTS.md).
+Numbers for the release binaries on a reference target are in [results/](results/README.md).
 
-[![Time of each benchmark across the GCC 16.2 releases](results/gcc-releases-040.svg)](RESULTS.md#comparing-gcc-162-releases)
+[![Time of each benchmark across the GCC 16.2 releases](results/gcc-releases-040.svg)](results/gcc-releases.md)
 
 ## Benchmarks
 

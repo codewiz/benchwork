@@ -1,46 +1,45 @@
 # GCC register arguments
 
-Part of the [Benchwork results](../RESULTS.md).
+Part of the [Benchwork results](README.md); see there for how they are
+measured.
 
 benchwork-040 built with m68k-amigaos-gcc 16.2-rc18[^rc18] and
 `-O2 -fomit-frame-pointer -m68040 -m68881`, with and without
 `-mregparm`[^regparm], on the 68040[^volamos].
 
-Passing arguments in registers makes the code 3% smaller and speeds up
-call-heavy code (Dhrystone 10%, LHa 2%). The losses of up to 4% are
-Benchwork's own fault: the checksum each run takes of its output loses
-its `dbra` loop, about 2 cycles per byte, which is nearly all that
-zlib-inflate, png-decode, backdrop and wipeout-tris lose; their own code
-changes by about 1 ms at most. Allowing four register arguments instead of two
-changes little, and so does `-msasregparm`, which puts a third integer or
-pointer argument on the stack instead of in a register of the other kind.
+Passing arguments in registers makes the code 3% smaller and Benchwork 1%
+faster: call-heavy code gains most (Dhrystone 10%, LHa 3 to 4%, ftgrays 1
+to 2%), and no benchmark loses more than 0.5%. Allowing four register
+arguments instead of two changes little, and so does `-msasregparm`, which
+puts a third integer or pointer argument on the stack instead of in a
+register of the other kind.
 
 | benchmark | stack args | -mregparm=2 | -mregparm=4 | -msasregparm |
 |---|---:|---:|---:|---:|
-| dhrystone | 420 | **378 (-10.09%)** | **378 (-10.09%)** | **378 (-10.09%)** |
-| backdrop | **3137** | 3163 (+0.84%) | 3163 (+0.84%) | 3163 (+0.84%) |
-| lha-pack | 4439 | 4319 (-2.70%) | 4323 (-2.62%) | **4305 (-3.01%)** |
-| lha-unpack | 1383 | **1356 (-1.94%)** | **1356 (-1.94%)** | **1356 (-1.94%)** |
-| zlib-deflate | **3698** | **3698 (-0.02%)** | **3698 (-0.02%)** | **3698 (-0.02%)** |
-| zlib-inflate | **509** | 530 (+4.12%) | 530 (+4.11%) | 530 (+4.12%) |
-| png-encode | **2247** | 2260 (+0.57%) | 2260 (+0.58%) | 2260 (+0.58%) |
-| png-decode | **501** | 521 (+3.98%) | 518 (+3.39%) | 520 (+3.78%) |
-| ftgrays | **858** | 874 (+1.82%) | 868 (+1.06%) | 874 (+1.85%) |
-| memcpy-small | **193** | 198 (+2.71%) | 198 (+2.71%) | 198 (+2.71%) |
-| memcpy-large | **326** | 332 (+1.61%) | 332 (+1.61%) | 332 (+1.61%) |
-| memcpy-var-small | **565** | 570 (+0.93%) | 570 (+0.93%) | 570 (+0.93%) |
-| memcpy-var-large | **635** | 640 (+0.83%) | 640 (+0.83%) | 640 (+0.83%) |
-| memmove-small | **1920** | 1925 (+0.27%) | 1925 (+0.27%) | 1925 (+0.27%) |
-| memmove-large | **1481** | 1486 (+0.35%) | 1486 (+0.35%) | 1486 (+0.35%) |
-| wipeout-tris | **518** | 540 (+4.11%) | 540 (+4.11%) | 540 (+4.11%) |
+| dhrystone | 414 | **371 (-10.43%)** | **371 (-10.43%)** | **371 (-10.43%)** |
+| backdrop | **2927** | **2927** | **2927** | **2927** |
+| lha-pack | 4377 | 4249 (-2.91%) | 4253 (-2.84%) | **4235 (-3.23%)** |
+| lha-unpack | 1181 | **1133 (-4.05%)** | **1133 (-4.05%)** | **1133 (-4.05%)** |
+| zlib-deflate | 3637 | **3628 (-0.23%)** | 3629 (-0.23%) | 3629 (-0.23%) |
+| zlib-inflate | **920** | **920 (-0.01%)** | **920 (-0.02%)** | **920 (-0.01%)** |
+| png-encode | **2231** | 2242 (+0.48%) | 2242 (+0.50%) | 2242 (+0.50%) |
+| png-decode | 934 | 935 (+0.09%) | **926 (-0.87%)** | 932 (-0.23%) |
+| ftgrays | 662 | 653 (-1.35%) | **646 (-2.33%)** | 653 (-1.31%) |
+| memcpy-small | **908** | **908** | **908** | **908** |
+| memcpy-large | **285** | **285** | **285** | **285** |
+| memcpy-var-small | **523** | **523** | **523** | **523** |
+| memcpy-var-large | **593** | **593** | **593** | **593** |
+| memmove-small | **1878** | **1878** | **1878** | **1878** |
+| memmove-large | **1439** | **1439** | **1439** | **1439** |
+| wipeout-tris | 893 | **892 (-0.10%)** | **892 (-0.10%)** | **892 (-0.10%)** |
 | nfs3-project | 1064 | **1050 (-1.32%)** | 1054 (-0.94%) | 1052 (-1.13%) |
 | nfs3-clip | 952 | **948 (-0.37%)** | **948 (-0.37%)** | **948 (-0.37%)** |
-| sha512 | 960 | **954 (-0.55%)** | **954 (-0.55%)** | 960 (+0.07%) |
-| aesgcm | **903** | **903 (-0.01%)** | 904 (+0.07%) | 904 (+0.09%) |
-| chacha20poly1305 | **450** | 456 (+1.40%) | 456 (+1.40%) | 456 (+1.40%) |
+| sha512 | **960** | **960 (+0.06%)** | **960 (+0.06%)** | **960 (+0.06%)** |
+| aesgcm | 853 | **847 (-0.62%)** | 848 (-0.54%) | 848 (-0.52%) |
+| chacha20poly1305 | **399** | 400 (+0.27%) | 400 (+0.27%) | 400 (+0.27%) |
 | x25519 | 547 | 549 (+0.39%) | **546 (-0.18%)** | **546 (-0.14%)** |
-| **GEOMEAN** | **903** | **905 (+0.27%)** | **905 (+0.21%)** | **905 (+0.27%)** |
-| **CODE SIZE** | 401960 | 390248 (-2.91%) | 388808 (-3.27%) | 391020 (-2.72%) |
+| **GEOMEAN** | **1001** | **991 (-0.94%)** | **990 (-1.03%)** | **991 (-0.98%)** |
+| **CODE SIZE** | 402696 | 390956 (-2.92%) | 389476 (-3.28%) | 391732 (-2.72%) |
 
 [^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 2`.
     The emulated time is derived from the CPU's cycle count at 25 MHz;
