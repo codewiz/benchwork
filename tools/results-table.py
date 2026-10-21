@@ -4,9 +4,7 @@
 # Turn benchwork output files into one Markdown table: a row per benchmark,
 # a column per file holding its fastest iteration in ms, then the GEOMEAN
 # row. Columns after the first also show their change against the first
-# column in parentheses. Usage:
-#
-#   tools/results-table.py [--best] [--geomean-skip=NAME,...] LABEL=FILE ...
+# column in parentheses.
 #
 # --best puts the fastest cell of each row in bold, every one of them when
 # several tie at whole milliseconds.
@@ -73,6 +71,9 @@ def main(args):
             skip.update(arg.partition("=")[2].split(","))
             continue
         files.append(arg)
+    if not files:
+        sys.exit(f"Usage: {sys.argv[0]} [--best] [--geomean-skip=NAME,...] "
+                 "LABEL=FILE ...")
     columns = []
     for arg in files:
         # The last "=", so that a label can be a flag like -mregparm=2.

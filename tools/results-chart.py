@@ -3,11 +3,8 @@
 #
 # Draw benchwork output files as an SVG: one cluster of horizontal bars per
 # benchmark (and one for the geomean), one bar per file, with the times
-# normalized to the first file so its bars all sit at 1.0. Usage:
-#
-#   tools/results-chart.py [-o chart.svg] [-t TITLE] LABEL=FILE ...
-#   tools/results-chart.py --sizes [-o chart.svg] [-t TITLE] LABEL=BYTES ...
-#   tools/results-chart.py --lines [-o chart.svg] [-t TITLE] LABEL=FILE ...
+# normalized to the first file so its bars all sit at 1.0; --help lists
+# the options.
 #
 # --sizes draws one bar per build for its code size instead. --lines draws
 # one line per benchmark across any number of files, for a series of
@@ -59,12 +56,12 @@ def esc(s):
 
 def start(title, height, ncolors):
     """The SVG element, its light and dark styles, and the background."""
-    out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" '
-           f'height="{height}" viewBox="0 0 {WIDTH} {height}" role="img" '
-           f'aria-label="{esc(title)}">']
+    out = [(f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" '
+            f'height="{height}" viewBox="0 0 {WIDTH} {height}" role="img" '
+            f'aria-label="{esc(title)}">')]
     css = [
-        ".t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;"
-        "font-size:12px;fill:#0b0b0b}",
+        (".t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;"
+         "font-size:12px;fill:#0b0b0b}"),
         ".t.muted{fill:#52514e}",
         ".t.big{font-size:16px}", ".t.name{font-weight:600}",
         ".t.axis{fill:#52514e;font-size:12px}",

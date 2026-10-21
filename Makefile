@@ -197,7 +197,18 @@ clean:
 	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=$(BUILD)-%) $(RELEASE_CPUS:%=$(TARGET)-%)
 	rm -rf build-aminet benchwork.lha benchwork.readme
 
+# Lint the scripts in tools/: shellcheck for the shell ones, ruff for the
+# Python ones. Only the files listed in RUFF_FORMATTED follow ruff's
+# formatting; the others keep their own. The C sources have no checker yet.
+RUFF_FORMATTED = tools/results-splice.py tools/results-sizes.py \
+	tools/results-compilers-fixup.py
+
+check:
+	shellcheck tools/*.sh
+	ruff check tools/*.py
+	ruff format --check $(RUFF_FORMATTED)
+
 -include $(OBJS:.o=.d)
 
-.PHONY: all clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) vbcc vbcc-release \
+.PHONY: all check clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) vbcc vbcc-release \
 	sasc sasc-release
