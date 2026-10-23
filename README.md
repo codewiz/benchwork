@@ -68,14 +68,15 @@ the release binaries `benchwork-vbcc-000` and so on with `make vbcc-release`;
 the flags are spelled its way:
 
 ```
-make vbcc CPUFLAGS=-cpu=68020 OPT=-O2
+make vbcc CPUFLAGS=-cpu=68020 OPT=-O3
 ```
 
-NOTE: vbcc 0.9i miscompiles three of the benchmarks, so until the compiler
-is fixed `ftgrays` reports `run 1 failed` with all CPUs, `x25519` reports
-`setup failed` from `-O1` up, and `memcpy-small` gives a wrong checksum and
-scribbles over memory with `-cpu=68040`.
-We emailed the ftgrays and memcpy-small reports to the vbcc maintainer.
+NOTE: vbcc needs its source snapshot of 2026-01-12 or later; older ones
+miscompile ftgrays. Until the compiler is fixed, `x25519` reports `setup
+failed` from `-O1` up, and `memcpy-small` gives a wrong checksum and
+scribbles over memory with `-O2 -cpu=68040` (but not with `-O3`).
+`-O3` crashes vbcc on Wipeout's kernel.c, so the Makefile builds that file
+at `-O2`.
 
 
 ### SAS/C

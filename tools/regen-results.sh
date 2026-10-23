@@ -12,6 +12,9 @@
 #   TOOLCHAINS  where the AmigaPorts release tarballs are unpacked, as
 #               m68k-amigaos-gcc-16.2-rc<N> and m68k-amigaos-gcc-6.5
 #               (default ~/amiga)
+#   VBCC_TOOLCHAIN  the toolchain whose vbccm68k is measured, one with
+#               vbcc's 2026-01-12 sources (default the local build,
+#               $TOOLCHAINS/m68k-amigaos-gcc-16.2)
 #   SC          a wrapper that runs SAS/C's sc under volamos
 #               (default sc-volamos)
 
@@ -29,6 +32,7 @@ TOOLCHAINS=${TOOLCHAINS:-$HOME/amiga}
 SC=${SC:-sc-volamos}
 tc=$TOOLCHAINS/m68k-amigaos-gcc
 rc18=$tc-16.2-rc18
+vbcc_tc=${VBCC_TOOLCHAIN:-$tc-16.2}
 run=tools/bench-run.sh
 
 o2="-O2 -fomit-frame-pointer"
@@ -81,10 +85,16 @@ for v in base: regparm2:-mregparm=2 regparm4:-mregparm=4 \
         "$o2 ${v#*:}" "${v040[@]}"
 done
 
-# vbcc, from the rc18 toolchain. Its config names the paths the tarball was
-# built at, so a copy points them at the install.
+# vbcc: the compiler from VBCC_TOOLCHAIN, with rc18's vc, config, headers
+# and libraries. rc18's config names the paths the tarball was built at, so
+# a copy points them at the installs.
+#
+# - -c11: rc18's NDK timer.h gives struct timeval anonymous unions, which
+#   this vbcc takes only in C11 mode. Drop it once a release has the NDK
+#   patch that leaves them out for vbcc.
 sed -e "s|/home/runner/m68k-amigaos-gcc-16.2|$rc18|g" \
-    -e "s|=vbccm68k|=$rc18/bin/vbccm68k|" \
+    -e "s|=vbccm68k -quiet|=$vbcc_tc/bin/vbccm68k -c11 -quiet|" \
+    -e "s|=vbccm68k %s|=$vbcc_tc/bin/vbccm68k -c11 %s|" \
     -e "s|=vasmm68k_mot|=$rc18/bin/vasmm68k_mot|" \
     -e "s|=vlink|=$rc18/bin/vlink|" \
     "$rc18/bin/aos68k" >"$work/aos68k"
@@ -99,8 +109,8 @@ make -s -j"$(nproc)" CC="$rc18/bin/vc +$PWD/$work/aos68k" \
 # failed benchmarks, so benchwork's exit status is no news here; the check
 # below looks at what failed.
 { volamos "${v040[@]}" --stack 65536 -- "$work/benchwork-vbcc-040" -n 1 2>&1 ||
-    true; } | tr '{' 4 >results/raw/vbcc-0.9i-O2-040.txt
-echo "vbcc: $(grep GEOMEAN results/raw/vbcc-0.9i-O2-040.txt)"
+    true; } | tr '{' 4 >results/raw/vbcc-20260112-O3-040.txt
+echo "vbcc: $(grep GEOMEAN results/raw/vbcc-20260112-O3-040.txt)"
 
 # SAS/C, compiled under volamos: slow, and two jobs at most.
 rm -rf "$work/build-sasc-040" "$work/benchwork-sasc-040"

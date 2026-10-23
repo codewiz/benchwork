@@ -31,7 +31,7 @@ sizes() { tools/results-sizes.py "$@"; }
     --geomean-skip=nfs3-project,nfs3-clip,sha512,aesgcm,chacha20poly1305,x25519 \
     "6.5.0b[^gcc6]=$R/gcc-6.5.0b-O2-040.txt" \
     "16.2-rc18[^rc18]=$G-rc18-O2-040.txt" \
-    "vbcc 0.9i[^vbcc]=$R/vbcc-0.9i-O2-040.txt" \
+    "vbcc 2026-01-12[^vbcc]=$R/vbcc-20260112-O3-040.txt" \
     "SAS/C 6.58[^sasc]=$R/sasc-6.58-040-040.txt" 2>"$T/compilers.err" ||
     true; } |
     sed -E -e 's/^\| (nfs3-[a-z]+) /| \1[^cxx] /' \

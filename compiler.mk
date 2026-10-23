@@ -20,9 +20,14 @@ ifeq ($(notdir $(firstword $(CC))),vc)
 
     BUILD := $(BUILD)-vbcc
     TARGET := $(TARGET)-vbcc
-    # vc's -O2 is the full optimizer; -speed adds unrolling and inlining.
+    # Inlining, unrolling and the interprocedural optimizations only come
+    # with vc's -O3 and up. -speed adds none; it only prefers speed where
+    # vbcc has to trade it against size.
     CPUFLAGS ?= -cpu=68020
-    OPT ?= -O2
+    OPT ?= -O3
+    # vbcc's interprocedural alias analysis (-O3 and up) crashes on wipeout's
+    # kernel.c, so that one file is built at -O2.
+    WIPEOUT_KERNEL_OPT = -O2
     CPUFLAGS_000 = -cpu=68000
     CPUFLAGS_020 = -cpu=68020
     # vbcc has nothing like gcc's -m68020-60: this is plain 68020 code.

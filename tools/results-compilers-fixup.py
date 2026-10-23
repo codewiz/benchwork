@@ -10,7 +10,8 @@
 #                                    NFS3 kernels)
 #   vbcc, check value differs        "wrong output"
 #   SAS/C, benchmark missing         "not built"
-#   vbcc's geomean                   left empty
+#   vbcc's geomean                   left empty if a benchmark it covers
+#                                    failed or gave the wrong output
 
 import re
 import sys
@@ -26,6 +27,11 @@ wrong = {
     if "check values differ" in line
 }
 
+# The benchmarks results-tables.sh leaves out of the geomean.
+GEOMEAN_SKIP = {"nfs3-project", "nfs3-clip", "sha512", "aesgcm",
+                "chacha20poly1305", "x25519"}
+
+vbcc_broken = False
 for line in table.read_text().splitlines():
     cells = [c.strip() for c in line.strip("|").split("|")]
     if len(cells) != 5 or cells[0] in ("benchmark", "---"):
@@ -33,12 +39,15 @@ for line in table.read_text().splitlines():
         continue
     name = re.sub(r"\[\^[^]]*\]", "", cells[0])
     if name == "**GEOMEAN**":
-        cells[3] = ""
+        if vbcc_broken:
+            cells[3] = ""
     else:
         if name in wrong:
             cells[3] = "wrong output"
         elif not cells[3]:
             cells[3] = "not built" if name.startswith("nfs3-") else "failed"
+        if cells[3] in ("wrong output", "failed") and name not in GEOMEAN_SKIP:
+            vbcc_broken = True
         if not cells[4]:
             cells[4] = "not built"
     print(("| " + " | ".join(cells) + " |").replace("|  |", "| |"))

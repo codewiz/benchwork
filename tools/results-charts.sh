@@ -24,7 +24,8 @@ tools/results-chart.py \
     -o results/compilers-040.svg \
     -t "m68k compilers on benchwork-040, time relative to gcc 6.5.0b" \
     "gcc 6.5.0b=$R/gcc-6.5.0b-O2-040.txt" "gcc 16.2-rc18=$G-rc18-O2-040.txt" \
-    "vbcc 0.9i=$R/vbcc-0.9i-O2-040.txt" "SAS/C 6.58=$R/sasc-6.58-040-040.txt"
+    "vbcc 2026-01-12=$R/vbcc-20260112-O3-040.txt" \
+    "SAS/C 6.58=$R/sasc-6.58-040-040.txt"
 
 tools/results-chart.py --lines -o results/gcc-releases-040.svg \
     -t "GCC 16.2 releases on benchwork-040, time in ms" \

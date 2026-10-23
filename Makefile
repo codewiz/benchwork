@@ -122,6 +122,12 @@ $(BUILD)/third_party/freetype/%.o: CFLAGS += $(DEFINE_FLAG)STANDALONE_
 # The game's own flags, which its port is built with.
 $(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
 
+# For a compiler that cannot build kernel.c at OPT (compiler.mk says why).
+# It replaces OPT rather than adding to CFLAGS: vc accepts a single -O.
+ifneq ($(WIPEOUT_KERNEL_OPT),)
+$(BUILD)/third_party/wipeout/kernel.o: override OPT = $(WIPEOUT_KERNEL_OPT)
+endif
+
 # AmiSSL's AmigaOS 3 configuration defines B_ENDIAN; the shim stands in for
 # the OpenSSL headers the AmiSSL sources include.
 $(BUILD)/third_party/amissl/%.o: CFLAGS += $(DEFINE_FLAG)B_ENDIAN \
