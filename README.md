@@ -15,7 +15,8 @@ Numbers for the release binaries on a reference target are in [results/](results
 | benchmark | source | what it measures |
 |---|---|---|
 | dhrystone | Dhrystone 2.1, as used by xSysInfo | the classic integer mix |
-| backdrop | p96cts's dithered landscape scene | per-pixel integer arithmetic, divides, byte stores |
+| scene-2d | p96cts's landscape scene, rendered at 640x200 | per-pixel integer arithmetic, divides, byte stores |
+| quantize-floyd | the scene remapped to a fixed 32-color palette | Floyd-Steinberg error diffusion, a nearest-color search with an inverse colormap |
 | lha-pack | LHa for UNIX 1.14i, -lh5- | hash-chain match search, Huffman coding, K&R-era C |
 | lha-unpack | LHa for UNIX 1.14i, -lh5- | Huffman decoding, sliding-window copies |
 | zlib-deflate | zlib 1.3.2 | deflate's longest_match() |
@@ -89,16 +90,38 @@ runs sc under volamos, with slink reached the same way.
 ## Running
 
 ```
-benchwork [-n iterations] [--fastmem] [-l] [name ...]
+benchwork BENCH/M,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,LIST/S,HELP/S
 ```
 
-The FreeType rasterizer keeps its cell pool on the stack, so the program
-refuses to start on the shell's default 4 KiB stack: `stack 65536` first.
+- `BENCH`: the benchmarks to run, in this order; all of them when none is
+  named.
+- `REPEAT`: timed repetitions of each benchmark, 3 by default.
+- `MINTIME`: loop over the work until each repetition lasts this many
+  milliseconds; see below.
+- `FASTMEM`: put the benchmark buffers in fast memory, and fail if there is
+  not enough.
+- `LIST`: list the benchmarks.
+- `HELP`: describe the arguments; `-h` and `--help` work too.
 
-Each benchmark reports its fastest and mean iteration in milliseconds, and a
-checksum of its output that must be identical across compilers. Only the
-work itself is timed: checking the output and computing the checksum
-happen after each iteration.
+For example, `benchwork REPEAT 5 dhrystone ftgrays`.
+
+The FreeType rasterizer keeps its cell pool on the stack, so the program
+refuses to start on the shell's default 4 KB stack: `stack 65536` first.
+
+Each benchmark reports the time of one loop over its work in its fastest
+repetition and on average, in milliseconds; the fastest as a RATE too, the
+work done per second, where larger is better; and a checksum of its output
+that must be identical across compilers. The rate's UNITS are KB/s (1024
+bytes), px/s (pixels), Dhry/s (Dhrystones), tri/s (triangles), vert/s
+(vertices), poly/s (polygons), glyph/s or kex/s (key exchanges). Only the
+work itself is timed: checking the output and computing the checksum happen
+after each repetition.
+
+A repetition is one loop unless `MINTIME` asks for more: then the count
+doubles until a repetition lasts at least that many milliseconds, and
+LOOPS reports the count it settled on. That is for JIT emulators running
+as fast as the host allows: some update the E clock only between frames,
+so a single loop can measure as 0 ms.
 
 
 ## License

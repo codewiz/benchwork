@@ -16,13 +16,13 @@
 
 ### Timing
 
-Every number is the fastest iteration of a benchmark, in milliseconds,
+Every number is the fastest repetition of a benchmark, in milliseconds,
 under [volamos](https://github.com/sidick/volamos) 0.11.0 with `--clock-mhz`:
-the emulated time is derived from the CPU's cycle count, so all iterations
+the emulated time is derived from the CPU's cycle count, so all repetitions
 of a run time the same and host load changes nothing. Unless a page says
 otherwise, the CPU is a 25 MHz 68040:
 
-    volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 1
+    volamos --clock-mhz 25 --cpu 68040 --fpu <binary> REPEAT 1
 
 volamos has no bus wait states and runs native library calls in zero
 cycles, so absolute times are lower than on hardware; the comparisons
@@ -31,7 +31,7 @@ between builds are what these pages are for.
 ### What is timed
 
 Only each benchmark's work: checking its output and computing the check
-value happen after every iteration, outside the timing.
+value happen after every repetition, outside the timing.
 
 The check value must be the same for every compiler and setting.
 

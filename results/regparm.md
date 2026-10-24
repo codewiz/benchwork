@@ -41,7 +41,7 @@ register of the other kind.
 | **GEOMEAN** | **1001** | **991 (-0.94%)** | **990 (-1.03%)** | **991 (-0.98%)** |
 | **CODE SIZE** | 402696 | 390956 (-2.92%) | 389476 (-3.28%) | 391732 (-2.72%) |
 
-[^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> -n 2`.
+[^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> REPEAT 2`.
     The emulated time is derived from the CPU's cycle count at 25 MHz;
     native library calls cost no cycles.
 [^rc18]: `m68k-amigaos-gcc (AmigaDev v16.2-rc18) 16.2.1b 20261010182711`,

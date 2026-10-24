@@ -4,13 +4,14 @@ Uploader:     Bernie Innocenti <bernie@codewiz.org>
 Type:         util/moni
 Version:      @VERSION@
 Architecture: m68k-amigaos >= 2.0.4
-Requires:     5 MB of free RAM, 64 KiB stack, an FPU for 020-060fp/040/060
+Requires:     5 MB of free RAM, 64 KB stack, an FPU for 020-060fp/040/060
 Distribution: Aminet
 Kurz:         CPU-Benchmarks fuer Amiga-Compiler
 
 Benchwork is a set of CPU benchmarks for comparing m68k compilers, built
 from code that Amiga programs actually run: LHa, zlib, libpng, the FreeType
-rasterizer, Dhrystone, a dithered landscape renderer, a triangle setup loop
+rasterizer, Dhrystone, a landscape renderer and its Floyd-Steinberg remap
+to 32 colors, a triangle setup loop
 from a Wipeout port, the vertex projection and polygon clipper of an NFS3
 port, AmiSSL's SHA-512, AES-GCM, ChaCha20-Poly1305 and X25519, and
 memcpy/memmove patterns.
