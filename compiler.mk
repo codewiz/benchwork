@@ -128,7 +128,9 @@ else  # AmigaDev GCC 16.2 or newer
     # The harness is held to a stricter standard than the code it measures,
     # which is compiled the way its own build systems compile it.
     WARNINGS = -Wall -Wextra -Wshadow -Wpointer-arith -Wwrite-strings \
-        -Wstrict-prototypes -Wmissing-prototypes -Wvla
+        -Wstrict-prototypes -Wmissing-prototypes -Wvla -Wformat=2 \
+        -Wcast-align -Wold-style-definition -Wmissing-declarations \
+        -Wnull-dereference -Wduplicated-cond -Wlogical-op -Wjump-misses-init
     DEFINES = -DBENCH_CFLAGS='"$(REPORTED_CFLAGS)"' \
         -DBENCH_VERSION='"$(VERSION)"' -DBENCH_DATE='"$(DATE)"' \
         -DBENCH_HAVE_NFS3 -DBENCH_HAVE_AMISSL
