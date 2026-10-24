@@ -46,17 +46,18 @@ real time alongside the CPU.
 
 ## How the emulators were run
 
-The times are host time. vamos and volamos read the host clock for the
-guest's E clock. Amiberry and Copperline keep the chipset, and with it the
-E clock, in real time, and give the CPU whatever host time is left; that
-only holds in their fastest-possible modes. Amiberry's JIT runs in bursts
-between which the E clock stands still, so a single loop can finish without
-it moving: every emulator runs `benchwork-040 REPEAT 3 MINTIME 1000`, which
+The times are host time, except for Copperline's (see below). vamos and
+volamos read the host clock for the guest's E clock. Amiberry and
+Copperline keep the chipset, and with it the E clock, in real time, and
+give the CPU whatever host time is left; that only holds in their
+fastest-possible modes. Amiberry's JIT runs in bursts between which the E
+clock stands still, so a single loop can finish without it moving: every
+emulator runs `benchwork-040 REPEAT 3 MINTIME 1000`, which
 loops over each benchmark until a repetition lasts at least a second.
 
 Each emulator runs the 68040 on one host core. With boost, the host's clock
 would depend on its temperature and on which core that is, so
-`tools/jit-host-prep.sh` turns boost off first, which holds every core at
+`tools/bench-host-prep.sh` turns boost off first, which holds every core at
 its nominal 2 GHz; on this host, boost reaches 5.2 GHz on four of its
 twelve cores.
 
@@ -67,11 +68,14 @@ twelve cores.
   memory, no MMU and `cpu_speed=max`, the JIT with its FPU and a 16 MB
   translation cache.
 - Copperline[^copperline]: an A4000 with a 68040 and 16 MB of fast memory,
-  `jit = true` and `speed = "fastest"` from a 25 MHz floor, which its
-  governor raised to about 41 MHz. A higher floor than the host can keep up
-  with makes the machine run slower than real time, and then its clock no
-  longer measures the host: at 500 MHz, Benchwork reported times about 8
-  times shorter than they took.
+  `jit = true` and `speed = "fastest"` from a 25 MHz floor. Its governor
+  raises the CPU clock above the floor while the host keeps the machine in
+  real time, but at 2 GHz this host cannot sustain even the floor: the clock
+  stays at 25 MHz and the machine falls behind real time, by 12% to 19% over
+  a 30 s dhrystone run, so its times are that much shorter than they took on
+  the host. The JIT maps only one RAM bank and no ROM yet, so OS code runs
+  the slow way; Copperline expects a large speedup from upstream m68k-rs
+  work in progress, so this column is provisional.
 
 Emu68, the JIT that runs on a PiStorm, is still to be measured.
 
@@ -81,4 +85,4 @@ Emu68, the JIT that runs on a PiStorm, is still to be measured.
 [^volamos]: volamos fd8b114, 0.13.0 with sidick/volamos#202, which gives
     `ReadEClock` microseconds rather than 20 ms steps.
 [^amiberry]: Amiberry 376b22c99, after v8.4.2.
-[^copperline]: Copperline a444a636, after v1.0.1.
+[^copperline]: Copperline 28229d6f, after v1.0.1.
