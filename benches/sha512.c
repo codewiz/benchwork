@@ -17,7 +17,7 @@
 #include "corpus.h"
 #include <openssl/sha.h>
 
-// Each timed run hashes the first 64 KiB of the corpus twice, once with
+// Each loop hashes the first 64 KB of the corpus twice, once with
 // SHA-512 and once with SHA-384: about a second on a 25 MHz 68040.
 #define PASSES 2
 #define HASH_SIZE (64UL * 1024)
@@ -51,7 +51,7 @@ static void *sha512_setup(void) {
     if (memcmp(md, ABC_SHA512, sizeof(md)) != 0)
         return NULL;
 
-    corpus = corpus_alloc();
+    corpus = corpus_alloc(HASH_SIZE);
     return corpus;
 }
 
@@ -93,10 +93,12 @@ static void sha512_teardown(void *state) {
 }
 
 const struct Bench bench_sha512 = {
-    "sha512",
-    "AmiSSL SHA-512 and SHA-384 over the corpus",
-    sha512_setup,
-    sha512_run,
-    sha512_verify,
-    sha512_teardown,
+    /* .name= */ "sha512",
+    /* .desc= */ "AmiSSL SHA-512 and SHA-384 over the corpus",
+    /* .unit= */ "KB",
+    /* .per_loop= */ PASSES * (HASH_SIZE / 1024.0),
+    /* .setup= */ sha512_setup,
+    /* .run= */ sha512_run,
+    /* .verify= */ sha512_verify,
+    /* .teardown= */ sha512_teardown,
 };

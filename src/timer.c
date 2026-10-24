@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: 0BSD
 //
-// Iteration timing. ReadEClock() gives a monotonic 64-bit tick count at the
+// Benchmark timing. ReadEClock() gives a monotonic 64-bit tick count at the
 // E clock rate (~709 kHz PAL) in one cheap call, immune to the system clock
 // being set mid-run -- which is what rules out GetSysTime(), and DateStamp()
 // only ticks 50 times a second. timer.device is opened only to reach the
@@ -51,7 +51,7 @@ ULONG eclock_micros(const struct EClockVal *t0, const struct EClockVal *t1) {
 
     return (ULONG)((b - a) * 1000000ULL / eclock_freq);
 #else
-    // Without a 64-bit type: an iteration never spans 2^32 ticks, so the
+    // Without a 64-bit type: a repetition never spans 2^32 ticks, so the
     // low words' difference is the whole delta, and the ticks go to
     // microseconds in three exact steps that each fit in 32 bits.
     ULONG ticks = t1->ev_lo - t0->ev_lo;

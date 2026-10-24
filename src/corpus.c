@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: 0BSD
 //
-// The shared input for the compressors: a quarter megabyte of synthetic English
-// prose, generated rather than bundled so the repository stays small and
-// every run compresses byte-identical data.
+// The shared input for the compressors: 64 KB of synthetic English prose
+// (see corpus.h for why that much), generated rather than bundled so the
+// repository stays small and every run compresses byte-identical data.
 //
 // Text is the honest choice for LZ compressors: it has the short repeats,
 // skewed byte frequencies and mid-length matches that their hash chains and
@@ -80,13 +80,14 @@ static UBYTE *put(UBYTE *p, UBYTE *end, const char *s) {
     return p;
 }
 
-// Allocate and fill CORPUS_SIZE bytes of prose: sentences of 4 to 16 words,
+// Allocate and fill SIZE bytes of prose: sentences of 4 to 16 words,
 // capitalized, one number in about every twenty words, lines wrapped near
-// 72 columns and a paragraph break every 6 to 14 sentences. Returns NULL
+// 72 columns and a paragraph break every 6 to 14 sentences. The text only
+// depends on the seed, so any size starts with the same bytes. Returns NULL
 // when out of memory; the caller frees it with bench_free().
-UBYTE *corpus_alloc(void) {
-    UBYTE *buf = bench_alloc(CORPUS_SIZE, "text corpus");
-    UBYTE *p = buf, *end = buf + CORPUS_SIZE;
+UBYTE *corpus_alloc(ULONG size) {
+    UBYTE *buf = bench_alloc(size, "text corpus");
+    UBYTE *p = buf, *end = buf + size;
     int column = 0, sentences = 0;
 
     if (!buf)

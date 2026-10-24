@@ -21,8 +21,8 @@
 
 // RFC 7748 section 6.1: Alice's and Bob's keys and their shared secret.
 // Checked once at setup, so that a compiler that breaks the arithmetic fails
-// there instead of only changing the check value; the timed runs then repeat
-// the same exchange.
+// there instead of only changing the check value; the loops then repeat the
+// same exchange.
 static const UBYTE TV_ALICE_PRIV[32] = {
     0x77, 0x07, 0x6d, 0x0a, 0x73, 0x18, 0xa5, 0x7d,
     0x3c, 0x16, 0xc1, 0x72, 0x51, 0xb2, 0x66, 0x45,
@@ -103,10 +103,12 @@ static bool x25519_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_x25519 = {
-    "x25519",
-    "AmiSSL X25519, both ends of a TLS key exchange",
-    x25519_setup,
-    x25519_run,
-    x25519_verify,
-    NULL,
+    /* .name= */ "x25519",
+    /* .desc= */ "AmiSSL X25519, both ends of a TLS key exchange",
+    /* .unit= */ "kex",
+    /* .per_loop= */ 1,
+    /* .setup= */ x25519_setup,
+    /* .run= */ x25519_run,
+    /* .verify= */ x25519_verify,
+    /* .teardown= */ NULL,
 };

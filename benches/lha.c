@@ -6,7 +6,7 @@
 // blocks), unmodified; only the stream I/O is redirected to memory buffers,
 // see third_party/lha/lha.h.
 //
-// -lh5- (8 KiB dictionary) rather than -lh6- or -lh7- because it is what the
+// -lh5- (8 KB dictionary) rather than -lh6- or -lh7- because it is what the
 // Amiga LhA produced for most of its life, and because the encoder's
 // search_dict() spends its time in the same hash-chain walk either way.
 //
@@ -65,7 +65,7 @@ static void lha_teardown(void *state) {
 }
 
 static void *lha_setup(void) {
-    plain = corpus_alloc();
+    plain = corpus_alloc(CORPUS_SIZE);
     // The corpus compresses about 4:1, so this never fills; the encoder
     // reports unpackable data rather than overflowing if it did.
     packed.cap = CORPUS_SIZE;
@@ -134,19 +134,23 @@ static bool unpack_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_lha_pack = {
-    "lha-pack",
-    "LHa -lh5- compression of 256 KiB of text",
-    lha_setup,
-    pack_run,
-    lha_verify,
-    lha_teardown,
+    /* .name= */ "lha-pack",
+    /* .desc= */ "LHa -lh5- compression of 64 KB of text",
+    /* .unit= */ "KB",
+    /* .per_loop= */ CORPUS_SIZE / 1024.0,
+    /* .setup= */ lha_setup,
+    /* .run= */ pack_run,
+    /* .verify= */ lha_verify,
+    /* .teardown= */ lha_teardown,
 };
 
 const struct Bench bench_lha_unpack = {
-    "lha-unpack",
-    "LHa -lh5- decompression back to 256 KiB",
-    lha_setup,
-    unpack_run,
-    unpack_verify,
-    lha_teardown,
+    /* .name= */ "lha-unpack",
+    /* .desc= */ "LHa -lh5- decompression back to 64 KB",
+    /* .unit= */ "KB",
+    /* .per_loop= */ CORPUS_SIZE / 1024.0,
+    /* .setup= */ lha_setup,
+    /* .run= */ unpack_run,
+    /* .verify= */ unpack_verify,
+    /* .teardown= */ lha_teardown,
 };

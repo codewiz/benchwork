@@ -26,11 +26,13 @@ ALL_CFLAGS = $(CFLAGS) $(LANG_FLAGS) $(INCLUDES) $(DEFINES)
 
 HARNESS_SRCS = \
 	src/main.c \
+	src/bench.c \
+	src/benchlist.c \
 	src/timer.c \
 	src/corpus.c \
 	src/glyphs.c \
 	benches/dhry.c \
-	benches/backdrop.c \
+	benches/scene.c \
 	benches/lha.c \
 	benches/zlib.c \
 	benches/png.c \

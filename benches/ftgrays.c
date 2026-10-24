@@ -39,8 +39,11 @@ static const int SIZES[] = {12, 24, 48};
 
 #define NSIZES (sizeof(SIZES) / sizeof(SIZES[0]))
 
-// Passes over the page per timed iteration.
+// Passes over the page per loop.
 #define PASSES 2
+
+// The glyphs in glyphs.c, drawn at each size.
+#define GLYPH_COUNT 94
 
 static UBYTE *page;
 static FT_Raster raster;
@@ -175,6 +178,9 @@ static void ftgrays_teardown(void *state) {
 static void *ftgrays_setup(void) {
     int i;
 
+    // NGLYPHS is not a constant expression, so the descriptor counts on it.
+    if (NGLYPHS != GLYPH_COUNT)
+        return NULL;
     for (i = 0; i < NGLYPHS; i++) {
         if (GLYPHS[i].n_points > max_points)
             max_points = GLYPHS[i].n_points;
@@ -210,10 +216,12 @@ static bool ftgrays_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_ftgrays = {
-    "ftgrays",
-    "FreeType smooth rasterizer, 94 glyphs at 12/24/48 px, 2 passes",
-    ftgrays_setup,
-    ftgrays_run,
-    ftgrays_verify,
-    ftgrays_teardown,
+    /* .name= */ "ftgrays",
+    /* .desc= */ "FreeType smooth rasterizer, 94 glyphs at 12/24/48 px, 2 passes",
+    /* .unit= */ "glyph",
+    /* .per_loop= */ (double)PASSES * NSIZES * GLYPH_COUNT,
+    /* .setup= */ ftgrays_setup,
+    /* .run= */ ftgrays_run,
+    /* .verify= */ ftgrays_verify,
+    /* .teardown= */ ftgrays_teardown,
 };

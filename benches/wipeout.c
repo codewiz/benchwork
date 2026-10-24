@@ -41,6 +41,8 @@
 // soft float.
 static const unsigned RUNS[3] = { 1024, 8, 1 };
 static const unsigned PASSES[3] = { 32, 32, 16 };
+// Their sum, for the triangles a run pushes; wipeout_setup() checks it.
+#define TOTAL_PASSES (32 + 32 + 16)
 
 static tris_t *input;
 static UWORD *tex;      // 3 * N texture indices, one set per pattern
@@ -99,6 +101,8 @@ static void wipeout_teardown(void *state) {
 static void *wipeout_setup(void) {
     unsigned i, j, m;
 
+    if (PASSES[0] + PASSES[1] + PASSES[2] != TOTAL_PASSES)
+        return NULL;
     input = bench_alloc(N * sizeof *input, "triangles");
     tex = bench_alloc(3 * N * sizeof *tex, "texture indices");
     if (!input || !tex) {
@@ -171,10 +175,13 @@ static bool wipeout_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_wipeout_tris = {
-    "wipeout-tris",
-    "Wipeout's triangle submission: float UVs, byte clamps, 96-byte copies",
-    wipeout_setup,
-    wipeout_run,
-    wipeout_verify,
-    wipeout_teardown,
+    /* .name= */ "wipeout-tris",
+    /* .desc= */ "Wipeout's triangle submission: float UVs, byte clamps, "
+                 "96-byte copies",
+    /* .unit= */ "tri",
+    /* .per_loop= */ (double)TOTAL_PASSES * N,
+    /* .setup= */ wipeout_setup,
+    /* .run= */ wipeout_run,
+    /* .verify= */ wipeout_verify,
+    /* .teardown= */ wipeout_teardown,
 };

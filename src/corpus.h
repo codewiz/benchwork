@@ -7,8 +7,11 @@
 
 #include <exec/types.h>
 
-#define CORPUS_SIZE (256UL * 1024)
+// Twice zlib's 32 KB window and eight -lh5- dictionaries: past the first
+// window, deflate already runs at the rate it keeps on longer input.
+#define CORPUS_SIZE (64UL * 1024)
 
-UBYTE *corpus_alloc(void);
+// SIZE bytes of the corpus; a shorter one is the start of a longer one.
+UBYTE *corpus_alloc(ULONG size);
 
 #endif

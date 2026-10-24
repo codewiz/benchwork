@@ -8,7 +8,7 @@
 //
 // Each record goes the way TLS 1.3 sends it, as in the aesgcm benchmark: a
 // nonce from the record number, the 5-byte record header as additional
-// data, a full 16 KiB of payload and the tag; then the receiving side checks
+// data, a full 16 KB of payload and the tag; then the receiving side checks
 // the tag and decrypts. ChaCha20 is 32-bit adds, XORs and rotates; Poly1305
 // is 32x32->64 multiplies, sixteen per 16-byte block, with their carries.
 //
@@ -22,10 +22,12 @@
 #include <crypto/chacha.h>
 #include <crypto/poly1305.h>
 
-// Each timed run sends and receives 64 KiB of the corpus as four records.
+// Each loop sends and receives 64 KB of the corpus as four records.
 #define RECORD_SIZE (16UL * 1024)
 #define RECORDS 4
 #define TAG_SIZE 16
+// The corpus bytes after the records that the key and IV come from.
+#define KEY_BYTES 64
 
 static UBYTE *corpus;
 static UBYTE *cipher;
@@ -164,7 +166,7 @@ static void *chacha20poly1305_setup(void) {
 
     // The connection's key and IV, from bytes of the corpus as a TLS key
     // schedule would derive them; the key schedule is outside the timing.
-    corpus = corpus_alloc();
+    corpus = corpus_alloc(RECORDS * RECORD_SIZE + KEY_BYTES);
     cipher = bench_alloc(RECORDS * (RECORD_SIZE + TAG_SIZE),
                          "chacha20poly1305 records");
     plain = bench_alloc(RECORDS * RECORD_SIZE, "chacha20poly1305 plaintext");
@@ -230,11 +232,14 @@ static bool chacha20poly1305_verify(void *state, const void *result,
     return true;
 }
 
+// per_loop counts the records' bytes twice, sealed and then opened.
 const struct Bench bench_chacha20poly1305 = {
-    "chacha20poly1305",
-    "AmiSSL ChaCha20-Poly1305, sending and receiving TLS records",
-    chacha20poly1305_setup,
-    chacha20poly1305_run,
-    chacha20poly1305_verify,
-    chacha20poly1305_teardown,
+    /* .name= */ "chacha20poly1305",
+    /* .desc= */ "AmiSSL ChaCha20-Poly1305, sending and receiving TLS records",
+    /* .unit= */ "KB",
+    /* .per_loop= */ 2 * RECORDS * (RECORD_SIZE / 1024.0),
+    /* .setup= */ chacha20poly1305_setup,
+    /* .run= */ chacha20poly1305_run,
+    /* .verify= */ chacha20poly1305_verify,
+    /* .teardown= */ chacha20poly1305_teardown,
 };

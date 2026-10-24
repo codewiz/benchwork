@@ -7,7 +7,7 @@
 // the work behind every record of an https download.
 //
 // Each record goes the way TLS 1.3 sends it: a nonce from the record
-// number, the 5-byte record header as additional data, a full 16 KiB of
+// number, the 5-byte record header as additional data, a full 16 KB of
 // payload and the tag; then the receiving side decrypts and checks it. AES
 // is 32-bit table lookups; the GHASH that authenticates it is 64-bit
 // shifts and XORs, which an m68k compiler splits into 32-bit halves.
@@ -19,10 +19,12 @@
 #include <openssl/aes.h>
 #include <crypto/modes.h>
 
-// Each timed run sends and receives 64 KiB of the corpus as four records.
+// Each loop sends and receives 64 KB of the corpus as four records.
 #define RECORD_SIZE (16UL * 1024)
 #define RECORDS 4
 #define TAG_SIZE 16
+// The corpus bytes after the records that the key and nonce come from.
+#define KEY_BYTES 64
 
 // All three buffers are allocated, so they are longword aligned and gcm128.c
 // takes its word-at-a-time path, as it does on AmiSSL's record buffers.
@@ -107,7 +109,7 @@ static void *aesgcm_setup(void) {
 
     // The connection's key and IV, from bytes of the corpus as a TLS key
     // schedule would derive them; the key schedule is outside the timing.
-    corpus = corpus_alloc();
+    corpus = corpus_alloc(RECORDS * RECORD_SIZE + KEY_BYTES);
     cipher = bench_alloc(RECORDS * (RECORD_SIZE + TAG_SIZE), "aesgcm records");
     plain = bench_alloc(RECORDS * RECORD_SIZE, "aesgcm plaintext");
     if (corpus == NULL || cipher == NULL || plain == NULL) {
@@ -174,11 +176,14 @@ static bool aesgcm_verify(void *state, const void *result, ULONG *check) {
     return true;
 }
 
+// per_loop counts the records' bytes twice, sealed and then opened.
 const struct Bench bench_aesgcm = {
-    "aesgcm",
-    "AmiSSL AES-128-GCM, sending and receiving TLS records",
-    aesgcm_setup,
-    aesgcm_run,
-    aesgcm_verify,
-    aesgcm_teardown,
+    /* .name= */ "aesgcm",
+    /* .desc= */ "AmiSSL AES-128-GCM, sending and receiving TLS records",
+    /* .unit= */ "KB",
+    /* .per_loop= */ 2 * RECORDS * (RECORD_SIZE / 1024.0),
+    /* .setup= */ aesgcm_setup,
+    /* .run= */ aesgcm_run,
+    /* .verify= */ aesgcm_verify,
+    /* .teardown= */ aesgcm_teardown,
 };

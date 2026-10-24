@@ -40,7 +40,7 @@
 // The checksum covers the whole destination buffer at the end of a run, so a
 // copy that moves the wrong bytes, or a backwards move that eats its own
 // source, changes the check value rather than the time. Each run leaves the
-// buffer as it found it, so the value is stable across iterations: the copies
+// buffer as it found it, so the value is stable across runs: the copies
 // are a fixed function of the source, and the overlapping moves are done in
 // pairs that cancel.
 
@@ -62,8 +62,8 @@
 #define LARGE_REPS       3600
 #define VAR_SMALL_REPS  18000
 #define VAR_LARGE_REPS   3600
-#define MOVE_SMALL_REPS 32000
-#define MOVE_LARGE_REPS  3600
+#define MOVE_SMALL_REPS 16000
+#define MOVE_LARGE_REPS  2400
 
 static UBYTE *src;
 static UBYTE *dst;
@@ -88,6 +88,19 @@ struct point { SHORT x, y, z, pad; };
 struct rec { ULONG id; UBYTE name[24]; LONG flags; };
 struct big { ULONG w[32]; };
 
+// The bytes each phase copies or moves per turn of its loop, for the rates
+// in the descriptors: keep them in step with the phases below. memcpy_setup()
+// checks the two that sum the size tables.
+#define SMALL_BYTES (4 + 8 + 12 + 16 + 24 + 32 + 48 + 64 + 96 + 128)
+#define SMALL_ODD_BYTES (5 + 9 + 13 + 27 + 33 + 45 + 67 + 99 + 125)
+#define STRUCT_BYTES (sizeof(struct small) + sizeof(struct point) + \
+                      sizeof(struct rec) + sizeof(struct big))
+#define LARGE_BYTES (256 + 257 + 384 + 512 + 1024 + 4096)
+#define VAR_SMALL_BYTES 427
+#define VAR_LARGE_BYTES 8520
+#define MOVE_SMALL_BYTES (2 * 128 + 2 * 64 + 2 * 32)
+#define MOVE_LARGE_BYTES (2 * 4096 + 2 * 2048)
+
 // Copy one constant size at a fixed offset. A macro rather than a function so
 // the size stays a literal at the call site, which is what lets the compiler
 // expand it by pieces.
@@ -109,9 +122,15 @@ static void memcpy_teardown(void *state) {
 // The buffers stay in this file's globals; the hooks get the destination,
 // which every phase writes, as their state and result.
 static void *memcpy_setup(void) {
-    ULONG i;
+    ULONG i, small = 0, large = 0;
     ULONG x = 2463534242UL;
 
+    for (i = 0; i < NVAR_SMALL; i++)
+        small += VAR_SMALL_SIZES[i];
+    for (i = 0; i < NVAR_LARGE; i++)
+        large += VAR_LARGE_SIZES[i];
+    if (small != VAR_SMALL_BYTES || large != VAR_LARGE_BYTES)
+        return NULL;
     src = bench_alloc(BUFSIZE, "block move source");
     dst = bench_alloc(BUFSIZE, "block move destination");
     if (!src || !dst) {
@@ -240,7 +259,7 @@ static void phase_var(const ULONG *sizes, ULONG count, ULONG reps,
 // Overlapping moves, both directions, in pairs that shift a block up and then
 // back down by the same distance. That restores the block and leaves only the
 // gap it was shifted across altered, which keeps the check value stable across
-// iterations while still exercising both directions. A backwards move that
+// runs while still exercising both directions. A backwards move that
 // runs forwards smears one value over the range and the checksum changes.
 static void phase_move_small(void) {
     ULONG r;
@@ -305,55 +324,69 @@ static bool memcpy_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_memcpy_small = {
-    "memcpy-small",
-    "constant copies up to 128 bytes, aligned, odd and struct",
-    memcpy_setup,
-    small_run,
-    memcpy_verify,
-    memcpy_teardown,
+    /* .name= */ "memcpy-small",
+    /* .desc= */ "constant copies up to 128 bytes, aligned, odd and struct",
+    /* .unit= */ "KB",
+    /* .per_loop= */ ((double)SMALL_REPS * SMALL_BYTES +
+                      (double)SMALL_ODD_REPS * SMALL_ODD_BYTES +
+                      (double)STRUCT_REPS * STRUCT_BYTES) / 1024,
+    /* .setup= */ memcpy_setup,
+    /* .run= */ small_run,
+    /* .verify= */ memcpy_verify,
+    /* .teardown= */ memcpy_teardown,
 };
 
 const struct Bench bench_memcpy_large = {
-    "memcpy-large",
-    "constant copies from 256 to 4096 bytes",
-    memcpy_setup,
-    large_run,
-    memcpy_verify,
-    memcpy_teardown,
+    /* .name= */ "memcpy-large",
+    /* .desc= */ "constant copies from 256 to 4096 bytes",
+    /* .unit= */ "KB",
+    /* .per_loop= */ (double)LARGE_REPS * LARGE_BYTES / 1024,
+    /* .setup= */ memcpy_setup,
+    /* .run= */ large_run,
+    /* .verify= */ memcpy_verify,
+    /* .teardown= */ memcpy_teardown,
 };
 
 const struct Bench bench_memcpy_var_small = {
-    "memcpy-var-small",
-    "small copies sized at run time: the call into newlib's memcpy",
-    memcpy_setup,
-    var_small_run,
-    memcpy_verify,
-    memcpy_teardown,
+    /* .name= */ "memcpy-var-small",
+    /* .desc= */ "small copies sized at run time: the call into newlib's memcpy",
+    /* .unit= */ "KB",
+    /* .per_loop= */ (double)VAR_SMALL_REPS * VAR_SMALL_BYTES / 1024,
+    /* .setup= */ memcpy_setup,
+    /* .run= */ var_small_run,
+    /* .verify= */ memcpy_verify,
+    /* .teardown= */ memcpy_teardown,
 };
 
 const struct Bench bench_memcpy_var_large = {
-    "memcpy-var-large",
-    "large copies sized at run time: newlib's memcpy loop",
-    memcpy_setup,
-    var_large_run,
-    memcpy_verify,
-    memcpy_teardown,
+    /* .name= */ "memcpy-var-large",
+    /* .desc= */ "large copies sized at run time: newlib's memcpy loop",
+    /* .unit= */ "KB",
+    /* .per_loop= */ (double)VAR_LARGE_REPS * VAR_LARGE_BYTES / 1024,
+    /* .setup= */ memcpy_setup,
+    /* .run= */ var_large_run,
+    /* .verify= */ memcpy_verify,
+    /* .teardown= */ memcpy_teardown,
 };
 
 const struct Bench bench_memmove_small = {
-    "memmove-small",
-    "overlapping moves up to 128 bytes, both directions",
-    memcpy_setup,
-    move_small_run,
-    memcpy_verify,
-    memcpy_teardown,
+    /* .name= */ "memmove-small",
+    /* .desc= */ "overlapping moves up to 128 bytes, both directions",
+    /* .unit= */ "KB",
+    /* .per_loop= */ (double)MOVE_SMALL_REPS * MOVE_SMALL_BYTES / 1024,
+    /* .setup= */ memcpy_setup,
+    /* .run= */ move_small_run,
+    /* .verify= */ memcpy_verify,
+    /* .teardown= */ memcpy_teardown,
 };
 
 const struct Bench bench_memmove_large = {
-    "memmove-large",
-    "overlapping moves of 2048 and 4096 bytes, both directions",
-    memcpy_setup,
-    move_large_run,
-    memcpy_verify,
-    memcpy_teardown,
+    /* .name= */ "memmove-large",
+    /* .desc= */ "overlapping moves of 2048 and 4096 bytes, both directions",
+    /* .unit= */ "KB",
+    /* .per_loop= */ (double)MOVE_LARGE_REPS * MOVE_LARGE_BYTES / 1024,
+    /* .setup= */ memcpy_setup,
+    /* .run= */ move_large_run,
+    /* .verify= */ memcpy_verify,
+    /* .teardown= */ memcpy_teardown,
 };

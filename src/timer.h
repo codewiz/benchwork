@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: 0BSD
 //
-// Iteration timing over timer.device's ReadEClock(): see timer.c.
+// Benchmark timing over timer.device's ReadEClock(): see timer.c.
 
 #ifndef BENCHWORK_TIMER_H
 #define BENCHWORK_TIMER_H

@@ -8,7 +8,7 @@
 // in inflate() with inflate_fast() as the hot decoding loop.
 //
 // Separate from the PNG benchmark so a change in zlib is measured on its
-// own: a 256 KiB stream in one deflate() call, and inflated back in one
+// own: a 64 KB stream in one deflate() call, and inflated back in one
 // inflate() call, the way compress2() and uncompress() do it, three times
 // per run.
 
@@ -29,7 +29,7 @@ static bool deflate_corpus(void) {
     int rc;
 
     memset(&strm, 0, sizeof(strm));
-    // zlib's own default allocator reaches malloc(), which --fastmem does not
+    // zlib's own default allocator reaches malloc(), which FASTMEM does not
     // reach; deflate's state and window are where this benchmark works.
     strm.zalloc = bench_zalloc;
     strm.zfree = bench_zfree;
@@ -56,7 +56,7 @@ static void zlib_teardown(void *state) {
 // The buffers stay in this file's globals; the hooks get the corpus as
 // their state.
 static void *zlib_setup(void) {
-    plain = corpus_alloc();
+    plain = corpus_alloc(CORPUS_SIZE);
     packed_cap = (ULONG)deflateBound(NULL, CORPUS_SIZE);
     packed = bench_alloc(packed_cap, "zlib deflate buffer");
     unpacked = bench_alloc(CORPUS_SIZE, "zlib inflate buffer");
@@ -113,19 +113,23 @@ static bool inflate_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_zlib_deflate = {
-    "zlib-deflate",
-    "zlib level 6 compression of 256 KiB of text",
-    zlib_setup,
-    deflate_run,
-    deflate_verify,
-    zlib_teardown,
+    /* .name= */ "zlib-deflate",
+    /* .desc= */ "zlib level 6 compression of 64 KB of text",
+    /* .unit= */ "KB",
+    /* .per_loop= */ CORPUS_SIZE / 1024.0,
+    /* .setup= */ zlib_setup,
+    /* .run= */ deflate_run,
+    /* .verify= */ deflate_verify,
+    /* .teardown= */ zlib_teardown,
 };
 
 const struct Bench bench_zlib_inflate = {
-    "zlib-inflate",
-    "zlib decompression back to 256 KiB",
-    zlib_setup,
-    inflate_run,
-    inflate_verify,
-    zlib_teardown,
+    /* .name= */ "zlib-inflate",
+    /* .desc= */ "zlib decompression back to 64 KB, three times",
+    /* .unit= */ "KB",
+    /* .per_loop= */ INFLATES * (CORPUS_SIZE / 1024.0),
+    /* .setup= */ zlib_setup,
+    /* .run= */ inflate_run,
+    /* .verify= */ inflate_verify,
+    /* .teardown= */ zlib_teardown,
 };

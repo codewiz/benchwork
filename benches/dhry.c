@@ -18,8 +18,7 @@ extern int Int_Glob;
 extern char Ch_1_Glob, Ch_2_Glob;
 extern int Arr_2_Glob[50][50];
 
-// Iterations of the inner loop per timed run. About a second on a 25 MHz
-// 68040.
+// Dhrystone runs per loop: about a second on a 25 MHz 68040.
 #define RUNS 20000UL
 
 // Dhrystone keeps its state in dhry_1.c's globals, so there is no state of
@@ -29,7 +28,7 @@ static void *dhry_setup(void) {
 }
 
 // Proc_8() accumulates into Arr_2_Glob, so the records and arrays are reset
-// before every run; that is a memset of 10 KiB against a second of work.
+// before every run; that is a memset of 10 KB against a second of work.
 static const void *dhry_run(void *state) {
     if (!Dhry_Initialize())
         return NULL;
@@ -52,10 +51,12 @@ static bool dhry_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_dhry = {
-    "dhrystone",
-    "Dhrystone 2.1, 20000 runs",
-    dhry_setup,
-    dhry_run,
-    dhry_verify,
-    NULL,
+    /* .name= */ "dhrystone",
+    /* .desc= */ "Dhrystone 2.1, 20000 runs",
+    /* .unit= */ "Dhry",
+    /* .per_loop= */ RUNS,
+    /* .setup= */ dhry_setup,
+    /* .run= */ dhry_run,
+    /* .verify= */ dhry_verify,
+    /* .teardown= */ NULL,
 };

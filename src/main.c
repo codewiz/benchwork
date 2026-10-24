@@ -1,24 +1,14 @@
 // SPDX-License-Identifier: 0BSD
 //
-// Benchwork -- CPU benchmarks for comparing m68k compilers.
-//
-// Every benchmark is a real workload lifted from a program people run on
-// the Amiga (see README.md), reduced to a function that reads and writes
-// memory buffers, so what is measured is the code the compiler generated and
-// nothing else: no disk, no display, no OS calls inside the timed region.
-//
-// Each benchmark is set up once, then run the requested number of times.
-// The report gives the fastest and the mean iteration, and a checksum of the
-// output that must agree across compilers.
+// Benchwork -- CPU benchmarks for comparing Amiga compilers.
 
 #include <proto/exec.h>
+#include <proto/dos.h>
 #include <dos/dos.h>
 #include <exec/tasks.h>
-#include <devices/timer.h>
-#include <math.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "bench.h"
 #include "compiler.h"
@@ -27,31 +17,34 @@
 #ifndef BENCH_CFLAGS
 #define BENCH_CFLAGS "?"
 #endif
+
 #ifndef BENCH_VERSION
 #define BENCH_VERSION "?"
 #endif
+
 #ifndef BENCH_DATE
 #define BENCH_DATE "?"
 #endif
+
 // vbcc has no version macro; its build passes the name from the Makefile.
 #ifndef BENCH_COMPILER
-#if defined(__GNUC__)
-#define BENCH_COMPILER "gcc " __VERSION__
-#elif defined(__SASC)
-#define STR_(x) #x
-#define STR(x) STR_(x)
-#define BENCH_COMPILER "SAS/C " STR(__VERSION__) "." STR(__REVISION__)
-#else
-#define BENCH_COMPILER "unknown compiler"
-#endif
+    #if defined(__GNUC__)
+        #define BENCH_COMPILER "gcc " __VERSION__
+    #elif defined(__SASC)
+        #define STR_(x) #x
+        #define STR(x) STR_(x)
+        #define BENCH_COMPILER "SAS/C " STR(__VERSION__) "." STR(__REVISION__)
+    #else
+        #define BENCH_COMPILER "unknown compiler"
+    #endif
 #endif
 
 // For the AmigaOS "version" command.
 static const char version_tag[] USED =
     "$VER: benchwork " BENCH_VERSION " (" BENCH_DATE ")";
 
-// ftgrays keeps its 16 KiB cell pool on the stack and the Amiga shell's
-// default stack is 4 KiB. Swapping to a bigger one from C is not portable
+// ftgrays keeps its 16 KB cell pool on the stack and the Amiga shell's
+// default stack is 4 KB. Swapping to a bigger one from C is not portable
 // (StackSwap() cannot be called from the middle of a C function, since the
 // function's locals stay on the other stack), so the program checks the
 // stack it was given and asks for a bigger one instead.
@@ -64,271 +57,164 @@ static const char version_tag[] USED =
 __near long __stack = STACK_NEEDED * 2;
 #endif
 
-static const struct Bench *const BENCHES[] = {
-    &bench_dhry,
-    &bench_backdrop,
-    &bench_lha_pack,
-    &bench_lha_unpack,
-    &bench_zlib_deflate,
-    &bench_zlib_inflate,
-    &bench_png_encode,
-    &bench_png_decode,
-    &bench_ftgrays,
-    &bench_memcpy_small,
-    &bench_memcpy_large,
-    &bench_memcpy_var_small,
-    &bench_memcpy_var_large,
-    &bench_memmove_small,
-    &bench_memmove_large,
-    &bench_wipeout_tris,
-#ifdef BENCH_HAVE_NFS3
-    &bench_nfs3_project,
-    &bench_nfs3_clip,
-#endif
-#ifdef BENCH_HAVE_AMISSL
-    &bench_sha512,
-    &bench_aesgcm,
-    &bench_chacha20poly1305,
-    &bench_x25519,
-#endif
-};
+// The ReadArgs() template, and where each argument lands in its array.
+static const char TEMPLATE[] =
+    "BENCH/M,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,LIST/S,HELP=--help=-h/S";
+enum { ARG_BENCH, ARG_REPEAT, ARG_MINTIME, ARG_FASTMEM, ARG_LIST, ARG_HELP,
+       NARGS };
 
-#define NBENCHES (sizeof(BENCHES) / sizeof(BENCHES[0]))
+// Half an hour: a repetition stops short of twice MINTIME, and its
+// microseconds have to fit in a ULONG, which lasts 71 minutes.
+#define MAX_MINTIME 1800000L
+#define MAX_REPEAT 100000L
 
-// 32-bit FNV-1a, seeded so that several buffers can be chained.
-ULONG checksum(ULONG seed, const void *data, ULONG len) {
-    const UBYTE *p = (const UBYTE *)data;
-    ULONG h = seed ? seed : 2166136261UL;
-
-    while (len--)
-        h = (h ^ *p++) * 16777619UL;
-    return h;
-}
-
+// AmigaDOS answers "?" with the template alone, which gives the argument
+// names but not what they mean. This is the rest of it.
 static void usage(void) {
-    printf("usage: benchwork [-n iterations] [--fastmem] [-l] [name ...]\n");
-    printf("  --fastmem  require MEMF_FAST for benchmark buffers\n");
+    printf("benchwork %s\n\n", BENCH_VERSION);
+    printf("  BENCH/M        the benchmarks to run, in order (default all)\n"
+           "  REPEAT/K/N     timed repetitions of each benchmark (default 3)\n"
+           "  MINTIME/K/N    loop over the work until each repetition lasts\n"
+           "                 this many milliseconds\n"
+           "  FASTMEM/S      require fast memory for the benchmark buffers\n"
+           "  LIST/S         list the benchmarks\n"
+           "  HELP/S         this text; -h and --help work too\n");
 }
 
-// Milliseconds with three decimals, right-aligned in 11 columns, so that
-// times up to 999999 ms keep a space before them.
-static void print_ms(ULONG us) {
-    printf("%7lu.%03lu", (unsigned long)(us / 1000), (unsigned long)(us % 1000));
+// Whether A and B are the same name, ignoring case as AmigaDOS does.
+static bool same_name(const char *a, const char *b) {
+    for (; tolower((unsigned char)*a) == tolower((unsigned char)*b); a++, b++)
+        if (!*a)
+            return true;
+    return false;
 }
 
-// Set up, time and tear down one benchmark. Returns false on failure, after
-// saying which step failed; on success *BEST_US is the fastest iteration.
-static bool run_bench(const struct Bench *b, int iters, ULONG *best_us) {
-    ULONG best = ~0UL, total = 0, check = 0, first = 0;
-    bool ok = true;
-    void *state;
-    int i;
-
-    state = b->setup();
-    if (!state) {
-        printf("%-16s setup failed\n", b->name);
-        return false;
-    }
-    for (i = 0; i < iters; i++) {
-        struct EClockVal t0, t1;
-        const void *result;
-        ULONG us;
-
-        // No task switches during the timed region. Interrupts still run,
-        // which is what keeps the E clock and the emulator's pacing honest;
-        // nothing inside a benchmark waits on the OS. Only run() is timed:
-        // checking its output is verify()'s job, afterwards.
-        Forbid();
-        timer_now(&t0);
-        result = b->run(state);
-        timer_now(&t1);
-        Permit();
-        if (!result) {
-            printf("%-16s run %d failed\n", b->name, i + 1);
-            ok = false;
-            break;
-        }
-        if (!b->verify(state, result, &check)) {
-            printf("%-16s run %d produced wrong output\n", b->name, i + 1);
-            ok = false;
-            break;
-        }
-        us = eclock_micros(&t0, &t1);
-        if (i == 0)
-            first = check;
-        else if (check != first) {
-            // The same code on the same input produced different bytes: a
-            // benchmark with state leaking between iterations, or a
-            // miscompile that depends on stale memory. Either way the times
-            // mean nothing.
-            printf("%-16s checksum changed between iterations\n", b->name);
-            ok = false;
-            break;
-        }
-        if (us < best)
-            best = us;
-        total += us;
-    }
-    if (ok) {
-        printf("%-16s %5d", b->name, iters);
-        print_ms(best);
-        print_ms(total / (ULONG)iters);
-        printf("   %08lx\n", (unsigned long)check);
-        *best_us = best;
-    }
-    if (b->teardown)
-        b->teardown(state);
-    return ok;
-}
-
-static int iters = 3;
-// The benchmarks to run, in the order given on the command line, repeats
-// included; all of them, in table order, when none is named.
-static const struct Bench **selected;
-static size_t nselected;
-static bool fastmem;
-
-// Allocate a benchmark buffer, released with bench_free(). WHAT names it if
-// the allocation fails. Not cleared, like malloc().
-//
-// Where the memory lands changes the timings: MEMF_ANY falls back to chip
-// memory when fast memory is full or fragmented, and the CPU reaches chip
-// memory only through bus arbitration against DMA, so a large buffer landing
-// there makes a workload look slower for reasons that have nothing to do with
-// the code under test. --fastmem asks for fast memory and fails when there is
-// none, rather than producing a number that cannot be compared.
-void *bench_alloc(ULONG size, const char *what) {
-    void *p = AllocVec(size, fastmem ? MEMF_FAST : MEMF_ANY);
-
-    if (!p)
-        printf("%s: cannot allocate %lu bytes%s\n", what, (unsigned long)size,
-               fastmem ? " of fast memory" : "");
-    return p;
-}
-
-// Release a bench_alloc() buffer. Takes NULL, as FreeVec() does.
-void bench_free(void *p) {
-    FreeVec(p);
-}
-
-// bench_alloc() for zlib's z_stream.zalloc and libpng's malloc_fn. Neither
-// library expects cleared memory: zlib's own zcalloc() is malloc() on any
-// target with 32-bit ints, despite the name.
-void *bench_zalloc(void *opaque, unsigned items, unsigned size) {
-    (void)opaque;
-    return bench_alloc((ULONG)items * size, "library buffer");
-}
-
-// The matching zfree/free_fn.
-void bench_zfree(void *opaque, void *address) {
-    (void)opaque;
-    bench_free(address);
-}
-
-// Run the selected benchmarks, then the geometric mean of their fastest
-// iterations when more than one ran: the one number that weighs a 10%
-// change on a short workload the same as on a long one. Returns the failure
-// count, or -1 on Ctrl-C.
-static int run_all(void) {
-    int failures = 0, ran = 0;
-    double logsum = 0;
+// The benchmark called NAME, or NULL.
+static const struct Bench *find_bench(const char *name) {
     size_t j;
 
-    for (j = 0; j < nselected; j++) {
-        ULONG best;
-
-        // Only some C libraries check for Ctrl-C in their stdio (libnix
-        // does, newlib does not), so look for it between benchmarks.
-        if (SetSignal(0, SIGBREAKF_CTRL_C) & SIGBREAKF_CTRL_C) {
-            printf("***Break\n");
-            return -1;
-        }
-        if (!run_bench(selected[j], iters, &best)) {
-            failures++;
-            continue;
-        }
-        logsum += log((double)best);
-        ran++;
-    }
-    if (ran > 1) {
-        printf("%-16s %5s", "GEOMEAN", "");
-        print_ms((ULONG)(exp(logsum / ran) + 0.5));
-        printf("\n");
-    }
-    return failures;
+    for (j = 0; j < NBENCHES; j++)
+        if (same_name(name, BENCHES[j]->name))
+            return BENCHES[j];
+    return NULL;
 }
 
-// The startup code passes argc and argv on the stack, even when the program
-// is built with -mregparm.
-#ifndef __stdargs
-#define __stdargs
-#endif
+// Set OPTS from what ReadArgs() returned. The benchmarks are the ones named,
+// in that order, repeats included; all of them, in table order, when none
+// is. Returns -1 to go on, or the exit code.
+static int apply_args(const LONG *args, struct BenchOptions *opts) {
+    char **names = (char **)args[ARG_BENCH];
+    size_t j, n = 0;
 
-int __stdargs main(int argc, char **argv) {
+    if (args[ARG_HELP]) {
+        usage();
+        return RETURN_WARN;
+    }
+    if (args[ARG_LIST]) {
+        for (j = 0; j < NBENCHES; j++)
+            printf("%-16s %s\n", BENCHES[j]->name, BENCHES[j]->desc);
+        return RETURN_OK;
+    }
+    if (args[ARG_REPEAT]) {
+        LONG repeat = *(LONG *)args[ARG_REPEAT];
+
+        if (repeat < 1 || repeat > MAX_REPEAT) {
+            printf("REPEAT must be from 1 to %ld\n", MAX_REPEAT);
+            return RETURN_FAIL;
+        }
+        opts->repeat = (int)repeat;
+    }
+    if (args[ARG_MINTIME]) {
+        LONG ms = *(LONG *)args[ARG_MINTIME];
+
+        if (ms < 0 || ms > MAX_MINTIME) {
+            printf("MINTIME must be from 0 to %ld\n", MAX_MINTIME);
+            return RETURN_FAIL;
+        }
+        opts->min_time_us = (ULONG)ms * 1000;
+    }
+    opts->fastmem = args[ARG_FASTMEM] != 0;
+
+    if (names)
+        while (names[n])
+            n++;
+    opts->nbenches = n ? n : NBENCHES;
+    opts->benches = malloc(opts->nbenches * sizeof *opts->benches);
+    if (!opts->benches) {
+        printf("out of memory\n");
+        return RETURN_FAIL;
+    }
+    for (j = 0; j < opts->nbenches; j++) {
+        opts->benches[j] = n ? find_bench(names[j]) : BENCHES[j];
+        if (!opts->benches[j]) {
+            printf("unknown benchmark %s: LIST names them\n", names[j]);
+            return RETURN_FAIL;
+        }
+    }
+    return -1;
+}
+
+// Set OPTS from the command line. Returns -1 to go on, or the exit code.
+static int parse_args(struct BenchOptions *opts) {
+    LONG args[NARGS] = { 0 };
+    struct RDArgs *rda;
+    int status;
+
+    rda = ReadArgs((STRPTR)TEMPLATE, args, NULL);
+    if (!rda) {
+        PrintFault(IoErr(), (STRPTR)"benchwork");
+        usage();
+        return RETURN_FAIL;
+    }
+    // The names are only looked up, so the arguments can go right away.
+    status = apply_args(args, opts);
+    FreeArgs(rda);
+    return status;
+}
+
+// Print the banner and run the benchmarks. Returns the exit code.
+static int run(const struct BenchOptions *opts) {
+    int failures;
+
+    if (!timer_open()) {
+        printf("cannot open timer.device\n");
+        return RETURN_FAIL;
+    }
+
+    printf("benchwork %s built with %s\n", BENCH_VERSION, BENCH_COMPILER);
+    printf("CFLAGS: %s\n\n", BENCH_CFLAGS);
+
+    failures = bench_run_all(opts);
+
+    timer_close();
+    if (failures < 0)
+        return RETURN_WARN;
+    return failures ? RETURN_ERROR : RETURN_OK;
+}
+
+int main(void) {
     struct Task *task = FindTask(NULL);
     ULONG stack = (ULONG)task->tc_SPUpper - (ULONG)task->tc_SPLower;
-    int failures, i;
-    size_t j;
+    struct BenchOptions opts = {
+        /* .benches= */ NULL,
+        /* .nbenches= */ 0,
+        /* .repeat= */ 3,
+        /* .min_time_us= */ 0,
+        /* .fastmem= */ false,
+    };
+    int status;
 
     if (stack < STACK_NEEDED) {
         printf("benchwork needs a %lu byte stack, got %lu: run \"stack %lu\" first\n",
                (unsigned long)STACK_NEEDED, (unsigned long)stack,
                (unsigned long)STACK_NEEDED * 2);
-        return 20;
+        return RETURN_FAIL;
     }
 
-    selected = malloc(((size_t)argc > NBENCHES ? (size_t)argc : NBENCHES)
-                      * sizeof *selected);
-    if (!selected) {
-        printf("out of memory\n");
-        return 20;
-    }
+    status = parse_args(&opts);
+    if (status < 0)
+        status = run(&opts);
+    free((void *)opts.benches);  // SAS/C sees a const dropped without the cast
 
-    for (i = 1; i < argc; i++) {
-        if (!strcmp(argv[i], "-n") && i + 1 < argc) {
-            iters = atoi(argv[++i]);
-            if (iters < 1)
-                iters = 1;
-        } else if (!strcmp(argv[i], "--fastmem")) {
-            fastmem = true;
-        } else if (!strcmp(argv[i], "-l")) {
-            for (j = 0; j < NBENCHES; j++)
-                printf("%-16s %s\n", BENCHES[j]->name, BENCHES[j]->desc);
-            return 0;
-        } else if (argv[i][0] == '-') {
-            usage();
-            return 20;
-        } else {
-            for (j = 0; j < NBENCHES; j++)
-                if (!strcmp(argv[i], BENCHES[j]->name))
-                    break;
-            if (j == NBENCHES) {
-                printf("unknown benchmark %s\n", argv[i]);
-                return 20;
-            }
-            selected[nselected++] = BENCHES[j];
-        }
-    }
-    if (!nselected) {
-        for (j = 0; j < NBENCHES; j++)
-            selected[j] = BENCHES[j];
-        nselected = NBENCHES;
-    }
-
-    if (!timer_open()) {
-        printf("cannot open timer.device\n");
-        return 20;
-    }
-
-    printf("benchwork %s, built with %s\n", BENCH_VERSION, BENCH_COMPILER);
-    printf("CFLAGS: %s\n\n", BENCH_CFLAGS);
-    printf("%-16s %5s%11s%11s   %s\n", "BENCHMARK", "ITERS", "MIN MS",
-           "MEAN MS", "CHECK");
-
-    failures = run_all();
-
-    timer_close();
-    if (failures < 0)
-        return RETURN_WARN;
-    return failures ? 10 : 0;
+    return status;
 }

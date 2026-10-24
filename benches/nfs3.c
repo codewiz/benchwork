@@ -17,7 +17,7 @@
 #include "bench.h"
 #include "third_party/nfs3/nfs3.h"
 
-// Vertices and triangles per iteration: about a second each on a 25 MHz
+// Vertices and triangles per loop: about a second each on a 25 MHz
 // 68040. arczi84's harness runs rounds of 100000 and 20000; 5 of those give
 // 449f5330 and 4352ff86 here, the sums of his x86-64 build, as the FPU in
 // single precision rounds every result as SSE does.
@@ -53,19 +53,25 @@ static bool nfs3_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_nfs3_project = {
-    "nfs3-project",
-    "NFS3's vertex projection: float multiply-adds, a divide, bit tests",
-    nfs3_setup,
-    project_run,
-    nfs3_verify,
-    NULL,
+    /* .name= */ "nfs3-project",
+    /* .desc= */ "NFS3's vertex projection: float multiply-adds, a divide, "
+                 "bit tests",
+    /* .unit= */ "vert",
+    /* .per_loop= */ VERTICES,
+    /* .setup= */ nfs3_setup,
+    /* .run= */ project_run,
+    /* .verify= */ nfs3_verify,
+    /* .teardown= */ NULL,
 };
 
 const struct Bench bench_nfs3_clip = {
-    "nfs3-clip",
-    "NFS3's triangle clipper: float compares, divides, interpolation",
-    nfs3_setup,
-    clip_run,
-    nfs3_verify,
-    NULL,
+    /* .name= */ "nfs3-clip",
+    /* .desc= */ "NFS3's triangle clipper: float compares, divides, "
+                 "interpolation",
+    /* .unit= */ "poly",
+    /* .per_loop= */ TRIANGLES,
+    /* .setup= */ nfs3_setup,
+    /* .run= */ clip_run,
+    /* .verify= */ nfs3_verify,
+    /* .teardown= */ NULL,
 };

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: 0BSD
 //
-// libpng encoding and decoding of the 320x256 backdrop scene, entirely in
+// libpng encoding and decoding of the 320x200 scene-2d picture, entirely in
 // memory. This is the pngbench that the m68k-amigaos-gcc issue tracker
 // measures the toolchain's libpng with, made self-contained: the picture is
-// synthesized rather than loaded, and libpng and zlib are built here rather
+// rendered rather than loaded, and libpng and zlib are built here rather
 // than taken from the installed toolchain, so two compilers can be compared
 // on the same source.
 //
@@ -60,7 +60,7 @@ static void mem_flush(png_structp png) {
 // image, and keeps the encode from being a second zlib-deflate. Returns false
 // on a libpng error.
 // libpng allocates its row buffers and zlib's state through these, so
-// --fastmem covers them too. Like libpng's own default, they do not clear.
+// FASTMEM covers them too. Like libpng's own default, they do not clear.
 static png_voidp png_bench_malloc(png_structp png, png_alloc_size_t size) {
     (void)png;
     return bench_alloc((ULONG)size, "libpng buffer");
@@ -147,7 +147,7 @@ static void png_teardown(void *state) {
 // reach through png_get_io_ptr(); the hooks get the encoded PNG as their
 // state.
 static void *png_setup(void) {
-    pixels = backdrop_rgb(&width, &height);
+    pixels = scene_rgb(&width, &height);
     if (!pixels)
         return NULL;
     // An encode is never bigger than the raw pixels plus libpng's per-row
@@ -198,19 +198,23 @@ static bool decode_verify(void *state, const void *result, ULONG *check) {
 }
 
 const struct Bench bench_png_encode = {
-    "png-encode",
-    "libpng encode of the 320x256 scene",
-    png_setup,
-    encode_run,
-    encode_verify,
-    png_teardown,
+    /* .name= */ "png-encode",
+    /* .desc= */ "libpng encode of the 320x200 scene",
+    /* .unit= */ "px",
+    /* .per_loop= */ (double)SCENE_WIDTH * SCENE_HEIGHT,
+    /* .setup= */ png_setup,
+    /* .run= */ encode_run,
+    /* .verify= */ encode_verify,
+    /* .teardown= */ png_teardown,
 };
 
 const struct Bench bench_png_decode = {
-    "png-decode",
-    "libpng decode of the same PNG",
-    png_setup,
-    decode_run,
-    decode_verify,
-    png_teardown,
+    /* .name= */ "png-decode",
+    /* .desc= */ "libpng decode of the same PNG, three times",
+    /* .unit= */ "px",
+    /* .per_loop= */ DECODES * ((double)SCENE_WIDTH * SCENE_HEIGHT),
+    /* .setup= */ png_setup,
+    /* .run= */ decode_run,
+    /* .verify= */ decode_verify,
+    /* .teardown= */ png_teardown,
 };
