@@ -9,31 +9,32 @@ notes under the table). Each compiler links its own
 C library, so the memcpy and memmove rows compare the compiler together with
 its runtime.
 
-## Time relative to gcc 6.5.0b
+## Speed relative to gcc 6.5.0b
 
-Each bar is the compiler's time divided by gcc 6.5.0b's, so shorter is faster.
+Each bar is gcc 6.5.0b's time divided by the compiler's, so longer is faster.
 
-![Time of each benchmark relative to gcc 6.5.0b](compilers-040.svg)
+![Speed of each benchmark relative to gcc 6.5.0b](compilers-040.svg)
 
 Same data in tabular form (time in milliseconds):
 
 | benchmark | 6.5.0b[^gcc6] | 16.2-rc18[^rc18] | vbcc 2026-01-12[^vbcc] | SAS/C 6.58[^sasc] |
 |---|---:|---:|---:|---:|
 | dhrystone | **414** | **414 (+0.07%)** | 472 (+14.00%) | 573 (+38.51%) |
-| backdrop | 3767 | **2927 (-22.30%)** | 4724 (+25.42%) | 5362 (+42.34%) |
-| lha-pack | 4315 | 4377 (+1.44%) | **4219 (-2.22%)** | 4878 (+13.04%) |
-| lha-unpack | 1193 | 1181 (-1.04%) | **1112 (-6.85%)** | 1291 (+8.21%) |
-| zlib-deflate | **3110** | 3637 (+16.92%) | 4179 (+34.35%) | 4023 (+29.34%) |
-| zlib-inflate | 767 | 920 (+19.97%) | **709 (-7.56%)** | 815 (+6.30%) |
-| png-encode | **1954** | 2231 (+14.14%) | 2956 (+51.27%) | 2752 (+40.80%) |
-| png-decode | **863** | 934 (+8.29%) | 1197 (+38.82%) | 1156 (+33.99%) |
+| scene-2d | 1437 | **1032 (-28.15%)** | 2213 (+54.07%) | 3154 (+119.52%) |
+| quantize-floyd | 877 | **659 (-24.84%)** | 1239 (+41.34%) | 1095 (+24.88%) |
+| lha-pack | 1094 | 1110 (+1.46%) | **1064 (-2.66%)** | 1233 (+12.75%) |
+| lha-unpack | 305 | 301 (-1.08%) | **283 (-7.06%)** | 329 (+8.10%) |
+| zlib-deflate | **698** | 804 (+15.30%) | 941 (+34.88%) | 894 (+28.16%) |
+| zlib-inflate | 196 | 237 (+20.79%) | **186 (-5.09%)** | 213 (+8.94%) |
+| png-encode | **1166** | 1324 (+13.58%) | 1814 (+55.60%) | 1682 (+44.21%) |
+| png-decode | **920** | 985 (+7.16%) | 1280 (+39.25%) | 1243 (+35.21%) |
 | ftgrays | **649** | 662 (+2.05%) | 785 (+21.08%) | 709 (+9.28%) |
 | memcpy-small | **862** | 908 (+5.35%) | 3672 (+326.13%) | 1790 (+107.75%) |
-| memcpy-large | 286 | **285 (-0.45%)** | 1215 (+324.94%) | 451 (+57.88%) |
+| memcpy-large | 286 | **285 (-0.45%)** | 1215 (+324.93%) | 451 (+57.88%) |
 | memcpy-var-small | 546 | 523 (-4.22%) | 554 (+1.45%) | **374 (-31.53%)** |
 | memcpy-var-large | 596 | **593 (-0.56%)** | 1557 (+161.11%) | 594 (-0.34%) |
-| memmove-small | 2205 | **1878 (-14.86%)** | 4263 (+93.30%) | 3060 (+38.77%) |
-| memmove-large | 3969 | **1439 (-63.75%)** | 12405 (+212.51%) | 8862 (+123.25%) |
+| memmove-small | **906** | 939 (+3.68%) | 2132 (+135.37%) | 1530 (+68.98%) |
+| memmove-large | 1028 | **959 (-6.70%)** | 8270 (+704.40%) | 5908 (+474.65%) |
 | wipeout-tris | **883** | 893 (+1.16%) | 1808 (+104.79%) | 1342 (+51.95%) |
 | nfs3-project[^cxx] | 1168 | **1064 (-8.90%)** | not built | not built |
 | nfs3-clip[^cxx] | 1005 | **952 (-5.33%)** | not built | not built |
@@ -41,9 +42,12 @@ Same data in tabular form (time in milliseconds):
 | aesgcm[^longlong] | 1073 | **853 (-20.50%)** | 3102 (+189.21%) | not built |
 | chacha20poly1305[^longlong] | **380** | 399 (+5.02%) | 982 (+158.09%) | not built |
 | x25519[^longlong] | **539** | 547 (+1.53%) | failed | not built |
-| **GEOMEAN** | **1174** | **1114 (-5.13%)** | **1911 (+62.82%)** | **1533 (+30.65%)** |
+| **GEOMEAN** | **669** | **666 (-0.51%)** | **1174 (+75.36%)** | **959 (+43.33%)** |
 
-[^gcc6]: `m68k-amigaos-gcc (GCC) 6.5.0b 20260819091705`, with newlib.
+[^gcc6]: gcc 6.5.0b 20260819091705, with newlib, built from AmigaPorts'
+    m68k-amigaos-gcc at f34b4e1, whose gcc 6 fixes include one for a
+    miscompile of zlib's deflate. (Its `--version` says `AmigaDev
+    v16.2-rc18-21-gf34b4e1`, the toolchain tree's own version.)
 [^rc18]: `m68k-amigaos-gcc (AmigaDev v16.2-rc18) 16.2.1b 20261010182711`,
     with its default newlib runtime.
 [^vbcc]: vbcc built from Volker Barthelmann's source release of

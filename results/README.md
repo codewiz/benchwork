@@ -17,7 +17,7 @@
 ### Timing
 
 Every number is the fastest repetition of a benchmark, in milliseconds,
-under [volamos](https://github.com/sidick/volamos) 0.11.0 with `--clock-mhz`:
+under [volamos](https://github.com/sidick/volamos) 0.13.0 with `--clock-mhz`:
 the emulated time is derived from the CPU's cycle count, so all repetitions
 of a run time the same and host load changes nothing. Unless a page says
 otherwise, the CPU is a 25 MHz 68040:
