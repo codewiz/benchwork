@@ -11,6 +11,8 @@
   against `-m68020-60` on a 68060.
 - [GCC register arguments](regparm.md): `-mregparm` and
   `-msasregparm` against stack arguments.
+- [m68k emulators](emulators.md): vamos, volamos, Amiberry and
+  Copperline on the same host, against a 68040.
 
 ## Methodology
 
