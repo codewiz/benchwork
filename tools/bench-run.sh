@@ -12,13 +12,13 @@
 # a changed compiler, so a reused one would measure the old objects.
 #
 # Environment:
-#   ITERS   iterations per benchmark (default 1)
+#   REPEAT  timed repetitions of each benchmark (default 1)
 
 set -Eeuo pipefail
 trap 'echo "$0: line $LINENO: $BASH_COMMAND failed" >&2' ERR
 
 if [ $# -lt 5 ]; then
-    echo "Usage: [ITERS=n] $0 <toolchain dir> <name> \"<CPUFLAGS>\" \"<OPT>\" <volamos arguments...>" >&2
+    echo "Usage: [REPEAT=n] $0 <toolchain dir> <name> \"<CPUFLAGS>\" \"<OPT>\" <volamos arguments...>" >&2
     exit 1
 fi
 
@@ -37,6 +37,6 @@ make -s -j"$(nproc)" CC="$toolchain/bin/m68k-amigaos-gcc" \
 "$toolchain/bin/m68k-amigaos-size" "$work/benchwork-$name" | tail -1 |
     awk -v n="$name" '{ print n, $1 }' >"results/raw/sizes/$name"
 
-volamos "$@" --stack 65536 -- "$work/benchwork-$name" -n "${ITERS:-1}" \
+volamos "$@" --stack 65536 -- "$work/benchwork-$name" REPEAT "${REPEAT:-1}" \
     >"results/raw/$name.txt" 2>&1
 grep -E 'GEOMEAN|fail|changed' "results/raw/$name.txt" | sed "s/^/$name: /"

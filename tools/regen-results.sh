@@ -78,10 +78,10 @@ done
 "$run" "$rc18" gcc-16.2-rc18-060fp-060-cache "-m68060 -m68881" "$o2" \
     "${v060[@]}"
 
-# Register arguments, two iterations.
+# Register arguments, two repetitions.
 for v in base: regparm2:-mregparm=2 regparm4:-mregparm=4 \
     sasregparm:-msasregparm; do
-    ITERS=2 "$run" "$rc18" "gcc-16.2-rc18-${v%%:*}-040" "-m68040 -m68881" \
+    REPEAT=2 "$run" "$rc18" "gcc-16.2-rc18-${v%%:*}-040" "-m68040 -m68881" \
         "$o2 ${v#*:}" "${v040[@]}"
 done
 
@@ -104,12 +104,15 @@ make -s -j"$(nproc)" CC="$rc18/bin/vc +$PWD/$work/aos68k" \
     BUILD="$work/build-vbcc" TARGET="$work/benchwork-vbcc" release-040 \
     >"$work/build-vbcc.log" 2>&1
 
-# memcpy-small's miscompile scribbles over printf's digits: '4' comes out
-# as '{', which would hide the row from the tables. vbcc's run always has
-# failed benchmarks, so benchwork's exit status is no news here; the check
-# below looks at what failed.
-{ volamos "${v040[@]}" --stack 65536 -- "$work/benchwork-vbcc-040" -n 1 2>&1 ||
-    true; } | tr '{' 4 >results/raw/vbcc-20260112-O3-040.txt
+# volamos 0.13 lets vbcc's startup code clip the last word of the command
+# line (sidick/volamos#205), so the benchmarks are named, and a clipped name
+# still matches. vbcc's run always has failed benchmarks, so benchwork's exit
+# status is no news here; the check below looks at what failed.
+vbcc=$work/benchwork-vbcc-040
+names=$(volamos "${v040[@]}" --stack 65536 -- "$vbcc" LIST - | cut -d' ' -f1)
+# shellcheck disable=SC2086 # one word per benchmark
+{ volamos "${v040[@]}" --stack 65536 -- "$vbcc" REPEAT 1 $names 2>&1 ||
+    true; } >results/raw/vbcc-20260112-O3-040.txt
 echo "vbcc: $(grep GEOMEAN results/raw/vbcc-20260112-O3-040.txt)"
 
 # SAS/C, compiled under volamos: slow, and two jobs at most.
@@ -117,7 +120,7 @@ rm -rf "$work/build-sasc-040" "$work/benchwork-sasc-040"
 make -s -j2 CC="$SC" BUILD="$work/build-sasc" TARGET="$work/benchwork-sasc" \
     release-040 >"$work/build-sasc.log" 2>&1
 
-volamos "${v040[@]}" --stack 65536 -- "$work/benchwork-sasc-040" -n 1 \
+volamos "${v040[@]}" --stack 65536 -- "$work/benchwork-sasc-040" REPEAT 1 \
     >results/raw/sasc-6.58-040-040.txt 2>&1
 echo "sasc: $(grep GEOMEAN results/raw/sasc-6.58-040-040.txt)"
 

@@ -2,13 +2,14 @@
 # SPDX-License-Identifier: 0BSD
 #
 # Draw benchwork output files as an SVG: one cluster of horizontal bars per
-# benchmark (and one for the geomean), one bar per file, with the times
-# normalized to the first file so its bars all sit at 1.0; --help lists
-# the options.
+# benchmark (and one for the geomean), one bar per file, with the speed
+# relative to the first file, whose bars all sit at 1.0; --help lists the
+# options.
 #
 # --sizes draws one bar per build for its code size instead. --lines draws
 # one line per benchmark across any number of files, for a series of
-# releases: the time in ms on a log scale, colored by workload family.
+# releases: the speed relative to the first on a log scale, colored by
+# workload family.
 #
 # The files are read with results-table.py's parser, so the same arguments
 # serve both. Up to five files: the colors are a fixed, validated set, and a
@@ -35,7 +36,8 @@ COLORS = [("#2a78d6", "#3987e5"), ("#eb6834", "#d95926"),
 # benchmark name prefixes; a benchmark in none of them gets the first color.
 FAMILIES = [("compression", ["lha-", "zlib-", "png-"]),
             ("memory", ["memcpy-", "memmove-"]),
-            ("graphics", ["backdrop", "ftgrays", "wipeout-", "nfs3-"]),
+            ("graphics", ["scene-", "quantize-", "ftgrays", "wipeout-",
+                          "nfs3-"]),
             ("crypto", ["sha512", "aesgcm", "chacha20poly1305", "x25519"]),
             ("dhrystone", ["dhrystone"])]
 
@@ -47,7 +49,7 @@ RIGHT = 130       # room for the labels past the longest bar
 WIDTH = 940
 TOP = 36          # the legend
 AXIS = 26         # the axis below the plot
-LABEL_MIN = 0.05  # the smallest change that gets a label on the time charts
+LABEL_MIN = 0.05  # the smallest change that gets a label on the speed charts
 
 
 def esc(s):
@@ -120,10 +122,14 @@ def label_x(x, ratio, text):
 
 
 def better(out, text):
-    """The which-way-is-better note, top right; text starts with an entity
-    for the arrow."""
+    """The which-way-is-better note, top right."""
     out.append(f'<text class="t muted" x="{WIDTH - 12}" y="21" '
-               f'text-anchor="end">{text}: less is better</text>')
+               f'text-anchor="end">{text}</text>')
+
+
+def num(v):
+    """Three significant digits, without an exponent."""
+    return f"{v:.{max(0, 2 - math.floor(math.log10(v)))}f}"
 
 
 def sizes(opts):
@@ -140,7 +146,7 @@ def sizes(opts):
     plot_h = len(columns) * pitch
     height = top + plot_h + AXIS
     out = start(opts.title, height, len(columns))
-    better(out, "&#9664; Size")
+    better(out, "&#9664; Size: less is better")
     grid(out, xmax, x, top, plot_h)
     for i, ((label, size), ratio) in enumerate(zip(columns, ratios)):
         y = top + i * pitch + PAD / 2
@@ -157,18 +163,22 @@ def sizes(opts):
 
 
 def lines(opts, columns):
-    """Every benchmark as one line across the files in order, in ms on a log
-    scale so that equal changes have equal slopes, named at the right end."""
-    series = [(n, [c[1].get(n) for c in columns]) for n in columns[0][1]]
-    series.append(("geomean", [c[3] for c in columns]))
+    """Every benchmark as one line across the files in order, its speed
+    relative to the first file on a log scale so that equal changes have
+    equal slopes, named at the right end."""
+    def speeds(times):
+        return [times[0] / t if t else None for t in times]
+
+    series = [(n, speeds([c[1].get(n) for c in columns])) for n in columns[0][1]]
+    series.append(("geomean", speeds([c[4] for c in columns])))
     flat = [v for _, vs in series for v in vs if v]
-    lo, hi = math.log(min(flat) * 0.9), math.log(max(flat) * 1.1)
+    lo, hi = math.log(min(flat) * 0.97), math.log(max(flat) * 1.03)
     left, right, top, bottom, height = 56, 160, 44, 30, 680
     w, h = WIDTH - left - right, height - top - bottom
     x = lambda i: left + i / (len(columns) - 1) * w
     y = lambda v: top + (hi - math.log(v)) / (hi - lo) * h
     out = start(opts.title, height, len(FAMILIES))
-    better(out, "&#9660; Time")
+    better(out, "&#9650; Speed: more is better")
     lx = left
     for i, (family, _) in enumerate(FAMILIES):
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
@@ -177,12 +187,13 @@ def lines(opts, columns):
     for i in range(len(columns)):
         out.append(f'<line class="grid" x1="{x(i):.1f}" y1="{top}" x2="{x(i):.1f}" '
                    f'y2="{top + h}" stroke-dasharray="3 4"/>')
-    for t in (200, 300, 500, 1000, 2000, 3000, 5000):
+    for t in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.25, 1.5, 2, 3, 4, 6, 8, 10, 15, 20):
         if lo < math.log(t) < hi:
-            out.append(f'<line class="grid" x1="{left}" y1="{y(t):.1f}" '
+            cls = "ref" if t == 1.0 else "grid"
+            out.append(f'<line class="{cls}" x1="{left}" y1="{y(t):.1f}" '
                        f'x2="{left + w}" y2="{y(t):.1f}"/>')
             out.append(f'<text class="t axis" x="{left - 6}" y="{y(t) + 4:.1f}" '
-                       f'text-anchor="end">{t} ms</text>')
+                       f'text-anchor="end">{t:g}x</text>')
     for i, c in enumerate(columns):
         out.append(f'<text class="t axis" x="{x(i):.1f}" y="{height - 10}" '
                    f'text-anchor="middle">{esc(c[0])}</text>')
@@ -212,9 +223,11 @@ def lines(opts, columns):
                 # for the tooltip.
                 out.append(f'<circle class="{"dot" if geo else f"s{f}"} ring" '
                            f'cx="{x(i):.1f}" cy="{y(v):.1f}" r="4"/>')
+                rate = columns[i][3].get(n)
+                what = f"{num(rate[0])} {rate[1]}, " if rate else ""
                 out.append(f'<circle cx="{x(i):.1f}" cy="{y(v):.1f}" r="7" '
                            f'fill="transparent"><title>{esc(n)} {esc(columns[i][0])}: '
-                           f'{v:.0f} ms ({(v / vs[0] - 1) * 100:+.2f}%)</title></circle>')
+                           f'{what}{(v - 1) * 100:+.2f}%</title></circle>')
         if vs[-1]:
             # A leader from the line's end to its name, which may have moved.
             out.append(f'<path class="grid" d="M{left + w + 2},{y(vs[-1]):.1f} '
@@ -230,7 +243,7 @@ def main(args):
     ap.add_argument("-o", "--output", default="results.svg")
     # Not drawn: the title and the caption belong to the document that shows
     # the chart. The title is the SVG's accessible name.
-    ap.add_argument("-t", "--title", default="Time relative to the first compiler")
+    ap.add_argument("-t", "--title", default="Speed relative to the first compiler")
     ap.add_argument("--sizes", action="store_true",
                     help="the arguments are LABEL=BYTES: chart the code sizes")
     ap.add_argument("--geomean-skip", default="", metavar="NAME,...",
@@ -240,7 +253,7 @@ def main(args):
                     help="do not draw the first file's bars, which are all 1.0")
     ap.add_argument("--lines", action="store_true",
                     help="one line per benchmark across the files in order, "
-                    "in ms, for a series of releases")
+                    "for a series of releases")
     ap.add_argument("columns", nargs="+", metavar="LABEL=FILE")
     opts = ap.parse_args(args)
     if len(opts.columns) - opts.hide_base > len(COLORS) and not opts.lines:
@@ -256,8 +269,7 @@ def main(args):
     for arg in opts.columns:
         # The last "=", so that a label can be a flag like -mregparm=2.
         label, _, path = arg.rpartition("=")
-        times, checks, geomean = results_table.parse(path, skip)
-        columns.append((label, times, checks, geomean))
+        columns.append((label, *results_table.parse(path, skip)))
         with open(path) as f:
             failed[label] = {line.split()[0] for line in f
                              if line.rstrip().endswith(" failed")}
@@ -266,15 +278,15 @@ def main(args):
         return
 
     names = []
-    for _, times, _, _ in columns:
+    for _, times, *_ in columns:
         for name in times:
             if name not in names:
                 names.append(name)
     base_times, base_checks = columns[0][1], columns[0][2]
 
-    # A cell is a ratio to the first column, "failed" when the benchmark did
-    # not run, or "wrong" when its output differs from the first column's,
-    # which makes its time meaningless. A column with any such cell gets no
+    # A cell is the speed relative to the first column, "failed" when the
+    # benchmark did not run, or "wrong" when its output differs from the first
+    # column's, which makes its time meaningless. A column with any such cell gets no
     # geomean. A benchmark left out of the geomean costs no column its
     # geomean, and one that a column lacks was not built for it unless the
     # run said it failed.
@@ -283,13 +295,13 @@ def main(args):
             return "not built" if n in skip and n not in failed[c[0]] else "failed"
         if c[2].get(n) != base_checks.get(n):
             return "wrong"
-        return c[1][n] / base_times[n]
+        return base_times[n] / c[1][n]
 
     rows = [(n, [cell(c, n) for c in columns]) for n in names]
     complete = [all(isinstance(r[1][i], float) or r[0] in skip for r in rows)
                 for i in range(len(columns))]
-    base_geomean = columns[0][3]
-    rows.append(("geomean", [c[3] / base_geomean if complete[i] else "n/a"
+    base_geomean = columns[0][4]
+    rows.append(("geomean", [base_geomean / c[4] if complete[i] else "n/a"
                              for i, c in enumerate(columns)]))
 
     ratios = [r for _, rs in rows for r in rs if isinstance(r, float)]
@@ -303,11 +315,11 @@ def main(args):
     plot_h = len(rows) * pitch
     height = TOP + plot_h + AXIS
     out = start(opts.title, height, shown)
-    better(out, "&#9664; Time")
+    better(out, "Speed: more is better &#9654;")
 
     # Legend.
     lx = LEFT
-    for i, (label, _, _, _) in enumerate(columns[first:]):
+    for i, (label, *_) in enumerate(columns[first:]):
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
         out.append(f'<text class="t big" x="{lx + 20}" y="21">{esc(label)}</text>')
         # A rough width of the label at 16px: dashes, spaces and thin
@@ -318,7 +330,6 @@ def main(args):
 
     for r, (name, rs) in enumerate(rows):
         y0 = TOP + r * pitch
-        base = base_geomean if name == "geomean" else base_times.get(name)
         cls = "t big name" if name == "geomean" else "t big"
         out.append(f'<text class="{cls}" x="{LEFT - 12}" y="{y0 + cluster_h / 2 + 5:.1f}" '
                    f'text-anchor="end">{esc(name)}</text>')
@@ -332,9 +343,12 @@ def main(args):
                            f'{text}</text>')
                 continue
             bar(out, i - first, y, x(ratio) - LEFT)
-            # The time and the change, as results-table.py writes them.
+            # The rate, and the change in speed.
             if i > 0 and abs(ratio - 1) >= LABEL_MIN:
-                text = f"{ratio * base:.0f} ms ({(ratio - 1) * 100:+.2f}%)"
+                rate = columns[i][3].get(name)
+                text = f"{(ratio - 1) * 100:+.2f}%"
+                if rate:
+                    text = f"{num(rate[0])} {rate[1]} ({text})"
                 out.append(f'<text class="t muted" x="{label_x(x, ratio, text):.1f}" '
                            f'y="{y + BAR - 2}">{text}</text>')
     out.append("</svg>")
