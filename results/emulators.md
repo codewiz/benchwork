@@ -10,6 +10,14 @@ first column is the same binary on a 25 MHz 68040, as measured by every
 other page, and each cell says how many times faster than that 68040 the
 emulator ran.
 
+Each bar is the 68040's time divided by the emulator's, so longer is
+faster. The axis is logarithmic: the emulators are up to two orders of
+magnitude apart.
+
+![Speed of each benchmark relative to a 25 MHz 68040](emulators-040.svg)
+
+Same data in tabular form (time in milliseconds):
+
 | benchmark | 25 MHz 68040 | Copperline | vamos | volamos | Amiberry |
 |---|---:|---:|---:|---:|---:|
 | dhrystone | 414 | 254 (1.6x) | 121 (3.4x) | 81.6 (5.1x) | 7.10 (58.3x) |

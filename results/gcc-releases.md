@@ -12,12 +12,12 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
 - rc18: newlib upstream merge (memmove), 68040 cost fix (sha512),
   `-m68020-60` multilibs.
 
-The chart shows each benchmark's speed relative to rc5, so higher is
-faster, and skips the releases in which no benchmark changes by more than
-1% from the release before. Its vertical axis is logarithmic, so equal
-slopes are equal percentages.
+The chart shows each benchmark's time in ms, so lower is faster, and
+skips the releases in which no benchmark changes by more than 1% from the
+release before. Its vertical axis is logarithmic, so equal slopes are
+equal percentages.
 
-![Speed of each benchmark in the 16.2 releases from rc5 to rc18, relative to rc5](gcc-releases-040.svg)
+![Time of each benchmark in the 16.2 releases from rc5 to rc18, in ms](gcc-releases-040.svg)
 
 | benchmark | rc5 | rc11 | rc14 | rc17 | rc18 |
 |---|---:|---:|---:|---:|---:|

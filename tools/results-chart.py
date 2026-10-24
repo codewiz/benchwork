@@ -8,8 +8,7 @@
 #
 # --sizes draws one bar per build for its code size instead. --lines draws
 # one line per benchmark across any number of files, for a series of
-# releases: the speed relative to the first on a log scale, colored by
-# workload family.
+# releases: the time in ms on a log scale, colored by workload family.
 #
 # The files are read with results-table.py's parser, so the same arguments
 # serve both. Up to five files: the colors are a fixed, validated set, and a
@@ -50,6 +49,7 @@ WIDTH = 940
 TOP = 36          # the legend
 AXIS = 26         # the axis below the plot
 LABEL_MIN = 0.05  # the smallest change that gets a label on the speed charts
+LOG_TICKS = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
 
 
 def esc(s):
@@ -86,22 +86,29 @@ def start(title, height, ncolors):
     return out
 
 
-def scale(ratios, least=1.0):
-    """The axis end, the next half above the longest bar, and the x mapping."""
-    xmax = max(least, (int(max(ratios) * 2) + 1) / 2)
+def scale(ratios, least=1.0, log=False):
+    """The axis end, the next half above the longest bar (the next 1, 2 or 5
+    times a power of ten on a log axis from 1.0), and the x mapping."""
     plot_w = WIDTH - LEFT - RIGHT
+    if log:
+        xmax = next(t for t in LOG_TICKS if t >= max(ratios))
+        return xmax, lambda ratio: LEFT + math.log(ratio) / math.log(xmax) * plot_w
+    xmax = max(least, (int(max(ratios) * 2) + 1) / 2)
     return xmax, lambda ratio: LEFT + ratio / xmax * plot_w
 
 
-def grid(out, xmax, x, top, plot_h):
-    """Gridlines at every half, the reference line at 1.0 on top."""
-    for i in range(int(xmax * 2) + 1):
-        t = i / 2
+def grid(out, xmax, x, top, plot_h, log=False):
+    """Gridlines at every half (at 1, 2 and 5 times the powers of ten on a
+    log axis), the reference line at 1.0 on top."""
+    ticks = [t for t in LOG_TICKS if t <= xmax] if log else \
+        [i / 2 for i in range(int(xmax * 2) + 1)]
+    for t in ticks:
         cls = "ref" if t == 1.0 else "grid"
         out.append(f'<line class="{cls}" x1="{x(t):.1f}" y1="{top}" '
                    f'x2="{x(t):.1f}" y2="{top + plot_h}"/>')
+        text = f"{t:g}x" if log else f"{t:.1f}x"
         out.append(f'<text class="t axis" x="{x(t):.1f}" y="{top + plot_h + 18}" '
-                   f'text-anchor="middle">{t:.1f}x</text>')
+                   f'text-anchor="middle">{text}</text>')
 
 
 def bar(out, i, y, w):
@@ -163,22 +170,20 @@ def sizes(opts):
 
 
 def lines(opts, columns):
-    """Every benchmark as one line across the files in order, its speed
-    relative to the first file on a log scale so that equal changes have
-    equal slopes, named at the right end."""
-    def speeds(times):
-        return [times[0] / t if t else None for t in times]
-
-    series = [(n, speeds([c[1].get(n) for c in columns])) for n in columns[0][1]]
-    series.append(("geomean", speeds([c[4] for c in columns])))
+    """Every benchmark as one line across the files in order, in ms on a log
+    scale so that equal changes have equal slopes, named at the right end.
+    Time rather than speed: relative speeds would all start at 1.0 and
+    bunch up."""
+    series = [(n, [c[1].get(n) for c in columns]) for n in columns[0][1]]
+    series.append(("geomean", [c[4] for c in columns]))
     flat = [v for _, vs in series for v in vs if v]
-    lo, hi = math.log(min(flat) * 0.97), math.log(max(flat) * 1.03)
-    left, right, top, bottom, height = 56, 160, 44, 30, 680
+    lo, hi = math.log(min(flat) * 0.9), math.log(max(flat) * 1.1)
+    left, right, top, bottom, height = 64, 160, 44, 30, 680
     w, h = WIDTH - left - right, height - top - bottom
     x = lambda i: left + i / (len(columns) - 1) * w
     y = lambda v: top + (hi - math.log(v)) / (hi - lo) * h
     out = start(opts.title, height, len(FAMILIES))
-    better(out, "&#9650; Speed: more is better")
+    better(out, "&#9660; Time: less is better")
     lx = left
     for i, (family, _) in enumerate(FAMILIES):
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
@@ -187,13 +192,12 @@ def lines(opts, columns):
     for i in range(len(columns)):
         out.append(f'<line class="grid" x1="{x(i):.1f}" y1="{top}" x2="{x(i):.1f}" '
                    f'y2="{top + h}" stroke-dasharray="3 4"/>')
-    for t in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.25, 1.5, 2, 3, 4, 6, 8, 10, 15, 20):
+    for t in (50, 100, 200, 300, 500, 1000, 2000, 3000, 5000):
         if lo < math.log(t) < hi:
-            cls = "ref" if t == 1.0 else "grid"
-            out.append(f'<line class="{cls}" x1="{left}" y1="{y(t):.1f}" '
+            out.append(f'<line class="grid" x1="{left}" y1="{y(t):.1f}" '
                        f'x2="{left + w}" y2="{y(t):.1f}"/>')
             out.append(f'<text class="t axis" x="{left - 6}" y="{y(t) + 4:.1f}" '
-                       f'text-anchor="end">{t:g}x</text>')
+                       f'text-anchor="end">{t} ms</text>')
     for i, c in enumerate(columns):
         out.append(f'<text class="t axis" x="{x(i):.1f}" y="{height - 10}" '
                    f'text-anchor="middle">{esc(c[0])}</text>')
@@ -227,7 +231,8 @@ def lines(opts, columns):
                 what = f"{num(rate[0])} {rate[1]}, " if rate else ""
                 out.append(f'<circle cx="{x(i):.1f}" cy="{y(v):.1f}" r="7" '
                            f'fill="transparent"><title>{esc(n)} {esc(columns[i][0])}: '
-                           f'{what}{(v - 1) * 100:+.2f}%</title></circle>')
+                           f'{num(v)} ms, {what}{(vs[0] / v - 1) * 100:+.2f}% '
+                           f'speed</title></circle>')
         if vs[-1]:
             # A leader from the line's end to its name, which may have moved.
             out.append(f'<path class="grid" d="M{left + w + 2},{y(vs[-1]):.1f} '
@@ -251,6 +256,9 @@ def main(args):
                     "compilers cannot build")
     ap.add_argument("--hide-base", action="store_true",
                     help="do not draw the first file's bars, which are all 1.0")
+    ap.add_argument("--log", action="store_true",
+                    help="a log axis from 1.0, labeled with the speedup, for "
+                    "speeds far apart")
     ap.add_argument("--lines", action="store_true",
                     help="one line per benchmark across the files in order, "
                     "for a series of releases")
@@ -305,7 +313,7 @@ def main(args):
                              for i, c in enumerate(columns)]))
 
     ratios = [r for _, rs in rows for r in rs if isinstance(r, float)]
-    xmax, x = scale(ratios)
+    xmax, x = scale(ratios, log=opts.log)
     # With --hide-base the first file is only the reference: its bars would
     # all sit at 1.0, which the reference line already shows.
     first = 1 if opts.hide_base else 0
@@ -326,7 +334,7 @@ def main(args):
         # letters take about half the room of the others.
         lx += 20 + sum(5 if c in " -.,:;!|()ijlft1" else 9 for c in label) + 28
 
-    grid(out, xmax, x, TOP, plot_h)
+    grid(out, xmax, x, TOP, plot_h, opts.log)
 
     for r, (name, rs) in enumerate(rows):
         y0 = TOP + r * pitch
@@ -343,8 +351,12 @@ def main(args):
                            f'{text}</text>')
                 continue
             bar(out, i - first, y, x(ratio) - LEFT)
-            # The rate, and the change in speed.
-            if i > 0 and abs(ratio - 1) >= LABEL_MIN:
+            # The rate, and the change in speed: on a log axis, the speedup.
+            if opts.log:
+                text = f"{num(ratio)}x"
+                out.append(f'<text class="t muted" x="{x(ratio) + 5:.1f}" '
+                           f'y="{y + BAR - 2}">{text}</text>')
+            elif i > 0 and abs(ratio - 1) >= LABEL_MIN:
                 rate = columns[i][3].get(name)
                 text = f"{(ratio - 1) * 100:+.2f}%"
                 if rate:
