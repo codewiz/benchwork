@@ -20,6 +20,6 @@
 <path class="s2" d="M180,100.0 h581.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-581.9 z"/>
 <text class="t muted" x="770.9" y="110.0">567968 (+39.51%)</text>
 <text class="t big" x="168" y="139.0" text-anchor="end">-O2 -flto</text>
-<path class="s3" d="M180,128.0 h345.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-345.4 z"/>
-<text class="t muted" x="605.0" y="138.0">338684 (-16.81%)</text>
+<path class="s3" d="M180,128.0 h346.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-346.2 z"/>
+<text class="t muted" x="605.0" y="138.0">339504 (-16.61%)</text>
 </svg>

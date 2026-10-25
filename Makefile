@@ -107,6 +107,8 @@ $(TARGET): $(OBJS)
 
 $(BUILD)/src/%.o $(BUILD)/benches/%.o: CFLAGS += $(WARNINGS)
 
+$(BUILD)/third_party/dhry/%.o: CFLAGS += $(DHRY_FLAGS)
+
 # LHa for UNIX is K&R C, which C23 rejects; the rest of the vendored code
 # compiles at the compiler's default standard.
 $(BUILD)/third_party/lha/%.o: CFLAGS += $(KNR_FLAGS)

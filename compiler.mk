@@ -124,6 +124,9 @@ else  # AmigaDev GCC 16.2 or newer
     DEFINE_FLAG = -D
     KNR_FLAGS = -std=gnu11
     WIPEOUT_FLAGS = -std=gnu99 -fno-strict-aliasing
+    # Dhrystone splits its procedures between two files so that they are not
+    # inlined into the loop; LTO would inline them anyway.
+    DHRY_FLAGS = -fno-lto
     LIBS = -lm
     # The harness is held to a stricter standard than the code it measures,
     # which is compiled the way its own build systems compile it.
