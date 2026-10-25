@@ -209,6 +209,12 @@ release: release-binaries
 release-tag:
 	@tools/release-tag.sh "$(TAG)" "$(NOTES)" $(if $(filter yes,$(CONFIRM)),--confirm)
 
+# Upload TAG's release to Aminet, as its Release workflow built it; see
+# tools/release-aminet.sh. A dry run unless CONFIRM=yes:
+#   make release-aminet TAG=v2.0 [CONFIRM=yes]
+release-aminet:
+	@tools/release-aminet.sh "$(TAG)" $(if $(filter yes,$(CONFIRM)),--confirm)
+
 clean:
 	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=$(BUILD)-%) $(RELEASE_CPUS:%=$(TARGET)-%)
 	rm -rf build-aminet benchwork.lha benchwork.readme
@@ -226,5 +232,5 @@ check:
 
 -include $(OBJS:.o=.d)
 
-.PHONY: all check clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) release-tag \
+.PHONY: all check clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) release-tag release-aminet \
 	vbcc vbcc-release sasc sasc-release
