@@ -50,8 +50,15 @@ fi
 
 # owner/name for gh, from git@github.com:owner/name.git or https://...
 repo=$(git remote get-url "$remote" | sed -E 's#^.*github\.com[:/]##; s#\.git$##')
-build=$(gh run list -R "$repo" -w Build -c "$sha" -L 1 --json conclusion --jq '.[0].conclusion // ""')
-[ "$build" = success ] || die "the Build workflow on $sha is '${build:-not run}', not success"
+build=$(gh run list -R "$repo" -w Build -c "$sha" -L 1 --json status,conclusion \
+    --jq '.[0] | if . == null then "not run" elif .status == "completed" then .conclusion
+          else .status end')
+case $build in
+success) ;;
+queued | in_progress | waiting | pending | requested)
+    die "the Build workflow on $sha is $build: wait for it to pass" ;;
+*) die "the Build workflow on $sha is '$build', not success" ;;
+esac
 
 echo "$tag at $remote/$branch $(git log -1 --format='%h %s' "$sha")"
 echo "notes: $(head -1 "$notes" | cut -c1-72)..."
