@@ -6,7 +6,8 @@ programs actually run.
 Everything works on memory buffers, so the timed region contains only
 compiler-generated code: no disk, display or OS calls.[^libc]
 
-Numbers for the release binaries on a reference target are in [results/](results/README.md).
+Results for compilers, GCC releases and options, CPUs and emulators are in
+[results/](results/README.md).
 
 [![Time of each benchmark across the GCC 16.2 releases](results/gcc-releases-040.svg)](results/gcc-releases.md)
 
@@ -42,7 +43,7 @@ Numbers for the release binaries on a reference target are in [results/](results
     own C library's, so these rows compare the compiler together with its
     runtime. gcc links the toolchain's default newlib, whose memcpy is
     assembler; libnix's hands the work to exec `CopyMem`, which an
-    emulator may run for free, so the gcc build does not use `-noixemul`.
+    emulator may run for free, so the gcc builds use newlib.
 [^pieces]: 128 bytes is the size up to which the AmigaOS by-pieces hook
     expands a copy inline.
 
@@ -51,8 +52,8 @@ Numbers for the release binaries on a reference target are in [results/](results
 
 ### m68k-amigaos-gcc
 
-The compiler defaults to cc; override `CC` to compare toolchains,
-and `BUILD` to keep their objects apart:
+The compiler defaults to `m68k-amigaos-gcc` from the PATH; override `CC`
+to compare toolchains, and `BUILD` to keep their objects apart:
 
 ```
 make CC=gcc-6.5/bin/m68k-amigaos-gcc BUILD=build-gcc6 TARGET=benchwork-gcc6
@@ -88,6 +89,9 @@ runs sc under volamos, with slink reached the same way.
 
 
 ## Running
+
+The release archive has one binary per CPU: benchwork-000, -020 (68020
+and 68030), -020-060fp (any 68020 to 68060 with an FPU), -040 and -060.
 
 ```
 benchwork BENCH/M,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,LIST/S,HELP/S

@@ -4,7 +4,7 @@ Uploader:     Bernie Innocenti <bernie@codewiz.org>
 Type:         util/moni
 Version:      @VERSION@
 Architecture: m68k-amigaos >= 2.0.4
-Requires:     5 MB of free RAM, 64 KB stack, an FPU for 020-060fp/040/060
+Requires:     3 MB of free RAM, 64 KB stack, an FPU for 020-060fp/040/060
 Distribution: Aminet
 Kurz:         CPU-Benchmarks fuer Amiga-Compiler
 
@@ -36,6 +36,23 @@ benchwork-020 and benchwork-040 use 64-bit multiplies and divides that the
 is far slower than the hardware.
 
 All are built with m68k-amigaos-gcc 16.2 at -O2.
+
+
+Usage
+-----
+
+  stack 65536
+  benchwork-040 [BENCH ...] [REPEAT n] [MINTIME ms] [FASTMEM] [LIST]
+
+BENCH names the benchmarks to run, all of them by default. REPEAT is the
+number of timed repetitions (3). MINTIME loops over each benchmark's work
+until a repetition lasts that many milliseconds, for fast emulators.
+FASTMEM puts the buffers in fast memory. LIST lists the benchmarks.
+
+Each benchmark prints its fastest and average time in milliseconds, its
+rate per second and a checksum, which must be the same for every compiler.
+Version 2.0 changed the options and the workloads: times are not
+comparable with 1.x.
 
 
 License

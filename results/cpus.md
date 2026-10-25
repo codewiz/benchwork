@@ -14,7 +14,7 @@ runs on any 68020 or later with an FPU.
 
 `-m68020-60` cannot use the 64-bit `mulu.l`, which the 68060 lacks, so
 chacha20poly1305 and x25519 call `__muldi3`, which multiplies 16 bits at a
-time. AmigaPorts/gcc#112, not in rc18, inlines that multiply.
+time. rc19 inlines that multiply (AmigaPorts/gcc#112).
 
 | benchmark | 68000 | 68020 | 68020-60-FP | 68040-FP |
 |---|---:|---:|---:|---:|
@@ -46,9 +46,8 @@ time. AmigaPorts/gcc#112, not in rc18, inlines that multiply.
 
 ## On a 68060
 
-There is no point in building with `-m68060` yet: until GCC gets 68060
-cost tables, it generates practically the same code as `-m68020-60`,
-which also runs on every other 68020+. Emulated 50 MHz 68060 with its
+There is no point in building with `-m68060`: it generates practically
+the same code as `-m68020-60`, which also runs on every other 68020+. Emulated 50 MHz 68060 with its
 caches modeled[^cache], built by rc18[^rc18] with
 `volamos --clock-mhz 50 --cpu 68060 --fpu --cache`:
 
