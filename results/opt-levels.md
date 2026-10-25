@@ -9,7 +9,8 @@ its 256-byte instruction cache modeled[^cache].
 
 ## Speed relative to -O2
 
-Each bar is `-O2`'s time divided by the build's, so longer is faster.
+Each bar is `-O2`'s time divided by the build's, so longer is faster;
+`-O2` itself is the line at 1.0.
 
 ![Speed of each benchmark relative to -O2](opt-levels-030.svg)
 

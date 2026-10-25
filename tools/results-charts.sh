@@ -33,7 +33,7 @@ tools/results-chart.py --lines -o results/gcc-releases-040.svg \
     rc14=$G-rc14-O2-040.txt rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt \
     rc19=$G-rc19-O2-040.txt
 
-tools/results-chart.py -o results/opt-levels-030.svg \
+tools/results-chart.py --hide-base -o results/opt-levels-030.svg \
     -t "GCC 16.2-rc18 optimization levels on a 68030 with cache, speed relative to -O2" \
     -- -O2=$G-rc18-030-O2-030-cache.txt -Os=$G-rc18-030-Os-030-cache.txt \
     -O3=$G-rc18-030-O3-030-cache.txt \
