@@ -30,7 +30,8 @@ tools/results-chart.py \
 tools/results-chart.py --lines -o results/gcc-releases-040.svg \
     -t "GCC 16.2 releases on benchwork-040, time in ms" \
     rc5=$G-rc5-O2-040.txt rc11=$G-rc11-O2-040.txt rc12=$G-rc12-O2-040.txt \
-    rc14=$G-rc14-O2-040.txt rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt
+    rc14=$G-rc14-O2-040.txt rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt \
+    rc19=$G-rc19-O2-040.txt
 
 tools/results-chart.py -o results/opt-levels-030.svg \
     -t "GCC 16.2-rc18 optimization levels on a 68030 with cache, speed relative to -O2" \

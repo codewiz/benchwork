@@ -45,8 +45,9 @@ tools/results-splice.py results/compilers.md "$T/compilers.md"
 # chart's lines.
 tools/results-table.py --best \
     rc5=$G-rc5-O2-040.txt rc11=$G-rc11-O2-040.txt rc14=$G-rc14-O2-040.txt \
-    rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt >"$T/releases.md"
-sizes gcc-16.2-{rc5,rc11,rc14,rc17,rc18}-O2-040 >>"$T/releases.md"
+    rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt \
+    "rc19[^rc19]=$G-rc19-O2-040.txt" >"$T/releases.md"
+sizes gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc19}-O2-040 >>"$T/releases.md"
 tools/results-splice.py results/gcc-releases.md "$T/releases.md"
 
 # Optimization levels, on the 68030 with its cache.

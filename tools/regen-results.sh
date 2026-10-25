@@ -54,7 +54,7 @@ fi
 
 # gcc 6.5 and every 16.2 release, for the compilers and releases pages.
 "$run" "$tc-6.5" gcc-6.5.0b-O2-040 "-m68040 -m68881" "$o2" "${v040[@]}"
-for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18; do
+for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19; do
     "$run" "$tc-16.2-rc$rc" "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" \
         "${v040[@]}"
 done
