@@ -201,6 +201,12 @@ release: release-binaries
 	cp benchwork.readme $(AMINET_DIR)/
 	cd build-aminet && lha aq ../benchwork.lha Benchwork
 
+# Sign TAG at the head of main and push it, which starts the Release
+# workflow; see tools/release-tag.sh. A dry run unless CONFIRM=yes:
+#   make release-tag TAG=v2.0 NOTES=tmp/v2.0-notes.md [CONFIRM=yes]
+release-tag:
+	@tools/release-tag.sh "$(TAG)" "$(NOTES)" $(if $(filter yes,$(CONFIRM)),--confirm)
+
 clean:
 	rm -rf $(BUILD) $(TARGET) $(RELEASE_CPUS:%=$(BUILD)-%) $(RELEASE_CPUS:%=$(TARGET)-%)
 	rm -rf build-aminet benchwork.lha benchwork.readme
@@ -218,5 +224,5 @@ check:
 
 -include $(OBJS:.o=.d)
 
-.PHONY: all check clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) vbcc vbcc-release \
-	sasc sasc-release
+.PHONY: all check clean glyphs release release-binaries $(RELEASE_CPUS:%=release-%) release-tag \
+	vbcc vbcc-release sasc sasc-release

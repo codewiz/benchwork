@@ -5,8 +5,9 @@
 # or give it back its boost afterwards.
 #
 # The emulator page times Amiberry, Copperline, vamos and volamos's JIT in
-# host time, as does any run without volamos --clock-mhz. Boost clocks depend on temperature and on the rest of the load,
-# so a laptop throttles when it likes; at the nominal clock (2 GHz on a
+# host time, as does any run without volamos --clock-mhz. Boost clocks
+# depend on temperature and on the rest of the load, so a laptop throttles
+# when it likes; at the nominal clock (2 GHz on a
 # Ryzen AI 9 HX 370) every core runs at the same speed for as long as it
 # takes. This switches boost off, then checks that every core's maximum is
 # its nominal frequency.

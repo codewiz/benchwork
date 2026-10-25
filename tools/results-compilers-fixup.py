@@ -28,8 +28,14 @@ wrong = {
 }
 
 # The benchmarks results-tables.sh leaves out of the geomean.
-GEOMEAN_SKIP = {"nfs3-project", "nfs3-clip", "sha512", "aesgcm",
-                "chacha20poly1305", "x25519"}
+GEOMEAN_SKIP = {
+    "nfs3-project",
+    "nfs3-clip",
+    "sha512",
+    "aesgcm",
+    "chacha20poly1305",
+    "x25519",
+}
 
 vbcc_broken = False
 for line in table.read_text().splitlines():
