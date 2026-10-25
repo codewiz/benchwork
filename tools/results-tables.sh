@@ -52,11 +52,11 @@ tools/results-splice.py results/gcc-releases.md "$T/releases.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \
-    -O2=$G-rc18-030-O2-030-cache.txt -Os=$G-rc18-030-Os-030-cache.txt \
-    -O3=$G-rc18-030-O3-030-cache.txt \
-    "-O2 -flto=$G-rc18-030-O2-lto-030-cache.txt" |
+    -O2=$G-rc19-030-O2-030-cache.txt -Os=$G-rc19-030-Os-030-cache.txt \
+    -O3=$G-rc19-030-O3-030-cache.txt \
+    "-O2 -flto=$G-rc19-030-O2-lto-030-cache.txt" |
     sed 's/^| dhrystone /| dhrystone[^dhry-lto] /' >"$T/opt.md"
-sizes gcc-16.2-rc18-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
+sizes gcc-16.2-rc19-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
 tools/results-splice.py results/opt-levels.md "$T/opt.md"
 
 # The release binaries on a 68040, then -m68020-60 against -m68060 on a

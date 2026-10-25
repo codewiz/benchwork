@@ -34,16 +34,16 @@ tools/results-chart.py --lines -o results/gcc-releases-040.svg \
     rc19=$G-rc19-O2-040.txt
 
 tools/results-chart.py --hide-base -o results/opt-levels-030.svg \
-    -t "GCC 16.2-rc18 optimization levels on a 68030 with cache, speed relative to -O2" \
-    -- -O2=$G-rc18-030-O2-030-cache.txt -Os=$G-rc18-030-Os-030-cache.txt \
-    -O3=$G-rc18-030-O3-030-cache.txt \
-    "-O2 -flto=$G-rc18-030-O2-lto-030-cache.txt"
+    -t "GCC 16.2-rc19 optimization levels on a 68030 with cache, speed relative to -O2" \
+    -- -O2=$G-rc19-030-O2-030-cache.txt -Os=$G-rc19-030-Os-030-cache.txt \
+    -O3=$G-rc19-030-O3-030-cache.txt \
+    "-O2 -flto=$G-rc19-030-O2-lto-030-cache.txt"
 
 tools/results-chart.py --sizes -o results/opt-levels-size-030.svg \
     -t "Code size of each optimization level relative to -O2" \
-    -- "-O2=$(size rc18-030-O2-030-cache)" "-Os=$(size rc18-030-Os-030-cache)" \
-    "-O3=$(size rc18-030-O3-030-cache)" \
-    "-O2 -flto=$(size rc18-030-O2-lto-030-cache)"
+    -- "-O2=$(size rc19-030-O2-030-cache)" "-Os=$(size rc19-030-Os-030-cache)" \
+    "-O3=$(size rc19-030-O3-030-cache)" \
+    "-O2 -flto=$(size rc19-030-O2-lto-030-cache)"
 
 # The emulators, against the cycle-counted 68040: up to two orders of
 # magnitude apart, hence the log axis.

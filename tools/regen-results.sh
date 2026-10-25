@@ -32,6 +32,7 @@ TOOLCHAINS=${TOOLCHAINS:-$HOME/amiga}
 SC=${SC:-sc-volamos}
 tc=$TOOLCHAINS/m68k-amigaos-gcc
 rc18=$tc-16.2-rc18
+rc19=$tc-16.2-rc19
 vbcc_tc=${VBCC_TOOLCHAIN:-$tc-16.2}
 run=tools/bench-run.sh
 
@@ -66,10 +67,10 @@ done
 
 # Optimization levels, on a 68030 with its instruction cache.
 for opt in O2 Os O3; do
-    "$run" "$rc18" "gcc-16.2-rc18-030-$opt-030-cache" "-m68030 -m68881" \
+    "$run" "$rc19" "gcc-16.2-rc19-030-$opt-030-cache" "-m68030 -m68881" \
         "-$opt -fomit-frame-pointer" "${v030[@]}"
 done
-"$run" "$rc18" gcc-16.2-rc18-030-O2-lto-030-cache "-m68030 -m68881" \
+"$run" "$rc19" gcc-16.2-rc19-030-O2-lto-030-cache "-m68030 -m68881" \
     "$o2 -flto" "${v030[@]}"
 
 # The 68060.
