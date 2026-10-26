@@ -9,7 +9,7 @@ on:
   workflow_call:
 
 env:
-  TOOLCHAIN: 16.2-rc19
+  TOOLCHAIN: 16.2-rc20
 
 jobs:
   binaries:

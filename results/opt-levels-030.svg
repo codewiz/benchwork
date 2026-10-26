@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="1406" viewBox="0 0 940 1406" role="img" aria-label="GCC 16.2-rc19 optimization levels on a 68030 with cache, speed relative to -O2">
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="1406" viewBox="0 0 940 1406" role="img" aria-label="GCC 16.2-rc20 optimization levels on a 68030 with cache, speed relative to -O2">
 <style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}}</style>
 <rect class="bg" width="940" height="1406"/>
 <text class="t muted" x="928" y="21" text-anchor="end">Speed: more is better &#9654;</text>
@@ -36,13 +36,13 @@
 <path class="s0" d="M180,204 h389.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-389.0 z"/>
 <text class="t muted" x="605.0" y="214">15.1 KB/s (-6.42%)</text>
 <path class="s1" d="M180,218 h414.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-414.0 z"/>
-<path class="s2" d="M180,232 h449.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-449.4 z"/>
-<text class="t muted" x="638.4" y="242">17.4 KB/s (+7.96%)</text>
+<path class="s2" d="M180,232 h448.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-448.1 z"/>
+<text class="t muted" x="637.1" y="242">17.4 KB/s (+7.64%)</text>
 <text class="t big" x="168" y="285.0" text-anchor="end">lha-unpack</text>
 <path class="s0" d="M180,260 h399.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-399.5 z"/>
 <path class="s1" d="M180,274 h417.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.9 z"/>
-<path class="s2" d="M180,288 h473.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-473.2 z"/>
-<text class="t muted" x="662.2" y="298">65.8 KB/s (+13.63%)</text>
+<path class="s2" d="M180,288 h475.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-475.0 z"/>
+<text class="t muted" x="664.0" y="298">66.1 KB/s (+14.05%)</text>
 <text class="t big" x="168" y="341.0" text-anchor="end">zlib-deflate</text>
 <path class="s0" d="M180,316 h397.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-397.6 z"/>
 <path class="s1" d="M180,330 h426.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.5 z"/>
@@ -67,7 +67,7 @@
 <path class="s0" d="M180,540 h394.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-394.8 z"/>
 <text class="t muted" x="605.0" y="550">204 glyph/s (-5.04%)</text>
 <path class="s1" d="M180,554 h420.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-420.7 z"/>
-<path class="s2" d="M180,568 h427.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-427.6 z"/>
+<path class="s2" d="M180,568 h427.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-427.7 z"/>
 <text class="t big" x="168" y="621.0" text-anchor="end">memcpy-small</text>
 <path class="s0" d="M180,596 h353.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-353.0 z"/>
 <text class="t muted" x="605.0" y="606">7710 KB/s (-15.00%)</text>
@@ -81,11 +81,11 @@
 <text class="t big" x="168" y="733.0" text-anchor="end">memcpy-var-small</text>
 <path class="s0" d="M180,708 h420.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-420.2 z"/>
 <path class="s1" d="M180,722 h435.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-435.8 z"/>
-<path class="s2" d="M180,736 h435.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-435.2 z"/>
+<path class="s2" d="M180,736 h427.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-427.2 z"/>
 <text class="t big" x="168" y="789.0" text-anchor="end">memcpy-var-large</text>
 <path class="s0" d="M180,764 h415.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.0 z"/>
 <path class="s1" d="M180,778 h415.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.1 z"/>
-<path class="s2" d="M180,792 h415.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.1 z"/>
+<path class="s2" d="M180,792 h415.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.7 z"/>
 <text class="t big" x="168" y="845.0" text-anchor="end">memmove-small</text>
 <path class="s0" d="M180,820 h409.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-409.8 z"/>
 <path class="s1" d="M180,834 h413.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-413.4 z"/>
@@ -93,7 +93,7 @@
 <text class="t big" x="168" y="901.0" text-anchor="end">memmove-large</text>
 <path class="s0" d="M180,876 h415.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.7 z"/>
 <path class="s1" d="M180,890 h416.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.1 z"/>
-<path class="s2" d="M180,904 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,904 h416.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.1 z"/>
 <text class="t big" x="168" y="957.0" text-anchor="end">wipeout-tris</text>
 <path class="s0" d="M180,932 h403.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-403.4 z"/>
 <path class="s1" d="M180,946 h405.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-405.9 z"/>
@@ -112,8 +112,8 @@
 <path class="s1" d="M180,1058 h429.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-429.2 z"/>
 <path class="s2" d="M180,1072 h424.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-424.2 z"/>
 <text class="t big" x="168" y="1125.0" text-anchor="end">sha512</text>
-<path class="s0" d="M180,1100 h412.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-412.4 z"/>
-<path class="s1" d="M180,1114 h416.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.1 z"/>
+<path class="s0" d="M180,1100 h414.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-414.3 z"/>
+<path class="s1" d="M180,1114 h430.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-430.6 z"/>
 <path class="s2" d="M180,1128 h416.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.2 z"/>
 <text class="t big" x="168" y="1181.0" text-anchor="end">aesgcm</text>
 <path class="s0" d="M180,1156 h403.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-403.8 z"/>
@@ -130,8 +130,8 @@
 <path class="s1" d="M180,1282 h409.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-409.8 z"/>
 <path class="s2" d="M180,1296 h415.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.0 z"/>
 <text class="t big name" x="168" y="1349.0" text-anchor="end">geomean</text>
-<path class="s0" d="M180,1324 h355.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-355.8 z"/>
-<text class="t muted" x="544.8" y="1334">-14.32%</text>
-<path class="s1" d="M180,1338 h430.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-430.5 z"/>
-<path class="s2" d="M180,1352 h429.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-429.7 z"/>
+<path class="s0" d="M180,1324 h355.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-355.9 z"/>
+<text class="t muted" x="544.9" y="1334">-14.31%</text>
+<path class="s1" d="M180,1338 h431.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-431.1 z"/>
+<path class="s2" d="M180,1352 h429.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-429.4 z"/>
 </svg>

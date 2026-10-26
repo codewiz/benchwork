@@ -46,17 +46,17 @@ tools/results-splice.py results/compilers.md "$T/compilers.md"
 tools/results-table.py --best \
     rc5=$G-rc5-O2-040.txt rc11=$G-rc11-O2-040.txt rc14=$G-rc14-O2-040.txt \
     rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt \
-    rc19=$G-rc19-O2-040.txt >"$T/releases.md"
-sizes gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc19}-O2-040 >>"$T/releases.md"
+    rc20=$G-rc20-O2-040.txt >"$T/releases.md"
+sizes gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc20}-O2-040 >>"$T/releases.md"
 tools/results-splice.py results/gcc-releases.md "$T/releases.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \
-    -O2=$G-rc19-030-O2-030-cache.txt -Os=$G-rc19-030-Os-030-cache.txt \
-    -O3=$G-rc19-030-O3-030-cache.txt \
-    "-O2 -flto=$G-rc19-030-O2-lto-030-cache.txt" |
+    -O2=$G-rc20-030-O2-030-cache.txt -Os=$G-rc20-030-Os-030-cache.txt \
+    -O3=$G-rc20-030-O3-030-cache.txt \
+    "-O2 -flto=$G-rc20-030-O2-lto-030-cache.txt" |
     sed 's/^| dhrystone /| dhrystone[^dhry-lto] /' >"$T/opt.md"
-sizes gcc-16.2-rc19-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
+sizes gcc-16.2-rc20-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
 tools/results-splice.py results/opt-levels.md "$T/opt.md"
 
 # The release binaries on a 68040, then -m68020-60 against -m68060 on a

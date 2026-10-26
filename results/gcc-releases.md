@@ -12,16 +12,17 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
 - rc18: newlib upstream merge (memmove), 68040 cost fix (sha512),
   `-m68020-60` multilibs.
 - rc19: doloop loops end in `dbne`, inline 32x32->64 multiplies for
-  `-m68020-60` and `-m68060`, a fix for PR 125728.
+  `-m68020-60` and `-m68060`, a fix for PR 125728. rc20 generates the
+  same code, and stands in for it below.
 
 The chart shows each benchmark's time in ms, so lower is faster, and
 skips the releases in which no benchmark changes by more than 1% from the
 release before. Its vertical axis is logarithmic, so equal slopes are
 equal percentages.
 
-![Time of each benchmark in the 16.2 releases from rc5 to rc19, in ms](gcc-releases-040.svg)
+![Time of each benchmark in the 16.2 releases from rc5 to rc20, in ms](gcc-releases-040.svg)
 
-| benchmark | rc5 | rc11 | rc14 | rc17 | rc18 | rc19 |
+| benchmark | rc5 | rc11 | rc14 | rc17 | rc18 | rc20 |
 |---|---:|---:|---:|---:|---:|---:|
 | dhrystone | 509 | 509 | 415 (-18.54%) | 415 (-18.54%) | **414 (-18.70%)** | **414 (-18.70%)** |
 | scene-2d | 1159 | 1147 (-1.08%) | **1032 (-10.96%)** | **1032 (-10.96%)** | **1032 (-10.96%)** | **1032 (-10.96%)** |
