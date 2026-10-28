@@ -51,4 +51,5 @@ E=$R/emulators
 tools/results-chart.py --log --hide-base -o results/emulators-040.svg \
     -t "m68k emulators on benchwork-040, speed relative to a 25 MHz 68040" \
     "25 MHz 68040=$G-rc18-O2-040.txt" Copperline=$E/copperline-jit.txt \
-    vamos=$E/vamos.txt volamos=$E/volamos-jit.txt Amiberry=$E/amiberry-jit.txt
+    vamos=$E/vamos.txt volamos=$E/volamos-jit.txt Amiberry=$E/amiberry-jit.txt \
+    Emu68=$E/emu68-1800.txt

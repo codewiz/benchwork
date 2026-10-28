@@ -83,10 +83,14 @@ sizes gcc-16.2-rc18-{base,regparm2,regparm4,sasregparm}-040 >>"$T/regparm.md"
 tools/results-splice.py results/regparm.md "$T/regparm.md"
 
 # The emulators, against the cycle-counted 68040. Their runs are not part
-# of regen-results.sh: two of them boot AmigaOS (see results/emulators.md).
+# of regen-results.sh: three of them boot AmigaOS, one on a PiStorm (see
+# results/emulators.md). Emu68's nfs3 check values differ from the others',
+# which the footnote explains.
 E=$R/emulators
-tools/results-table.py --speedup "25 MHz 68040=$G-rc18-O2-040.txt" \
+{ tools/results-table.py --speedup "25 MHz 68040=$G-rc18-O2-040.txt" \
     Copperline=$E/copperline-jit.txt vamos=$E/vamos.txt \
     volamos=$E/volamos-jit.txt Amiberry=$E/amiberry-jit.txt \
-    >"$T/emulators.md"
+    "Emu68[^emu68]=$E/emu68-1800.txt" 2>"$T/emulators.err" || true; } |
+    sed -E 's/^\| (nfs3-[a-z]+) /| \1[^emu68fpu] /' >"$T/emulators.md"
+! grep -v '^nfs3-[a-z]*: check values differ' "$T/emulators.err"
 tools/results-splice.py results/emulators.md "$T/emulators.md"
