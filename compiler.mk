@@ -122,7 +122,7 @@ else  # AmigaDev GCC 16.2 or newer
     CPUFLAGS_060 = -m68060 -m68881
     INCLUDE_FLAG = -I
     DEFINE_FLAG = -D
-    KNR_FLAGS = -std=gnu11
+    KNR_FLAGS = -std=c23
     WIPEOUT_FLAGS = -std=gnu99 -fno-strict-aliasing
     # Dhrystone splits its procedures between two files so that they are not
     # inlined into the loop; LTO would inline them anyway.
