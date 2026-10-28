@@ -17,11 +17,10 @@ include compiler.mk
 # Each step prints one short line, as the Linux kernel's build does; V=1
 # (or VERBOSE=1, as CMake and Automake spell it) shows the commands instead.
 ifneq ($(filter 1,$(V) $(VERBOSE)),)
-Q =
 quiet = @:
 else
-Q = @
-quiet = @printf '  %-5s %s\n'
+.SILENT:
+quiet = printf '  %-5s %s\n'
 endif
 
 CFLAGS ?= $(OPT) $(CPUFLAGS)
@@ -114,7 +113,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(quiet) LINK $@
-	$(Q)$(LINK)
+	$(LINK)
 
 $(BUILD)/src/%.o $(BUILD)/benches/%.o: CFLAGS += $(WARNINGS)
 
@@ -154,12 +153,12 @@ $(BUILD)/benches/chacha20poly1305.o $(BUILD)/benches/x25519.o: \
 $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(quiet) CC $@
-	$(Q)$(COMPILE)
+	$(COMPILE)
 
 $(BUILD)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	$(quiet) CXX $@
-	$(Q)$(COMPILE_CXX)
+	$(COMPILE_CXX)
 
 # Regenerate the glyph tables with the host FreeType.
 tools/dumpglyphs: tools/dumpglyphs.c
@@ -180,10 +179,10 @@ RELEASE_CPUS = 000 020 020-060fp 040 060
 SIZE ?= $(patsubst %gcc,%size,$(filter %gcc,$(CC)))
 
 release-binaries: $(RELEASE_CPUS:%=release-%)
-	$(if $(SIZE),$(Q)$(SIZE) $(RELEASE_CPUS:%=$(TARGET)-%))
+	$(if $(SIZE),$(SIZE) $(RELEASE_CPUS:%=$(TARGET)-%))
 
 $(RELEASE_CPUS:%=release-%): release-%:
-	$(Q)$(MAKE) --no-print-directory BUILD=$(BUILD)-$* TARGET=$(TARGET)-$* CPUFLAGS="$(CPUFLAGS_$*)" \
+	$(MAKE) --no-print-directory BUILD=$(BUILD)-$* TARGET=$(TARGET)-$* CPUFLAGS="$(CPUFLAGS_$*)" \
 		LIBS="$(or $(LIBS_$*),$(LIBS))"
 
 # Shortcuts for the vbcc build: benchwork-vbcc, and its release binaries.
@@ -212,15 +211,15 @@ sasc-release:
 AMINET_DIR = build-aminet/Benchwork
 
 release: release-binaries
-	$(Q)rm -rf build-aminet benchwork.lha benchwork.readme
-	$(Q)mkdir -p $(AMINET_DIR)
-	$(Q)cp $(RELEASE_CPUS:%=$(TARGET)-%) LICENSE $(AMINET_DIR)/
-	$(Q)cp --parents third_party/LICENSE.md third_party/*/LICENSE $(AMINET_DIR)/
+	rm -rf build-aminet benchwork.lha benchwork.readme
+	mkdir -p $(AMINET_DIR)
+	cp $(RELEASE_CPUS:%=$(TARGET)-%) LICENSE $(AMINET_DIR)/
+	cp --parents third_party/LICENSE.md third_party/*/LICENSE $(AMINET_DIR)/
 	$(quiet) GEN benchwork.readme
-	$(Q)sed 's/@VERSION@/$(VERSION)/' aminet/benchwork.readme.in > benchwork.readme
-	$(Q)cp benchwork.readme $(AMINET_DIR)/
+	sed 's/@VERSION@/$(VERSION)/' aminet/benchwork.readme.in > benchwork.readme
+	cp benchwork.readme $(AMINET_DIR)/
 	$(quiet) LHA benchwork.lha
-	$(Q)cd build-aminet && lha aq ../benchwork.lha Benchwork
+	cd build-aminet && lha aq ../benchwork.lha Benchwork
 
 # Sign TAG at the head of main and push it, which starts the Release
 # workflow; see tools/release-tag.sh. A dry run unless CONFIRM=yes:
