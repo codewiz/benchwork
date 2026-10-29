@@ -54,5 +54,6 @@ with their default newlib runtime; each page names the exact version.
 
 The output of every run is in [raw/](raw/), named
 `<compiler>-<version>-<build>-<emulated CPU>[-cache].txt`.
-`tools/regen-results.sh` reruns all of them and regenerates the tables and
-charts.
+`tools/regen-results.sh --results-dir results/raw --libs-dir <Libs>` reruns
+all of them and regenerates the tables and charts, with the mathieee libraries
+from an AmigaOS or AROS `Libs/` directory.

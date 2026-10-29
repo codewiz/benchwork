@@ -3,17 +3,18 @@
 #
 # Print the CODE SIZE row of a results table.
 #
-# The sizes are the ones tools/bench-run.sh saved in results/raw/sizes/, for
-# the runs named on the command line. The first is the base of the
-# percentages.
+# The sizes are the ones tools/bench-run.sh saved in the results directory's
+# sizes/, for the runs named on the command line. The first is the base of
+# the percentages.
 
 import os
 import sys
 
-if len(sys.argv) < 2:
-    sys.exit(f"Usage: {sys.argv[0]} <name> [<name> ...]")
+if len(sys.argv) < 4 or sys.argv[1] != "--results-dir":
+    sys.exit(f"Usage: {sys.argv[0]} --results-dir <dir> <name> [<name> ...]")
 
-DIR = os.path.join(os.path.dirname(__file__), "..", "results", "raw", "sizes")
+DIR = os.path.join(sys.argv[2], "sizes")
+args = sys.argv[3:]
 
 
 def size(name):
@@ -21,9 +22,9 @@ def size(name):
         return int(f.read().split()[1])
 
 
-base = size(sys.argv[1])
+base = size(args[0])
 cells = [str(base)]
-for name in sys.argv[2:]:
+for name in args[1:]:
     value = size(name)
     change = round((value - base) / base * 100, 2)
     cells.append(f"{value} ({change:+.2f}%)" if change else str(value))

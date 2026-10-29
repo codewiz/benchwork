@@ -3,25 +3,26 @@
 #
 # Regenerate every table in the results pages.
 #
-# Rebuilds each table in results/*.md from results/raw and replaces it in
-# place. The prose around the tables quotes numbers too, and is not touched.
+# Rebuilds each table in results/*.md from the raw results in --results-dir,
+# usually results/raw, and replaces it in place. The prose around the tables
+# quotes numbers too, and is not touched.
 
 set -Eeuo pipefail
 trap 'echo "$0: line $LINENO: $BASH_COMMAND failed" >&2' ERR
 
-if [ $# -ne 0 ]; then
-    echo "Usage: $0" >&2
+if [ $# -ne 2 ] || [ "$1" != --results-dir ]; then
+    echo "Usage: $0 --results-dir <dir>" >&2
     exit 1
 fi
 
+R=$(realpath -m "$2")
 cd "$(dirname "$0")/.."
 
-R=results/raw
 G=$R/gcc-16.2
 T=tmp/regen/tables
 mkdir -p "$T"
 
-sizes() { tools/results-sizes.py "$@"; }
+sizes() { tools/results-sizes.py --results-dir "$R" "$@"; }
 
 # The compilers. The 64-bit and C++ benchmarks are left out of the geomean,
 # which SAS/C and vbcc cannot build them for. results-table.py fails when a
@@ -44,16 +45,16 @@ tools/results-splice.py results/compilers.md "$T/compilers.md"
 # The releases: the ones the chart shows, minus rc12, which only moves the
 # chart's lines.
 tools/results-table.py --best \
-    rc5=$G-rc5-O2-040.txt rc11=$G-rc11-O2-040.txt rc14=$G-rc14-O2-040.txt \
-    rc17=$G-rc17-O2-040.txt rc18=$G-rc18-O2-040.txt \
-    rc20=$G-rc20-O2-040.txt >"$T/releases.md"
+    "rc5=$G-rc5-O2-040.txt" "rc11=$G-rc11-O2-040.txt" "rc14=$G-rc14-O2-040.txt" \
+    "rc17=$G-rc17-O2-040.txt" "rc18=$G-rc18-O2-040.txt" \
+    "rc20=$G-rc20-O2-040.txt" >"$T/releases.md"
 sizes gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc20}-O2-040 >>"$T/releases.md"
 tools/results-splice.py results/gcc-releases.md "$T/releases.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \
-    -O2=$G-rc20-030-O2-030-cache.txt -Os=$G-rc20-030-Os-030-cache.txt \
-    -O3=$G-rc20-030-O3-030-cache.txt \
+    "-O2=$G-rc20-030-O2-030-cache.txt" "-Os=$G-rc20-030-Os-030-cache.txt" \
+    "-O3=$G-rc20-030-O3-030-cache.txt" \
     "-O2 -flto=$G-rc20-030-O2-lto-030-cache.txt" |
     sed 's/^| dhrystone /| dhrystone[^dhry-lto] /' >"$T/opt.md"
 sizes gcc-16.2-rc20-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
@@ -62,8 +63,8 @@ tools/results-splice.py results/opt-levels.md "$T/opt.md"
 # The release binaries on a 68040, then -m68020-60 against -m68060 on a
 # 68060.
 tools/results-table.py \
-    68000=$G-rc18-000-040.txt 68020=$G-rc18-020-040.txt \
-    68020-60-FP=$G-rc18-020fp-040.txt 68040-FP=$G-rc18-O2-040.txt |
+    "68000=$G-rc18-000-040.txt" "68020=$G-rc18-020-040.txt" \
+    "68020-60-FP=$G-rc18-020fp-040.txt" "68040-FP=$G-rc18-O2-040.txt" |
     sed -E 's/^\| (wipeout-tris|nfs3-[a-z]+) /| \1[^softfloat] /' \
     >"$T/cpus.md"
 sizes gcc-16.2-rc18-{000,020,020fp,O2}-040 >>"$T/cpus.md"
@@ -88,9 +89,11 @@ tools/results-splice.py results/regparm.md "$T/regparm.md"
 # which the footnote explains.
 E=$R/emulators
 { tools/results-table.py --speedup "25 MHz 68040=$G-rc18-O2-040.txt" \
-    Copperline=$E/copperline-jit.txt vamos=$E/vamos.txt \
-    volamos=$E/volamos-jit.txt Amiberry=$E/amiberry-jit.txt \
+    "Copperline=$E/copperline-jit.txt" "vamos=$E/vamos.txt" \
+    "volamos=$E/volamos-jit.txt" "Amiberry=$E/amiberry-jit.txt" \
     "Emu68[^emu68]=$E/emu68-1800.txt" 2>"$T/emulators.err" || true; } |
     sed -E 's/^\| (nfs3-[a-z]+) /| \1[^emu68fpu] /' >"$T/emulators.md"
-! grep -v '^nfs3-[a-z]*: check values differ' "$T/emulators.err"
+if grep -v '^nfs3-[a-z]*: check values differ' "$T/emulators.err"; then
+    exit 1
+fi
 tools/results-splice.py results/emulators.md "$T/emulators.md"
