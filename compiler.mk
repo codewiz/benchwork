@@ -122,7 +122,11 @@ else  # AmigaDev GCC 16.2 or newer
     CPUFLAGS_060 = -m68060 -m68881
     INCLUDE_FLAG = -I
     DEFINE_FLAG = -D
-    KNR_FLAGS = -std=c23
+    # Strict C11, the newest standard gcc 6.5 knows: no GNU extensions.
+    LANG_FLAGS = -std=c11
+    # It also drops the non-reserved AMIGA that zutil.h picks its gzip
+    # OS_CODE by.
+    ZLIB_FLAGS = -DAMIGA
     WIPEOUT_FLAGS = -std=gnu99 -fno-strict-aliasing
     # Dhrystone splits its procedures between two files so that they are not
     # inlined into the loop; LTO would inline them anyway.

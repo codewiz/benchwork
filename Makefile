@@ -119,22 +119,19 @@ $(BUILD)/src/%.o $(BUILD)/benches/%.o: CFLAGS += $(WARNINGS)
 
 $(BUILD)/third_party/dhry/%.o: CFLAGS += $(DHRY_FLAGS)
 
-# LHa for UNIX builds as strict C23, without GNU extensions; the rest of
-# the vendored code compiles at the compiler's default standard.
-$(BUILD)/third_party/lha/%.o: CFLAGS += $(KNR_FLAGS)
-
 # Z_SOLO: no gz file layer and no default allocators, which the benchmarks
 # do not use (they bring their own); it also keeps zconf.h and zutil.h
 # clear of the stdio and 64-bit literal that vbcc and SAS/C trip over.
-$(BUILD)/third_party/zlib/%.o: CFLAGS += $(DEFINE_FLAG)Z_SOLO
+$(BUILD)/third_party/zlib/%.o: CFLAGS += $(DEFINE_FLAG)Z_SOLO $(ZLIB_FLAGS)
 
 $(BUILD)/third_party/libpng/%.o: CFLAGS += $(LIBPNG_FLAGS)
 
 # ftgrays.c's stand-alone mode: no FreeType build system or headers needed.
 $(BUILD)/third_party/freetype/%.o: CFLAGS += $(DEFINE_FLAG)STANDALONE_
 
-# The game's own flags, which its port is built with.
-$(BUILD)/third_party/wipeout/%.o: CFLAGS += $(WIPEOUT_FLAGS)
+# The game's own flags, which its port is built with. They go after
+# LANG_FLAGS, so that their -std wins.
+$(BUILD)/third_party/wipeout/%.o: LANG_FLAGS += $(WIPEOUT_FLAGS)
 
 # For a compiler that cannot build kernel.c at OPT (compiler.mk says why).
 # It replaces OPT rather than adding to CFLAGS: vc accepts a single -O.
