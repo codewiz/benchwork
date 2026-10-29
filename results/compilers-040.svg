@@ -97,15 +97,15 @@
 <path class="s0" d="M180,736 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
 <path class="s1" d="M180,750 h394.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-394.7 z"/>
 <text class="t muted" x="605.0" y="760">58784 KB/s (-5.08%)</text>
-<path class="s2" d="M180,764 h94.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-94.6 z"/>
-<text class="t muted" x="283.6" y="774">14532 KB/s (-76.53%)</text>
+<path class="s2" d="M180,764 h98.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-98.7 z"/>
+<text class="t muted" x="287.7" y="774">15140 KB/s (-75.55%)</text>
 <path class="s3" d="M180,778 h198.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-198.2 z"/>
 <text class="t muted" x="387.2" y="788">29808 KB/s (-51.87%)</text>
 <text class="t big" x="168" y="838.0" text-anchor="end">memcpy-large</text>
 <path class="s0" d="M180,806 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
 <path class="s1" d="M180,820 h417.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.9 z"/>
-<path class="s2" d="M180,834 h94.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-94.8 z"/>
-<text class="t muted" x="283.8" y="844">18897 KB/s (-76.47%)</text>
+<path class="s2" d="M180,834 h94.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-94.9 z"/>
+<text class="t muted" x="283.9" y="844">18906 KB/s (-76.46%)</text>
 <path class="s3" d="M180,848 h262.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-262.0 z"/>
 <text class="t muted" x="451.0" y="858">50861 KB/s (-36.66%)</text>
 <text class="t big" x="168" y="908.0" text-anchor="end">memcpy-var-small</text>
@@ -156,9 +156,9 @@
 <text class="t muted" x="186" y="1348">not built</text>
 <text class="t big" x="168" y="1398.0" text-anchor="end">sha512</text>
 <path class="s0" d="M180,1366 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
-<path class="s1" d="M180,1380 h417.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.7 z"/>
-<path class="s2" d="M180,1394 h102.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-102.3 z"/>
-<text class="t muted" x="291.3" y="1404">33.6 KB/s (-74.70%)</text>
+<path class="s1" d="M180,1380 h420.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-420.5 z"/>
+<path class="s2" d="M180,1394 h101.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-101.9 z"/>
+<text class="t muted" x="290.9" y="1404">33.5 KB/s (-74.78%)</text>
 <text class="t muted" x="186" y="1418">not built</text>
 <text class="t big" x="168" y="1468.0" text-anchor="end">aesgcm</text>
 <path class="s0" d="M180,1436 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
@@ -181,8 +181,8 @@
 <text class="t big name" x="168" y="1678.0" text-anchor="end">geomean</text>
 <path class="s0" d="M180,1646 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
 <path class="s1" d="M180,1660 h418.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-418.1 z"/>
-<path class="s2" d="M180,1674 h235.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-235.5 z"/>
-<text class="t muted" x="424.5" y="1684">-42.98%</text>
+<path class="s2" d="M180,1674 h236.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-236.1 z"/>
+<text class="t muted" x="425.1" y="1684">-42.84%</text>
 <path class="s3" d="M180,1688 h289.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-289.0 z"/>
 <text class="t muted" x="478.0" y="1698">-30.23%</text>
 </svg>

@@ -24,7 +24,7 @@ time. rc19 inlines that multiply (AmigaPorts/gcc#112).
 | lha-pack | 1244 | 1129 (-9.18%) | 1110 (-10.77%) | 1110 (-10.77%) |
 | lha-unpack | 309 | 304 (-1.59%) | 301 (-2.46%) | 301 (-2.46%) |
 | zlib-deflate | 846 | 814 (-3.86%) | 804 (-4.94%) | 804 (-4.94%) |
-| zlib-inflate | 218 | 215 (-1.01%) | 236 (+8.28%) | 237 (+8.79%) |
+| zlib-inflate | 218 | 215 (-1.02%) | 236 (+8.27%) | 237 (+8.79%) |
 | png-encode | 1394 | 1357 (-2.60%) | 1324 (-4.96%) | 1324 (-4.96%) |
 | png-decode | 1084 | 1015 (-6.41%) | 985 (-9.15%) | 985 (-9.14%) |
 | ftgrays | 1231 | 668 (-45.75%) | 662 (-46.23%) | 662 (-46.23%) |
@@ -34,15 +34,15 @@ time. rc19 inlines that multiply (AmigaPorts/gcc#112).
 | memcpy-var-large | 598 | 592 (-1.04%) | 593 (-0.84%) | 593 (-0.84%) |
 | memmove-small | 959 | 939 (-2.07%) | 939 (-2.07%) | 939 (-2.07%) |
 | memmove-large | 1251 | 959 (-23.34%) | 959 (-23.34%) | 959 (-23.34%) |
-| wipeout-tris[^softfloat] | 1814 | 1824 (+0.58%) | 893 (-50.75%) | 893 (-50.75%) |
-| nfs3-project[^softfloat] | 2474 | 2430 (-1.78%) | 1064 (-56.99%) | 1064 (-56.99%) |
-| nfs3-clip[^softfloat] | 2121 | 2021 (-4.71%) | 955 (-54.98%) | 952 (-55.11%) |
-| sha512 | 1012 | 954 (-5.79%) | 954 (-5.79%) | 960 (-5.18%) |
+| wipeout-tris[^softfloat] | 2312 | 2323 (+0.46%) | 893 (-61.36%) | 893 (-61.36%) |
+| nfs3-project[^softfloat] | 3282 | 3238 (-1.34%) | 1064 (-67.58%) | 1064 (-67.58%) |
+| nfs3-clip[^softfloat] | 2762 | 2662 (-3.62%) | 955 (-65.44%) | 952 (-65.54%) |
+| sha512 | 1023 | 960 (-6.19%) | 960 (-6.19%) | 954 (-6.79%) |
 | aesgcm | 967 | 837 (-13.47%) | 851 (-11.94%) | 853 (-11.81%) |
 | chacha20poly1305 | 1605 | 391 (-75.67%) | 985 (-38.65%) | 399 (-75.12%) |
 | x25519 | 5252 | 556 (-89.41%) | 2967 (-43.52%) | 547 (-89.59%) |
-| **GEOMEAN** | **1136** | **761 (-33.00%)** | **769 (-32.26%)** | **687 (-39.46%)** |
-| **CODE SIZE** | 432752 | 418816 (-3.22%) | 410532 (-5.13%) | 405196 (-6.37%) |
+| **GEOMEAN** | **1176** | **788 (-32.97%)** | **769 (-34.56%)** | **687 (-41.55%)** |
+| **CODE SIZE** | 432764 | 418828 (-3.22%) | 410544 (-5.13%) | 405208 (-6.37%) |
 
 ## On a 68060
 
@@ -72,12 +72,12 @@ caches modeled[^cache], built by rc18[^rc18] with
 | wipeout-tris | **487** | **487** |
 | nfs3-project | **616** | **616** |
 | nfs3-clip | **532** | **532** |
-| sha512 | **480** | **480** |
+| sha512 | **477** | **477** |
 | aesgcm | **440** | **440** |
 | chacha20poly1305 | **423** | **423** |
 | x25519 | **1208** | **1208** |
-| **GEOMEAN** | **399** | **399 (+0.02%)** |
-| **CODE SIZE** | 410532 | 409748 (-0.19%) |
+| **GEOMEAN** | **398** | **398 (+0.02%)** |
+| **CODE SIZE** | 410544 | 409760 (-0.19%) |
 
 [^rc18]: `m68k-amigaos-gcc (AmigaDev v16.2-rc18) 16.2.1b 20261010182711`,
     with its default newlib runtime.
@@ -85,7 +85,10 @@ caches modeled[^cache], built by rc18[^rc18] with
     costs a memory fetch. It does not model the data cache or bus wait
     states.
 [^softfloat]: The 68000 and 68020 builds are soft float, and newlib's
-    float arithmetic is a stub into the mathieeesingbas ROM library, which
-    volamos runs natively at zero cycles: every float operation of
-    wipeout-tris and most of the work of the NFS3 kernels. Those two
-    columns measure everything in these benchmarks except their float math.
+    float arithmetic calls the mathieee libraries: every float operation of
+    wipeout-tris and most of the work of the NFS3 kernels. volamos runs its
+    own native versions of those at zero cycles, so these runs load the
+    68k code of AmigaOS 3.2's instead (mathieeesingbas 47.1,
+    mathieeedoubbas 47.3, mathieeesingtrans 45.11, mathieeedoubtrans 47.2,
+    with `tools/regen-results.sh --libs-dir`). With the native ones, these
+    three benchmarks measured 27% to 33% faster on the 68000.

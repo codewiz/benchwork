@@ -77,8 +77,8 @@
 <text class="t muted" x="346.7" y="396">3.26x</text>
 <path class="s2" d="M180,400 h187.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-187.8 z"/>
 <text class="t muted" x="376.8" y="410">4.06x</text>
-<path class="s3" d="M180,414 h549.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-549.8 z"/>
-<text class="t muted" x="738.8" y="424">57.3x</text>
+<path class="s3" d="M180,414 h549.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-549.7 z"/>
+<text class="t muted" x="738.7" y="424">57.3x</text>
 <path class="s4" d="M180,428 h482.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-482.6 z"/>
 <text class="t muted" x="671.6" y="438">35.1x</text>
 <text class="t big" x="168" y="495.0" text-anchor="end">zlib-deflate</text>
@@ -99,8 +99,8 @@
 <text class="t muted" x="325.0" y="564">2.78x</text>
 <path class="s2" d="M180,568 h201.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-201.6 z"/>
 <text class="t muted" x="390.6" y="578">4.49x</text>
-<path class="s3" d="M180,582 h550.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-550.6 z"/>
-<text class="t muted" x="739.6" y="592">57.6x</text>
+<path class="s3" d="M180,582 h550.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-550.7 z"/>
+<text class="t muted" x="739.7" y="592">57.6x</text>
 <path class="s4" d="M180,596 h476.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-476.5 z"/>
 <text class="t muted" x="665.5" y="606">33.5x</text>
 <text class="t big" x="168" y="663.0" text-anchor="end">png-encode</text>
@@ -234,16 +234,16 @@
 <text class="t muted" x="748.4" y="1600">61.5x</text>
 <text class="t muted" x="186" y="1614">wrong output</text>
 <text class="t big" x="168" y="1671.0" text-anchor="end">sha512</text>
-<path class="s0" d="M180,1632 h0.6 a0.5816909310253493,0.5816909310253493 0 0 1 0.5816909310253493,0.5816909310253493 v10.836618137949301 a0.5816909310253493,0.5816909310253493 0 0 1 -0.5816909310253493,0.5816909310253493 h-0.6 z"/>
-<text class="t muted" x="186.2" y="1642">1.01x</text>
-<path class="s1" d="M180,1646 h62.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-62.6 z"/>
-<text class="t muted" x="251.6" y="1656">1.63x</text>
-<path class="s2" d="M180,1660 h122.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-122.7 z"/>
-<text class="t muted" x="311.7" y="1670">2.52x</text>
-<path class="s3" d="M180,1674 h350.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-350.3 z"/>
-<text class="t muted" x="539.3" y="1684">13.3x</text>
-<path class="s4" d="M180,1688 h516.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-516.7 z"/>
-<text class="t muted" x="705.7" y="1698">45.0x</text>
+<path class="s0" d="M180,1632 h0.1 a0.1399514661891743,0.1399514661891743 0 0 1 0.1399514661891743,0.1399514661891743 v11.720097067621651 a0.1399514661891743,0.1399514661891743 0 0 1 -0.1399514661891743,0.1399514661891743 h-0.1 z"/>
+<text class="t muted" x="185.3" y="1642">1.00x</text>
+<path class="s1" d="M180,1646 h61.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-61.7 z"/>
+<text class="t muted" x="250.7" y="1656">1.62x</text>
+<path class="s2" d="M180,1660 h121.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-121.8 z"/>
+<text class="t muted" x="310.8" y="1670">2.51x</text>
+<path class="s3" d="M180,1674 h349.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-349.4 z"/>
+<text class="t muted" x="538.4" y="1684">13.2x</text>
+<path class="s4" d="M180,1688 h515.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-515.8 z"/>
+<text class="t muted" x="704.8" y="1698">44.7x</text>
 <text class="t big" x="168" y="1755.0" text-anchor="end">aesgcm</text>
 <path class="s0" d="M180,1716 h25.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-25.1 z"/>
 <text class="t muted" x="214.1" y="1726">1.24x</text>
@@ -279,12 +279,12 @@
 <text class="t muted" x="778.7" y="1950">76.7x</text>
 <text class="t big name" x="168" y="2007.0" text-anchor="end">geomean</text>
 <path class="s0" d="M180,1968 h50.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-50.1 z"/>
-<text class="t muted" x="239.1" y="1978">1.49x</text>
+<text class="t muted" x="239.1" y="1978">1.48x</text>
 <path class="s1" d="M180,1982 h136.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-136.8 z"/>
 <text class="t muted" x="325.8" y="1992">2.80x</text>
 <path class="s2" d="M180,1996 h214.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-214.2 z"/>
 <text class="t muted" x="403.2" y="2006">4.93x</text>
-<path class="s3" d="M180,2010 h537.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-537.9 z"/>
-<text class="t muted" x="726.9" y="2020">52.5x</text>
+<path class="s3" d="M180,2010 h537.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-537.8 z"/>
+<text class="t muted" x="726.8" y="2020">52.5x</text>
 <text class="t muted" x="186" y="2034">n/a</text>
 </svg>
