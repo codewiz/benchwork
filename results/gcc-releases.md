@@ -14,6 +14,9 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
 - rc19: doloop loops end in `dbne`, inline 32x32->64 multiplies for
   `-m68020-60` and `-m68060`, a fix for PR 125728. rc20 generates the
   same code, and stands in for it below.
+- rc21: the same code as rc20 here. Only soft-float code changes: its
+  float compares give the unordered result for a NaN, and nfs3-clip on a
+  68000 runs 0.16% faster with them.
 
 The chart shows each benchmark's time in ms, so lower is faster, and
 skips the releases in which no benchmark changes by more than 1% from the
