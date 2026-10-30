@@ -123,7 +123,10 @@ else  # AmigaDev GCC 16.2 or newer
     INCLUDE_FLAG = -I
     DEFINE_FLAG = -D
     # Strict C11, the newest standard gcc 6.5 knows: no GNU extensions.
-    LANG_FLAGS = -std=c11
+    # ISO modes would also round every double assignment through memory on
+    # a 68881, which computes in extended precision; -fexcess-precision=fast
+    # keeps the code GNU mode makes.
+    LANG_FLAGS = -std=c11 -fexcess-precision=fast
     # It also drops the non-reserved AMIGA that zutil.h picks its gzip
     # OS_CODE by.
     ZLIB_FLAGS = -DAMIGA
