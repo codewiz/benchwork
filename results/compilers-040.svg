@@ -22,13 +22,13 @@
 <path class="s0" d="M180,36 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
 <path class="s1" d="M180,50 h415.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.7 z"/>
 <path class="s2" d="M180,64 h364.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-364.4 z"/>
-<text class="t muted" x="605.0" y="74">42402 Dhry/s (-12.28%)</text>
+<text class="t muted" x="605.0" y="74">42403 Dhry/s (-12.28%)</text>
 <path class="s3" d="M180,78 h299.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-299.2 z"/>
 <text class="t muted" x="605.0" y="88">34900 Dhry/s (-27.80%)</text>
 <text class="t big" x="168" y="138.0" text-anchor="end">scene-2d</text>
 <path class="s0" d="M180,106 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
 <path class="s1" d="M180,120 h580.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-580.6 z"/>
-<text class="t muted" x="769.6" y="130">124018 px/s (+39.19%)</text>
+<text class="t muted" x="769.6" y="130">124017 px/s (+39.19%)</text>
 <path class="s2" d="M180,134 h268.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-268.6 z"/>
 <text class="t muted" x="457.6" y="144">57831 px/s (-35.09%)</text>
 <path class="s3" d="M180,148 h187.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-187.3 z"/>
@@ -81,7 +81,7 @@
 <text class="t big" x="168" y="628.0" text-anchor="end">png-decode</text>
 <path class="s0" d="M180,596 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
 <path class="s1" d="M180,610 h387.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-387.9 z"/>
-<text class="t muted" x="605.0" y="620">194856 px/s (-6.68%)</text>
+<text class="t muted" x="605.0" y="620">194857 px/s (-6.68%)</text>
 <path class="s2" d="M180,624 h297.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-297.6 z"/>
 <text class="t muted" x="605.0" y="634">149954 px/s (-28.19%)</text>
 <path class="s3" d="M180,638 h306.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-306.6 z"/>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="1406" viewBox="0 0 940 1406" role="img" aria-label="GCC 16.2-rc21 register arguments on a 68040, speed relative to stack arguments">
+<style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}}</style>
+<rect class="bg" width="940" height="1406"/>
+<text class="t muted" x="928" y="21" text-anchor="end">Speed: more is better &#9654;</text>
+<rect class="s0" x="180" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="200" y="21">-mregparm=2</text>
+<rect class="s1" x="323" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="343" y="21">-mregparm=4</text>
+<rect class="s2" x="466" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="486" y="21">-msasregparm</text>
+<line class="grid" x1="180.0" y1="36" x2="180.0" y2="1380"/>
+<text class="t axis" x="180.0" y="1398" text-anchor="middle">0.0x</text>
+<line class="grid" x1="390.0" y1="36" x2="390.0" y2="1380"/>
+<text class="t axis" x="390.0" y="1398" text-anchor="middle">0.5x</text>
+<line class="ref" x1="600.0" y1="36" x2="600.0" y2="1380"/>
+<text class="t axis" x="600.0" y="1398" text-anchor="middle">1.0x</text>
+<line class="grid" x1="810.0" y1="36" x2="810.0" y2="1380"/>
+<text class="t axis" x="810.0" y="1398" text-anchor="middle">1.5x</text>
+<text class="t big" x="168" y="61.0" text-anchor="end">dhrystone</text>
+<path class="s0" d="M180,36 h464.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-464.9 z"/>
+<text class="t muted" x="653.9" y="46">53936 Dhry/s (+11.65%)</text>
+<path class="s1" d="M180,50 h464.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-464.9 z"/>
+<text class="t muted" x="653.9" y="60">53936 Dhry/s (+11.65%)</text>
+<path class="s2" d="M180,64 h464.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-464.9 z"/>
+<text class="t muted" x="653.9" y="74">53936 Dhry/s (+11.65%)</text>
+<text class="t big" x="168" y="117.0" text-anchor="end">scene-2d</text>
+<path class="s0" d="M180,92 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,106 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,120 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="173.0" text-anchor="end">quantize-floyd</text>
+<path class="s0" d="M180,148 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,162 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,176 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="229.0" text-anchor="end">lha-pack</text>
+<path class="s0" d="M180,204 h428.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-428.9 z"/>
+<path class="s1" d="M180,218 h426.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.6 z"/>
+<path class="s2" d="M180,232 h429.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-429.6 z"/>
+<text class="t big" x="168" y="285.0" text-anchor="end">lha-unpack</text>
+<path class="s0" d="M180,260 h426.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.2 z"/>
+<path class="s1" d="M180,274 h426.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.2 z"/>
+<path class="s2" d="M180,288 h426.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.2 z"/>
+<text class="t big" x="168" y="341.0" text-anchor="end">zlib-deflate</text>
+<path class="s0" d="M180,316 h418.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-418.6 z"/>
+<path class="s1" d="M180,330 h418.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-418.6 z"/>
+<path class="s2" d="M180,344 h418.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-418.6 z"/>
+<text class="t big" x="168" y="397.0" text-anchor="end">zlib-inflate</text>
+<path class="s0" d="M180,372 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,386 h416.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.2 z"/>
+<path class="s2" d="M180,400 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="453.0" text-anchor="end">png-encode</text>
+<path class="s0" d="M180,428 h416.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.4 z"/>
+<path class="s1" d="M180,442 h416.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.3 z"/>
+<path class="s2" d="M180,456 h416.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.3 z"/>
+<text class="t big" x="168" y="509.0" text-anchor="end">png-decode</text>
+<path class="s0" d="M180,484 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,498 h416.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.6 z"/>
+<path class="s2" d="M180,512 h416.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.3 z"/>
+<text class="t big" x="168" y="565.0" text-anchor="end">ftgrays</text>
+<path class="s0" d="M180,540 h421.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-421.8 z"/>
+<path class="s1" d="M180,554 h426.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.1 z"/>
+<path class="s2" d="M180,568 h421.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-421.6 z"/>
+<text class="t big" x="168" y="621.0" text-anchor="end">memcpy-small</text>
+<path class="s0" d="M180,596 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,610 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,624 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="677.0" text-anchor="end">memcpy-large</text>
+<path class="s0" d="M180,652 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,666 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,680 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="733.0" text-anchor="end">memcpy-var-small</text>
+<path class="s0" d="M180,708 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,722 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,736 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="789.0" text-anchor="end">memcpy-var-large</text>
+<path class="s0" d="M180,764 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,778 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,792 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="845.0" text-anchor="end">memmove-small</text>
+<path class="s0" d="M180,820 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,834 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,848 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="901.0" text-anchor="end">memmove-large</text>
+<path class="s0" d="M180,876 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s1" d="M180,890 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<path class="s2" d="M180,904 h416.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.0 z"/>
+<text class="t big" x="168" y="957.0" text-anchor="end">wipeout-tris</text>
+<path class="s0" d="M180,932 h416.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.4 z"/>
+<path class="s1" d="M180,946 h416.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.4 z"/>
+<path class="s2" d="M180,960 h416.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.4 z"/>
+<text class="t big" x="168" y="1013.0" text-anchor="end">nfs3-project</text>
+<path class="s0" d="M180,988 h421.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-421.6 z"/>
+<path class="s1" d="M180,1002 h420.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-420.0 z"/>
+<path class="s2" d="M180,1016 h420.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-420.8 z"/>
+<text class="t big" x="168" y="1069.0" text-anchor="end">nfs3-clip</text>
+<path class="s0" d="M180,1044 h417.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.5 z"/>
+<path class="s1" d="M180,1058 h417.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.6 z"/>
+<path class="s2" d="M180,1072 h417.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.5 z"/>
+<text class="t big" x="168" y="1125.0" text-anchor="end">sha512</text>
+<path class="s0" d="M180,1100 h418.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-418.3 z"/>
+<path class="s1" d="M180,1114 h415.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.7 z"/>
+<path class="s2" d="M180,1128 h415.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.7 z"/>
+<text class="t big" x="168" y="1181.0" text-anchor="end">aesgcm</text>
+<path class="s0" d="M180,1156 h416.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.9 z"/>
+<path class="s1" d="M180,1170 h416.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.5 z"/>
+<path class="s2" d="M180,1184 h416.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.4 z"/>
+<text class="t big" x="168" y="1237.0" text-anchor="end">chacha20poly1305</text>
+<path class="s0" d="M180,1212 h414.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-414.9 z"/>
+<path class="s1" d="M180,1226 h414.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-414.9 z"/>
+<path class="s2" d="M180,1240 h414.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-414.9 z"/>
+<text class="t big" x="168" y="1293.0" text-anchor="end">x25519</text>
+<path class="s0" d="M180,1268 h414.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-414.5 z"/>
+<path class="s1" d="M180,1282 h417.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.0 z"/>
+<path class="s2" d="M180,1296 h416.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.9 z"/>
+<text class="t big name" x="168" y="1349.0" text-anchor="end">geomean</text>
+<path class="s0" d="M180,1324 h419.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-419.8 z"/>
+<path class="s1" d="M180,1338 h419.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-419.8 z"/>
+<path class="s2" d="M180,1352 h419.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-419.7 z"/>
+</svg>

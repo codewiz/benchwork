@@ -99,8 +99,8 @@
 <text class="t muted" x="325.0" y="564">2.78x</text>
 <path class="s2" d="M180,568 h201.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-201.6 z"/>
 <text class="t muted" x="390.6" y="578">4.49x</text>
-<path class="s3" d="M180,582 h550.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-550.7 z"/>
-<text class="t muted" x="739.7" y="592">57.6x</text>
+<path class="s3" d="M180,582 h550.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-550.6 z"/>
+<text class="t muted" x="739.6" y="592">57.6x</text>
 <path class="s4" d="M180,596 h476.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-476.5 z"/>
 <text class="t muted" x="665.5" y="606">33.5x</text>
 <text class="t big" x="168" y="663.0" text-anchor="end">png-encode</text>
