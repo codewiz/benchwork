@@ -101,7 +101,7 @@ benchwork BENCH/M,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,LIST/S,HELP/S
   named.
 - `REPEAT`: timed repetitions of each benchmark, 3 by default.
 - `MINTIME`: loop over the work until each repetition lasts this many
-  milliseconds; see below.
+  milliseconds, 1000 by default; see below.
 - `FASTMEM`: put the benchmark buffers in fast memory, and fail if there is
   not enough.
 - `LIST`: list the benchmarks.
@@ -121,11 +121,11 @@ bytes), px/s (pixels), Dhry/s (Dhrystones), tri/s (triangles), vert/s
 work itself is timed: checking the output and computing the checksum happen
 after each repetition.
 
-A repetition is one loop unless `MINTIME` asks for more: then the count
-doubles until a repetition lasts at least that many milliseconds, and
-LOOPS reports the count it settled on. That is for JIT emulators running
-as fast as the host allows: some update the E clock only between frames,
-so a single loop can measure as 0 ms.
+A repetition starts as one loop, and the count doubles until a repetition
+lasts at least `MINTIME` milliseconds; LOOPS reports the count it settled
+on. That is for fast machines and JIT emulators running as fast as the host
+allows: some update the E clock only between frames, so a single loop can
+measure as 0 ms. `MINTIME 0` times exactly one loop.
 
 
 ## License

@@ -46,7 +46,8 @@ Usage
 
 BENCH names the benchmarks to run, all of them by default. REPEAT is the
 number of timed repetitions (3). MINTIME loops over each benchmark's work
-until a repetition lasts that many milliseconds, for fast emulators.
+until a repetition lasts that many milliseconds (1000), for fast machines
+and emulators.
 FASTMEM puts the buffers in fast memory. LIST lists the benchmarks.
 
 Each benchmark prints its fastest and average time in milliseconds, its

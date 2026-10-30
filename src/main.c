@@ -75,7 +75,7 @@ static void usage(void) {
     printf("  BENCH/M        the benchmarks to run, in order (default all)\n"
            "  REPEAT/K/N     timed repetitions of each benchmark (default 3)\n"
            "  MINTIME/K/N    loop over the work until each repetition lasts\n"
-           "                 this many milliseconds\n"
+           "                 this many milliseconds (default 1000)\n"
            "  FASTMEM/S      require fast memory for the benchmark buffers\n"
            "  LIST/S         list the benchmarks\n"
            "  HELP/S         this text; -h and --help work too\n");
@@ -199,7 +199,7 @@ int main(void) {
         /* .benches= */ NULL,
         /* .nbenches= */ 0,
         /* .repeat= */ 3,
-        /* .min_time_us= */ 0,
+        /* .min_time_us= */ 1000000,
         /* .fastmem= */ false,
     };
     int status;
