@@ -76,11 +76,11 @@ tools/results-splice.py results/cpus.md "$T/cpus.md" "$T/060.md"
 
 # Register arguments.
 tools/results-table.py --best \
-    "stack args=$G-rc18-base-040.txt" \
-    "-mregparm=2=$G-rc18-regparm2-040.txt" \
-    "-mregparm=4=$G-rc18-regparm4-040.txt" \
-    "-msasregparm=$G-rc18-sasregparm-040.txt" >"$T/regparm.md"
-sizes gcc-16.2-rc18-{base,regparm2,regparm4,sasregparm}-040 >>"$T/regparm.md"
+    "stack args=$G-rc21-base-040.txt" \
+    "-mregparm=2=$G-rc21-regparm2-040.txt" \
+    "-mregparm=4=$G-rc21-regparm4-040.txt" \
+    "-msasregparm=$G-rc21-sasregparm-040.txt" >"$T/regparm.md"
+sizes gcc-16.2-rc21-{base,regparm2,regparm4,sasregparm}-040 >>"$T/regparm.md"
 tools/results-splice.py results/regparm.md "$T/regparm.md"
 
 # The emulators, against the cycle-counted 68040. Their runs are not part

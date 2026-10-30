@@ -85,6 +85,7 @@ SC=${SC:-sc-volamos}
 tc=$TOOLCHAINS/m68k-amigaos-gcc
 rc18=$tc-16.2-rc18
 rc20=$tc-16.2-rc20
+rc21=$tc-16.2-rc21
 vbcc_tc=${VBCC_TOOLCHAIN:-$rc20}
 run=(tools/bench-run.sh --results-dir "$results")
 
@@ -122,7 +123,7 @@ done
 # Register arguments, two repetitions.
 for v in base: regparm2:-mregparm=2 regparm4:-mregparm=4 \
     sasregparm:-msasregparm; do
-    "${run[@]}" --repeat 2 "$rc18" "gcc-16.2-rc18-${v%%:*}-040" \
+    "${run[@]}" --repeat 2 "$rc21" "gcc-16.2-rc21-${v%%:*}-040" \
         "-m68040 -m68881" "$o2 ${v#*:}" "${v040[@]}"
 done
 

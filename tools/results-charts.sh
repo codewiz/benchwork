@@ -46,6 +46,12 @@ tools/results-chart.py --sizes -o results/opt-levels-size-030.svg \
     "-O3=$(size rc20-030-O3-030-cache)" \
     "-O2 -flto=$(size rc20-030-O2-lto-030-cache)"
 
+tools/results-chart.py --hide-base -o results/regparm-040.svg \
+    -t "GCC 16.2-rc21 register arguments on a 68040, speed relative to stack arguments" \
+    -- "stack args=$G-rc21-base-040.txt" "-mregparm=2=$G-rc21-regparm2-040.txt" \
+    "-mregparm=4=$G-rc21-regparm4-040.txt" \
+    "-msasregparm=$G-rc21-sasregparm-040.txt"
+
 # The emulators, against the cycle-counted 68040: up to two orders of
 # magnitude apart, hence the log axis.
 E=$R/emulators

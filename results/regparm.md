@@ -3,7 +3,7 @@
 Part of the [Benchwork results](README.md); see there for how they are
 measured.
 
-benchwork-040 built with m68k-amigaos-gcc 16.2-rc18[^rc18] and
+benchwork-040 built with m68k-amigaos-gcc 16.2-rc21[^rc21] and
 `-O2 -fomit-frame-pointer -m68040 -m68881`, with and without
 `-mregparm`[^regparm], on the 68040[^volamos].
 
@@ -13,6 +13,11 @@ to 2%), and no benchmark loses more than 1% (png-encode). Allowing four register
 arguments instead of two changes little, and so does `-msasregparm`, which
 puts a third integer or pointer argument on the stack instead of in a
 register of the other kind.
+
+Each bar is the stack-argument build's time divided by the build's, so
+longer is faster; stack arguments are the line at 1.0.
+
+![Speed of each benchmark relative to stack arguments](regparm-040.svg)
 
 | benchmark | stack args | -mregparm=2 | -mregparm=4 | -msasregparm |
 |---|---:|---:|---:|---:|
@@ -42,10 +47,11 @@ register of the other kind.
 | **GEOMEAN** | **687** | **681 (-0.88%)** | **681 (-0.97%)** | **681 (-0.94%)** |
 | **CODE SIZE** | 405208 | 393492 (-2.89%) | 392040 (-3.25%) | 394264 (-2.70%) |
 
-[^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> REPEAT 2`.
+[^volamos]: `volamos --clock-mhz 25 --cpu 68040 --fpu <binary> REPEAT 2`,
+    each repetition looping for at least a second (`MINTIME`'s default).
     The emulated time is derived from the CPU's cycle count at 25 MHz;
     native library calls cost no cycles.
-[^rc18]: `m68k-amigaos-gcc (AmigaDev v16.2-rc18) 16.2.1b 20261010182711`,
+[^rc21]: `m68k-amigaos-gcc (AmigaDev 16.2-rc21) 16.2.1b 20261010182711`,
     with its default newlib runtime.
 [^regparm]: The whole program is built with `-mregparm`; newlib, which
     is not, keeps stack arguments because its headers declare its
