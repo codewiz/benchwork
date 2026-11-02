@@ -8,8 +8,17 @@
  */
 
 #include <stdarg.h>
+#include <stdio.h>
 
 #include "bench.h"
+
+// Before lha.h takes FILE for its memory streams: clib2's stderr expands to
+// a cast to FILE where it is used.
+static void report(const char *fmt, va_list ap) {
+    fputs("lha: ", stderr);
+    vfprintf(stderr, fmt, ap);
+    fputc('\n', stderr);
+}
 
 #include "lha.h"
 
@@ -101,9 +110,7 @@ void error(char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
-    fputs("lha: ", stderr);
-    vfprintf(stderr, fmt, ap);
-    fputc('\n', stderr);
+    report(fmt, ap);
     va_end(ap);
 }
 
@@ -111,9 +118,7 @@ void fatal_error(char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
-    fputs("lha: ", stderr);
-    vfprintf(stderr, fmt, ap);
-    fputc('\n', stderr);
+    report(fmt, ap);
     va_end(ap);
     exit(20);
 }
