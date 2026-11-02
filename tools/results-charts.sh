@@ -52,6 +52,11 @@ tools/results-chart.py --hide-base -o results/regparm-040.svg \
     "-mregparm=4=$G-rc21-regparm4-040.txt" \
     "-msasregparm=$G-rc21-sasregparm-040.txt"
 
+C=$R/runtimes
+tools/results-chart.py --hide-base -o results/runtimes-040.svg \
+    -t "C runtimes on a 68040 under AmigaOS 3.2.3, speed relative to newlib" \
+    "newlib=$C/newlib.txt" "libnix=$C/nix20.txt" "clib2=$C/clib2.txt"
+
 # The emulators, against the cycle-counted 68040: up to two orders of
 # magnitude apart, hence the log axis.
 E=$R/emulators

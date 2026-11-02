@@ -83,6 +83,14 @@ tools/results-table.py --best \
 sizes gcc-16.2-rc21-{base,regparm2,regparm4,sasregparm}-040 >>"$T/regparm.md"
 tools/results-splice.py results/regparm.md "$T/regparm.md"
 
+# The C runtimes. Their runs are not part of regen-results.sh: they boot
+# AmigaOS 3.2.3 on Amiberry (see results/runtimes.md).
+C=$R/runtimes
+tools/results-table.py --best "newlib=$C/newlib.txt" "libnix=$C/nix20.txt" \
+    "clib2=$C/clib2.txt" >"$T/runtimes.md"
+sizes runtimes-{newlib,nix20,clib2} >>"$T/runtimes.md"
+tools/results-splice.py results/runtimes.md "$T/runtimes.md"
+
 # The emulators, against the cycle-counted 68040. Their runs are not part
 # of regen-results.sh: three of them boot AmigaOS, one on a PiStorm (see
 # results/emulators.md). Emu68's nfs3 check values differ from the others',

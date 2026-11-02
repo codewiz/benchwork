@@ -11,6 +11,8 @@
   against `-m68020-60` on a 68060.
 - [GCC register arguments](regparm.md): `-mregparm` and
   `-msasregparm` against stack arguments.
+- [C runtimes](runtimes.md): newlib, libnix and clib2 on AmigaOS
+  3.2.3, measured on Amiberry.
 - [m68k emulators](emulators.md): vamos, volamos, Amiberry and
   Copperline on the same host, against a 68040.
 
