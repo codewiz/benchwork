@@ -89,7 +89,16 @@ C=$R/runtimes
 tools/results-table.py --best "newlib=$C/newlib.txt" "libnix=$C/nix20.txt" \
     "clib2=$C/clib2.txt" >"$T/runtimes.md"
 sizes runtimes-{newlib,nix20,clib2} >>"$T/runtimes.md"
-tools/results-splice.py results/runtimes.md "$T/runtimes.md"
+# The JSON benchmarks across releases, a table each. The clib2 of rc21 and
+# rc22 hangs before printing anything, so there is no file for it.
+for b in json-parse json-print; do
+    tools/results-releases-table.py --releases rc21,rc22,rc23 --bench "$b" \
+        "newlib=$C/json-rc21-newlib.txt,$C/json-rc22-newlib.txt,$C/json-rc23-newlib.txt" \
+        "libnix=$C/json-rc21-nix20.txt,$C/json-rc22-nix20.txt,$C/json-rc23-nix20.txt" \
+        "clib2=hangs,hangs,$C/json-rc23-clib2.txt" >"$T/runtimes-$b.md"
+done
+tools/results-splice.py results/runtimes.md "$T/runtimes.md" \
+    "$T/runtimes-json-parse.md" "$T/runtimes-json-print.md"
 
 # The emulators, against the cycle-counted 68040. Their runs are not part
 # of regen-results.sh: three of them boot AmigaOS, one on a PiStorm (see
