@@ -31,6 +31,8 @@ Results for compilers, GCC releases and options, CPUs and emulators are in
 | memcpy-var-large | large copies sized at run time | memcpy's copy loop |
 | memmove-small | overlapping moves up to 128 bytes, both ways | the backwards path a block-move expander gets wrong |
 | memmove-large | overlapping moves of 2048 and 4096 bytes, both ways | the same past the by-pieces limit |
+| json-parse | cJSON 1.7.19, 49 KB of records like a web API's reply | byte scanning and dispatch, malloc() per value, strtod() per number[^runtime] |
+| json-print | cJSON 1.7.19, the same records back to indented text | string escaping into a growing buffer, sprintf() per number |
 | wipeout-tris | render_push_tris() from arczi84's Wipeout port | a game's per-triangle path: float UV scaling, byte clamps, 96-byte struct copies |
 | nfs3-project | projectObjectVertex() from arczi84's NFS3 port (C++, gcc only) | float multiply-add chains, a perspective divide, bit tests on float results |
 | nfs3-clip | PolygonClipWork::run() from arczi84's NFS3 port (C++, gcc only) | triangle clipping: float compares, divides, interpolation |
@@ -44,6 +46,9 @@ Results for compilers, GCC releases and options, CPUs and emulators are in
     runtime. gcc links the toolchain's default newlib, whose memcpy is
     assembler; libnix's hands the work to exec `CopyMem`, which an
     emulator may run for free, so the gcc builds use newlib.
+[^runtime]: cJSON allocates with the C library's `malloc()` and converts
+    numbers with its `strtod()`, `sprintf()` and `sscanf()`, so the json
+    rows measure the runtime about as much as the compiler.
 [^pieces]: 128 bytes is the size up to which the AmigaOS by-pieces hook
     expands a copy inline.
 

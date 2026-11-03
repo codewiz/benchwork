@@ -20,6 +20,8 @@ extern const struct Bench bench_memcpy_var_small;
 extern const struct Bench bench_memcpy_var_large;
 extern const struct Bench bench_memmove_small;
 extern const struct Bench bench_memmove_large;
+extern const struct Bench bench_json_parse;
+extern const struct Bench bench_json_print;
 extern const struct Bench bench_wipeout_tris;
 #ifdef BENCH_HAVE_NFS3
 extern const struct Bench bench_nfs3_project;
@@ -49,6 +51,8 @@ const struct Bench *const BENCHES[] = {
     &bench_memcpy_var_large,
     &bench_memmove_small,
     &bench_memmove_large,
+    &bench_json_parse,
+    &bench_json_print,
     &bench_wipeout_tris,
 #ifdef BENCH_HAVE_NFS3
     &bench_nfs3_project,

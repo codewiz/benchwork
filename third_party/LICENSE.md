@@ -7,6 +7,7 @@ directory:
 * zlib (zlib)
 * libpng (PNG Reference Library License)
 * FreeType (FTL)
+* cJSON (MIT)
 * LHa for UNIX (its redistribution terms, in Japanese)
 * Dhrystone (Reinhold Weicker's original terms) via xSysInfo (BSD-2-Clause)
 * The Wipeout kernel in `wipeout/` has no license file yet: its upstream

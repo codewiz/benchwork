@@ -30,7 +30,7 @@ CFLAGS ?= $(OPT) $(CPUFLAGS)
 REPORTED_CFLAGS := $(CFLAGS)
 
 INCLUDES = $(addprefix $(INCLUDE_FLAG),. src third_party/zlib third_party/libpng \
-	$(EXTRA_INCLUDES))
+	third_party/cjson $(EXTRA_INCLUDES))
 ALL_CFLAGS = $(CFLAGS) $(LANG_FLAGS) $(INCLUDES) $(DEFINES)
 
 HARNESS_SRCS = \
@@ -47,6 +47,7 @@ HARNESS_SRCS = \
 	benches/png.c \
 	benches/ftgrays.c \
 	benches/memcpy.c \
+	benches/json.c \
 	benches/wipeout.c
 
 DHRY_SRCS = \
@@ -89,6 +90,8 @@ LIBPNG_SRCS = \
 
 FREETYPE_SRCS = third_party/freetype/ftgrays.c
 
+CJSON_SRCS = third_party/cjson/cJSON.c
+
 WIPEOUT_SRCS = third_party/wipeout/kernel.c
 
 # SHA-512, GHASH, Poly1305 and the X25519 field arithmetic need long long, so
@@ -106,7 +109,7 @@ AMISSL_LONGLONG_SRCS = \
 	third_party/amissl/curve25519.c
 
 SRCS = $(HARNESS_SRCS) $(DHRY_SRCS) $(LHA_SRCS) $(ZLIB_SRCS) $(LIBPNG_SRCS) \
-	$(FREETYPE_SRCS) $(WIPEOUT_SRCS) $(NFS3_SRCS) $(AMISSL_SRCS)
+	$(FREETYPE_SRCS) $(CJSON_SRCS) $(WIPEOUT_SRCS) $(NFS3_SRCS) $(AMISSL_SRCS)
 OBJS = $(patsubst %.cpp,$(BUILD)/%.o,$(SRCS:%.c=$(BUILD)/%.o))
 
 all: $(TARGET)
