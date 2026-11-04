@@ -11,9 +11,24 @@
 
 #include "compiler.h"
 
+// The kinds of work a benchmark belongs to. Each group gets a GEOMEAN of its
+// own, and GROUP and BENCH select them by name.
+enum BenchGroup {
+    GROUP_COMPRESSION,
+    GROUP_GRAPHICS,
+    GROUP_TEXT,
+    GROUP_CRYPTO,
+    GROUP_MEMORY,  // copies and string operations, and Dhrystone's strcpy()s
+    NGROUPS
+};
+
+// Their names, in bench.c.
+extern const char *const GROUP_NAMES[NGROUPS];
+
 struct Bench {
     const char *name;
     const char *desc;
+    enum BenchGroup group;
 
     // The unit of the reported rate, short ("KB" of 1024 bytes, "px",
     // "Dhry"), and how many of them one run() does.

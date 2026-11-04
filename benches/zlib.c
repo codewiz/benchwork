@@ -115,6 +115,7 @@ static bool inflate_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_zlib_deflate = {
     /* .name= */ "zlib-deflate",
     /* .desc= */ "zlib level 6 compression of 64 KB of text",
+    /* .group= */ GROUP_COMPRESSION,
     /* .unit= */ "KB",
     /* .per_loop= */ CORPUS_SIZE / 1024.0,
     /* .setup= */ zlib_setup,
@@ -126,6 +127,7 @@ const struct Bench bench_zlib_deflate = {
 const struct Bench bench_zlib_inflate = {
     /* .name= */ "zlib-inflate",
     /* .desc= */ "zlib decompression back to 64 KB, three times",
+    /* .group= */ GROUP_COMPRESSION,
     /* .unit= */ "KB",
     /* .per_loop= */ INFLATES * (CORPUS_SIZE / 1024.0),
     /* .setup= */ zlib_setup,

@@ -53,6 +53,7 @@ static bool dhry_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_dhry = {
     /* .name= */ "dhrystone",
     /* .desc= */ "Dhrystone 2.1, 20000 runs",
+    /* .group= */ GROUP_MEMORY,
     /* .unit= */ "Dhry",
     /* .per_loop= */ RUNS,
     /* .setup= */ dhry_setup,

@@ -95,6 +95,7 @@ static void sha512_teardown(void *state) {
 const struct Bench bench_sha512 = {
     /* .name= */ "sha512",
     /* .desc= */ "AmiSSL SHA-512 and SHA-384 over the corpus",
+    /* .group= */ GROUP_CRYPTO,
     /* .unit= */ "KB",
     /* .per_loop= */ PASSES * (HASH_SIZE / 1024.0),
     /* .setup= */ sha512_setup,

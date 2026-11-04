@@ -180,13 +180,22 @@ static bool run_bench(const struct Bench *b, const struct BenchOptions *opts,
     return ok;
 }
 
+const char *const GROUP_NAMES[NGROUPS] = {
+    "compression", "graphics", "text", "crypto", "memory",
+};
+
 // The report ends with the geometric mean of the benchmarks' fastest times
 // when more than one ran: the one number that weighs a 10% change on a
-// short workload the same as on a long one.
+// short workload the same as on a long one. Then, when benchmarks of more
+// than one group ran, the same for each group, on lines indented so that
+// nothing reads them as a benchmark or as the overall GEOMEAN.
 int bench_run_all(const struct BenchOptions *opts) {
-    int failures = 0, ran = 0;
+    int failures = 0, ran = 0, groups = 0;
+    int group_ran[NGROUPS] = { 0 };
     double logsum = 0;
+    double group_logsum[NGROUPS] = { 0 };
     size_t j;
+    int g;
 
     alloc_flags = opts->fastmem ? MEMF_FAST : MEMF_ANY;
     printf("%-16s %5s%11s%11s%13s %-7s  %s\n", "BENCHMARK", "LOOPS", "MIN MS",
@@ -204,7 +213,11 @@ int bench_run_all(const struct BenchOptions *opts) {
             failures++;
             continue;
         }
+        g = opts->benches[j]->group;
         logsum += log((double)best);
+        group_logsum[g] += log((double)best);
+        if (!group_ran[g]++)
+            groups++;
         ran++;
     }
     if (ran > 1) {
@@ -212,5 +225,12 @@ int bench_run_all(const struct BenchOptions *opts) {
         print_ms((ULONG)(exp(logsum / ran) + 0.5));
         printf("\n");
     }
+    if (groups > 1)
+        for (g = 0; g < NGROUPS; g++)
+            if (group_ran[g]) {
+                printf("  %-14s %5s", GROUP_NAMES[g], "");
+                print_ms((ULONG)(exp(group_logsum[g] / group_ran[g]) + 0.5));
+                printf("\n");
+            }
     return failures;
 }

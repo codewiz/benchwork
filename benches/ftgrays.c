@@ -218,6 +218,7 @@ static bool ftgrays_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_ftgrays = {
     /* .name= */ "ftgrays",
     /* .desc= */ "FreeType smooth rasterizer, 94 glyphs at 12/24/48 px, 2 passes",
+    /* .group= */ GROUP_GRAPHICS,
     /* .unit= */ "glyph",
     /* .per_loop= */ (double)PASSES * NSIZES * GLYPH_COUNT,
     /* .setup= */ ftgrays_setup,

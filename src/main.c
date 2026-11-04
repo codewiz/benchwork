@@ -59,8 +59,8 @@ __near long __stack = STACK_NEEDED * 2;
 
 // The ReadArgs() template, and where each argument lands in its array.
 static const char TEMPLATE[] =
-    "BENCH/M,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,LIST/S,HELP=--help=-h/S";
-enum { ARG_BENCH, ARG_REPEAT, ARG_MINTIME, ARG_FASTMEM, ARG_LIST, ARG_HELP,
+    "BENCH/M,LIST/S,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,HELP=--help=-h/S";
+enum { ARG_BENCH, ARG_LIST, ARG_REPEAT, ARG_MINTIME, ARG_FASTMEM, ARG_HELP,
        NARGS };
 
 // Half an hour: a repetition stops short of twice MINTIME, and its
@@ -72,12 +72,12 @@ enum { ARG_BENCH, ARG_REPEAT, ARG_MINTIME, ARG_FASTMEM, ARG_LIST, ARG_HELP,
 // names but not what they mean. This is the rest of it.
 static void usage(void) {
     printf("benchwork %s\n\n", BENCH_VERSION);
-    printf("  BENCH/M        the benchmarks to run, in order (default all)\n"
+    printf("  BENCH/M        benchmarks or groups to run (default all)\n"
+           "  LIST/S         list the benchmarks and their groups\n"
            "  REPEAT/K/N     timed repetitions of each benchmark (default 3)\n"
            "  MINTIME/K/N    loop over the work until each repetition lasts\n"
            "                 this many milliseconds (default 1000)\n"
            "  FASTMEM/S      require fast memory for the benchmark buffers\n"
-           "  LIST/S         list the benchmarks\n"
            "  HELP/S         this text; -h and --help work too\n");
 }
 
@@ -87,6 +87,25 @@ static bool same_name(const char *a, const char *b) {
         if (!*a)
             return true;
     return false;
+}
+
+// The group called NAME, or -1.
+static int find_group(const char *name) {
+    int g;
+
+    for (g = 0; g < NGROUPS; g++)
+        if (same_name(name, GROUP_NAMES[g]))
+            return g;
+    return -1;
+}
+
+// Append the benchmarks of group G to LIST at *N, in table order.
+static void add_group(int g, const struct Bench **list, size_t *n) {
+    size_t j;
+
+    for (j = 0; j < NBENCHES; j++)
+        if ((int)BENCHES[j]->group == g)
+            list[(*n)++] = BENCHES[j];
 }
 
 // The benchmark called NAME, or NULL.
@@ -100,11 +119,13 @@ static const struct Bench *find_bench(const char *name) {
 }
 
 // Set OPTS from what ReadArgs() returned. The benchmarks are the ones named,
-// in that order, repeats included; all of them, in table order, when none
-// is. Returns -1 to go on, or the exit code.
+// in that order, repeats included, a group name standing for its
+// benchmarks; all of them, in table order, when none is. Returns -1 to go
+// on, or the exit code.
 static int apply_args(const LONG *args, struct BenchOptions *opts) {
     char **names = (char **)args[ARG_BENCH];
     size_t j, n = 0;
+    int g;
 
     if (args[ARG_HELP]) {
         usage();
@@ -112,7 +133,8 @@ static int apply_args(const LONG *args, struct BenchOptions *opts) {
     }
     if (args[ARG_LIST]) {
         for (j = 0; j < NBENCHES; j++)
-            printf("%-16s %s\n", BENCHES[j]->name, BENCHES[j]->desc);
+            printf("%-16s %-11s %s\n", BENCHES[j]->name,
+                   GROUP_NAMES[BENCHES[j]->group], BENCHES[j]->desc);
         return RETURN_OK;
     }
     if (args[ARG_REPEAT]) {
@@ -138,19 +160,31 @@ static int apply_args(const LONG *args, struct BenchOptions *opts) {
     if (names)
         while (names[n])
             n++;
-    opts->nbenches = n ? n : NBENCHES;
-    opts->benches = malloc(opts->nbenches * sizeof *opts->benches);
+    // Room for every name to be a whole group.
+    opts->benches = malloc((n ? n : 1) * NBENCHES * sizeof *opts->benches);
     if (!opts->benches) {
         printf("out of memory\n");
         return RETURN_FAIL;
     }
-    for (j = 0; j < opts->nbenches; j++) {
-        opts->benches[j] = n ? find_bench(names[j]) : BENCHES[j];
-        if (!opts->benches[j]) {
-            printf("unknown benchmark %s: LIST names them\n", names[j]);
+    opts->nbenches = 0;
+    for (j = 0; j < n; j++) {
+        const struct Bench *b = find_bench(names[j]);
+
+        if (b) {
+            opts->benches[opts->nbenches++] = b;
+            continue;
+        }
+        g = find_group(names[j]);
+        if (g < 0) {
+            printf("unknown benchmark or group %s: LIST names them\n",
+                   names[j]);
             return RETURN_FAIL;
         }
+        add_group(g, opts->benches, &opts->nbenches);
     }
+    if (!n)
+        for (j = 0; j < NBENCHES; j++)
+            opts->benches[opts->nbenches++] = BENCHES[j];
     return -1;
 }
 

@@ -241,6 +241,7 @@ static bool print_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_json_parse = {
     /* .name= */ "json-parse",
     /* .desc= */ "cJSON parsing 49 KB of records into a tree",
+    /* .group= */ GROUP_TEXT,
     /* .unit= */ "KB",
     /* .per_loop= */ TEXT_SIZE / 1024.0,
     /* .setup= */ json_setup,
@@ -252,6 +253,7 @@ const struct Bench bench_json_parse = {
 const struct Bench bench_json_print = {
     /* .name= */ "json-print",
     /* .desc= */ "cJSON printing the same tree back to indented text",
+    /* .group= */ GROUP_TEXT,
     /* .unit= */ "KB",
     /* .per_loop= */ TEXT_SIZE / 1024.0,
     /* .setup= */ json_setup,

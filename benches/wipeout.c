@@ -178,6 +178,7 @@ const struct Bench bench_wipeout_tris = {
     /* .name= */ "wipeout-tris",
     /* .desc= */ "Wipeout's triangle submission: float UVs, byte clamps, "
                  "96-byte copies",
+    /* .group= */ GROUP_GRAPHICS,
     /* .unit= */ "tri",
     /* .per_loop= */ (double)TOTAL_PASSES * N,
     /* .setup= */ wipeout_setup,

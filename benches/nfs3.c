@@ -56,6 +56,7 @@ const struct Bench bench_nfs3_project = {
     /* .name= */ "nfs3-project",
     /* .desc= */ "NFS3's vertex projection: float multiply-adds, a divide, "
                  "bit tests",
+    /* .group= */ GROUP_GRAPHICS,
     /* .unit= */ "vert",
     /* .per_loop= */ VERTICES,
     /* .setup= */ nfs3_setup,
@@ -68,6 +69,7 @@ const struct Bench bench_nfs3_clip = {
     /* .name= */ "nfs3-clip",
     /* .desc= */ "NFS3's triangle clipper: float compares, divides, "
                  "interpolation",
+    /* .group= */ GROUP_GRAPHICS,
     /* .unit= */ "poly",
     /* .per_loop= */ TRIANGLES,
     /* .setup= */ nfs3_setup,

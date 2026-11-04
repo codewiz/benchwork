@@ -317,6 +317,7 @@ UBYTE *scene_rgb(SHORT *w, SHORT *h) {
 const struct Bench bench_scene_2d = {
     /* .name= */ "scene-2d",
     /* .desc= */ "a 640x200 landscape rendered per pixel",
+    /* .group= */ GROUP_GRAPHICS,
     /* .unit= */ "px",
     /* .per_loop= */ (double)HIRES_WIDTH * HEIGHT,
     /* .setup= */ scene_setup,
@@ -328,6 +329,7 @@ const struct Bench bench_scene_2d = {
 const struct Bench bench_quantize_floyd = {
     /* .name= */ "quantize-floyd",
     /* .desc= */ "Floyd-Steinberg remap of the scene to 32 colors",
+    /* .group= */ GROUP_GRAPHICS,
     /* .unit= */ "px",
     /* .per_loop= */ (double)WIDTH * HEIGHT,
     /* .setup= */ floyd_setup,

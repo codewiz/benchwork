@@ -200,6 +200,7 @@ static bool decode_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_png_encode = {
     /* .name= */ "png-encode",
     /* .desc= */ "libpng encode of the 320x200 scene",
+    /* .group= */ GROUP_COMPRESSION,
     /* .unit= */ "px",
     /* .per_loop= */ (double)SCENE_WIDTH * SCENE_HEIGHT,
     /* .setup= */ png_setup,
@@ -211,6 +212,7 @@ const struct Bench bench_png_encode = {
 const struct Bench bench_png_decode = {
     /* .name= */ "png-decode",
     /* .desc= */ "libpng decode of the same PNG, three times",
+    /* .group= */ GROUP_COMPRESSION,
     /* .unit= */ "px",
     /* .per_loop= */ DECODES * ((double)SCENE_WIDTH * SCENE_HEIGHT),
     /* .setup= */ png_setup,

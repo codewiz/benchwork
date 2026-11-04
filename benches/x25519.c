@@ -105,6 +105,7 @@ static bool x25519_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_x25519 = {
     /* .name= */ "x25519",
     /* .desc= */ "AmiSSL X25519, both ends of a TLS key exchange",
+    /* .group= */ GROUP_CRYPTO,
     /* .unit= */ "kex",
     /* .per_loop= */ 1,
     /* .setup= */ x25519_setup,

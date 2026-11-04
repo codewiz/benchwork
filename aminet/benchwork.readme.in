@@ -42,16 +42,19 @@ Usage
 -----
 
   stack 65536
-  benchwork-040 [BENCH ...] [REPEAT n] [MINTIME ms] [FASTMEM] [LIST]
+  benchwork-040 [BENCH ...] [LIST] [REPEAT n] [MINTIME ms] [FASTMEM]
 
-BENCH names the benchmarks to run, all of them by default. REPEAT is the
-number of timed repetitions (3). MINTIME loops over each benchmark's work
-until a repetition lasts that many milliseconds (1000), for fast machines
-and emulators.
-FASTMEM puts the buffers in fast memory. LIST lists the benchmarks.
+BENCH names the benchmarks to run, all of them by default, or groups of
+them: compression, graphics, text, crypto and memory. LIST lists the
+benchmarks and their groups. REPEAT is the number of timed repetitions
+(3). MINTIME loops over each benchmark's work until a repetition lasts that
+many milliseconds (1000), for fast machines and emulators. FASTMEM puts
+the buffers in fast memory.
 
 Each benchmark prints its fastest and average time in milliseconds, its
 rate per second and a checksum, which must be the same for every compiler.
+The report ends with the geometric mean of the times, overall and for each
+group.
 Version 2.0 changed the options and the workloads: times are not
 comparable with 1.x.
 

@@ -136,6 +136,7 @@ static bool unpack_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_lha_pack = {
     /* .name= */ "lha-pack",
     /* .desc= */ "LHa -lh5- compression of 64 KB of text",
+    /* .group= */ GROUP_COMPRESSION,
     /* .unit= */ "KB",
     /* .per_loop= */ CORPUS_SIZE / 1024.0,
     /* .setup= */ lha_setup,
@@ -147,6 +148,7 @@ const struct Bench bench_lha_pack = {
 const struct Bench bench_lha_unpack = {
     /* .name= */ "lha-unpack",
     /* .desc= */ "LHa -lh5- decompression back to 64 KB",
+    /* .group= */ GROUP_COMPRESSION,
     /* .unit= */ "KB",
     /* .per_loop= */ CORPUS_SIZE / 1024.0,
     /* .setup= */ lha_setup,

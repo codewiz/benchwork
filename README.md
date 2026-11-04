@@ -99,20 +99,22 @@ The release archive has one binary per CPU: benchwork-000, -020 (68020
 and 68030), -020-060fp (any 68020 to 68060 with an FPU), -040 and -060.
 
 ```
-benchwork BENCH/M,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,LIST/S,HELP/S
+benchwork BENCH/M,LIST/S,REPEAT/K/N,MINTIME/K/N,FASTMEM/S,HELP/S
 ```
 
 - `BENCH`: the benchmarks to run, in this order; all of them when none is
-  named.
+  named. A group's name stands for all its benchmarks: `compression`,
+  `graphics`, `text`, `crypto` and `memory` (the copies and Dhrystone).
+- `LIST`: list the benchmarks and their groups.
 - `REPEAT`: timed repetitions of each benchmark, 3 by default.
 - `MINTIME`: loop over the work until each repetition lasts this many
   milliseconds, 1000 by default; see below.
 - `FASTMEM`: put the benchmark buffers in fast memory, and fail if there is
   not enough.
-- `LIST`: list the benchmarks.
 - `HELP`: describe the arguments; `-h` and `--help` work too.
 
-For example, `benchwork REPEAT 5 dhrystone ftgrays`.
+For example, `benchwork REPEAT 5 dhrystone ftgrays`, or
+`benchwork memory text`.
 
 The FreeType rasterizer keeps its cell pool on the stack, so the program
 refuses to start on the shell's default 4 KB stack: `stack 65536` first.
@@ -125,6 +127,11 @@ bytes), px/s (pixels), Dhry/s (Dhrystones), tri/s (triangles), vert/s
 (vertices), poly/s (polygons), glyph/s or kex/s (key exchanges). Only the
 work itself is timed: checking the output and computing the checksum happen
 after each repetition.
+
+The report ends with GEOMEAN, the geometric mean of the fastest times, which
+weighs a 10% change in a short benchmark the same as in a long one. When
+benchmarks of more than one group ran, an indented line follows for each
+group, with the geometric mean of its own.
 
 A repetition starts as one loop, and the count doubles until a repetition
 lasts at least `MINTIME` milliseconds; LOOPS reports the count it settled

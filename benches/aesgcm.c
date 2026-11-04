@@ -180,6 +180,7 @@ static bool aesgcm_verify(void *state, const void *result, ULONG *check) {
 const struct Bench bench_aesgcm = {
     /* .name= */ "aesgcm",
     /* .desc= */ "AmiSSL AES-128-GCM, sending and receiving TLS records",
+    /* .group= */ GROUP_CRYPTO,
     /* .unit= */ "KB",
     /* .per_loop= */ 2 * RECORDS * (RECORD_SIZE / 1024.0),
     /* .setup= */ aesgcm_setup,

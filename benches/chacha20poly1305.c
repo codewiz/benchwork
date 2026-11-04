@@ -236,6 +236,7 @@ static bool chacha20poly1305_verify(void *state, const void *result,
 const struct Bench bench_chacha20poly1305 = {
     /* .name= */ "chacha20poly1305",
     /* .desc= */ "AmiSSL ChaCha20-Poly1305, sending and receiving TLS records",
+    /* .group= */ GROUP_CRYPTO,
     /* .unit= */ "KB",
     /* .per_loop= */ 2 * RECORDS * (RECORD_SIZE / 1024.0),
     /* .setup= */ chacha20poly1305_setup,
