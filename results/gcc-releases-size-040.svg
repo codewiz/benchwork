@@ -1,0 +1,430 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="680" viewBox="0 0 940 680" role="img" aria-label="Code size in the GCC 16.2 releases, in bytes">
+<style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}.s3{fill:#eda100}.k3{stroke:#eda100}.s4{fill:#e87ba4}.k4{stroke:#e87ba4}.s5{fill:#8a63d2}.k5{stroke:#8a63d2}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}.s3{fill:#c98500}.k3{stroke:#c98500}.s4{fill:#d55181}.k4{stroke:#d55181}.s5{fill:#9d7be0}.k5{stroke:#9d7be0}}</style>
+<rect class="bg" width="940" height="680"/>
+<text class="t muted" x="928" y="21" text-anchor="end">&#9660; Size: less is better</text>
+<rect class="s4" x="64" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="84" y="21">Benchwork</text>
+<rect class="s0" x="189" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="209" y="21">compression</text>
+<rect class="s3" x="332" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="352" y="21">crypto</text>
+<rect class="s5" x="430" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="450" y="21">text</text>
+<rect class="s2" x="510" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="530" y="21">programs</text>
+<line class="grid" x1="64.0" y1="44" x2="64.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="103.8" y1="44" x2="103.8" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="143.6" y1="44" x2="143.6" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="183.3" y1="44" x2="183.3" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="223.1" y1="44" x2="223.1" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="262.9" y1="44" x2="262.9" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="302.7" y1="44" x2="302.7" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="342.4" y1="44" x2="342.4" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="382.2" y1="44" x2="382.2" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="422.0" y1="44" x2="422.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="461.8" y1="44" x2="461.8" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="501.6" y1="44" x2="501.6" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="541.3" y1="44" x2="541.3" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="581.1" y1="44" x2="581.1" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="620.9" y1="44" x2="620.9" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="660.7" y1="44" x2="660.7" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="700.4" y1="44" x2="700.4" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="740.2" y1="44" x2="740.2" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="780.0" y1="44" x2="780.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="64" y1="565.9" x2="780" y2="565.9"/>
+<text class="t axis" x="58" y="569.9" text-anchor="end">20 KB</text>
+<line class="grid" x1="64" y1="424.2" x2="780" y2="424.2"/>
+<text class="t axis" x="58" y="428.2" text-anchor="end">50 KB</text>
+<line class="grid" x1="64" y1="317.0" x2="780" y2="317.0" stroke-width="2"/>
+<text class="t axis" x="58" y="321.0" text-anchor="end">100 KB</text>
+<line class="grid" x1="64" y1="209.8" x2="780" y2="209.8"/>
+<text class="t axis" x="58" y="213.8" text-anchor="end">200 KB</text>
+<line class="grid" x1="64" y1="68.1" x2="780" y2="68.1"/>
+<text class="t axis" x="58" y="72.1" text-anchor="end">500 KB</text>
+<text class="t axis" x="64.0" y="670" text-anchor="middle">rc5</text>
+<text class="t axis" x="103.8" y="670" text-anchor="middle">rc6</text>
+<text class="t axis" x="143.6" y="670" text-anchor="middle">rc7</text>
+<text class="t axis" x="183.3" y="670" text-anchor="middle">rc8</text>
+<text class="t axis" x="223.1" y="670" text-anchor="middle">rc9</text>
+<text class="t axis" x="262.9" y="670" text-anchor="middle">rc10</text>
+<text class="t axis" x="302.7" y="670" text-anchor="middle">rc11</text>
+<text class="t axis" x="342.4" y="670" text-anchor="middle">rc12</text>
+<text class="t axis" x="382.2" y="670" text-anchor="middle">rc13</text>
+<text class="t axis" x="422.0" y="670" text-anchor="middle">rc14</text>
+<text class="t axis" x="461.8" y="670" text-anchor="middle">rc15</text>
+<text class="t axis" x="501.6" y="670" text-anchor="middle">rc16</text>
+<text class="t axis" x="541.3" y="670" text-anchor="middle">rc17</text>
+<text class="t axis" x="581.1" y="670" text-anchor="middle">rc18</text>
+<text class="t axis" x="620.9" y="670" text-anchor="middle">rc19</text>
+<text class="t axis" x="660.7" y="670" text-anchor="middle">rc20</text>
+<text class="t axis" x="700.4" y="670" text-anchor="middle">rc21</text>
+<text class="t axis" x="740.2" y="670" text-anchor="middle">rc22</text>
+<text class="t axis" x="780.0" y="670" text-anchor="middle">rc23</text>
+<path class="k4" d="M64.0,59.5L103.8,59.5L143.6,59.5L183.3,59.5L223.1,59.5L262.9,59.5L302.7,63.7L342.4,74.0L382.2,74.0L422.0,73.1L461.8,73.1L501.6,73.1L541.3,76.2L581.1,77.8L620.9,76.6L660.7,76.6L700.4,76.6L740.2,90.2L780.0,90.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>benchwork-040</title></path>
+<circle class="s4 ring" cx="64.0" cy="59.5" r="4"/>
+<circle cx="64.0" cy="59.5" r="7" fill="transparent"><title>benchwork-040 rc5: 541236 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="103.8" cy="59.5" r="4"/>
+<circle cx="103.8" cy="59.5" r="7" fill="transparent"><title>benchwork-040 rc6: 541236 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="143.6" cy="59.5" r="4"/>
+<circle cx="143.6" cy="59.5" r="7" fill="transparent"><title>benchwork-040 rc7: 541236 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="183.3" cy="59.5" r="4"/>
+<circle cx="183.3" cy="59.5" r="7" fill="transparent"><title>benchwork-040 rc8: 541236 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="223.1" cy="59.5" r="4"/>
+<circle cx="223.1" cy="59.5" r="7" fill="transparent"><title>benchwork-040 rc9: 541236 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="262.9" cy="59.5" r="4"/>
+<circle cx="262.9" cy="59.5" r="7" fill="transparent"><title>benchwork-040 rc10: 541176 bytes, -0.01%</title></circle>
+<circle class="s4 ring" cx="302.7" cy="63.7" r="4"/>
+<circle cx="302.7" cy="63.7" r="7" fill="transparent"><title>benchwork-040 rc11: 526764 bytes, -2.67%</title></circle>
+<circle class="s4 ring" cx="342.4" cy="74.0" r="4"/>
+<circle cx="342.4" cy="74.0" r="7" fill="transparent"><title>benchwork-040 rc12: 492860 bytes, -8.94%</title></circle>
+<circle class="s4 ring" cx="382.2" cy="74.0" r="4"/>
+<circle cx="382.2" cy="74.0" r="7" fill="transparent"><title>benchwork-040 rc13: 492860 bytes, -8.94%</title></circle>
+<circle class="s4 ring" cx="422.0" cy="73.1" r="4"/>
+<circle cx="422.0" cy="73.1" r="7" fill="transparent"><title>benchwork-040 rc14: 495700 bytes, -8.41%</title></circle>
+<circle class="s4 ring" cx="461.8" cy="73.1" r="4"/>
+<circle cx="461.8" cy="73.1" r="7" fill="transparent"><title>benchwork-040 rc15: 495704 bytes, -8.41%</title></circle>
+<circle class="s4 ring" cx="501.6" cy="73.1" r="4"/>
+<circle cx="501.6" cy="73.1" r="7" fill="transparent"><title>benchwork-040 rc16: 495704 bytes, -8.41%</title></circle>
+<circle class="s4 ring" cx="541.3" cy="76.2" r="4"/>
+<circle cx="541.3" cy="76.2" r="7" fill="transparent"><title>benchwork-040 rc17: 485876 bytes, -10.23%</title></circle>
+<circle class="s4 ring" cx="581.1" cy="77.8" r="4"/>
+<circle cx="581.1" cy="77.8" r="7" fill="transparent"><title>benchwork-040 rc18: 480968 bytes, -11.14%</title></circle>
+<circle class="s4 ring" cx="620.9" cy="76.6" r="4"/>
+<circle cx="620.9" cy="76.6" r="7" fill="transparent"><title>benchwork-040 rc19: 484632 bytes, -10.46%</title></circle>
+<circle class="s4 ring" cx="660.7" cy="76.6" r="4"/>
+<circle cx="660.7" cy="76.6" r="7" fill="transparent"><title>benchwork-040 rc20: 484632 bytes, -10.46%</title></circle>
+<circle class="s4 ring" cx="700.4" cy="76.6" r="4"/>
+<circle cx="700.4" cy="76.6" r="7" fill="transparent"><title>benchwork-040 rc21: 484632 bytes, -10.46%</title></circle>
+<circle class="s4 ring" cx="740.2" cy="90.2" r="4"/>
+<circle cx="740.2" cy="90.2" r="7" fill="transparent"><title>benchwork-040 rc22: 443852 bytes, -17.99%</title></circle>
+<circle class="s4 ring" cx="780.0" cy="90.2" r="4"/>
+<circle cx="780.0" cy="90.2" r="7" fill="transparent"><title>benchwork-040 rc23: 443768 bytes, -18.01%</title></circle>
+<path class="grid" d="M782,90.2 L790,92.6 h6" fill="none"/>
+<text class="t" x="800" y="96.6">benchwork-040</text>
+<path class="k4" d="M64.0,51.5L103.8,51.5L143.6,51.5L183.3,51.5L223.1,51.5L262.9,51.6L302.7,57.7L342.4,68.6L382.2,68.6L422.0,62.8L461.8,62.8L501.6,62.8L541.3,65.8L581.1,67.8L620.9,67.1L660.7,67.1L700.4,67.0L740.2,79.6L780.0,79.6" fill="none" stroke-width="2" stroke-linejoin="round"><title>benchwork-000</title></path>
+<circle class="s4 ring" cx="64.0" cy="51.5" r="4"/>
+<circle cx="64.0" cy="51.5" r="7" fill="transparent"><title>benchwork-000 rc5: 569868 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="103.8" cy="51.5" r="4"/>
+<circle cx="103.8" cy="51.5" r="7" fill="transparent"><title>benchwork-000 rc6: 569868 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="143.6" cy="51.5" r="4"/>
+<circle cx="143.6" cy="51.5" r="7" fill="transparent"><title>benchwork-000 rc7: 569868 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="183.3" cy="51.5" r="4"/>
+<circle cx="183.3" cy="51.5" r="7" fill="transparent"><title>benchwork-000 rc8: 569868 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="223.1" cy="51.5" r="4"/>
+<circle cx="223.1" cy="51.5" r="7" fill="transparent"><title>benchwork-000 rc9: 569868 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="262.9" cy="51.6" r="4"/>
+<circle cx="262.9" cy="51.6" r="7" fill="transparent"><title>benchwork-000 rc10: 569828 bytes, -0.01%</title></circle>
+<circle class="s4 ring" cx="302.7" cy="57.7" r="4"/>
+<circle cx="302.7" cy="57.7" r="7" fill="transparent"><title>benchwork-000 rc11: 547628 bytes, -3.90%</title></circle>
+<circle class="s4 ring" cx="342.4" cy="68.6" r="4"/>
+<circle cx="342.4" cy="68.6" r="7" fill="transparent"><title>benchwork-000 rc12: 510432 bytes, -10.43%</title></circle>
+<circle class="s4 ring" cx="382.2" cy="68.6" r="4"/>
+<circle cx="382.2" cy="68.6" r="7" fill="transparent"><title>benchwork-000 rc13: 510432 bytes, -10.43%</title></circle>
+<circle class="s4 ring" cx="422.0" cy="62.8" r="4"/>
+<circle cx="422.0" cy="62.8" r="7" fill="transparent"><title>benchwork-000 rc14: 529700 bytes, -7.05%</title></circle>
+<circle class="s4 ring" cx="461.8" cy="62.8" r="4"/>
+<circle cx="461.8" cy="62.8" r="7" fill="transparent"><title>benchwork-000 rc15: 529704 bytes, -7.05%</title></circle>
+<circle class="s4 ring" cx="501.6" cy="62.8" r="4"/>
+<circle cx="501.6" cy="62.8" r="7" fill="transparent"><title>benchwork-000 rc16: 529700 bytes, -7.05%</title></circle>
+<circle class="s4 ring" cx="541.3" cy="65.8" r="4"/>
+<circle cx="541.3" cy="65.8" r="7" fill="transparent"><title>benchwork-000 rc17: 519540 bytes, -8.83%</title></circle>
+<circle class="s4 ring" cx="581.1" cy="67.8" r="4"/>
+<circle cx="581.1" cy="67.8" r="7" fill="transparent"><title>benchwork-000 rc18: 513104 bytes, -9.96%</title></circle>
+<circle class="s4 ring" cx="620.9" cy="67.1" r="4"/>
+<circle cx="620.9" cy="67.1" r="7" fill="transparent"><title>benchwork-000 rc19: 515340 bytes, -9.57%</title></circle>
+<circle class="s4 ring" cx="660.7" cy="67.1" r="4"/>
+<circle cx="660.7" cy="67.1" r="7" fill="transparent"><title>benchwork-000 rc20: 515340 bytes, -9.57%</title></circle>
+<circle class="s4 ring" cx="700.4" cy="67.0" r="4"/>
+<circle cx="700.4" cy="67.0" r="7" fill="transparent"><title>benchwork-000 rc21: 515788 bytes, -9.49%</title></circle>
+<circle class="s4 ring" cx="740.2" cy="79.6" r="4"/>
+<circle cx="740.2" cy="79.6" r="7" fill="transparent"><title>benchwork-000 rc22: 475260 bytes, -16.60%</title></circle>
+<circle class="s4 ring" cx="780.0" cy="79.6" r="4"/>
+<circle cx="780.0" cy="79.6" r="7" fill="transparent"><title>benchwork-000 rc23: 475224 bytes, -16.61%</title></circle>
+<path class="grid" d="M782,79.6 L790,79.6 h6" fill="none"/>
+<text class="t" x="800" y="83.6">benchwork-000</text>
+<path class="k4" d="M64.0,114.7L103.8,114.7L143.6,114.7L183.3,114.7L223.1,114.7L262.9,114.7L302.7,118.2L342.4,127.5L382.2,127.5L422.0,126.1L461.8,126.1L501.6,126.1L541.3,130.0L581.1,130.1L620.9,130.2L660.7,130.2L700.4,130.2L740.2,130.2L780.0,130.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>objects</title></path>
+<circle class="s4 ring" cx="64.0" cy="114.7" r="4"/>
+<circle cx="64.0" cy="114.7" r="7" fill="transparent"><title>objects rc5: 378788 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="103.8" cy="114.7" r="4"/>
+<circle cx="103.8" cy="114.7" r="7" fill="transparent"><title>objects rc6: 378788 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="143.6" cy="114.7" r="4"/>
+<circle cx="143.6" cy="114.7" r="7" fill="transparent"><title>objects rc7: 378788 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="183.3" cy="114.7" r="4"/>
+<circle cx="183.3" cy="114.7" r="7" fill="transparent"><title>objects rc8: 378788 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="223.1" cy="114.7" r="4"/>
+<circle cx="223.1" cy="114.7" r="7" fill="transparent"><title>objects rc9: 378788 bytes, +0.00%</title></circle>
+<circle class="s4 ring" cx="262.9" cy="114.7" r="4"/>
+<circle cx="262.9" cy="114.7" r="7" fill="transparent"><title>objects rc10: 378732 bytes, -0.01%</title></circle>
+<circle class="s4 ring" cx="302.7" cy="118.2" r="4"/>
+<circle cx="302.7" cy="118.2" r="7" fill="transparent"><title>objects rc11: 370236 bytes, -2.26%</title></circle>
+<circle class="s4 ring" cx="342.4" cy="127.5" r="4"/>
+<circle cx="342.4" cy="127.5" r="7" fill="transparent"><title>objects rc12: 348660 bytes, -7.95%</title></circle>
+<circle class="s4 ring" cx="382.2" cy="127.5" r="4"/>
+<circle cx="382.2" cy="127.5" r="7" fill="transparent"><title>objects rc13: 348660 bytes, -7.95%</title></circle>
+<circle class="s4 ring" cx="422.0" cy="126.1" r="4"/>
+<circle cx="422.0" cy="126.1" r="7" fill="transparent"><title>objects rc14: 351916 bytes, -7.09%</title></circle>
+<circle class="s4 ring" cx="461.8" cy="126.1" r="4"/>
+<circle cx="461.8" cy="126.1" r="7" fill="transparent"><title>objects rc15: 351916 bytes, -7.09%</title></circle>
+<circle class="s4 ring" cx="501.6" cy="126.1" r="4"/>
+<circle cx="501.6" cy="126.1" r="7" fill="transparent"><title>objects rc16: 351916 bytes, -7.09%</title></circle>
+<circle class="s4 ring" cx="541.3" cy="130.0" r="4"/>
+<circle cx="541.3" cy="130.0" r="7" fill="transparent"><title>objects rc17: 343020 bytes, -9.44%</title></circle>
+<circle class="s4 ring" cx="581.1" cy="130.1" r="4"/>
+<circle cx="581.1" cy="130.1" r="7" fill="transparent"><title>objects rc18: 342856 bytes, -9.49%</title></circle>
+<circle class="s4 ring" cx="620.9" cy="130.2" r="4"/>
+<circle cx="620.9" cy="130.2" r="7" fill="transparent"><title>objects rc19: 342704 bytes, -9.53%</title></circle>
+<circle class="s4 ring" cx="660.7" cy="130.2" r="4"/>
+<circle cx="660.7" cy="130.2" r="7" fill="transparent"><title>objects rc20: 342704 bytes, -9.53%</title></circle>
+<circle class="s4 ring" cx="700.4" cy="130.2" r="4"/>
+<circle cx="700.4" cy="130.2" r="7" fill="transparent"><title>objects rc21: 342704 bytes, -9.53%</title></circle>
+<circle class="s4 ring" cx="740.2" cy="130.2" r="4"/>
+<circle cx="740.2" cy="130.2" r="7" fill="transparent"><title>objects rc22: 342704 bytes, -9.53%</title></circle>
+<circle class="s4 ring" cx="780.0" cy="130.2" r="4"/>
+<circle cx="780.0" cy="130.2" r="7" fill="transparent"><title>objects rc23: 342620 bytes, -9.55%</title></circle>
+<path class="grid" d="M782,130.2 L790,130.2 h6" fill="none"/>
+<text class="t" x="800" y="134.2">objects</text>
+<path class="k3" d="M64.0,435.7L103.8,435.7L143.6,435.7L183.3,435.7L223.1,435.7L262.9,435.7L302.7,434.8L342.4,434.9L382.2,434.9L422.0,434.2L461.8,434.2L501.6,434.2L541.3,435.0L581.1,434.2L620.9,434.4L660.7,434.4L700.4,434.4L740.2,434.4L780.0,434.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>curve25519.o</title></path>
+<circle class="s3 ring" cx="64.0" cy="435.7" r="4"/>
+<circle cx="64.0" cy="435.7" r="7" fill="transparent"><title>curve25519.o rc5: 47508 bytes, +0.00%</title></circle>
+<circle class="s3 ring" cx="103.8" cy="435.7" r="4"/>
+<circle cx="103.8" cy="435.7" r="7" fill="transparent"><title>curve25519.o rc6: 47508 bytes, +0.00%</title></circle>
+<circle class="s3 ring" cx="143.6" cy="435.7" r="4"/>
+<circle cx="143.6" cy="435.7" r="7" fill="transparent"><title>curve25519.o rc7: 47508 bytes, +0.00%</title></circle>
+<circle class="s3 ring" cx="183.3" cy="435.7" r="4"/>
+<circle cx="183.3" cy="435.7" r="7" fill="transparent"><title>curve25519.o rc8: 47508 bytes, +0.00%</title></circle>
+<circle class="s3 ring" cx="223.1" cy="435.7" r="4"/>
+<circle cx="223.1" cy="435.7" r="7" fill="transparent"><title>curve25519.o rc9: 47508 bytes, +0.00%</title></circle>
+<circle class="s3 ring" cx="262.9" cy="435.7" r="4"/>
+<circle cx="262.9" cy="435.7" r="7" fill="transparent"><title>curve25519.o rc10: 47508 bytes, +0.00%</title></circle>
+<circle class="s3 ring" cx="302.7" cy="434.8" r="4"/>
+<circle cx="302.7" cy="434.8" r="7" fill="transparent"><title>curve25519.o rc11: 47812 bytes, +0.64%</title></circle>
+<circle class="s3 ring" cx="342.4" cy="434.9" r="4"/>
+<circle cx="342.4" cy="434.9" r="7" fill="transparent"><title>curve25519.o rc12: 47756 bytes, +0.52%</title></circle>
+<circle class="s3 ring" cx="382.2" cy="434.9" r="4"/>
+<circle cx="382.2" cy="434.9" r="7" fill="transparent"><title>curve25519.o rc13: 47756 bytes, +0.52%</title></circle>
+<circle class="s3 ring" cx="422.0" cy="434.2" r="4"/>
+<circle cx="422.0" cy="434.2" r="7" fill="transparent"><title>curve25519.o rc14: 47976 bytes, +0.99%</title></circle>
+<circle class="s3 ring" cx="461.8" cy="434.2" r="4"/>
+<circle cx="461.8" cy="434.2" r="7" fill="transparent"><title>curve25519.o rc15: 47976 bytes, +0.99%</title></circle>
+<circle class="s3 ring" cx="501.6" cy="434.2" r="4"/>
+<circle cx="501.6" cy="434.2" r="7" fill="transparent"><title>curve25519.o rc16: 47976 bytes, +0.99%</title></circle>
+<circle class="s3 ring" cx="541.3" cy="435.0" r="4"/>
+<circle cx="541.3" cy="435.0" r="7" fill="transparent"><title>curve25519.o rc17: 47736 bytes, +0.48%</title></circle>
+<circle class="s3 ring" cx="581.1" cy="434.2" r="4"/>
+<circle cx="581.1" cy="434.2" r="7" fill="transparent"><title>curve25519.o rc18: 47992 bytes, +1.02%</title></circle>
+<circle class="s3 ring" cx="620.9" cy="434.4" r="4"/>
+<circle cx="620.9" cy="434.4" r="7" fill="transparent"><title>curve25519.o rc19: 47932 bytes, +0.89%</title></circle>
+<circle class="s3 ring" cx="660.7" cy="434.4" r="4"/>
+<circle cx="660.7" cy="434.4" r="7" fill="transparent"><title>curve25519.o rc20: 47932 bytes, +0.89%</title></circle>
+<circle class="s3 ring" cx="700.4" cy="434.4" r="4"/>
+<circle cx="700.4" cy="434.4" r="7" fill="transparent"><title>curve25519.o rc21: 47932 bytes, +0.89%</title></circle>
+<circle class="s3 ring" cx="740.2" cy="434.4" r="4"/>
+<circle cx="740.2" cy="434.4" r="7" fill="transparent"><title>curve25519.o rc22: 47932 bytes, +0.89%</title></circle>
+<circle class="s3 ring" cx="780.0" cy="434.4" r="4"/>
+<circle cx="780.0" cy="434.4" r="7" fill="transparent"><title>curve25519.o rc23: 47932 bytes, +0.89%</title></circle>
+<path class="grid" d="M782,434.4 L790,434.4 h6" fill="none"/>
+<text class="t" x="800" y="438.4">curve25519.o</text>
+<path class="k0" d="M64.0,548.1L103.8,548.1L143.6,548.1L183.3,548.1L223.1,548.1L262.9,548.1L302.7,555.7L342.4,569.1L382.2,569.1L422.0,569.9L461.8,569.9L501.6,569.9L541.3,569.9L581.1,569.9L620.9,569.9L660.7,569.9L700.4,569.9L740.2,569.9L780.0,570.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>pngread.o</title></path>
+<circle class="s0 ring" cx="64.0" cy="548.1" r="4"/>
+<circle cx="64.0" cy="548.1" r="7" fill="transparent"><title>pngread.o rc5: 22972 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="103.8" cy="548.1" r="4"/>
+<circle cx="103.8" cy="548.1" r="7" fill="transparent"><title>pngread.o rc6: 22972 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="143.6" cy="548.1" r="4"/>
+<circle cx="143.6" cy="548.1" r="7" fill="transparent"><title>pngread.o rc7: 22972 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="183.3" cy="548.1" r="4"/>
+<circle cx="183.3" cy="548.1" r="7" fill="transparent"><title>pngread.o rc8: 22972 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="223.1" cy="548.1" r="4"/>
+<circle cx="223.1" cy="548.1" r="7" fill="transparent"><title>pngread.o rc9: 22972 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="262.9" cy="548.1" r="4"/>
+<circle cx="262.9" cy="548.1" r="7" fill="transparent"><title>pngread.o rc10: 22972 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="302.7" cy="555.7" r="4"/>
+<circle cx="302.7" cy="555.7" r="7" fill="transparent"><title>pngread.o rc11: 21864 bytes, -4.82%</title></circle>
+<circle class="s0 ring" cx="342.4" cy="569.1" r="4"/>
+<circle cx="342.4" cy="569.1" r="7" fill="transparent"><title>pngread.o rc12: 20052 bytes, -12.71%</title></circle>
+<circle class="s0 ring" cx="382.2" cy="569.1" r="4"/>
+<circle cx="382.2" cy="569.1" r="7" fill="transparent"><title>pngread.o rc13: 20052 bytes, -12.71%</title></circle>
+<circle class="s0 ring" cx="422.0" cy="569.9" r="4"/>
+<circle cx="422.0" cy="569.9" r="7" fill="transparent"><title>pngread.o rc14: 19948 bytes, -13.16%</title></circle>
+<circle class="s0 ring" cx="461.8" cy="569.9" r="4"/>
+<circle cx="461.8" cy="569.9" r="7" fill="transparent"><title>pngread.o rc15: 19948 bytes, -13.16%</title></circle>
+<circle class="s0 ring" cx="501.6" cy="569.9" r="4"/>
+<circle cx="501.6" cy="569.9" r="7" fill="transparent"><title>pngread.o rc16: 19948 bytes, -13.16%</title></circle>
+<circle class="s0 ring" cx="541.3" cy="569.9" r="4"/>
+<circle cx="541.3" cy="569.9" r="7" fill="transparent"><title>pngread.o rc17: 19948 bytes, -13.16%</title></circle>
+<circle class="s0 ring" cx="581.1" cy="569.9" r="4"/>
+<circle cx="581.1" cy="569.9" r="7" fill="transparent"><title>pngread.o rc18: 19948 bytes, -13.16%</title></circle>
+<circle class="s0 ring" cx="620.9" cy="569.9" r="4"/>
+<circle cx="620.9" cy="569.9" r="7" fill="transparent"><title>pngread.o rc19: 19952 bytes, -13.15%</title></circle>
+<circle class="s0 ring" cx="660.7" cy="569.9" r="4"/>
+<circle cx="660.7" cy="569.9" r="7" fill="transparent"><title>pngread.o rc20: 19952 bytes, -13.15%</title></circle>
+<circle class="s0 ring" cx="700.4" cy="569.9" r="4"/>
+<circle cx="700.4" cy="569.9" r="7" fill="transparent"><title>pngread.o rc21: 19952 bytes, -13.15%</title></circle>
+<circle class="s0 ring" cx="740.2" cy="569.9" r="4"/>
+<circle cx="740.2" cy="569.9" r="7" fill="transparent"><title>pngread.o rc22: 19952 bytes, -13.15%</title></circle>
+<circle class="s0 ring" cx="780.0" cy="570.2" r="4"/>
+<circle cx="780.0" cy="570.2" r="7" fill="transparent"><title>pngread.o rc23: 19912 bytes, -13.32%</title></circle>
+<path class="grid" d="M782,570.2 L790,570.2 h6" fill="none"/>
+<text class="t" x="800" y="574.2">pngread.o</text>
+<path class="k5" d="M64.0,610.7L103.8,610.7L143.6,610.7L183.3,610.7L223.1,610.7L262.9,610.7L302.7,626.3L342.4,635.8L382.2,635.8L422.0,635.1L461.8,635.1L501.6,635.1L541.3,635.1L581.1,636.0L620.9,636.1L660.7,636.1L700.4,636.1L740.2,636.1L780.0,635.1" fill="none" stroke-width="2" stroke-linejoin="round"><title>cJSON.o</title></path>
+<circle class="s5 ring" cx="64.0" cy="610.7" r="4"/>
+<circle cx="64.0" cy="610.7" r="7" fill="transparent"><title>cJSON.o rc5: 15328 bytes, +0.00%</title></circle>
+<circle class="s5 ring" cx="103.8" cy="610.7" r="4"/>
+<circle cx="103.8" cy="610.7" r="7" fill="transparent"><title>cJSON.o rc6: 15328 bytes, +0.00%</title></circle>
+<circle class="s5 ring" cx="143.6" cy="610.7" r="4"/>
+<circle cx="143.6" cy="610.7" r="7" fill="transparent"><title>cJSON.o rc7: 15328 bytes, +0.00%</title></circle>
+<circle class="s5 ring" cx="183.3" cy="610.7" r="4"/>
+<circle cx="183.3" cy="610.7" r="7" fill="transparent"><title>cJSON.o rc8: 15328 bytes, +0.00%</title></circle>
+<circle class="s5 ring" cx="223.1" cy="610.7" r="4"/>
+<circle cx="223.1" cy="610.7" r="7" fill="transparent"><title>cJSON.o rc9: 15328 bytes, +0.00%</title></circle>
+<circle class="s5 ring" cx="262.9" cy="610.7" r="4"/>
+<circle cx="262.9" cy="610.7" r="7" fill="transparent"><title>cJSON.o rc10: 15328 bytes, +0.00%</title></circle>
+<circle class="s5 ring" cx="302.7" cy="626.3" r="4"/>
+<circle cx="302.7" cy="626.3" r="7" fill="transparent"><title>cJSON.o rc11: 13852 bytes, -9.63%</title></circle>
+<circle class="s5 ring" cx="342.4" cy="635.8" r="4"/>
+<circle cx="342.4" cy="635.8" r="7" fill="transparent"><title>cJSON.o rc12: 13032 bytes, -14.98%</title></circle>
+<circle class="s5 ring" cx="382.2" cy="635.8" r="4"/>
+<circle cx="382.2" cy="635.8" r="7" fill="transparent"><title>cJSON.o rc13: 13032 bytes, -14.98%</title></circle>
+<circle class="s5 ring" cx="422.0" cy="635.1" r="4"/>
+<circle cx="422.0" cy="635.1" r="7" fill="transparent"><title>cJSON.o rc14: 13092 bytes, -14.59%</title></circle>
+<circle class="s5 ring" cx="461.8" cy="635.1" r="4"/>
+<circle cx="461.8" cy="635.1" r="7" fill="transparent"><title>cJSON.o rc15: 13092 bytes, -14.59%</title></circle>
+<circle class="s5 ring" cx="501.6" cy="635.1" r="4"/>
+<circle cx="501.6" cy="635.1" r="7" fill="transparent"><title>cJSON.o rc16: 13092 bytes, -14.59%</title></circle>
+<circle class="s5 ring" cx="541.3" cy="635.1" r="4"/>
+<circle cx="541.3" cy="635.1" r="7" fill="transparent"><title>cJSON.o rc17: 13092 bytes, -14.59%</title></circle>
+<circle class="s5 ring" cx="581.1" cy="636.0" r="4"/>
+<circle cx="581.1" cy="636.0" r="7" fill="transparent"><title>cJSON.o rc18: 13012 bytes, -15.11%</title></circle>
+<circle class="s5 ring" cx="620.9" cy="636.1" r="4"/>
+<circle cx="620.9" cy="636.1" r="7" fill="transparent"><title>cJSON.o rc19: 13000 bytes, -15.19%</title></circle>
+<circle class="s5 ring" cx="660.7" cy="636.1" r="4"/>
+<circle cx="660.7" cy="636.1" r="7" fill="transparent"><title>cJSON.o rc20: 13000 bytes, -15.19%</title></circle>
+<circle class="s5 ring" cx="700.4" cy="636.1" r="4"/>
+<circle cx="700.4" cy="636.1" r="7" fill="transparent"><title>cJSON.o rc21: 13000 bytes, -15.19%</title></circle>
+<circle class="s5 ring" cx="740.2" cy="636.1" r="4"/>
+<circle cx="740.2" cy="636.1" r="7" fill="transparent"><title>cJSON.o rc22: 13000 bytes, -15.19%</title></circle>
+<circle class="s5 ring" cx="780.0" cy="635.1" r="4"/>
+<circle cx="780.0" cy="635.1" r="7" fill="transparent"><title>cJSON.o rc23: 13088 bytes, -14.61%</title></circle>
+<path class="grid" d="M782,635.1 L790,635.1 h6" fill="none"/>
+<text class="t" x="800" y="639.1">cJSON.o</text>
+<path class="k0" d="M64.0,620.9L103.8,620.9L143.6,620.9L183.3,620.9L223.1,620.9L262.9,620.9L302.7,624.9L342.4,642.5L382.2,642.5L422.0,641.8L461.8,641.8L501.6,641.8L541.3,641.8L581.1,641.8L620.9,641.8L660.7,641.8L700.4,641.8L740.2,641.8L780.0,641.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>deflate.o</title></path>
+<circle class="s0 ring" cx="64.0" cy="620.9" r="4"/>
+<circle cx="64.0" cy="620.9" r="7" fill="transparent"><title>deflate.o rc5: 14348 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="103.8" cy="620.9" r="4"/>
+<circle cx="103.8" cy="620.9" r="7" fill="transparent"><title>deflate.o rc6: 14348 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="143.6" cy="620.9" r="4"/>
+<circle cx="143.6" cy="620.9" r="7" fill="transparent"><title>deflate.o rc7: 14348 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="183.3" cy="620.9" r="4"/>
+<circle cx="183.3" cy="620.9" r="7" fill="transparent"><title>deflate.o rc8: 14348 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="223.1" cy="620.9" r="4"/>
+<circle cx="223.1" cy="620.9" r="7" fill="transparent"><title>deflate.o rc9: 14348 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="262.9" cy="620.9" r="4"/>
+<circle cx="262.9" cy="620.9" r="7" fill="transparent"><title>deflate.o rc10: 14348 bytes, +0.00%</title></circle>
+<circle class="s0 ring" cx="302.7" cy="624.9" r="4"/>
+<circle cx="302.7" cy="624.9" r="7" fill="transparent"><title>deflate.o rc11: 13980 bytes, -2.56%</title></circle>
+<circle class="s0 ring" cx="342.4" cy="642.5" r="4"/>
+<circle cx="342.4" cy="642.5" r="7" fill="transparent"><title>deflate.o rc12: 12480 bytes, -13.02%</title></circle>
+<circle class="s0 ring" cx="382.2" cy="642.5" r="4"/>
+<circle cx="382.2" cy="642.5" r="7" fill="transparent"><title>deflate.o rc13: 12480 bytes, -13.02%</title></circle>
+<circle class="s0 ring" cx="422.0" cy="641.8" r="4"/>
+<circle cx="422.0" cy="641.8" r="7" fill="transparent"><title>deflate.o rc14: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="461.8" cy="641.8" r="4"/>
+<circle cx="461.8" cy="641.8" r="7" fill="transparent"><title>deflate.o rc15: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="501.6" cy="641.8" r="4"/>
+<circle cx="501.6" cy="641.8" r="7" fill="transparent"><title>deflate.o rc16: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="541.3" cy="641.8" r="4"/>
+<circle cx="541.3" cy="641.8" r="7" fill="transparent"><title>deflate.o rc17: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="581.1" cy="641.8" r="4"/>
+<circle cx="581.1" cy="641.8" r="7" fill="transparent"><title>deflate.o rc18: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="620.9" cy="641.8" r="4"/>
+<circle cx="620.9" cy="641.8" r="7" fill="transparent"><title>deflate.o rc19: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="660.7" cy="641.8" r="4"/>
+<circle cx="660.7" cy="641.8" r="7" fill="transparent"><title>deflate.o rc20: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="700.4" cy="641.8" r="4"/>
+<circle cx="700.4" cy="641.8" r="7" fill="transparent"><title>deflate.o rc21: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="740.2" cy="641.8" r="4"/>
+<circle cx="740.2" cy="641.8" r="7" fill="transparent"><title>deflate.o rc22: 12532 bytes, -12.66%</title></circle>
+<circle class="s0 ring" cx="780.0" cy="641.8" r="4"/>
+<circle cx="780.0" cy="641.8" r="7" fill="transparent"><title>deflate.o rc23: 12532 bytes, -12.66%</title></circle>
+<path class="grid" d="M782,641.8 L790,648.1 h6" fill="none"/>
+<text class="t" x="800" y="652.1">deflate.o</text>
+<path class="k2" d="M64.0,391.5L103.8,391.5L143.6,391.5L183.3,391.5L223.1,391.5L262.9,391.5L302.7,396.4L342.4,396.4L382.2,396.4L422.0,392.5L461.8,392.5L501.6,392.5L541.3,393.2L581.1,393.0L620.9,393.0L660.7,393.0L700.4,393.0L740.2,393.0L780.0,397.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>ODFileSystem</title></path>
+<circle class="s2 ring" cx="64.0" cy="391.5" r="4"/>
+<circle cx="64.0" cy="391.5" r="7" fill="transparent"><title>ODFileSystem rc5: 63240 bytes, +0.00%</title></circle>
+<circle class="s2 ring" cx="103.8" cy="391.5" r="4"/>
+<circle cx="103.8" cy="391.5" r="7" fill="transparent"><title>ODFileSystem rc6: 63248 bytes, +0.01%</title></circle>
+<circle class="s2 ring" cx="143.6" cy="391.5" r="4"/>
+<circle cx="143.6" cy="391.5" r="7" fill="transparent"><title>ODFileSystem rc7: 63248 bytes, +0.01%</title></circle>
+<circle class="s2 ring" cx="183.3" cy="391.5" r="4"/>
+<circle cx="183.3" cy="391.5" r="7" fill="transparent"><title>ODFileSystem rc8: 63248 bytes, +0.01%</title></circle>
+<circle class="s2 ring" cx="223.1" cy="391.5" r="4"/>
+<circle cx="223.1" cy="391.5" r="7" fill="transparent"><title>ODFileSystem rc9: 63248 bytes, +0.01%</title></circle>
+<circle class="s2 ring" cx="262.9" cy="391.5" r="4"/>
+<circle cx="262.9" cy="391.5" r="7" fill="transparent"><title>ODFileSystem rc10: 63248 bytes, +0.01%</title></circle>
+<circle class="s2 ring" cx="302.7" cy="396.4" r="4"/>
+<circle cx="302.7" cy="396.4" r="7" fill="transparent"><title>ODFileSystem rc11: 61288 bytes, -3.09%</title></circle>
+<circle class="s2 ring" cx="342.4" cy="396.4" r="4"/>
+<circle cx="342.4" cy="396.4" r="7" fill="transparent"><title>ODFileSystem rc12: 61288 bytes, -3.09%</title></circle>
+<circle class="s2 ring" cx="382.2" cy="396.4" r="4"/>
+<circle cx="382.2" cy="396.4" r="7" fill="transparent"><title>ODFileSystem rc13: 61288 bytes, -3.09%</title></circle>
+<circle class="s2 ring" cx="422.0" cy="392.5" r="4"/>
+<circle cx="422.0" cy="392.5" r="7" fill="transparent"><title>ODFileSystem rc14: 62852 bytes, -0.61%</title></circle>
+<circle class="s2 ring" cx="461.8" cy="392.5" r="4"/>
+<circle cx="461.8" cy="392.5" r="7" fill="transparent"><title>ODFileSystem rc15: 62836 bytes, -0.64%</title></circle>
+<circle class="s2 ring" cx="501.6" cy="392.5" r="4"/>
+<circle cx="501.6" cy="392.5" r="7" fill="transparent"><title>ODFileSystem rc16: 62836 bytes, -0.64%</title></circle>
+<circle class="s2 ring" cx="541.3" cy="393.2" r="4"/>
+<circle cx="541.3" cy="393.2" r="7" fill="transparent"><title>ODFileSystem rc17: 62548 bytes, -1.09%</title></circle>
+<circle class="s2 ring" cx="581.1" cy="393.0" r="4"/>
+<circle cx="581.1" cy="393.0" r="7" fill="transparent"><title>ODFileSystem rc18: 62648 bytes, -0.94%</title></circle>
+<circle class="s2 ring" cx="620.9" cy="393.0" r="4"/>
+<circle cx="620.9" cy="393.0" r="7" fill="transparent"><title>ODFileSystem rc19: 62644 bytes, -0.94%</title></circle>
+<circle class="s2 ring" cx="660.7" cy="393.0" r="4"/>
+<circle cx="660.7" cy="393.0" r="7" fill="transparent"><title>ODFileSystem rc20: 62644 bytes, -0.94%</title></circle>
+<circle class="s2 ring" cx="700.4" cy="393.0" r="4"/>
+<circle cx="700.4" cy="393.0" r="7" fill="transparent"><title>ODFileSystem rc21: 62644 bytes, -0.94%</title></circle>
+<circle class="s2 ring" cx="740.2" cy="393.0" r="4"/>
+<circle cx="740.2" cy="393.0" r="7" fill="transparent"><title>ODFileSystem rc22: 62644 bytes, -0.94%</title></circle>
+<circle class="s2 ring" cx="780.0" cy="397.4" r="4"/>
+<circle cx="780.0" cy="397.4" r="7" fill="transparent"><title>ODFileSystem rc23: 60888 bytes, -3.72%</title></circle>
+<path class="grid" d="M782,397.4 L790,397.4 h6" fill="none"/>
+<text class="t" x="800" y="401.4">ODFileSystem</text>
+<path class="k2" d="M103.8,160.1L143.6,156.4L183.3,156.4L223.1,156.4L262.9,155.8L302.7,162.7L342.4,173.5L382.2,173.5L422.0,171.4L461.8,171.4L501.6,171.2L541.3,171.6L581.1,170.2L620.9,170.1L660.7,169.8L700.4,169.0L740.2,169.3L780.0,174.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>p96cts</title></path>
+<circle class="s2 ring" cx="103.8" cy="160.1" r="4"/>
+<circle cx="103.8" cy="160.1" r="7" fill="transparent"><title>p96cts rc6: 282380 bytes, +0.00%</title></circle>
+<circle class="s2 ring" cx="143.6" cy="156.4" r="4"/>
+<circle cx="143.6" cy="156.4" r="7" fill="transparent"><title>p96cts rc7: 289260 bytes, +2.44%</title></circle>
+<circle class="s2 ring" cx="183.3" cy="156.4" r="4"/>
+<circle cx="183.3" cy="156.4" r="7" fill="transparent"><title>p96cts rc8: 289260 bytes, +2.44%</title></circle>
+<circle class="s2 ring" cx="223.1" cy="156.4" r="4"/>
+<circle cx="223.1" cy="156.4" r="7" fill="transparent"><title>p96cts rc9: 289264 bytes, +2.44%</title></circle>
+<circle class="s2 ring" cx="262.9" cy="155.8" r="4"/>
+<circle cx="262.9" cy="155.8" r="7" fill="transparent"><title>p96cts rc10: 290352 bytes, +2.82%</title></circle>
+<circle class="s2 ring" cx="302.7" cy="162.7" r="4"/>
+<circle cx="302.7" cy="162.7" r="7" fill="transparent"><title>p96cts rc11: 277760 bytes, -1.64%</title></circle>
+<circle class="s2 ring" cx="342.4" cy="173.5" r="4"/>
+<circle cx="342.4" cy="173.5" r="7" fill="transparent"><title>p96cts rc12: 258980 bytes, -8.29%</title></circle>
+<circle class="s2 ring" cx="382.2" cy="173.5" r="4"/>
+<circle cx="382.2" cy="173.5" r="7" fill="transparent"><title>p96cts rc13: 258980 bytes, -8.29%</title></circle>
+<circle class="s2 ring" cx="422.0" cy="171.4" r="4"/>
+<circle cx="422.0" cy="171.4" r="7" fill="transparent"><title>p96cts rc14: 262544 bytes, -7.02%</title></circle>
+<circle class="s2 ring" cx="461.8" cy="171.4" r="4"/>
+<circle cx="461.8" cy="171.4" r="7" fill="transparent"><title>p96cts rc15: 262544 bytes, -7.02%</title></circle>
+<circle class="s2 ring" cx="501.6" cy="171.2" r="4"/>
+<circle cx="501.6" cy="171.2" r="7" fill="transparent"><title>p96cts rc16: 262804 bytes, -6.93%</title></circle>
+<circle class="s2 ring" cx="541.3" cy="171.6" r="4"/>
+<circle cx="541.3" cy="171.6" r="7" fill="transparent"><title>p96cts rc17: 262144 bytes, -7.17%</title></circle>
+<circle class="s2 ring" cx="581.1" cy="170.2" r="4"/>
+<circle cx="581.1" cy="170.2" r="7" fill="transparent"><title>p96cts rc18: 264484 bytes, -6.34%</title></circle>
+<circle class="s2 ring" cx="620.9" cy="170.1" r="4"/>
+<circle cx="620.9" cy="170.1" r="7" fill="transparent"><title>p96cts rc19: 264768 bytes, -6.24%</title></circle>
+<circle class="s2 ring" cx="660.7" cy="169.8" r="4"/>
+<circle cx="660.7" cy="169.8" r="7" fill="transparent"><title>p96cts rc20: 265284 bytes, -6.05%</title></circle>
+<circle class="s2 ring" cx="700.4" cy="169.0" r="4"/>
+<circle cx="700.4" cy="169.0" r="7" fill="transparent"><title>p96cts rc21: 266676 bytes, -5.56%</title></circle>
+<circle class="s2 ring" cx="740.2" cy="169.3" r="4"/>
+<circle cx="740.2" cy="169.3" r="7" fill="transparent"><title>p96cts rc22: 266064 bytes, -5.78%</title></circle>
+<circle class="s2 ring" cx="780.0" cy="174.7" r="4"/>
+<circle cx="780.0" cy="174.7" r="7" fill="transparent"><title>p96cts rc23: 256948 bytes, -9.01%</title></circle>
+<path class="grid" d="M782,174.7 L790,174.7 h6" fill="none"/>
+<text class="t" x="800" y="178.7">p96cts</text>
+</svg>

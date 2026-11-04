@@ -170,40 +170,95 @@ def lines(opts, columns):
     scale so that equal changes have equal slopes, named at the right end.
     Time rather than speed: relative speeds would all start at 1.0 and
     bunch up."""
-    series = [(n, [c[1].get(n) for c in columns]) for n in columns[0][1]]
-    series.append(("geomean", [c[4] for c in columns]))
-    flat = [v for _, vs in series for v in vs if v]
-    lo, hi = math.log(min(flat) * 0.9), math.log(max(flat) * 1.1)
-    left, right, top, bottom, height = 64, 160, 44, 30, 680
-    w, h = WIDTH - left - right, height - top - bottom
-    x = lambda i: left + i / (len(columns) - 1) * w
-    y = lambda v: top + (hi - math.log(v)) / (hi - lo) * h
-    out = start(opts.title, height, len(COLORS))
-    better(out, "&#9660; Time: less is better")
+    group_of = results_table.groups()
+    series = [(n, [c[1].get(n) for c in columns],
+               GROUP_COLORS.get(group_of.get(n), 0)) for n in columns[0][1]]
+    series.append(("geomean", [c[4] for c in columns], None))
     # The legend names the groups on this chart, in the order of their
     # colors.
-    group_of = results_table.groups()
-    shown = {group_of.get(n) for n, _ in series} & set(GROUP_COLORS)
+    shown = {group_of.get(n) for n, *_ in series} & set(GROUP_COLORS)
+    legend = [(g, GROUP_COLORS[g]) for g in sorted(shown, key=GROUP_COLORS.get)]
+    ticks = [(t, f"{t} ms") for t in (50, 100, 200, 300, 500, 1000, 2000, 3000, 5000)]
+
+    def tip(n, i, v, vs):
+        rate = columns[i][3].get(n)
+        what = f"{num(rate[0])} {rate[1]}, " if rate else ""
+        return (f"{n} {columns[i][0]}: {num(v)} ms, {what}"
+                f"{(vs[0] / v - 1) * 100:+.2f}% speed")
+
+    return draw_lines(opts.title, [c[0] for c in columns], series, legend, ticks,
+                      "&#9660; Time: less is better", tip)
+
+
+def size_lines(opts):
+    """The table release-sizes.sh writes, a line per column across the
+    releases, in bytes on a log scale: the sizes are far apart, and equal
+    slopes are equal percentages. Benchwork's binary and objects share a
+    color, each object has its group's, and the other programs one more."""
+    with open(opts.size_lines) as f:
+        rows = [line.split() for line in f if line.strip()]
+    head, rows = rows[0], rows[1:]
+    color = {"benchwork-040": 4, "benchwork-000": 4, "objects": 4,
+             "curve25519.o": 3, "pngread.o": 0, "cJSON.o": 5, "deflate.o": 0}
+    series = [(name, [None if r[k] == "-" else int(r[k]) for r in rows],
+               color.get(name, 2)) for k, name in enumerate(head) if k]
+    legend = [("Benchwork", 4), ("compression", 0), ("crypto", 3), ("text", 5),
+              ("programs", 2)]
+    # The axis fits the sizes closely, so that the lines use all of it; the
+    # decades of KB get a heavier line than the 2 and 5 steps between them.
+    kb = (5, 10, 20, 50, 100, 200, 500, 1000)
+    ticks = [(t * 1024, f"{t} KB" if t < 1000 else "1 MB") for t in kb]
+    flat = [v for _, vs, _ in series for v in vs if v]
+
+    def tip(n, i, v, vs):
+        first = next(u for u in vs if u)
+        return f"{n} {rows[i][0]}: {v} bytes, {(v / first - 1) * 100:+.2f}%"
+
+    return draw_lines(opts.title, [r[0] for r in rows], series, legend, ticks,
+                      "&#9660; Size: less is better", tip,
+                      span=(min(flat) / 1.05, max(flat) * 1.05),
+                      major={10 * 1024, 100 * 1024, 1000 * 1024})
+
+
+def draw_lines(title, xlabels, series, legend, ticks, better_text, tip,
+               span=None, major=()):
+    """SERIES, each (name, values, color index or None for the reference
+    line), as lines across XLABELS on a log axis with the TICKS (value,
+    label) that fall in range, named at the right end. A value of None is a
+    gap. TIP(name, i, value, values) is the tooltip of each point. SPAN, a
+    (low, high) pair, fixes the axis instead of fitting it to the data, and
+    the MAJOR ticks get a heavier line."""
+    flat = [v for _, vs, _ in series for v in vs if v]
+    if span:
+        lo, hi = math.log10(span[0]), math.log10(span[1])
+    else:
+        lo, hi = math.log10(min(flat) * 0.9), math.log10(max(flat) * 1.1)
+    left, right, top, bottom, height = 64, 160, 44, 30, 680
+    w, h = WIDTH - left - right, height - top - bottom
+    x = lambda i: left + i / (len(xlabels) - 1) * w
+    y = lambda v: top + (hi - math.log10(v)) / (hi - lo) * h
+    out = start(title, height, len(COLORS))
+    better(out, better_text)
     lx = left
-    for group in sorted(shown, key=GROUP_COLORS.get):
-        i = GROUP_COLORS[group]
+    for label, i in legend:
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
-        out.append(f'<text class="t big" x="{lx + 20}" y="21">{group}</text>')
-        lx += 20 + 9 * len(group) + 24
-    for i in range(len(columns)):
+        out.append(f'<text class="t big" x="{lx + 20}" y="21">{label}</text>')
+        lx += 20 + 9 * len(label) + 24
+    for i in range(len(xlabels)):
         out.append(f'<line class="grid" x1="{x(i):.1f}" y1="{top}" x2="{x(i):.1f}" '
                    f'y2="{top + h}" stroke-dasharray="3 4"/>')
-    for t in (50, 100, 200, 300, 500, 1000, 2000, 3000, 5000):
-        if lo < math.log(t) < hi:
+    for t, label in ticks:
+        if lo - 1e-9 <= math.log10(t) <= hi + 1e-9:
             out.append(f'<line class="grid" x1="{left}" y1="{y(t):.1f}" '
-                       f'x2="{left + w}" y2="{y(t):.1f}"/>')
+                       f'x2="{left + w}" y2="{y(t):.1f}"'
+                       f'{" stroke-width=\"2\"" if t in major else ""}/>')
             out.append(f'<text class="t axis" x="{left - 6}" y="{y(t) + 4:.1f}" '
-                       f'text-anchor="end">{t} ms</text>')
-    for i, c in enumerate(columns):
+                       f'text-anchor="end">{label}</text>')
+    for i, label in enumerate(xlabels):
         out.append(f'<text class="t axis" x="{x(i):.1f}" y="{height - 10}" '
-                   f'text-anchor="middle">{esc(c[0])}</text>')
+                   f'text-anchor="middle">{esc(label)}</text>')
     # The names at the right end, pushed apart where they would overlap.
-    ends = sorted((y(vs[-1]), n) for n, vs in series if vs[-1])
+    ends = sorted((y(vs[-1]), n) for n, vs, _ in series if vs[-1])
     placed = []
     for ey, n in ends:
         placed.append([max(ey, placed[-1][0] + 13) if placed else ey, n])
@@ -213,9 +268,8 @@ def lines(opts, columns):
     for k in range(len(placed) - 2, -1, -1):
         placed[k][0] = min(placed[k][0], placed[k + 1][0] - 13)
     names = {n: py for py, n in placed}
-    for n, vs in series:
-        geo = n == "geomean"
-        f = GROUP_COLORS.get(group_of.get(n), 0)
+    for n, vs, f in series:
+        geo = f is None
         d = "".join(f'{"L" if i and vs[i - 1] else "M"}{x(i):.1f},{y(v):.1f}'
                     for i, v in enumerate(vs) if v)
         out.append(f'<path class="{"ref" if geo else f"k{f}"}" d="{d}" fill="none" '
@@ -227,12 +281,9 @@ def lines(opts, columns):
                 # for the tooltip.
                 out.append(f'<circle class="{"dot" if geo else f"s{f}"} ring" '
                            f'cx="{x(i):.1f}" cy="{y(v):.1f}" r="4"/>')
-                rate = columns[i][3].get(n)
-                what = f"{num(rate[0])} {rate[1]}, " if rate else ""
                 out.append(f'<circle cx="{x(i):.1f}" cy="{y(v):.1f}" r="7" '
-                           f'fill="transparent"><title>{esc(n)} {esc(columns[i][0])}: '
-                           f'{num(v)} ms, {what}{(vs[0] / v - 1) * 100:+.2f}% '
-                           f'speed</title></circle>')
+                           f'fill="transparent"><title>{esc(tip(n, i, v, vs))}'
+                           f'</title></circle>')
         if vs[-1]:
             # A leader from the line's end to its name, which may have moved.
             out.append(f'<path class="grid" d="M{left + w + 2},{y(vs[-1]):.1f} '
@@ -266,8 +317,16 @@ def main(args):
     ap.add_argument("--lines", action="store_true",
                     help="one line per benchmark across the files in order, "
                     "for a series of releases")
-    ap.add_argument("columns", nargs="+", metavar="LABEL=FILE")
+    ap.add_argument("--size-lines", metavar="FILE",
+                    help="a line per column of release-sizes.sh's table, "
+                    "instead of LABEL=FILE arguments")
+    ap.add_argument("columns", nargs="*", metavar="LABEL=FILE")
     opts = ap.parse_args(args)
+    if opts.size_lines:
+        write(opts.output, size_lines(opts))
+        return
+    if not opts.columns:
+        ap.error("LABEL=FILE arguments are needed")
     if len(opts.columns) - opts.hide_base > len(COLORS) and not opts.lines:
         sys.exit(f"at most {len(COLORS)} files drawn")
     if opts.sizes:

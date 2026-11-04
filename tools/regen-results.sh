@@ -16,6 +16,10 @@
 # quarter faster than they run. Only those libraries are used: the rest,
 # such as locale.library, calls into parts of the OS that volamos lacks.
 #
+# --odfs and --p96cts take checkouts of ODFileSystem and p96cts, which
+# tools/release-sizes.sh builds at a pinned tag for the releases page's size
+# chart. Without both, that chart's table is left as it is.
+#
 # Environment:
 #   TOOLCHAINS  where the AmigaPorts release tarballs are unpacked, as
 #               m68k-amigaos-gcc-16.2-rc<N> and m68k-amigaos-gcc-6.5
@@ -30,17 +34,29 @@ set -Eeuo pipefail
 trap 'echo "$0: line $LINENO: $BASH_COMMAND failed" >&2' ERR
 
 usage() {
-    echo "Usage: $0 --results-dir <dir> [--libs-dir <dir>]" >&2
+    echo "Usage: $0 --results-dir <dir> [--libs-dir <dir>] [--odfs <checkout> --p96cts <checkout>]" >&2
     exit 1
 }
 
 libs_dir=
 results=
+odfs=
+p96cts=
 while [ $# -gt 0 ]; do
     case $1 in
     --libs-dir)
         [ $# -ge 2 ] || usage
         libs_dir=$(realpath "$2")
+        shift 2
+        ;;
+    --odfs)
+        [ $# -ge 2 ] || usage
+        odfs=$(realpath "$2")
+        shift 2
+        ;;
+    --p96cts)
+        [ $# -ge 2 ] || usage
+        p96cts=$(realpath "$2")
         shift 2
         ;;
     --results-dir)
@@ -107,6 +123,12 @@ for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23; do
     tools/bench-run.sh --results-dir "$results/releases" "$tc-16.2-rc$rc" \
         "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" "${v040[@]}"
 done
+
+# Their code sizes, from the builds above and two other programs.
+if [ -n "$odfs" ] && [ -n "$p96cts" ]; then
+    tools/release-sizes.sh --results-dir "$results/releases" --odfs "$odfs" \
+        --p96cts "$p96cts"
+fi
 
 # rc18's release binaries on the 68040.
 "${run[@]}" "$rc18" gcc-16.2-rc18-000-040 -m68000 "$o2" "${v040[@]}"

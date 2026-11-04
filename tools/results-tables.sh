@@ -58,8 +58,12 @@ tools/results-table.py --best --groups=memory \
     "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc14=$L-rc14-O2-040.txt" \
     "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt" >"$T/releases-memory.md"
+# Their code sizes: the releases in which a size changes, and rc6, the first
+# that builds p96cts.
+tools/results-sizes-table.py "$R/releases/release-sizes.txt" \
+    rc5 rc6 rc11 rc12 rc14 rc17 rc22 rc23 >"$T/releases-size.md"
 tools/results-splice.py results/gcc-releases.md "$T/releases.md" \
-    "$T/releases-memory.md"
+    "$T/releases-memory.md" "$T/releases-size.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \

@@ -43,6 +43,9 @@ tools/results-chart.py --lines --groups=memory -o results/gcc-releases-memory-04
     "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc12=$L-rc12-O2-040.txt" \
     "rc14=$L-rc14-O2-040.txt" "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt"
+tools/results-chart.py --size-lines "$R/releases/release-sizes.txt" \
+    -o results/gcc-releases-size-040.svg \
+    -t "Code size in the GCC 16.2 releases, in bytes"
 
 tools/results-chart.py --hide-base -o results/opt-levels-030.svg \
     -t "GCC 16.2-rc20 optimization levels on a 68030 with cache, speed relative to -O2" \

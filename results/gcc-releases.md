@@ -75,5 +75,52 @@ memmove-large three times faster.
 | memmove-large | 3339 | 3349 (+0.32%) | 2723 (-18.44%) | 959 (-71.27%) | **958 (-71.31%)** | **958 (-71.31%)** |
 | **GEOMEAN** | **972** | **973 (+0.14%)** | **724 (-25.49%)** | **606 (-37.70%)** | **604 (-37.85%)** | **604 (-37.85%)** |
 
+## Code size
+
+The size of the code (`text`) each release makes of a few programs and
+objects, each built the same way in every release.
+
+![Code size of each program and object in the 16.2 releases from rc5 to rc23, in bytes](gcc-releases-size-040.svg)
+
+| bytes | rc5 | rc6 | rc11 | rc12 | rc14 | rc17 | rc22 | rc23 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| benchwork-040 | 541236 | 541236 | 526764 (-2.67%) | 492860 (-8.94%) | 495700 (-8.41%) | 485876 (-10.23%) | 443852 (-17.99%) | 443768 (-18.01%) |
+| benchwork-000 | 569868 | 569868 | 547628 (-3.90%) | 510432 (-10.43%) | 529700 (-7.05%) | 519540 (-8.83%) | 475260 (-16.60%) | 475224 (-16.61%) |
+| objects | 378788 | 378788 | 370236 (-2.26%) | 348660 (-7.95%) | 351916 (-7.09%) | 343020 (-9.44%) | 342704 (-9.53%) | 342620 (-9.55%) |
+| curve25519.o | 47508 | 47508 | 47812 (+0.64%) | 47756 (+0.52%) | 47976 (+0.99%) | 47736 (+0.48%) | 47932 (+0.89%) | 47932 (+0.89%) |
+| pngread.o | 22972 | 22972 | 21864 (-4.82%) | 20052 (-12.71%) | 19948 (-13.16%) | 19948 (-13.16%) | 19952 (-13.15%) | 19912 (-13.32%) |
+| cJSON.o | 15328 | 15328 | 13852 (-9.63%) | 13032 (-14.98%) | 13092 (-14.59%) | 13092 (-14.59%) | 13000 (-15.19%) | 13088 (-14.61%) |
+| deflate.o | 14348 | 14348 | 13980 (-2.56%) | 12480 (-13.02%) | 12532 (-12.66%) | 12532 (-12.66%) | 12532 (-12.66%) | 12532 (-12.66%) |
+| ODFileSystem | 63240 | 63248 (+0.01%) | 61288 (-3.09%) | 61288 (-3.09%) | 62852 (-0.61%) | 62548 (-1.09%) | 62644 (-0.94%) | 60888 (-3.72%) |
+| p96cts |  | 282380 | 277760 (-1.64%) | 258980 (-8.29%) | 262544 (-7.02%) | 262144 (-7.17%) | 266064 (-5.78%) | 256948 (-9.01%) |
+
+- **benchwork-040**: [Benchwork](../README.md), `-O2 -fomit-frame-pointer
+  -m68040 -m68881`, linked with newlib. 18% smaller than with rc5, 95 KB:
+  35 KB of it its own code, the rest newlib, 41 KB of that in rc22, which
+  dropped its multibyte and locale code.
+- **benchwork-000**: the same for the 68000, `-m68000`, with soft float.
+  17% smaller than with rc5, but rc14 grows it 3.8%, where it costs
+  benchwork-040 0.6%.
+- **objects**: benchwork-040's own objects, summed, without the libraries
+  they link to: what the compiler alone makes of Benchwork's sources.
+  9.6% smaller than with rc5, mostly in rc11 and rc12.
+- **curve25519.o**: AmiSSL's [X25519](../third_party/amissl/curve25519.c),
+  32x32->64 multiplies and carries over ten 26-bit limbs. Within 1% of rc5
+  in every release.
+- **pngread.o**: libpng's [decoder](../third_party/libpng/pngread.c). 13%
+  smaller, almost all of it in rc11 and rc12.
+- **cJSON.o**: [cJSON](../third_party/cjson/cJSON.c), the parser and printer
+  of the JSON benchmarks. 15% smaller, all of it in rc11 and rc12.
+- **deflate.o**: zlib's [compressor](../third_party/zlib/deflate.c). 13%
+  smaller, most of it in rc12.
+- **ODFileSystem**: the [CD-ROM filesystem](https://github.com/reinauer/ODFileSystem)
+  handler at v1.0.0-beta3, `make amiga AMIGA_OPT=-Os`: its normal build
+  optimized for size, as its ROM build is, though the normal build isn't
+  by default. 3.7% smaller, 2.8% of it in rc23, which worked on `-Os`.
+- **p96cts**: the [Picasso96 test suite](https://github.com/codewiz/p96cts)
+  at v1.0.1, with its own `-O3 -m68020-60` and libnix. rc5 cannot build it:
+  it has no libpng for libnix. 9% smaller than with rc6, after growing 3%
+  up to rc10; rc23's libnix, built at `-Os`, takes 3.4%.
+
 [^releases]: The released x86_64 Linux tarballs, with their default newlib
     runtime.
