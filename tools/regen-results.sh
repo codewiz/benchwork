@@ -94,11 +94,18 @@ v030=(--clock-mhz 25 --cpu 68030 --fpu --cache "${libs[@]}")
 v040=(--clock-mhz 25 --cpu 68040 --fpu "${libs[@]}")
 v060=(--clock-mhz 50 --cpu 68060 --fpu --cache "${libs[@]}")
 
-# gcc 6.5 and every 16.2 release, for the compilers and releases pages.
+# gcc 6.5 and the 16.2 releases the compilers page compares it with.
 "${run[@]}" "$tc-6.5" gcc-6.5.0b-O2-040 "-m68040 -m68881" "$o2" "${v040[@]}"
 for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
     "${run[@]}" "$tc-16.2-rc$rc" "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" \
         "${v040[@]}"
+done
+
+# Every 16.2 release for the releases page, in a directory of its own: these
+# include the JSON benchmarks, which the pages above have no other column for.
+for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23; do
+    tools/bench-run.sh --results-dir "$results/releases" "$tc-16.2-rc$rc" \
+        "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" "${v040[@]}"
 done
 
 # rc18's release binaries on the 68040.

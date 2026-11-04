@@ -28,11 +28,13 @@ tools/results-chart.py \
     "vbcc 2026-01-12=$R/vbcc-20260112-O3-040.txt" \
     "SAS/C 6.58=$R/sasc-6.58-040-040.txt"
 
+L=$R/releases/gcc-16.2
 tools/results-chart.py --lines -o results/gcc-releases-040.svg \
     -t "GCC 16.2 releases on benchwork-040, time in ms" \
-    "rc5=$G-rc5-O2-040.txt" "rc11=$G-rc11-O2-040.txt" "rc12=$G-rc12-O2-040.txt" \
-    "rc14=$G-rc14-O2-040.txt" "rc17=$G-rc17-O2-040.txt" "rc18=$G-rc18-O2-040.txt" \
-    "rc20=$G-rc20-O2-040.txt"
+    "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc12=$L-rc12-O2-040.txt" \
+    "rc14=$L-rc14-O2-040.txt" "rc15=$L-rc15-O2-040.txt" "rc17=$L-rc17-O2-040.txt" \
+    "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" "rc22=$L-rc22-O2-040.txt" \
+    "rc23=$L-rc23-O2-040.txt"
 
 tools/results-chart.py --hide-base -o results/opt-levels-030.svg \
     -t "GCC 16.2-rc20 optimization levels on a 68030 with cache, speed relative to -O2" \

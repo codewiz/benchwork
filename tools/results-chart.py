@@ -29,7 +29,7 @@ spec.loader.exec_module(results_table)
 # Light and dark steps of the same four hues, in a fixed order.
 COLORS = [("#2a78d6", "#3987e5"), ("#eb6834", "#d95926"),
           ("#1baf7a", "#199e70"), ("#eda100", "#c98500"),
-          ("#e87ba4", "#d55181")]
+          ("#e87ba4", "#d55181"), ("#8a63d2", "#9d7be0")]
 
 # The workload families that color the --lines lines, each a list of
 # benchmark name prefixes; a benchmark in none of them gets the first color.
@@ -38,7 +38,8 @@ FAMILIES = [("compression", ["lha-", "zlib-", "png-"]),
             ("graphics", ["scene-", "quantize-", "ftgrays", "wipeout-",
                           "nfs3-"]),
             ("crypto", ["sha512", "aesgcm", "chacha20poly1305", "x25519"]),
-            ("dhrystone", ["dhrystone"])]
+            ("dhrystone", ["dhrystone"]),
+            ("text", ["json-"])]
 
 BAR = 12          # bar thickness
 GAP = 2           # surface gap between bars of a cluster

@@ -42,13 +42,16 @@ tools/results-compilers-fixup.py "$T/compilers.raw" "$T/compilers.err" \
     >"$T/compilers.md"
 tools/results-splice.py results/compilers.md "$T/compilers.md"
 
-# The releases: the ones the chart shows, minus rc12, which only moves the
-# chart's lines.
+# The releases, run apart with the JSON benchmarks: the ones the chart
+# shows, minus rc12 and rc15, which only move the chart's lines.
+L=$R/releases/gcc-16.2
 tools/results-table.py --best \
-    "rc5=$G-rc5-O2-040.txt" "rc11=$G-rc11-O2-040.txt" "rc14=$G-rc14-O2-040.txt" \
-    "rc17=$G-rc17-O2-040.txt" "rc18=$G-rc18-O2-040.txt" \
-    "rc20=$G-rc20-O2-040.txt" >"$T/releases.md"
-sizes gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc20}-O2-040 >>"$T/releases.md"
+    "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc14=$L-rc14-O2-040.txt" \
+    "rc17=$L-rc17-O2-040.txt" "rc18=$L-rc18-O2-040.txt" \
+    "rc20=$L-rc20-O2-040.txt" "rc22=$L-rc22-O2-040.txt" \
+    "rc23=$L-rc23-O2-040.txt" >"$T/releases.md"
+tools/results-sizes.py --results-dir "$R/releases" \
+    gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc20,rc22,rc23}-O2-040 >>"$T/releases.md"
 tools/results-splice.py results/gcc-releases.md "$T/releases.md"
 
 # Optimization levels, on the 68030 with its cache.
