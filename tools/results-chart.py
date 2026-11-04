@@ -31,15 +31,10 @@ COLORS = [("#2a78d6", "#3987e5"), ("#eb6834", "#d95926"),
           ("#1baf7a", "#199e70"), ("#eda100", "#c98500"),
           ("#e87ba4", "#d55181"), ("#8a63d2", "#9d7be0")]
 
-# The workload families that color the --lines lines, each a list of
-# benchmark name prefixes; a benchmark in none of them gets the first color.
-FAMILIES = [("compression", ["lha-", "zlib-", "png-"]),
-            ("memory", ["memcpy-", "memmove-"]),
-            ("graphics", ["scene-", "quantize-", "ftgrays", "wipeout-",
-                          "nfs3-"]),
-            ("crypto", ["sha512", "aesgcm", "chacha20poly1305", "x25519"]),
-            ("dhrystone", ["dhrystone"]),
-            ("text", ["json-"])]
+# The color of each benchmark group on the --lines charts, an index into
+# COLORS: fixed, so that a group looks the same on every chart.
+GROUP_COLORS = {"compression": 0, "memory": 1, "graphics": 2, "crypto": 3,
+                "text": 5}
 
 BAR = 12          # bar thickness
 GAP = 2           # surface gap between bars of a cluster
@@ -183,13 +178,18 @@ def lines(opts, columns):
     w, h = WIDTH - left - right, height - top - bottom
     x = lambda i: left + i / (len(columns) - 1) * w
     y = lambda v: top + (hi - math.log(v)) / (hi - lo) * h
-    out = start(opts.title, height, len(FAMILIES))
+    out = start(opts.title, height, len(COLORS))
     better(out, "&#9660; Time: less is better")
+    # The legend names the groups on this chart, in the order of their
+    # colors.
+    group_of = results_table.groups()
+    shown = {group_of.get(n) for n, _ in series} & set(GROUP_COLORS)
     lx = left
-    for i, (family, _) in enumerate(FAMILIES):
+    for group in sorted(shown, key=GROUP_COLORS.get):
+        i = GROUP_COLORS[group]
         out.append(f'<rect class="s{i}" x="{lx}" y="8" width="14" height="14" rx="2"/>')
-        out.append(f'<text class="t big" x="{lx + 20}" y="21">{family}</text>')
-        lx += 20 + 9 * len(family) + 24
+        out.append(f'<text class="t big" x="{lx + 20}" y="21">{group}</text>')
+        lx += 20 + 9 * len(group) + 24
     for i in range(len(columns)):
         out.append(f'<line class="grid" x1="{x(i):.1f}" y1="{top}" x2="{x(i):.1f}" '
                    f'y2="{top + h}" stroke-dasharray="3 4"/>')
@@ -215,8 +215,7 @@ def lines(opts, columns):
     names = {n: py for py, n in placed}
     for n, vs in series:
         geo = n == "geomean"
-        f = next((i for i, (_, names_) in enumerate(FAMILIES)
-                  if any(n.startswith(p) for p in names_)), 0)
+        f = GROUP_COLORS.get(group_of.get(n), 0)
         d = "".join(f'{"L" if i and vs[i - 1] else "M"}{x(i):.1f},{y(v):.1f}'
                     for i, v in enumerate(vs) if v)
         out.append(f'<path class="{"ref" if geo else f"k{f}"}" d="{d}" fill="none" '
@@ -255,6 +254,10 @@ def main(args):
     ap.add_argument("--geomean-skip", default="", metavar="NAME,...",
                     help="benchmarks left out of the geomean, which some "
                     "compilers cannot build")
+    ap.add_argument("--groups", default="", metavar="GROUP,...",
+                    help="only the benchmarks of these groups")
+    ap.add_argument("--skip-groups", default="", metavar="GROUP,...",
+                    help="leave the benchmarks of these groups out")
     ap.add_argument("--hide-base", action="store_true",
                     help="do not draw the first file's bars, which are all 1.0")
     ap.add_argument("--log", action="store_true",
@@ -272,13 +275,15 @@ def main(args):
         return
 
     skip = set(filter(None, opts.geomean_skip.split(",")))
+    keep = results_table.selector(set(filter(None, opts.groups.split(","))),
+                                  set(filter(None, opts.skip_groups.split(","))))
     columns = []
     # The benchmarks each column's run reported as failed, by label.
     failed = {}
     for arg in opts.columns:
         # The last "=", so that a label can be a flag like -mregparm=2.
         label, _, path = arg.rpartition("=")
-        columns.append((label, *results_table.parse(path, skip)))
+        columns.append((label, *results_table.parse(path, skip, keep)))
         with open(path) as f:
             failed[label] = {line.split()[0] for line in f
                              if line.rstrip().endswith(" failed")}

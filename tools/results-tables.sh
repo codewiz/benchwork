@@ -42,17 +42,24 @@ tools/results-compilers-fixup.py "$T/compilers.raw" "$T/compilers.err" \
     >"$T/compilers.md"
 tools/results-splice.py results/compilers.md "$T/compilers.md"
 
-# The releases, run apart with the JSON benchmarks: the ones the chart
-# shows, minus rc12 and rc15, which only move the chart's lines.
+# The releases, run apart with the JSON benchmarks: the application
+# workloads, then the memory group, each with a geomean of its own. The
+# releases are the ones each chart shows, minus rc12 and rc15, which only
+# move the chart's lines.
 L=$R/releases/gcc-16.2
-tools/results-table.py --best \
+tools/results-table.py --best --skip-groups=memory \
     "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc14=$L-rc14-O2-040.txt" \
     "rc17=$L-rc17-O2-040.txt" "rc18=$L-rc18-O2-040.txt" \
     "rc20=$L-rc20-O2-040.txt" "rc22=$L-rc22-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt" >"$T/releases.md"
 tools/results-sizes.py --results-dir "$R/releases" \
     gcc-16.2-{rc5,rc11,rc14,rc17,rc18,rc20,rc22,rc23}-O2-040 >>"$T/releases.md"
-tools/results-splice.py results/gcc-releases.md "$T/releases.md"
+tools/results-table.py --best --groups=memory \
+    "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc14=$L-rc14-O2-040.txt" \
+    "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
+    "rc23=$L-rc23-O2-040.txt" >"$T/releases-memory.md"
+tools/results-splice.py results/gcc-releases.md "$T/releases.md" \
+    "$T/releases-memory.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \

@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="680" viewBox="0 0 940 680" role="img" aria-label="GCC 16.2 releases on benchwork-040, memory benchmarks, time in ms">
+<style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}.s3{fill:#eda100}.k3{stroke:#eda100}.s4{fill:#e87ba4}.k4{stroke:#e87ba4}.s5{fill:#8a63d2}.k5{stroke:#8a63d2}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}.s3{fill:#c98500}.k3{stroke:#c98500}.s4{fill:#d55181}.k4{stroke:#d55181}.s5{fill:#9d7be0}.k5{stroke:#9d7be0}}</style>
+<rect class="bg" width="940" height="680"/>
+<text class="t muted" x="928" y="21" text-anchor="end">&#9660; Time: less is better</text>
+<rect class="s1" x="64" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="84" y="21">memory</text>
+<line class="grid" x1="64.0" y1="44" x2="64.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="183.3" y1="44" x2="183.3" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="302.7" y1="44" x2="302.7" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="422.0" y1="44" x2="422.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="541.3" y1="44" x2="541.3" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="660.7" y1="44" x2="660.7" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="780.0" y1="44" x2="780.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="64" y1="614.0" x2="780" y2="614.0"/>
+<text class="t axis" x="58" y="618.0" text-anchor="end">300 ms</text>
+<line class="grid" x1="64" y1="497.9" x2="780" y2="497.9"/>
+<text class="t axis" x="58" y="501.9" text-anchor="end">500 ms</text>
+<line class="grid" x1="64" y1="340.4" x2="780" y2="340.4"/>
+<text class="t axis" x="58" y="344.4" text-anchor="end">1000 ms</text>
+<line class="grid" x1="64" y1="182.9" x2="780" y2="182.9"/>
+<text class="t axis" x="58" y="186.9" text-anchor="end">2000 ms</text>
+<line class="grid" x1="64" y1="90.7" x2="780" y2="90.7"/>
+<text class="t axis" x="58" y="94.7" text-anchor="end">3000 ms</text>
+<text class="t axis" x="64.0" y="670" text-anchor="middle">rc5</text>
+<text class="t axis" x="183.3" y="670" text-anchor="middle">rc11</text>
+<text class="t axis" x="302.7" y="670" text-anchor="middle">rc12</text>
+<text class="t axis" x="422.0" y="670" text-anchor="middle">rc14</text>
+<text class="t axis" x="541.3" y="670" text-anchor="middle">rc18</text>
+<text class="t axis" x="660.7" y="670" text-anchor="middle">rc20</text>
+<text class="t axis" x="780.0" y="670" text-anchor="middle">rc23</text>
+<path class="k1" d="M64.0,493.8L183.3,493.8L302.7,492.4L422.0,540.4L541.3,540.8L660.7,540.8L780.0,540.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>dhrystone</title></path>
+<circle class="s1 ring" cx="64.0" cy="493.8" r="4"/>
+<circle cx="64.0" cy="493.8" r="7" fill="transparent"><title>dhrystone rc5: 509 ms, 39275 Dhry/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="493.8" r="4"/>
+<circle cx="183.3" cy="493.8" r="7" fill="transparent"><title>dhrystone rc11: 509 ms, 39275 Dhry/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="492.4" r="4"/>
+<circle cx="302.7" cy="492.4" r="7" fill="transparent"><title>dhrystone rc12: 512 ms, 39030 Dhry/s, -0.62% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="540.4" r="4"/>
+<circle cx="422.0" cy="540.4" r="7" fill="transparent"><title>dhrystone rc14: 415 ms, 48215 Dhry/s, +22.76% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="540.8" r="4"/>
+<circle cx="541.3" cy="540.8" r="7" fill="transparent"><title>dhrystone rc18: 414 ms, 48308 Dhry/s, +23.00% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="540.8" r="4"/>
+<circle cx="660.7" cy="540.8" r="7" fill="transparent"><title>dhrystone rc20: 414 ms, 48308 Dhry/s, +23.00% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="540.8" r="4"/>
+<circle cx="780.0" cy="540.8" r="7" fill="transparent"><title>dhrystone rc23: 414 ms, 48308 Dhry/s, +23.00% speed</title></circle>
+<path class="grid" d="M782,540.8 L790,540.8 h6" fill="none"/>
+<text class="t" x="800" y="544.8">dhrystone</text>
+<path class="k1" d="M64.0,105.2L183.3,124.2L302.7,124.2L422.0,362.4L541.3,362.4L660.7,362.4L780.0,362.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-small</title></path>
+<circle class="s1 ring" cx="64.0" cy="105.2" r="4"/>
+<circle cx="64.0" cy="105.2" r="7" fill="transparent"><title>memcpy-small rc5: 2815 ms, 18958 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="124.2" r="4"/>
+<circle cx="183.3" cy="124.2" r="7" fill="transparent"><title>memcpy-small rc11: 2589 ms, 20612 KB/s, +8.72% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="124.2" r="4"/>
+<circle cx="302.7" cy="124.2" r="7" fill="transparent"><title>memcpy-small rc12: 2589 ms, 20612 KB/s, +8.72% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="362.4" r="4"/>
+<circle cx="422.0" cy="362.4" r="7" fill="transparent"><title>memcpy-small rc14: 908 ms, 58784 KB/s, +210.07% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="362.4" r="4"/>
+<circle cx="541.3" cy="362.4" r="7" fill="transparent"><title>memcpy-small rc18: 908 ms, 58784 KB/s, +210.07% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="362.4" r="4"/>
+<circle cx="660.7" cy="362.4" r="7" fill="transparent"><title>memcpy-small rc20: 908 ms, 58784 KB/s, +210.07% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="362.4" r="4"/>
+<circle cx="780.0" cy="362.4" r="7" fill="transparent"><title>memcpy-small rc23: 908 ms, 58784 KB/s, +210.07% speed</title></circle>
+<path class="grid" d="M782,362.4 L790,376.2 h6" fill="none"/>
+<text class="t" x="800" y="380.2">memcpy-small</text>
+<path class="k1" d="M64.0,516.6L183.3,516.6L302.7,516.6L422.0,626.1L541.3,626.1L660.7,626.1L780.0,626.1" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-large</title></path>
+<circle class="s1 ring" cx="64.0" cy="516.6" r="4"/>
+<circle cx="64.0" cy="516.6" r="7" fill="transparent"><title>memcpy-large rc5: 461 ms, 49828 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="516.6" r="4"/>
+<circle cx="183.3" cy="516.6" r="7" fill="transparent"><title>memcpy-large rc11: 461 ms, 49828 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="516.6" r="4"/>
+<circle cx="302.7" cy="516.6" r="7" fill="transparent"><title>memcpy-large rc12: 461 ms, 49828 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="626.1" r="4"/>
+<circle cx="422.0" cy="626.1" r="7" fill="transparent"><title>memcpy-large rc14: 285 ms, 80667 KB/s, +61.89% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="626.1" r="4"/>
+<circle cx="541.3" cy="626.1" r="7" fill="transparent"><title>memcpy-large rc18: 285 ms, 80667 KB/s, +61.89% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="626.1" r="4"/>
+<circle cx="660.7" cy="626.1" r="7" fill="transparent"><title>memcpy-large rc20: 285 ms, 80667 KB/s, +61.89% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="626.1" r="4"/>
+<circle cx="780.0" cy="626.1" r="7" fill="transparent"><title>memcpy-large rc23: 285 ms, 80667 KB/s, +61.89% speed</title></circle>
+<path class="grid" d="M782,626.1 L790,626.1 h6" fill="none"/>
+<text class="t" x="800" y="630.1">memcpy-large</text>
+<path class="k1" d="M64.0,491.3L183.3,491.3L302.7,491.3L422.0,487.8L541.3,487.8L660.7,487.8L780.0,487.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-var-small</title></path>
+<circle class="s1 ring" cx="64.0" cy="491.3" r="4"/>
+<circle cx="64.0" cy="491.3" r="7" fill="transparent"><title>memcpy-var-small rc5: 515 ms, 14580 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="491.3" r="4"/>
+<circle cx="183.3" cy="491.3" r="7" fill="transparent"><title>memcpy-var-small rc11: 515 ms, 14580 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="491.3" r="4"/>
+<circle cx="302.7" cy="491.3" r="7" fill="transparent"><title>memcpy-var-small rc12: 515 ms, 14580 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="487.8" r="4"/>
+<circle cx="422.0" cy="487.8" r="7" fill="transparent"><title>memcpy-var-small rc14: 523 ms, 14359 KB/s, -1.52% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="487.8" r="4"/>
+<circle cx="541.3" cy="487.8" r="7" fill="transparent"><title>memcpy-var-small rc18: 523 ms, 14359 KB/s, -1.52% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="487.8" r="4"/>
+<circle cx="660.7" cy="487.8" r="7" fill="transparent"><title>memcpy-var-small rc20: 523 ms, 14359 KB/s, -1.52% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="487.8" r="4"/>
+<circle cx="780.0" cy="487.8" r="7" fill="transparent"><title>memcpy-var-small rc23: 523 ms, 14359 KB/s, -1.52% speed</title></circle>
+<path class="grid" d="M782,487.8 L790,487.8 h6" fill="none"/>
+<text class="t" x="800" y="491.8">memcpy-var-small</text>
+<path class="k1" d="M64.0,459.7L183.3,459.7L302.7,459.7L422.0,459.2L541.3,459.2L660.7,459.2L780.0,459.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>memcpy-var-large</title></path>
+<circle class="s1 ring" cx="64.0" cy="459.7" r="4"/>
+<circle cx="64.0" cy="459.7" r="7" fill="transparent"><title>memcpy-var-large rc5: 592 ms, 50622 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="459.7" r="4"/>
+<circle cx="183.3" cy="459.7" r="7" fill="transparent"><title>memcpy-var-large rc11: 592 ms, 50622 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="459.7" r="4"/>
+<circle cx="302.7" cy="459.7" r="7" fill="transparent"><title>memcpy-var-large rc12: 592 ms, 50622 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="459.2" r="4"/>
+<circle cx="422.0" cy="459.2" r="7" fill="transparent"><title>memcpy-var-large rc14: 593 ms, 50524 KB/s, -0.19% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="459.2" r="4"/>
+<circle cx="541.3" cy="459.2" r="7" fill="transparent"><title>memcpy-var-large rc18: 593 ms, 50524 KB/s, -0.19% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="459.2" r="4"/>
+<circle cx="660.7" cy="459.2" r="7" fill="transparent"><title>memcpy-var-large rc20: 593 ms, 50524 KB/s, -0.19% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="459.2" r="4"/>
+<circle cx="780.0" cy="459.2" r="7" fill="transparent"><title>memcpy-var-large rc23: 593 ms, 50524 KB/s, -0.19% speed</title></circle>
+<path class="grid" d="M782,459.2 L790,468.0 h6" fill="none"/>
+<text class="t" x="800" y="472.0">memcpy-var-large</text>
+<path class="k1" d="M64.0,295.2L183.3,274.7L302.7,270.2L422.0,307.7L541.3,354.7L660.7,358.3L780.0,358.3" fill="none" stroke-width="2" stroke-linejoin="round"><title>memmove-small</title></path>
+<circle class="s1 ring" cx="64.0" cy="295.2" r="4"/>
+<circle cx="64.0" cy="295.2" r="7" fill="transparent"><title>memmove-small rc5: 1220 ms, 5738 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="274.7" r="4"/>
+<circle cx="183.3" cy="274.7" r="7" fill="transparent"><title>memmove-small rc11: 1335 ms, 5243 KB/s, -8.63% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="270.2" r="4"/>
+<circle cx="302.7" cy="270.2" r="7" fill="transparent"><title>memmove-small rc12: 1362 ms, 5140 KB/s, -10.43% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="307.7" r="4"/>
+<circle cx="422.0" cy="307.7" r="7" fill="transparent"><title>memmove-small rc14: 1155 ms, 6063 KB/s, +5.65% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="354.7" r="4"/>
+<circle cx="541.3" cy="354.7" r="7" fill="transparent"><title>memmove-small rc18: 939 ms, 7456 KB/s, +29.93% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="358.3" r="4"/>
+<circle cx="660.7" cy="358.3" r="7" fill="transparent"><title>memmove-small rc20: 924 ms, 7574 KB/s, +31.99% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="358.3" r="4"/>
+<circle cx="780.0" cy="358.3" r="7" fill="transparent"><title>memmove-small rc23: 924 ms, 7574 KB/s, +31.99% speed</title></circle>
+<path class="grid" d="M782,358.3 L790,363.2 h6" fill="none"/>
+<text class="t" x="800" y="367.2">memmove-small</text>
+<path class="k1" d="M64.0,66.4L183.3,65.7L302.7,65.7L422.0,112.7L541.3,349.9L660.7,350.2L780.0,350.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>memmove-large</title></path>
+<circle class="s1 ring" cx="64.0" cy="66.4" r="4"/>
+<circle cx="64.0" cy="66.4" r="7" fill="transparent"><title>memmove-large rc5: 3339 ms, 8626 KB/s, +0.00% speed</title></circle>
+<circle class="s1 ring" cx="183.3" cy="65.7" r="4"/>
+<circle cx="183.3" cy="65.7" r="7" fill="transparent"><title>memmove-large rc11: 3349 ms, 8598 KB/s, -0.32% speed</title></circle>
+<circle class="s1 ring" cx="302.7" cy="65.7" r="4"/>
+<circle cx="302.7" cy="65.7" r="7" fill="transparent"><title>memmove-large rc12: 3349 ms, 8598 KB/s, -0.32% speed</title></circle>
+<circle class="s1 ring" cx="422.0" cy="112.7" r="4"/>
+<circle cx="422.0" cy="112.7" r="7" fill="transparent"><title>memmove-large rc14: 2723 ms, 10576 KB/s, +22.60% speed</title></circle>
+<circle class="s1 ring" cx="541.3" cy="349.9" r="4"/>
+<circle cx="541.3" cy="349.9" r="7" fill="transparent"><title>memmove-large rc18: 959 ms, 30024 KB/s, +248.06% speed</title></circle>
+<circle class="s1 ring" cx="660.7" cy="350.2" r="4"/>
+<circle cx="660.7" cy="350.2" r="7" fill="transparent"><title>memmove-large rc20: 958 ms, 30066 KB/s, +248.55% speed</title></circle>
+<circle class="s1 ring" cx="780.0" cy="350.2" r="4"/>
+<circle cx="780.0" cy="350.2" r="7" fill="transparent"><title>memmove-large rc23: 958 ms, 30066 KB/s, +248.55% speed</title></circle>
+<path class="grid" d="M782,350.2 L790,350.2 h6" fill="none"/>
+<text class="t" x="800" y="354.2">memmove-large</text>
+<path class="ref" d="M64.0,346.9L183.3,346.6L302.7,345.7L422.0,413.8L541.3,454.4L660.7,455.0L780.0,455.0" fill="none" stroke-width="3" stroke-linejoin="round"><title>geomean</title></path>
+<circle class="dot ring" cx="64.0" cy="346.9" r="4"/>
+<circle cx="64.0" cy="346.9" r="7" fill="transparent"><title>geomean rc5: 972 ms, +0.00% speed</title></circle>
+<circle class="dot ring" cx="183.3" cy="346.6" r="4"/>
+<circle cx="183.3" cy="346.6" r="7" fill="transparent"><title>geomean rc11: 973 ms, -0.14% speed</title></circle>
+<circle class="dot ring" cx="302.7" cy="345.7" r="4"/>
+<circle cx="302.7" cy="345.7" r="7" fill="transparent"><title>geomean rc12: 977 ms, -0.51% speed</title></circle>
+<circle class="dot ring" cx="422.0" cy="413.8" r="4"/>
+<circle cx="422.0" cy="413.8" r="7" fill="transparent"><title>geomean rc14: 724 ms, +34.22% speed</title></circle>
+<circle class="dot ring" cx="541.3" cy="454.4" r="4"/>
+<circle cx="541.3" cy="454.4" r="7" fill="transparent"><title>geomean rc18: 606 ms, +60.51% speed</title></circle>
+<circle class="dot ring" cx="660.7" cy="455.0" r="4"/>
+<circle cx="660.7" cy="455.0" r="7" fill="transparent"><title>geomean rc20: 604 ms, +60.90% speed</title></circle>
+<circle class="dot ring" cx="780.0" cy="455.0" r="4"/>
+<circle cx="780.0" cy="455.0" r="7" fill="transparent"><title>geomean rc23: 604 ms, +60.90% speed</title></circle>
+<path class="grid" d="M782,455.0 L790,455.0 h6" fill="none"/>
+<text class="t name" x="800" y="459.0">geomean</text>
+</svg>
