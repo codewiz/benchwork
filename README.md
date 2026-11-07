@@ -20,8 +20,8 @@ Results for compilers, GCC releases and options, CPUs and emulators are in
 | quantize-floyd | the scene remapped to a fixed 32-color palette | Floyd-Steinberg error diffusion, a nearest-color search with an inverse colormap |
 | lha-pack | LHa for UNIX 1.14i, -lh5- | hash-chain match search, Huffman coding, K&R-era C |
 | lha-unpack | LHa for UNIX 1.14i, -lh5- | Huffman decoding, sliding-window copies |
-| zlib-deflate | zlib 1.3.2 | deflate's longest_match() |
-| zlib-inflate | zlib 1.3.2 | inflate's bit-level state machine |
+| zlib-deflate | zlib 1.4 | deflate's longest_match() |
+| zlib-inflate | zlib 1.4 | inflate's bit-level state machine |
 | png-encode | libpng 1.6.58 + zlib | filter selection byte loops |
 | png-decode | libpng 1.6.58 + zlib | filter reconstruction byte loops |
 | ftgrays | FreeType 2.12.1 smooth rasterizer | fixed-point curve subdivision, cell sweep, switch-heavy code |
