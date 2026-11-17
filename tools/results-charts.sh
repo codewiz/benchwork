@@ -24,7 +24,7 @@ tools/results-chart.py \
     --geomean-skip=nfs3-project,nfs3-clip,sha512,aesgcm,chacha20poly1305,x25519 \
     -o results/compilers-040.svg \
     -t "m68k compilers on benchwork-040, speed relative to gcc 6.5.0b" \
-    "gcc 6.5.0b=$R/gcc-6.5.0b-O2-040.txt" "gcc 16.2-rc18=$G-rc18-O2-040.txt" \
+    "gcc 6.5.0b=$R/gcc-6.5.0b-O2-040.txt" "gcc 16.2-rc25=$G-rc25-O2-040.txt" \
     "vbcc 2026-01-12=$R/vbcc-20260112-O3-040.txt" \
     "SAS/C 6.58=$R/sasc-6.58-040-040.txt"
 
@@ -37,27 +37,27 @@ tools/results-chart.py --lines --skip-groups=memory -o results/gcc-releases-040.
     "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc12=$L-rc12-O2-040.txt" \
     "rc14=$L-rc14-O2-040.txt" "rc15=$L-rc15-O2-040.txt" "rc17=$L-rc17-O2-040.txt" \
     "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" "rc22=$L-rc22-O2-040.txt" \
-    "rc23=$L-rc23-O2-040.txt"
+    "rc23=$L-rc23-O2-040.txt" "rc24=$L-rc24-O2-040.txt" "rc25=$L-rc25-O2-040.txt"
 tools/results-chart.py --lines --groups=memory -o results/gcc-releases-memory-040.svg \
     -t "GCC 16.2 releases on benchwork-040, memory benchmarks, time in ms" \
     "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc12=$L-rc12-O2-040.txt" \
     "rc14=$L-rc14-O2-040.txt" "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
-    "rc23=$L-rc23-O2-040.txt"
+    "rc23=$L-rc23-O2-040.txt" "rc24=$L-rc24-O2-040.txt" "rc25=$L-rc25-O2-040.txt"
 tools/results-chart.py --size-lines "$R/releases/release-sizes.txt" \
     -o results/gcc-releases-size-040.svg \
     -t "Code size in the GCC 16.2 releases, in bytes"
 
 tools/results-chart.py --hide-base -o results/opt-levels-030.svg \
-    -t "GCC 16.2-rc20 optimization levels on a 68030 with cache, speed relative to -O2" \
-    -- "-O2=$G-rc20-030-O2-030-cache.txt" "-Os=$G-rc20-030-Os-030-cache.txt" \
-    "-O3=$G-rc20-030-O3-030-cache.txt" \
-    "-O2 -flto=$G-rc20-030-O2-lto-030-cache.txt"
+    -t "GCC 16.2-rc25 optimization levels on a 68030 with cache, speed relative to -O2" \
+    -- "-O2=$G-rc25-030-O2-030-cache.txt" "-Os=$G-rc25-030-Os-030-cache.txt" \
+    "-O3=$G-rc25-030-O3-030-cache.txt" \
+    "-O2 -flto=$G-rc25-030-O2-lto-030-cache.txt"
 
 tools/results-chart.py --sizes -o results/opt-levels-size-030.svg \
     -t "Code size of each optimization level relative to -O2" \
-    -- "-O2=$(size rc20-030-O2-030-cache)" "-Os=$(size rc20-030-Os-030-cache)" \
-    "-O3=$(size rc20-030-O3-030-cache)" \
-    "-O2 -flto=$(size rc20-030-O2-lto-030-cache)"
+    -- "-O2=$(size rc25-030-O2-030-cache)" "-Os=$(size rc25-030-Os-030-cache)" \
+    "-O3=$(size rc25-030-O3-030-cache)" \
+    "-O2 -flto=$(size rc25-030-O2-lto-030-cache)"
 
 tools/results-chart.py --hide-base -o results/regparm-040.svg \
     -t "GCC 16.2-rc21 register arguments on a 68040, speed relative to stack arguments" \

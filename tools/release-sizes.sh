@@ -26,7 +26,9 @@ trap 'echo "$0: line $LINENO: $BASH_COMMAND failed" >&2' ERR
 
 ODFS_TAG=v1.0.0-beta3
 P96CTS_TAG=v1.0.1
-RELEASES="5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23"
+# RELEASES overrides the list, e.g. RELEASES="24 25" for two of them: each
+# rc<N> is $TOOLCHAINS/m68k-amigaos-gcc-16.2-rc<N>.
+RELEASES=${RELEASES:-"5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"}
 OBJECTS="amissl/curve25519 libpng/pngread cjson/cJSON zlib/deflate"
 
 usage() {
