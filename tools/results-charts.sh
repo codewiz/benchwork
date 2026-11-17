@@ -73,8 +73,9 @@ tools/results-chart.py --hide-base -o results/runtimes-040.svg \
 # The emulators, against the cycle-counted 68040: up to two orders of
 # magnitude apart, hence the log axis.
 E=$R/emulators
-tools/results-chart.py --log --hide-base -o results/emulators-040.svg \
+tools/results-chart.py --log --hide-base --geomean-skip=json-parse,json-print \
+    -o results/emulators-040.svg \
     -t "m68k emulators on benchwork-040, speed relative to a 25 MHz 68040" \
-    "25 MHz 68040=$G-rc18-O2-040.txt" "Copperline=$E/copperline-jit.txt" \
+    "25 MHz 68040=$E/68040-25mhz.txt" "Copperline=$E/copperline-jit.txt" \
     "vamos=$E/vamos.txt" "volamos=$E/volamos-jit.txt" \
     "Amiberry=$E/amiberry-jit.txt" "Emu68=$E/emu68-1800.txt"

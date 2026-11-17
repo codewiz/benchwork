@@ -118,12 +118,15 @@ done
 tools/results-splice.py results/runtimes.md "$T/runtimes.md" \
     "$T/runtimes-json-parse.md" "$T/runtimes-json-print.md"
 
-# The emulators, against the cycle-counted 68040. Their runs are not part
-# of regen-results.sh: three of them boot AmigaOS, one on a PiStorm (see
-# results/emulators.md). Emu68's nfs3 check values differ from the others',
-# which the footnote explains.
+# The emulators, against the same binary on the cycle-counted 68040. Their
+# runs are not part of regen-results.sh: two of them boot AmigaOS, and
+# Emu68's ran an older binary on a PiStorm, without the JSON benchmarks,
+# which every geomean therefore leaves out (see results/emulators.md).
+# Emu68's nfs3 check values differ from the others', which a footnote
+# explains.
 E=$R/emulators
-{ tools/results-table.py --speedup "25 MHz 68040=$G-rc18-O2-040.txt" \
+{ tools/results-table.py --speedup --geomean-skip=json-parse,json-print \
+    "25 MHz 68040=$E/68040-25mhz.txt" \
     "Copperline=$E/copperline-jit.txt" "vamos=$E/vamos.txt" \
     "volamos=$E/volamos-jit.txt" "Amiberry=$E/amiberry-jit.txt" \
     "Emu68[^emu68]=$E/emu68-1800.txt" 2>"$T/emulators.err" || true; } |
