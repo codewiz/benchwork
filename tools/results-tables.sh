@@ -62,12 +62,29 @@ tools/results-table.py --best --groups=memory \
     "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt" "rc24=$L-rc24-O2-040.txt" \
     "rc25=$L-rc25-O2-040.txt" "rc26=$L-rc26-O2-040.txt" >"$T/releases-memory.md"
+# The same on the 68000, with the releases its charts show.
+r000() { for r in "$@"; do echo "$r=$L-$r-000-O2-000.txt"; done; }
+# shellcheck disable=SC2046 # one word per release
+tools/results-table.py --best --skip-groups=memory \
+    $(r000 rc5 rc11 rc12 rc14 rc17 rc18 rc20 rc21 rc22 rc24 rc25 rc26) \
+    >"$T/releases-000.md"
+tools/results-sizes.py --results-dir "$R/releases" \
+    gcc-16.2-{rc5,rc11,rc12,rc14,rc17,rc18,rc20,rc21,rc22,rc24,rc25,rc26}-000-O2-000 \
+    >>"$T/releases-000.md"
+# shellcheck disable=SC2046
+tools/results-table.py --best --groups=memory \
+    $(r000 rc5 rc11 rc14 rc18 rc20 rc24 rc26) >"$T/releases-memory-000.md"
 # Their code sizes: the releases in which a size changes, and rc6, the first
 # that builds p96cts.
 tools/results-sizes-table.py "$R/releases/release-sizes.txt" \
     rc5 rc6 rc11 rc12 rc14 rc17 rc22 rc23 rc24 rc25 rc26 >"$T/releases-size.md"
-tools/results-splice.py results/gcc-releases.md "$T/releases.md" \
-    "$T/releases-memory.md" "$T/releases-size.md"
+# The same objects built for the 68000; rc20 stands for rc19, as above.
+tools/results-sizes-table.py "$R/releases/release-sizes-000.txt" \
+    rc5 rc11 rc12 rc14 rc17 rc18 rc20 rc22 rc23 rc24 rc25 rc26 \
+    >"$T/releases-size-000.md"
+tools/results-splice.py results/gcc-releases-raw.md "$T/releases.md" \
+    "$T/releases-memory.md" "$T/releases-000.md" "$T/releases-memory-000.md" \
+    "$T/releases-size.md" "$T/releases-size-000.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \

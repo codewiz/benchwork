@@ -127,6 +127,14 @@ for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26; do
         "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" "${v040[@]}"
 done
 
+# The same on the 68000, soft float: the code that has no 32-bit multiply
+# or divide, nor an FPU.
+v000=(--clock-mhz 7.09 --cpu 68000 "${libs[@]}")
+for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26; do
+    tools/bench-run.sh --results-dir "$results/releases" "$tc-16.2-rc$rc" \
+        "gcc-16.2-rc$rc-000-O2-000" -m68000 "$o2" "${v000[@]}"
+done
+
 # Their code sizes, from the builds above and two other programs.
 if [ -n "$odfs" ] && [ -n "$p96cts" ]; then
     tools/release-sizes.sh --results-dir "$results/releases" --odfs "$odfs" \

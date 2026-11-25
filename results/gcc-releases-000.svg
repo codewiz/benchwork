@@ -1,0 +1,550 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="680" viewBox="0 0 940 680" role="img" aria-label="GCC 16.2 releases on benchwork-000 on a 68000, time in ms">
+<style>.t{font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;fill:#0b0b0b}.t.muted{fill:#52514e}.t.big{font-size:16px}.t.name{font-weight:600}.t.axis{fill:#52514e;font-size:12px}.grid{stroke:#e6e5e1;stroke-width:1}.ref{stroke:#0b0b0b;stroke-width:2}.bg{fill:#fcfcfb}.ring{stroke:#fcfcfb;stroke-width:2}.dot{fill:#0b0b0b}.s0{fill:#2a78d6}.k0{stroke:#2a78d6}.s1{fill:#eb6834}.k1{stroke:#eb6834}.s2{fill:#1baf7a}.k2{stroke:#1baf7a}.s3{fill:#eda100}.k3{stroke:#eda100}.s4{fill:#e87ba4}.k4{stroke:#e87ba4}.s5{fill:#8a63d2}.k5{stroke:#8a63d2}@media(prefers-color-scheme:dark){.t{fill:#ffffff}.t.muted{fill:#c3c2b7}.t.axis{fill:#c3c2b7}.grid{stroke:#333331}.ref{stroke:#ffffff}.bg{fill:#1a1a19}.ring{stroke:#1a1a19}.dot{fill:#ffffff}.s0{fill:#3987e5}.k0{stroke:#3987e5}.s1{fill:#d95926}.k1{stroke:#d95926}.s2{fill:#199e70}.k2{stroke:#199e70}.s3{fill:#c98500}.k3{stroke:#c98500}.s4{fill:#d55181}.k4{stroke:#d55181}.s5{fill:#9d7be0}.k5{stroke:#9d7be0}}</style>
+<rect class="bg" width="940" height="680"/>
+<text class="t muted" x="928" y="21" text-anchor="end">&#9660; Time: less is better</text>
+<rect class="s0" x="64" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="84" y="21">compression</text>
+<rect class="s2" x="207" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="227" y="21">graphics</text>
+<rect class="s3" x="323" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="343" y="21">crypto</text>
+<rect class="s5" x="421" y="8" width="14" height="14" rx="2"/>
+<text class="t big" x="441" y="21">text</text>
+<line class="grid" x1="64.0" y1="44" x2="64.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="129.1" y1="44" x2="129.1" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="194.2" y1="44" x2="194.2" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="259.3" y1="44" x2="259.3" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="324.4" y1="44" x2="324.4" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="389.5" y1="44" x2="389.5" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="454.5" y1="44" x2="454.5" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="519.6" y1="44" x2="519.6" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="584.7" y1="44" x2="584.7" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="649.8" y1="44" x2="649.8" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="714.9" y1="44" x2="714.9" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="780.0" y1="44" x2="780.0" y2="650" stroke-dasharray="3 4"/>
+<text class="t axis" x="64.0" y="670" text-anchor="middle">rc5</text>
+<text class="t axis" x="129.1" y="670" text-anchor="middle">rc11</text>
+<text class="t axis" x="194.2" y="670" text-anchor="middle">rc12</text>
+<text class="t axis" x="259.3" y="670" text-anchor="middle">rc14</text>
+<text class="t axis" x="324.4" y="670" text-anchor="middle">rc17</text>
+<text class="t axis" x="389.5" y="670" text-anchor="middle">rc18</text>
+<text class="t axis" x="454.5" y="670" text-anchor="middle">rc20</text>
+<text class="t axis" x="519.6" y="670" text-anchor="middle">rc21</text>
+<text class="t axis" x="584.7" y="670" text-anchor="middle">rc22</text>
+<text class="t axis" x="649.8" y="670" text-anchor="middle">rc24</text>
+<text class="t axis" x="714.9" y="670" text-anchor="middle">rc25</text>
+<text class="t axis" x="780.0" y="670" text-anchor="middle">rc26</text>
+<path class="k2" d="M64.0,169.3L129.1,169.1L194.2,169.1L259.3,170.6L324.4,170.6L389.5,170.6L454.5,170.6L519.6,170.6L584.7,170.6L649.8,171.8L714.9,171.8L780.0,170.6" fill="none" stroke-width="2" stroke-linejoin="round"><title>scene-2d</title></path>
+<circle class="s2 ring" cx="64.0" cy="169.3" r="4"/>
+<circle cx="64.0" cy="169.3" r="7" fill="transparent"><title>scene-2d rc5: 117944 ms, 1085 px/s, +0.00% speed</title></circle>
+<circle class="s2 ring" cx="129.1" cy="169.1" r="4"/>
+<circle cx="129.1" cy="169.1" r="7" fill="transparent"><title>scene-2d rc11: 118113 ms, 1084 px/s, -0.14% speed</title></circle>
+<circle class="s2 ring" cx="194.2" cy="169.1" r="4"/>
+<circle cx="194.2" cy="169.1" r="7" fill="transparent"><title>scene-2d rc12: 118117 ms, 1084 px/s, -0.15% speed</title></circle>
+<circle class="s2 ring" cx="259.3" cy="170.6" r="4"/>
+<circle cx="259.3" cy="170.6" r="7" fill="transparent"><title>scene-2d rc14: 117011 ms, 1094 px/s, +0.80% speed</title></circle>
+<circle class="s2 ring" cx="324.4" cy="170.6" r="4"/>
+<circle cx="324.4" cy="170.6" r="7" fill="transparent"><title>scene-2d rc17: 117011 ms, 1094 px/s, +0.80% speed</title></circle>
+<circle class="s2 ring" cx="389.5" cy="170.6" r="4"/>
+<circle cx="389.5" cy="170.6" r="7" fill="transparent"><title>scene-2d rc18: 117011 ms, 1094 px/s, +0.80% speed</title></circle>
+<circle class="s2 ring" cx="454.5" cy="170.6" r="4"/>
+<circle cx="454.5" cy="170.6" r="7" fill="transparent"><title>scene-2d rc20: 117011 ms, 1094 px/s, +0.80% speed</title></circle>
+<circle class="s2 ring" cx="519.6" cy="170.6" r="4"/>
+<circle cx="519.6" cy="170.6" r="7" fill="transparent"><title>scene-2d rc21: 117011 ms, 1094 px/s, +0.80% speed</title></circle>
+<circle class="s2 ring" cx="584.7" cy="170.6" r="4"/>
+<circle cx="584.7" cy="170.6" r="7" fill="transparent"><title>scene-2d rc22: 117011 ms, 1094 px/s, +0.80% speed</title></circle>
+<circle class="s2 ring" cx="649.8" cy="171.8" r="4"/>
+<circle cx="649.8" cy="171.8" r="7" fill="transparent"><title>scene-2d rc24: 116129 ms, 1102 px/s, +1.56% speed</title></circle>
+<circle class="s2 ring" cx="714.9" cy="171.8" r="4"/>
+<circle cx="714.9" cy="171.8" r="7" fill="transparent"><title>scene-2d rc25: 116129 ms, 1102 px/s, +1.56% speed</title></circle>
+<circle class="s2 ring" cx="780.0" cy="170.6" r="4"/>
+<circle cx="780.0" cy="170.6" r="7" fill="transparent"><title>scene-2d rc26: 117010 ms, 1094 px/s, +0.80% speed</title></circle>
+<path class="grid" d="M782,170.6 L790,170.6 h6" fill="none"/>
+<text class="t" x="800" y="174.6">scene-2d</text>
+<path class="k2" d="M64.0,416.2L129.1,421.0L194.2,425.1L259.3,423.8L324.4,423.8L389.5,423.8L454.5,423.8L519.6,423.8L584.7,423.8L649.8,422.3L714.9,422.3L780.0,423.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>quantize-floyd</title></path>
+<circle class="s2 ring" cx="64.0" cy="416.2" r="4"/>
+<circle cx="64.0" cy="416.2" r="7" fill="transparent"><title>quantize-floyd rc5: 24313 ms, 2632 px/s, +0.00% speed</title></circle>
+<circle class="s2 ring" cx="129.1" cy="421.0" r="4"/>
+<circle cx="129.1" cy="421.0" r="7" fill="transparent"><title>quantize-floyd rc11: 23572 ms, 2715 px/s, +3.14% speed</title></circle>
+<circle class="s2 ring" cx="194.2" cy="425.1" r="4"/>
+<circle cx="194.2" cy="425.1" r="7" fill="transparent"><title>quantize-floyd rc12: 22959 ms, 2788 px/s, +5.90% speed</title></circle>
+<circle class="s2 ring" cx="259.3" cy="423.8" r="4"/>
+<circle cx="259.3" cy="423.8" r="7" fill="transparent"><title>quantize-floyd rc14: 23156 ms, 2764 px/s, +4.99% speed</title></circle>
+<circle class="s2 ring" cx="324.4" cy="423.8" r="4"/>
+<circle cx="324.4" cy="423.8" r="7" fill="transparent"><title>quantize-floyd rc17: 23156 ms, 2764 px/s, +4.99% speed</title></circle>
+<circle class="s2 ring" cx="389.5" cy="423.8" r="4"/>
+<circle cx="389.5" cy="423.8" r="7" fill="transparent"><title>quantize-floyd rc18: 23156 ms, 2764 px/s, +4.99% speed</title></circle>
+<circle class="s2 ring" cx="454.5" cy="423.8" r="4"/>
+<circle cx="454.5" cy="423.8" r="7" fill="transparent"><title>quantize-floyd rc20: 23156 ms, 2764 px/s, +4.99% speed</title></circle>
+<circle class="s2 ring" cx="519.6" cy="423.8" r="4"/>
+<circle cx="519.6" cy="423.8" r="7" fill="transparent"><title>quantize-floyd rc21: 23156 ms, 2764 px/s, +4.99% speed</title></circle>
+<circle class="s2 ring" cx="584.7" cy="423.8" r="4"/>
+<circle cx="584.7" cy="423.8" r="7" fill="transparent"><title>quantize-floyd rc22: 23156 ms, 2764 px/s, +4.99% speed</title></circle>
+<circle class="s2 ring" cx="649.8" cy="422.3" r="4"/>
+<circle cx="649.8" cy="422.3" r="7" fill="transparent"><title>quantize-floyd rc24: 23382 ms, 2737 px/s, +3.98% speed</title></circle>
+<circle class="s2 ring" cx="714.9" cy="422.3" r="4"/>
+<circle cx="714.9" cy="422.3" r="7" fill="transparent"><title>quantize-floyd rc25: 23382 ms, 2737 px/s, +3.98% speed</title></circle>
+<circle class="s2 ring" cx="780.0" cy="423.7" r="4"/>
+<circle cx="780.0" cy="423.7" r="7" fill="transparent"><title>quantize-floyd rc26: 23172 ms, 2762 px/s, +4.93% speed</title></circle>
+<path class="grid" d="M782,423.7 L790,428.9 h6" fill="none"/>
+<text class="t" x="800" y="432.9">quantize-floyd</text>
+<path class="k0" d="M64.0,377.3L129.1,376.9L194.2,377.0L259.3,381.1L324.4,381.1L389.5,380.6L454.5,381.4L519.6,381.4L584.7,381.4L649.8,382.0L714.9,382.2L780.0,381.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>lha-pack</title></path>
+<circle class="s0 ring" cx="64.0" cy="377.3" r="4"/>
+<circle cx="64.0" cy="377.3" r="7" fill="transparent"><title>lha-pack rc5: 31184 ms, 2.05 KB/s, +0.00% speed</title></circle>
+<circle class="s0 ring" cx="129.1" cy="376.9" r="4"/>
+<circle cx="129.1" cy="376.9" r="7" fill="transparent"><title>lha-pack rc11: 31252 ms, 2.05 KB/s, -0.22% speed</title></circle>
+<circle class="s0 ring" cx="194.2" cy="377.0" r="4"/>
+<circle cx="194.2" cy="377.0" r="7" fill="transparent"><title>lha-pack rc12: 31229 ms, 2.05 KB/s, -0.14% speed</title></circle>
+<circle class="s0 ring" cx="259.3" cy="381.1" r="4"/>
+<circle cx="259.3" cy="381.1" r="7" fill="transparent"><title>lha-pack rc14: 30436 ms, 2.10 KB/s, +2.46% speed</title></circle>
+<circle class="s0 ring" cx="324.4" cy="381.1" r="4"/>
+<circle cx="324.4" cy="381.1" r="7" fill="transparent"><title>lha-pack rc17: 30436 ms, 2.10 KB/s, +2.46% speed</title></circle>
+<circle class="s0 ring" cx="389.5" cy="380.6" r="4"/>
+<circle cx="389.5" cy="380.6" r="7" fill="transparent"><title>lha-pack rc18: 30534 ms, 2.10 KB/s, +2.13% speed</title></circle>
+<circle class="s0 ring" cx="454.5" cy="381.4" r="4"/>
+<circle cx="454.5" cy="381.4" r="7" fill="transparent"><title>lha-pack rc20: 30368 ms, 2.11 KB/s, +2.69% speed</title></circle>
+<circle class="s0 ring" cx="519.6" cy="381.4" r="4"/>
+<circle cx="519.6" cy="381.4" r="7" fill="transparent"><title>lha-pack rc21: 30368 ms, 2.11 KB/s, +2.69% speed</title></circle>
+<circle class="s0 ring" cx="584.7" cy="381.4" r="4"/>
+<circle cx="584.7" cy="381.4" r="7" fill="transparent"><title>lha-pack rc22: 30368 ms, 2.11 KB/s, +2.69% speed</title></circle>
+<circle class="s0 ring" cx="649.8" cy="382.0" r="4"/>
+<circle cx="649.8" cy="382.0" r="7" fill="transparent"><title>lha-pack rc24: 30255 ms, 2.12 KB/s, +3.07% speed</title></circle>
+<circle class="s0 ring" cx="714.9" cy="382.2" r="4"/>
+<circle cx="714.9" cy="382.2" r="7" fill="transparent"><title>lha-pack rc25: 30221 ms, 2.12 KB/s, +3.19% speed</title></circle>
+<circle class="s0 ring" cx="780.0" cy="381.8" r="4"/>
+<circle cx="780.0" cy="381.8" r="7" fill="transparent"><title>lha-pack rc26: 30298 ms, 2.11 KB/s, +2.92% speed</title></circle>
+<path class="grid" d="M782,381.8 L790,389.9 h6" fill="none"/>
+<text class="t" x="800" y="393.9">lha-pack</text>
+<path class="k0" d="M64.0,581.1L129.1,581.4L194.2,581.5L259.3,580.6L324.4,580.6L389.5,580.5L454.5,583.6L519.6,583.6L584.7,583.6L649.8,584.3L714.9,584.3L780.0,584.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>lha-unpack</title></path>
+<circle class="s0 ring" cx="64.0" cy="581.1" r="4"/>
+<circle cx="64.0" cy="581.1" r="7" fill="transparent"><title>lha-unpack rc5: 8460 ms, 7.56 KB/s, +0.00% speed</title></circle>
+<circle class="s0 ring" cx="129.1" cy="581.4" r="4"/>
+<circle cx="129.1" cy="581.4" r="7" fill="transparent"><title>lha-unpack rc11: 8444 ms, 7.58 KB/s, +0.19% speed</title></circle>
+<circle class="s0 ring" cx="194.2" cy="581.5" r="4"/>
+<circle cx="194.2" cy="581.5" r="7" fill="transparent"><title>lha-unpack rc12: 8442 ms, 7.58 KB/s, +0.21% speed</title></circle>
+<circle class="s0 ring" cx="259.3" cy="580.6" r="4"/>
+<circle cx="259.3" cy="580.6" r="7" fill="transparent"><title>lha-unpack rc14: 8492 ms, 7.54 KB/s, -0.37% speed</title></circle>
+<circle class="s0 ring" cx="324.4" cy="580.6" r="4"/>
+<circle cx="324.4" cy="580.6" r="7" fill="transparent"><title>lha-unpack rc17: 8492 ms, 7.54 KB/s, -0.37% speed</title></circle>
+<circle class="s0 ring" cx="389.5" cy="580.5" r="4"/>
+<circle cx="389.5" cy="580.5" r="7" fill="transparent"><title>lha-unpack rc18: 8493 ms, 7.54 KB/s, -0.39% speed</title></circle>
+<circle class="s0 ring" cx="454.5" cy="583.6" r="4"/>
+<circle cx="454.5" cy="583.6" r="7" fill="transparent"><title>lha-unpack rc20: 8327 ms, 7.69 KB/s, +1.60% speed</title></circle>
+<circle class="s0 ring" cx="519.6" cy="583.6" r="4"/>
+<circle cx="519.6" cy="583.6" r="7" fill="transparent"><title>lha-unpack rc21: 8327 ms, 7.69 KB/s, +1.60% speed</title></circle>
+<circle class="s0 ring" cx="584.7" cy="583.6" r="4"/>
+<circle cx="584.7" cy="583.6" r="7" fill="transparent"><title>lha-unpack rc22: 8327 ms, 7.69 KB/s, +1.60% speed</title></circle>
+<circle class="s0 ring" cx="649.8" cy="584.3" r="4"/>
+<circle cx="649.8" cy="584.3" r="7" fill="transparent"><title>lha-unpack rc24: 8290 ms, 7.72 KB/s, +2.05% speed</title></circle>
+<circle class="s0 ring" cx="714.9" cy="584.3" r="4"/>
+<circle cx="714.9" cy="584.3" r="7" fill="transparent"><title>lha-unpack rc25: 8290 ms, 7.72 KB/s, +2.05% speed</title></circle>
+<circle class="s0 ring" cx="780.0" cy="584.2" r="4"/>
+<circle cx="780.0" cy="584.2" r="7" fill="transparent"><title>lha-unpack rc26: 8298 ms, 7.71 KB/s, +1.95% speed</title></circle>
+<path class="grid" d="M782,584.2 L790,584.2 h6" fill="none"/>
+<text class="t" x="800" y="588.2">lha-unpack</text>
+<path class="k0" d="M64.0,433.0L129.1,431.6L194.2,428.8L259.3,430.4L324.4,430.4L389.5,430.4L454.5,430.4L519.6,430.4L584.7,430.4L649.8,430.7L714.9,430.8L780.0,432.2" fill="none" stroke-width="2" stroke-linejoin="round"><title>zlib-deflate</title></path>
+<circle class="s0 ring" cx="64.0" cy="433.0" r="4"/>
+<circle cx="64.0" cy="433.0" r="7" fill="transparent"><title>zlib-deflate rc5: 21834 ms, 2.93 KB/s, +0.00% speed</title></circle>
+<circle class="s0 ring" cx="129.1" cy="431.6" r="4"/>
+<circle cx="129.1" cy="431.6" r="7" fill="transparent"><title>zlib-deflate rc11: 22031 ms, 2.90 KB/s, -0.89% speed</title></circle>
+<circle class="s0 ring" cx="194.2" cy="428.8" r="4"/>
+<circle cx="194.2" cy="428.8" r="7" fill="transparent"><title>zlib-deflate rc12: 22425 ms, 2.85 KB/s, -2.64% speed</title></circle>
+<circle class="s0 ring" cx="259.3" cy="430.4" r="4"/>
+<circle cx="259.3" cy="430.4" r="7" fill="transparent"><title>zlib-deflate rc14: 22188 ms, 2.88 KB/s, -1.60% speed</title></circle>
+<circle class="s0 ring" cx="324.4" cy="430.4" r="4"/>
+<circle cx="324.4" cy="430.4" r="7" fill="transparent"><title>zlib-deflate rc17: 22188 ms, 2.88 KB/s, -1.60% speed</title></circle>
+<circle class="s0 ring" cx="389.5" cy="430.4" r="4"/>
+<circle cx="389.5" cy="430.4" r="7" fill="transparent"><title>zlib-deflate rc18: 22188 ms, 2.88 KB/s, -1.60% speed</title></circle>
+<circle class="s0 ring" cx="454.5" cy="430.4" r="4"/>
+<circle cx="454.5" cy="430.4" r="7" fill="transparent"><title>zlib-deflate rc20: 22191 ms, 2.88 KB/s, -1.61% speed</title></circle>
+<circle class="s0 ring" cx="519.6" cy="430.4" r="4"/>
+<circle cx="519.6" cy="430.4" r="7" fill="transparent"><title>zlib-deflate rc21: 22191 ms, 2.88 KB/s, -1.61% speed</title></circle>
+<circle class="s0 ring" cx="584.7" cy="430.4" r="4"/>
+<circle cx="584.7" cy="430.4" r="7" fill="transparent"><title>zlib-deflate rc22: 22191 ms, 2.88 KB/s, -1.61% speed</title></circle>
+<circle class="s0 ring" cx="649.8" cy="430.7" r="4"/>
+<circle cx="649.8" cy="430.7" r="7" fill="transparent"><title>zlib-deflate rc24: 22156 ms, 2.89 KB/s, -1.45% speed</title></circle>
+<circle class="s0 ring" cx="714.9" cy="430.8" r="4"/>
+<circle cx="714.9" cy="430.8" r="7" fill="transparent"><title>zlib-deflate rc25: 22140 ms, 2.89 KB/s, -1.38% speed</title></circle>
+<circle class="s0 ring" cx="780.0" cy="432.2" r="4"/>
+<circle cx="780.0" cy="432.2" r="7" fill="transparent"><title>zlib-deflate rc26: 21935 ms, 2.92 KB/s, -0.46% speed</title></circle>
+<path class="grid" d="M782,432.2 L790,454.9 h6" fill="none"/>
+<text class="t" x="800" y="458.9">zlib-deflate</text>
+<path class="k0" d="M64.0,629.9L129.1,630.4L194.2,628.8L259.3,630.3L324.4,630.3L389.5,630.3L454.5,630.2L519.6,630.2L584.7,630.2L649.8,630.3L714.9,630.3L780.0,633.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>zlib-inflate</title></path>
+<circle class="s0 ring" cx="64.0" cy="629.9" r="4"/>
+<circle cx="64.0" cy="629.9" r="7" fill="transparent"><title>zlib-inflate rc5: 6193 ms, 31.0 KB/s, +0.00% speed</title></circle>
+<circle class="s0 ring" cx="129.1" cy="630.4" r="4"/>
+<circle cx="129.1" cy="630.4" r="7" fill="transparent"><title>zlib-inflate rc11: 6173 ms, 31.1 KB/s, +0.32% speed</title></circle>
+<circle class="s0 ring" cx="194.2" cy="628.8" r="4"/>
+<circle cx="194.2" cy="628.8" r="7" fill="transparent"><title>zlib-inflate rc12: 6236 ms, 30.8 KB/s, -0.68% speed</title></circle>
+<circle class="s0 ring" cx="259.3" cy="630.3" r="4"/>
+<circle cx="259.3" cy="630.3" r="7" fill="transparent"><title>zlib-inflate rc14: 6176 ms, 31.1 KB/s, +0.27% speed</title></circle>
+<circle class="s0 ring" cx="324.4" cy="630.3" r="4"/>
+<circle cx="324.4" cy="630.3" r="7" fill="transparent"><title>zlib-inflate rc17: 6176 ms, 31.1 KB/s, +0.27% speed</title></circle>
+<circle class="s0 ring" cx="389.5" cy="630.3" r="4"/>
+<circle cx="389.5" cy="630.3" r="7" fill="transparent"><title>zlib-inflate rc18: 6176 ms, 31.1 KB/s, +0.27% speed</title></circle>
+<circle class="s0 ring" cx="454.5" cy="630.2" r="4"/>
+<circle cx="454.5" cy="630.2" r="7" fill="transparent"><title>zlib-inflate rc20: 6180 ms, 31.1 KB/s, +0.22% speed</title></circle>
+<circle class="s0 ring" cx="519.6" cy="630.2" r="4"/>
+<circle cx="519.6" cy="630.2" r="7" fill="transparent"><title>zlib-inflate rc21: 6180 ms, 31.1 KB/s, +0.22% speed</title></circle>
+<circle class="s0 ring" cx="584.7" cy="630.2" r="4"/>
+<circle cx="584.7" cy="630.2" r="7" fill="transparent"><title>zlib-inflate rc22: 6180 ms, 31.1 KB/s, +0.22% speed</title></circle>
+<circle class="s0 ring" cx="649.8" cy="630.3" r="4"/>
+<circle cx="649.8" cy="630.3" r="7" fill="transparent"><title>zlib-inflate rc24: 6178 ms, 31.1 KB/s, +0.25% speed</title></circle>
+<circle class="s0 ring" cx="714.9" cy="630.3" r="4"/>
+<circle cx="714.9" cy="630.3" r="7" fill="transparent"><title>zlib-inflate rc25: 6177 ms, 31.1 KB/s, +0.25% speed</title></circle>
+<circle class="s0 ring" cx="780.0" cy="633.5" r="4"/>
+<circle cx="780.0" cy="633.5" r="7" fill="transparent"><title>zlib-inflate rc26: 6050 ms, 31.7 KB/s, +2.36% speed</title></circle>
+<path class="grid" d="M782,633.5 L790,633.5 h6" fill="none"/>
+<text class="t" x="800" y="637.5">zlib-inflate</text>
+<path class="k0" d="M64.0,364.9L129.1,366.0L194.2,366.6L259.3,371.4L324.4,371.4L389.5,371.4L454.5,375.0L519.6,375.0L584.7,375.0L649.8,384.0L714.9,384.0L780.0,383.7" fill="none" stroke-width="2" stroke-linejoin="round"><title>png-encode</title></path>
+<circle class="s0 ring" cx="64.0" cy="364.9" r="4"/>
+<circle cx="64.0" cy="364.9" r="7" fill="transparent"><title>png-encode rc5: 33746 ms, 1897 px/s, +0.00% speed</title></circle>
+<circle class="s0 ring" cx="129.1" cy="366.0" r="4"/>
+<circle cx="129.1" cy="366.0" r="7" fill="transparent"><title>png-encode rc11: 33511 ms, 1910 px/s, +0.70% speed</title></circle>
+<circle class="s0 ring" cx="194.2" cy="366.6" r="4"/>
+<circle cx="194.2" cy="366.6" r="7" fill="transparent"><title>png-encode rc12: 33381 ms, 1917 px/s, +1.09% speed</title></circle>
+<circle class="s0 ring" cx="259.3" cy="371.4" r="4"/>
+<circle cx="259.3" cy="371.4" r="7" fill="transparent"><title>png-encode rc14: 32368 ms, 1977 px/s, +4.26% speed</title></circle>
+<circle class="s0 ring" cx="324.4" cy="371.4" r="4"/>
+<circle cx="324.4" cy="371.4" r="7" fill="transparent"><title>png-encode rc17: 32368 ms, 1977 px/s, +4.26% speed</title></circle>
+<circle class="s0 ring" cx="389.5" cy="371.4" r="4"/>
+<circle cx="389.5" cy="371.4" r="7" fill="transparent"><title>png-encode rc18: 32368 ms, 1977 px/s, +4.26% speed</title></circle>
+<circle class="s0 ring" cx="454.5" cy="375.0" r="4"/>
+<circle cx="454.5" cy="375.0" r="7" fill="transparent"><title>png-encode rc20: 31646 ms, 2022 px/s, +6.63% speed</title></circle>
+<circle class="s0 ring" cx="519.6" cy="375.0" r="4"/>
+<circle cx="519.6" cy="375.0" r="7" fill="transparent"><title>png-encode rc21: 31646 ms, 2022 px/s, +6.63% speed</title></circle>
+<circle class="s0 ring" cx="584.7" cy="375.0" r="4"/>
+<circle cx="584.7" cy="375.0" r="7" fill="transparent"><title>png-encode rc22: 31646 ms, 2022 px/s, +6.63% speed</title></circle>
+<circle class="s0 ring" cx="649.8" cy="384.0" r="4"/>
+<circle cx="649.8" cy="384.0" r="7" fill="transparent"><title>png-encode rc24: 29873 ms, 2142 px/s, +12.96% speed</title></circle>
+<circle class="s0 ring" cx="714.9" cy="384.0" r="4"/>
+<circle cx="714.9" cy="384.0" r="7" fill="transparent"><title>png-encode rc25: 29868 ms, 2143 px/s, +12.98% speed</title></circle>
+<circle class="s0 ring" cx="780.0" cy="383.7" r="4"/>
+<circle cx="780.0" cy="383.7" r="7" fill="transparent"><title>png-encode rc26: 29916 ms, 2139 px/s, +12.80% speed</title></circle>
+<path class="grid" d="M782,383.7 L790,402.9 h6" fill="none"/>
+<text class="t" x="800" y="406.9">png-encode</text>
+<path class="k0" d="M64.0,409.0L129.1,410.2L194.2,409.2L259.3,427.2L324.4,427.2L389.5,427.2L454.5,427.2L519.6,427.2L584.7,427.2L649.8,427.2L714.9,427.2L780.0,427.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>png-decode</title></path>
+<circle class="s0 ring" cx="64.0" cy="409.0" r="4"/>
+<circle cx="64.0" cy="409.0" r="7" fill="transparent"><title>png-decode rc5: 25458 ms, 7542 px/s, +0.00% speed</title></circle>
+<circle class="s0 ring" cx="129.1" cy="410.2" r="4"/>
+<circle cx="129.1" cy="410.2" r="7" fill="transparent"><title>png-decode rc11: 25262 ms, 7600 px/s, +0.78% speed</title></circle>
+<circle class="s0 ring" cx="194.2" cy="409.2" r="4"/>
+<circle cx="194.2" cy="409.2" r="7" fill="transparent"><title>png-decode rc12: 25428 ms, 7551 px/s, +0.12% speed</title></circle>
+<circle class="s0 ring" cx="259.3" cy="427.2" r="4"/>
+<circle cx="259.3" cy="427.2" r="7" fill="transparent"><title>png-decode rc14: 22651 ms, 8476 px/s, +12.39% speed</title></circle>
+<circle class="s0 ring" cx="324.4" cy="427.2" r="4"/>
+<circle cx="324.4" cy="427.2" r="7" fill="transparent"><title>png-decode rc17: 22651 ms, 8476 px/s, +12.39% speed</title></circle>
+<circle class="s0 ring" cx="389.5" cy="427.2" r="4"/>
+<circle cx="389.5" cy="427.2" r="7" fill="transparent"><title>png-decode rc18: 22656 ms, 8475 px/s, +12.37% speed</title></circle>
+<circle class="s0 ring" cx="454.5" cy="427.2" r="4"/>
+<circle cx="454.5" cy="427.2" r="7" fill="transparent"><title>png-decode rc20: 22659 ms, 8473 px/s, +12.35% speed</title></circle>
+<circle class="s0 ring" cx="519.6" cy="427.2" r="4"/>
+<circle cx="519.6" cy="427.2" r="7" fill="transparent"><title>png-decode rc21: 22659 ms, 8473 px/s, +12.35% speed</title></circle>
+<circle class="s0 ring" cx="584.7" cy="427.2" r="4"/>
+<circle cx="584.7" cy="427.2" r="7" fill="transparent"><title>png-decode rc22: 22659 ms, 8473 px/s, +12.35% speed</title></circle>
+<circle class="s0 ring" cx="649.8" cy="427.2" r="4"/>
+<circle cx="649.8" cy="427.2" r="7" fill="transparent"><title>png-decode rc24: 22651 ms, 8477 px/s, +12.40% speed</title></circle>
+<circle class="s0 ring" cx="714.9" cy="427.2" r="4"/>
+<circle cx="714.9" cy="427.2" r="7" fill="transparent"><title>png-decode rc25: 22647 ms, 8478 px/s, +12.41% speed</title></circle>
+<circle class="s0 ring" cx="780.0" cy="427.5" r="4"/>
+<circle cx="780.0" cy="427.5" r="7" fill="transparent"><title>png-decode rc26: 22617 ms, 8489 px/s, +12.56% speed</title></circle>
+<path class="grid" d="M782,427.5 L790,441.9 h6" fill="none"/>
+<text class="t" x="800" y="445.9">png-decode</text>
+<path class="k2" d="M64.0,396.9L129.1,399.9L194.2,399.5L259.3,400.2L324.4,400.2L389.5,400.2L454.5,400.2L519.6,400.2L584.7,400.2L649.8,400.4L714.9,400.4L780.0,400.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>ftgrays</title></path>
+<circle class="s2 ring" cx="64.0" cy="396.9" r="4"/>
+<circle cx="64.0" cy="396.9" r="7" fill="transparent"><title>ftgrays rc5: 27509 ms, 20.5 glyph/s, +0.00% speed</title></circle>
+<circle class="s2 ring" cx="129.1" cy="399.9" r="4"/>
+<circle cx="129.1" cy="399.9" r="7" fill="transparent"><title>ftgrays rc11: 26984 ms, 20.9 glyph/s, +1.95% speed</title></circle>
+<circle class="s2 ring" cx="194.2" cy="399.5" r="4"/>
+<circle cx="194.2" cy="399.5" r="7" fill="transparent"><title>ftgrays rc12: 27049 ms, 20.9 glyph/s, +1.70% speed</title></circle>
+<circle class="s2 ring" cx="259.3" cy="400.2" r="4"/>
+<circle cx="259.3" cy="400.2" r="7" fill="transparent"><title>ftgrays rc14: 26929 ms, 20.9 glyph/s, +2.15% speed</title></circle>
+<circle class="s2 ring" cx="324.4" cy="400.2" r="4"/>
+<circle cx="324.4" cy="400.2" r="7" fill="transparent"><title>ftgrays rc17: 26929 ms, 20.9 glyph/s, +2.15% speed</title></circle>
+<circle class="s2 ring" cx="389.5" cy="400.2" r="4"/>
+<circle cx="389.5" cy="400.2" r="7" fill="transparent"><title>ftgrays rc18: 26932 ms, 20.9 glyph/s, +2.14% speed</title></circle>
+<circle class="s2 ring" cx="454.5" cy="400.2" r="4"/>
+<circle cx="454.5" cy="400.2" r="7" fill="transparent"><title>ftgrays rc20: 26929 ms, 20.9 glyph/s, +2.15% speed</title></circle>
+<circle class="s2 ring" cx="519.6" cy="400.2" r="4"/>
+<circle cx="519.6" cy="400.2" r="7" fill="transparent"><title>ftgrays rc21: 26929 ms, 20.9 glyph/s, +2.15% speed</title></circle>
+<circle class="s2 ring" cx="584.7" cy="400.2" r="4"/>
+<circle cx="584.7" cy="400.2" r="7" fill="transparent"><title>ftgrays rc22: 26929 ms, 20.9 glyph/s, +2.15% speed</title></circle>
+<circle class="s2 ring" cx="649.8" cy="400.4" r="4"/>
+<circle cx="649.8" cy="400.4" r="7" fill="transparent"><title>ftgrays rc24: 26889 ms, 21.0 glyph/s, +2.31% speed</title></circle>
+<circle class="s2 ring" cx="714.9" cy="400.4" r="4"/>
+<circle cx="714.9" cy="400.4" r="7" fill="transparent"><title>ftgrays rc25: 26886 ms, 21.0 glyph/s, +2.32% speed</title></circle>
+<circle class="s2 ring" cx="780.0" cy="400.4" r="4"/>
+<circle cx="780.0" cy="400.4" r="7" fill="transparent"><title>ftgrays rc26: 26896 ms, 21.0 glyph/s, +2.28% speed</title></circle>
+<path class="grid" d="M782,400.4 L790,415.9 h6" fill="none"/>
+<text class="t" x="800" y="419.9">ftgrays</text>
+<path class="k5" d="M64.0,604.8L129.1,609.5L194.2,614.8L259.3,612.5L324.4,613.2L389.5,599.8L454.5,606.1L519.6,605.1L584.7,605.1L649.8,605.7L714.9,608.2L780.0,609.0" fill="none" stroke-width="2" stroke-linejoin="round"><title>json-parse</title></path>
+<circle class="s5 ring" cx="64.0" cy="604.8" r="4"/>
+<circle cx="64.0" cy="604.8" r="7" fill="transparent"><title>json-parse rc5: 7274 ms, 6.70 KB/s, +0.00% speed</title></circle>
+<circle class="s5 ring" cx="129.1" cy="609.5" r="4"/>
+<circle cx="129.1" cy="609.5" r="7" fill="transparent"><title>json-parse rc11: 7057 ms, 6.91 KB/s, +3.07% speed</title></circle>
+<circle class="s5 ring" cx="194.2" cy="614.8" r="4"/>
+<circle cx="194.2" cy="614.8" r="7" fill="transparent"><title>json-parse rc12: 6822 ms, 7.15 KB/s, +6.62% speed</title></circle>
+<circle class="s5 ring" cx="259.3" cy="612.5" r="4"/>
+<circle cx="259.3" cy="612.5" r="7" fill="transparent"><title>json-parse rc14: 6923 ms, 7.04 KB/s, +5.06% speed</title></circle>
+<circle class="s5 ring" cx="324.4" cy="613.2" r="4"/>
+<circle cx="324.4" cy="613.2" r="7" fill="transparent"><title>json-parse rc17: 6891 ms, 7.08 KB/s, +5.55% speed</title></circle>
+<circle class="s5 ring" cx="389.5" cy="599.8" r="4"/>
+<circle cx="389.5" cy="599.8" r="7" fill="transparent"><title>json-parse rc18: 7507 ms, 6.50 KB/s, -3.10% speed</title></circle>
+<circle class="s5 ring" cx="454.5" cy="606.1" r="4"/>
+<circle cx="454.5" cy="606.1" r="7" fill="transparent"><title>json-parse rc20: 7213 ms, 6.76 KB/s, +0.85% speed</title></circle>
+<circle class="s5 ring" cx="519.6" cy="605.1" r="4"/>
+<circle cx="519.6" cy="605.1" r="7" fill="transparent"><title>json-parse rc21: 7260 ms, 6.72 KB/s, +0.19% speed</title></circle>
+<circle class="s5 ring" cx="584.7" cy="605.1" r="4"/>
+<circle cx="584.7" cy="605.1" r="7" fill="transparent"><title>json-parse rc22: 7260 ms, 6.72 KB/s, +0.19% speed</title></circle>
+<circle class="s5 ring" cx="649.8" cy="605.7" r="4"/>
+<circle cx="649.8" cy="605.7" r="7" fill="transparent"><title>json-parse rc24: 7232 ms, 6.74 KB/s, +0.58% speed</title></circle>
+<circle class="s5 ring" cx="714.9" cy="608.2" r="4"/>
+<circle cx="714.9" cy="608.2" r="7" fill="transparent"><title>json-parse rc25: 7115 ms, 6.85 KB/s, +2.23% speed</title></circle>
+<circle class="s5 ring" cx="780.0" cy="609.0" r="4"/>
+<circle cx="780.0" cy="609.0" r="7" fill="transparent"><title>json-parse rc26: 7077 ms, 6.89 KB/s, +2.78% speed</title></circle>
+<path class="grid" d="M782,609.0 L790,609.0 h6" fill="none"/>
+<text class="t" x="800" y="613.0">json-parse</text>
+<path class="k5" d="M64.0,551.4L129.1,555.7L194.2,555.8L259.3,555.4L324.4,556.0L389.5,556.2L454.5,556.4L519.6,554.7L584.7,559.1L649.8,559.2L714.9,559.7L780.0,561.0" fill="none" stroke-width="2" stroke-linejoin="round"><title>json-print</title></path>
+<circle class="s5 ring" cx="64.0" cy="551.4" r="4"/>
+<circle cx="64.0" cy="551.4" r="7" fill="transparent"><title>json-print rc5: 10236 ms, 4.76 KB/s, +0.00% speed</title></circle>
+<circle class="s5 ring" cx="129.1" cy="555.7" r="4"/>
+<circle cx="129.1" cy="555.7" r="7" fill="transparent"><title>json-print rc11: 9957 ms, 4.90 KB/s, +2.80% speed</title></circle>
+<circle class="s5 ring" cx="194.2" cy="555.8" r="4"/>
+<circle cx="194.2" cy="555.8" r="7" fill="transparent"><title>json-print rc12: 9948 ms, 4.90 KB/s, +2.89% speed</title></circle>
+<circle class="s5 ring" cx="259.3" cy="555.4" r="4"/>
+<circle cx="259.3" cy="555.4" r="7" fill="transparent"><title>json-print rc14: 9974 ms, 4.89 KB/s, +2.63% speed</title></circle>
+<circle class="s5 ring" cx="324.4" cy="556.0" r="4"/>
+<circle cx="324.4" cy="556.0" r="7" fill="transparent"><title>json-print rc17: 9934 ms, 4.91 KB/s, +3.04% speed</title></circle>
+<circle class="s5 ring" cx="389.5" cy="556.2" r="4"/>
+<circle cx="389.5" cy="556.2" r="7" fill="transparent"><title>json-print rc18: 9923 ms, 4.91 KB/s, +3.16% speed</title></circle>
+<circle class="s5 ring" cx="454.5" cy="556.4" r="4"/>
+<circle cx="454.5" cy="556.4" r="7" fill="transparent"><title>json-print rc20: 9914 ms, 4.92 KB/s, +3.24% speed</title></circle>
+<circle class="s5 ring" cx="519.6" cy="554.7" r="4"/>
+<circle cx="519.6" cy="554.7" r="7" fill="transparent"><title>json-print rc21: 10017 ms, 4.87 KB/s, +2.18% speed</title></circle>
+<circle class="s5 ring" cx="584.7" cy="559.1" r="4"/>
+<circle cx="584.7" cy="559.1" r="7" fill="transparent"><title>json-print rc22: 9741 ms, 5.01 KB/s, +5.07% speed</title></circle>
+<circle class="s5 ring" cx="649.8" cy="559.2" r="4"/>
+<circle cx="649.8" cy="559.2" r="7" fill="transparent"><title>json-print rc24: 9736 ms, 5.01 KB/s, +5.13% speed</title></circle>
+<circle class="s5 ring" cx="714.9" cy="559.7" r="4"/>
+<circle cx="714.9" cy="559.7" r="7" fill="transparent"><title>json-print rc25: 9706 ms, 5.02 KB/s, +5.45% speed</title></circle>
+<circle class="s5 ring" cx="780.0" cy="561.0" r="4"/>
+<circle cx="780.0" cy="561.0" r="7" fill="transparent"><title>json-print rc26: 9625 ms, 5.07 KB/s, +6.35% speed</title></circle>
+<path class="grid" d="M782,561.0 L790,561.0 h6" fill="none"/>
+<text class="t" x="800" y="565.0">json-print</text>
+<path class="k2" d="M64.0,94.0L129.1,101.3L194.2,101.3L259.3,103.5L324.4,103.5L389.5,103.5L454.5,103.5L519.6,103.5L584.7,103.5L649.8,103.5L714.9,103.5L780.0,102.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>wipeout-tris</title></path>
+<circle class="s2 ring" cx="64.0" cy="94.0" r="4"/>
+<circle cx="64.0" cy="94.0" r="7" fill="transparent"><title>wipeout-tris rc5: 190982 ms, 429 tri/s, +0.00% speed</title></circle>
+<circle class="s2 ring" cx="129.1" cy="101.3" r="4"/>
+<circle cx="129.1" cy="101.3" r="7" fill="transparent"><title>wipeout-tris rc11: 182270 ms, 449 tri/s, +4.78% speed</title></circle>
+<circle class="s2 ring" cx="194.2" cy="101.3" r="4"/>
+<circle cx="194.2" cy="101.3" r="7" fill="transparent"><title>wipeout-tris rc12: 182270 ms, 449 tri/s, +4.78% speed</title></circle>
+<circle class="s2 ring" cx="259.3" cy="103.5" r="4"/>
+<circle cx="259.3" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc14: 179701 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="324.4" cy="103.5" r="4"/>
+<circle cx="324.4" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc17: 179701 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="389.5" cy="103.5" r="4"/>
+<circle cx="389.5" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc18: 179701 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="454.5" cy="103.5" r="4"/>
+<circle cx="454.5" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc20: 179701 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="519.6" cy="103.5" r="4"/>
+<circle cx="519.6" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc21: 179701 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="584.7" cy="103.5" r="4"/>
+<circle cx="584.7" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc22: 179701 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="649.8" cy="103.5" r="4"/>
+<circle cx="649.8" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc24: 179688 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="714.9" cy="103.5" r="4"/>
+<circle cx="714.9" cy="103.5" r="7" fill="transparent"><title>wipeout-tris rc25: 179688 ms, 456 tri/s, +6.28% speed</title></circle>
+<circle class="s2 ring" cx="780.0" cy="102.8" r="4"/>
+<circle cx="780.0" cy="102.8" r="7" fill="transparent"><title>wipeout-tris rc26: 180584 ms, 454 tri/s, +5.76% speed</title></circle>
+<path class="grid" d="M782,102.8 L790,102.8 h6" fill="none"/>
+<text class="t" x="800" y="106.8">wipeout-tris</text>
+<path class="k2" d="M64.0,58.9L129.1,59.6L194.2,59.9L259.3,60.2L324.4,60.2L389.5,60.2L454.5,60.2L519.6,60.2L584.7,60.2L649.8,60.2L714.9,60.3L780.0,59.8" fill="none" stroke-width="2" stroke-linejoin="round"><title>nfs3-project</title></path>
+<circle class="s2 ring" cx="64.0" cy="58.9" r="4"/>
+<circle cx="64.0" cy="58.9" r="7" fill="transparent"><title>nfs3-project rc5: 239114 ms, 209 vert/s, +0.00% speed</title></circle>
+<circle class="s2 ring" cx="129.1" cy="59.6" r="4"/>
+<circle cx="129.1" cy="59.6" r="7" fill="transparent"><title>nfs3-project rc11: 238013 ms, 210 vert/s, +0.46% speed</title></circle>
+<circle class="s2 ring" cx="194.2" cy="59.9" r="4"/>
+<circle cx="194.2" cy="59.9" r="7" fill="transparent"><title>nfs3-project rc12: 237647 ms, 210 vert/s, +0.62% speed</title></circle>
+<circle class="s2 ring" cx="259.3" cy="60.2" r="4"/>
+<circle cx="259.3" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc14: 237125 ms, 211 vert/s, +0.84% speed</title></circle>
+<circle class="s2 ring" cx="324.4" cy="60.2" r="4"/>
+<circle cx="324.4" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc17: 237125 ms, 211 vert/s, +0.84% speed</title></circle>
+<circle class="s2 ring" cx="389.5" cy="60.2" r="4"/>
+<circle cx="389.5" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc18: 237083 ms, 211 vert/s, +0.86% speed</title></circle>
+<circle class="s2 ring" cx="454.5" cy="60.2" r="4"/>
+<circle cx="454.5" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc20: 237083 ms, 211 vert/s, +0.86% speed</title></circle>
+<circle class="s2 ring" cx="519.6" cy="60.2" r="4"/>
+<circle cx="519.6" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc21: 237083 ms, 211 vert/s, +0.86% speed</title></circle>
+<circle class="s2 ring" cx="584.7" cy="60.2" r="4"/>
+<circle cx="584.7" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc22: 237083 ms, 211 vert/s, +0.86% speed</title></circle>
+<circle class="s2 ring" cx="649.8" cy="60.2" r="4"/>
+<circle cx="649.8" cy="60.2" r="7" fill="transparent"><title>nfs3-project rc24: 237083 ms, 211 vert/s, +0.86% speed</title></circle>
+<circle class="s2 ring" cx="714.9" cy="60.3" r="4"/>
+<circle cx="714.9" cy="60.3" r="7" fill="transparent"><title>nfs3-project rc25: 236956 ms, 211 vert/s, +0.91% speed</title></circle>
+<circle class="s2 ring" cx="780.0" cy="59.8" r="4"/>
+<circle cx="780.0" cy="59.8" r="7" fill="transparent"><title>nfs3-project rc26: 237745 ms, 210 vert/s, +0.58% speed</title></circle>
+<path class="grid" d="M782,59.8 L790,59.8 h6" fill="none"/>
+<text class="t" x="800" y="63.8">nfs3-project</text>
+<path class="k2" d="M64.0,123.2L129.1,123.3L194.2,123.3L259.3,122.9L324.4,122.9L389.5,123.0L454.5,123.0L519.6,122.1L584.7,122.1L649.8,122.1L714.9,122.3L780.0,122.5" fill="none" stroke-width="2" stroke-linejoin="round"><title>nfs3-clip</title></path>
+<circle class="s2 ring" cx="64.0" cy="123.2" r="4"/>
+<circle cx="64.0" cy="123.2" r="7" fill="transparent"><title>nfs3-clip rc5: 158444 ms, 37.9 poly/s, +0.00% speed</title></circle>
+<circle class="s2 ring" cx="129.1" cy="123.3" r="4"/>
+<circle cx="129.1" cy="123.3" r="7" fill="transparent"><title>nfs3-clip rc11: 158332 ms, 37.9 poly/s, +0.07% speed</title></circle>
+<circle class="s2 ring" cx="194.2" cy="123.3" r="4"/>
+<circle cx="194.2" cy="123.3" r="7" fill="transparent"><title>nfs3-clip rc12: 158342 ms, 37.9 poly/s, +0.06% speed</title></circle>
+<circle class="s2 ring" cx="259.3" cy="122.9" r="4"/>
+<circle cx="259.3" cy="122.9" r="7" fill="transparent"><title>nfs3-clip rc14: 158712 ms, 37.8 poly/s, -0.17% speed</title></circle>
+<circle class="s2 ring" cx="324.4" cy="122.9" r="4"/>
+<circle cx="324.4" cy="122.9" r="7" fill="transparent"><title>nfs3-clip rc17: 158712 ms, 37.8 poly/s, -0.17% speed</title></circle>
+<circle class="s2 ring" cx="389.5" cy="123.0" r="4"/>
+<circle cx="389.5" cy="123.0" r="7" fill="transparent"><title>nfs3-clip rc18: 158666 ms, 37.8 poly/s, -0.14% speed</title></circle>
+<circle class="s2 ring" cx="454.5" cy="123.0" r="4"/>
+<circle cx="454.5" cy="123.0" r="7" fill="transparent"><title>nfs3-clip rc20: 158666 ms, 37.8 poly/s, -0.14% speed</title></circle>
+<circle class="s2 ring" cx="519.6" cy="122.1" r="4"/>
+<circle cx="519.6" cy="122.1" r="7" fill="transparent"><title>nfs3-clip rc21: 159559 ms, 37.6 poly/s, -0.70% speed</title></circle>
+<circle class="s2 ring" cx="584.7" cy="122.1" r="4"/>
+<circle cx="584.7" cy="122.1" r="7" fill="transparent"><title>nfs3-clip rc22: 159559 ms, 37.6 poly/s, -0.70% speed</title></circle>
+<circle class="s2 ring" cx="649.8" cy="122.1" r="4"/>
+<circle cx="649.8" cy="122.1" r="7" fill="transparent"><title>nfs3-clip rc24: 159581 ms, 37.6 poly/s, -0.71% speed</title></circle>
+<circle class="s2 ring" cx="714.9" cy="122.3" r="4"/>
+<circle cx="714.9" cy="122.3" r="7" fill="transparent"><title>nfs3-clip rc25: 159394 ms, 37.6 poly/s, -0.60% speed</title></circle>
+<circle class="s2 ring" cx="780.0" cy="122.5" r="4"/>
+<circle cx="780.0" cy="122.5" r="7" fill="transparent"><title>nfs3-clip rc26: 159198 ms, 37.7 poly/s, -0.47% speed</title></circle>
+<path class="grid" d="M782,122.5 L790,122.5 h6" fill="none"/>
+<text class="t" x="800" y="126.5">nfs3-clip</text>
+<path class="k3" d="M64.0,336.5L129.1,339.0L194.2,339.0L259.3,282.3L324.4,332.5L389.5,332.5L454.5,332.6L519.6,332.6L584.7,332.6L649.8,332.6L714.9,332.6L780.0,328.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>sha512</title></path>
+<circle class="s3 ring" cx="64.0" cy="336.5" r="4"/>
+<circle cx="64.0" cy="336.5" r="7" fill="transparent"><title>sha512 rc5: 40467 ms, 3.16 KB/s, +0.00% speed</title></circle>
+<circle class="s3 ring" cx="129.1" cy="339.0" r="4"/>
+<circle cx="129.1" cy="339.0" r="7" fill="transparent"><title>sha512 rc11: 39823 ms, 3.21 KB/s, +1.62% speed</title></circle>
+<circle class="s3 ring" cx="194.2" cy="339.0" r="4"/>
+<circle cx="194.2" cy="339.0" r="7" fill="transparent"><title>sha512 rc12: 39823 ms, 3.21 KB/s, +1.62% speed</title></circle>
+<circle class="s3 ring" cx="259.3" cy="282.3" r="4"/>
+<circle cx="259.3" cy="282.3" r="7" fill="transparent"><title>sha512 rc14: 57267 ms, 2.24 KB/s, -29.34% speed</title></circle>
+<circle class="s3 ring" cx="324.4" cy="332.5" r="4"/>
+<circle cx="324.4" cy="332.5" r="7" fill="transparent"><title>sha512 rc17: 41521 ms, 3.08 KB/s, -2.54% speed</title></circle>
+<circle class="s3 ring" cx="389.5" cy="332.5" r="4"/>
+<circle cx="389.5" cy="332.5" r="7" fill="transparent"><title>sha512 rc18: 41521 ms, 3.08 KB/s, -2.54% speed</title></circle>
+<circle class="s3 ring" cx="454.5" cy="332.6" r="4"/>
+<circle cx="454.5" cy="332.6" r="7" fill="transparent"><title>sha512 rc20: 41506 ms, 3.08 KB/s, -2.50% speed</title></circle>
+<circle class="s3 ring" cx="519.6" cy="332.6" r="4"/>
+<circle cx="519.6" cy="332.6" r="7" fill="transparent"><title>sha512 rc21: 41506 ms, 3.08 KB/s, -2.50% speed</title></circle>
+<circle class="s3 ring" cx="584.7" cy="332.6" r="4"/>
+<circle cx="584.7" cy="332.6" r="7" fill="transparent"><title>sha512 rc22: 41506 ms, 3.08 KB/s, -2.50% speed</title></circle>
+<circle class="s3 ring" cx="649.8" cy="332.6" r="4"/>
+<circle cx="649.8" cy="332.6" r="7" fill="transparent"><title>sha512 rc24: 41506 ms, 3.08 KB/s, -2.50% speed</title></circle>
+<circle class="s3 ring" cx="714.9" cy="332.6" r="4"/>
+<circle cx="714.9" cy="332.6" r="7" fill="transparent"><title>sha512 rc25: 41506 ms, 3.08 KB/s, -2.50% speed</title></circle>
+<circle class="s3 ring" cx="780.0" cy="328.4" r="4"/>
+<circle cx="780.0" cy="328.4" r="7" fill="transparent"><title>sha512 rc26: 42636 ms, 3.00 KB/s, -5.09% speed</title></circle>
+<path class="grid" d="M782,328.4 L790,328.4 h6" fill="none"/>
+<text class="t" x="800" y="332.4">sha512</text>
+<path class="k3" d="M64.0,345.1L129.1,345.0L194.2,345.0L259.3,293.5L324.4,349.7L389.5,349.7L454.5,348.7L519.6,348.7L584.7,348.7L649.8,348.7L714.9,348.8L780.0,350.9" fill="none" stroke-width="2" stroke-linejoin="round"><title>aesgcm</title></path>
+<circle class="s3 ring" cx="64.0" cy="345.1" r="4"/>
+<circle cx="64.0" cy="345.1" r="7" fill="transparent"><title>aesgcm rc5: 38313 ms, 3.34 KB/s, +0.00% speed</title></circle>
+<circle class="s3 ring" cx="129.1" cy="345.0" r="4"/>
+<circle cx="129.1" cy="345.0" r="7" fill="transparent"><title>aesgcm rc11: 38329 ms, 3.34 KB/s, -0.04% speed</title></circle>
+<circle class="s3 ring" cx="194.2" cy="345.0" r="4"/>
+<circle cx="194.2" cy="345.0" r="7" fill="transparent"><title>aesgcm rc12: 38338 ms, 3.34 KB/s, -0.07% speed</title></circle>
+<circle class="s3 ring" cx="259.3" cy="293.5" r="4"/>
+<circle cx="259.3" cy="293.5" r="7" fill="transparent"><title>aesgcm rc14: 53278 ms, 2.40 KB/s, -28.09% speed</title></circle>
+<circle class="s3 ring" cx="324.4" cy="349.7" r="4"/>
+<circle cx="324.4" cy="349.7" r="7" fill="transparent"><title>aesgcm rc17: 37192 ms, 3.44 KB/s, +3.01% speed</title></circle>
+<circle class="s3 ring" cx="389.5" cy="349.7" r="4"/>
+<circle cx="389.5" cy="349.7" r="7" fill="transparent"><title>aesgcm rc18: 37192 ms, 3.44 KB/s, +3.01% speed</title></circle>
+<circle class="s3 ring" cx="454.5" cy="348.7" r="4"/>
+<circle cx="454.5" cy="348.7" r="7" fill="transparent"><title>aesgcm rc20: 37433 ms, 3.42 KB/s, +2.35% speed</title></circle>
+<circle class="s3 ring" cx="519.6" cy="348.7" r="4"/>
+<circle cx="519.6" cy="348.7" r="7" fill="transparent"><title>aesgcm rc21: 37433 ms, 3.42 KB/s, +2.35% speed</title></circle>
+<circle class="s3 ring" cx="584.7" cy="348.7" r="4"/>
+<circle cx="584.7" cy="348.7" r="7" fill="transparent"><title>aesgcm rc22: 37433 ms, 3.42 KB/s, +2.35% speed</title></circle>
+<circle class="s3 ring" cx="649.8" cy="348.7" r="4"/>
+<circle cx="649.8" cy="348.7" r="7" fill="transparent"><title>aesgcm rc24: 37433 ms, 3.42 KB/s, +2.35% speed</title></circle>
+<circle class="s3 ring" cx="714.9" cy="348.8" r="4"/>
+<circle cx="714.9" cy="348.8" r="7" fill="transparent"><title>aesgcm rc25: 37419 ms, 3.42 KB/s, +2.39% speed</title></circle>
+<circle class="s3 ring" cx="780.0" cy="350.9" r="4"/>
+<circle cx="780.0" cy="350.9" r="7" fill="transparent"><title>aesgcm rc26: 36923 ms, 3.47 KB/s, +3.77% speed</title></circle>
+<path class="grid" d="M782,350.9 L790,350.9 h6" fill="none"/>
+<text class="t" x="800" y="354.9">aesgcm</text>
+<path class="k3" d="M64.0,352.0L129.1,356.0L194.2,356.0L259.3,350.8L324.4,355.0L389.5,355.0L454.5,354.9L519.6,354.9L584.7,354.9L649.8,354.9L714.9,354.9L780.0,354.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>chacha20poly1305</title></path>
+<circle class="s3 ring" cx="64.0" cy="352.0" r="4"/>
+<circle cx="64.0" cy="352.0" r="7" fill="transparent"><title>chacha20poly1305 rc5: 36646 ms, 3.49 KB/s, +0.00% speed</title></circle>
+<circle class="s3 ring" cx="129.1" cy="356.0" r="4"/>
+<circle cx="129.1" cy="356.0" r="7" fill="transparent"><title>chacha20poly1305 rc11: 35737 ms, 3.58 KB/s, +2.54% speed</title></circle>
+<circle class="s3 ring" cx="194.2" cy="356.0" r="4"/>
+<circle cx="194.2" cy="356.0" r="7" fill="transparent"><title>chacha20poly1305 rc12: 35737 ms, 3.58 KB/s, +2.54% speed</title></circle>
+<circle class="s3 ring" cx="259.3" cy="350.8" r="4"/>
+<circle cx="259.3" cy="350.8" r="7" fill="transparent"><title>chacha20poly1305 rc14: 36925 ms, 3.47 KB/s, -0.76% speed</title></circle>
+<circle class="s3 ring" cx="324.4" cy="355.0" r="4"/>
+<circle cx="324.4" cy="355.0" r="7" fill="transparent"><title>chacha20poly1305 rc17: 35962 ms, 3.56 KB/s, +1.90% speed</title></circle>
+<circle class="s3 ring" cx="389.5" cy="355.0" r="4"/>
+<circle cx="389.5" cy="355.0" r="7" fill="transparent"><title>chacha20poly1305 rc18: 35962 ms, 3.56 KB/s, +1.90% speed</title></circle>
+<circle class="s3 ring" cx="454.5" cy="354.9" r="4"/>
+<circle cx="454.5" cy="354.9" r="7" fill="transparent"><title>chacha20poly1305 rc20: 35988 ms, 3.56 KB/s, +1.83% speed</title></circle>
+<circle class="s3 ring" cx="519.6" cy="354.9" r="4"/>
+<circle cx="519.6" cy="354.9" r="7" fill="transparent"><title>chacha20poly1305 rc21: 35988 ms, 3.56 KB/s, +1.83% speed</title></circle>
+<circle class="s3 ring" cx="584.7" cy="354.9" r="4"/>
+<circle cx="584.7" cy="354.9" r="7" fill="transparent"><title>chacha20poly1305 rc22: 35988 ms, 3.56 KB/s, +1.83% speed</title></circle>
+<circle class="s3 ring" cx="649.8" cy="354.9" r="4"/>
+<circle cx="649.8" cy="354.9" r="7" fill="transparent"><title>chacha20poly1305 rc24: 35988 ms, 3.56 KB/s, +1.83% speed</title></circle>
+<circle class="s3 ring" cx="714.9" cy="354.9" r="4"/>
+<circle cx="714.9" cy="354.9" r="7" fill="transparent"><title>chacha20poly1305 rc25: 35986 ms, 3.56 KB/s, +1.83% speed</title></circle>
+<circle class="s3 ring" cx="780.0" cy="354.4" r="4"/>
+<circle cx="780.0" cy="354.4" r="7" fill="transparent"><title>chacha20poly1305 rc26: 36101 ms, 3.55 KB/s, +1.51% speed</title></circle>
+<path class="grid" d="M782,354.4 L790,363.9 h6" fill="none"/>
+<text class="t" x="800" y="367.9">chacha20poly1305</text>
+<path class="k3" d="M64.0,176.5L129.1,182.2L194.2,182.2L259.3,173.1L324.4,178.8L389.5,178.8L454.5,178.8L519.6,178.8L584.7,178.8L649.8,178.8L714.9,178.8L780.0,181.4" fill="none" stroke-width="2" stroke-linejoin="round"><title>x25519</title></path>
+<circle class="s3 ring" cx="64.0" cy="176.5" r="4"/>
+<circle cx="64.0" cy="176.5" r="7" fill="transparent"><title>x25519 rc5: 112703 ms, 0.00890 kex/s, +0.00% speed</title></circle>
+<circle class="s3 ring" cx="129.1" cy="182.2" r="4"/>
+<circle cx="129.1" cy="182.2" r="7" fill="transparent"><title>x25519 rc11: 108605 ms, 0.00920 kex/s, +3.77% speed</title></circle>
+<circle class="s3 ring" cx="194.2" cy="182.2" r="4"/>
+<circle cx="194.2" cy="182.2" r="7" fill="transparent"><title>x25519 rc12: 108601 ms, 0.00920 kex/s, +3.78% speed</title></circle>
+<circle class="s3 ring" cx="259.3" cy="173.1" r="4"/>
+<circle cx="259.3" cy="173.1" r="7" fill="transparent"><title>x25519 rc14: 115112 ms, 0.00870 kex/s, -2.09% speed</title></circle>
+<circle class="s3 ring" cx="324.4" cy="178.8" r="4"/>
+<circle cx="324.4" cy="178.8" r="7" fill="transparent"><title>x25519 rc17: 111022 ms, 0.00900 kex/s, +1.51% speed</title></circle>
+<circle class="s3 ring" cx="389.5" cy="178.8" r="4"/>
+<circle cx="389.5" cy="178.8" r="7" fill="transparent"><title>x25519 rc18: 111022 ms, 0.00900 kex/s, +1.51% speed</title></circle>
+<circle class="s3 ring" cx="454.5" cy="178.8" r="4"/>
+<circle cx="454.5" cy="178.8" r="7" fill="transparent"><title>x25519 rc20: 111003 ms, 0.00900 kex/s, +1.53% speed</title></circle>
+<circle class="s3 ring" cx="519.6" cy="178.8" r="4"/>
+<circle cx="519.6" cy="178.8" r="7" fill="transparent"><title>x25519 rc21: 111003 ms, 0.00900 kex/s, +1.53% speed</title></circle>
+<circle class="s3 ring" cx="584.7" cy="178.8" r="4"/>
+<circle cx="584.7" cy="178.8" r="7" fill="transparent"><title>x25519 rc22: 111003 ms, 0.00900 kex/s, +1.53% speed</title></circle>
+<circle class="s3 ring" cx="649.8" cy="178.8" r="4"/>
+<circle cx="649.8" cy="178.8" r="7" fill="transparent"><title>x25519 rc24: 111003 ms, 0.00900 kex/s, +1.53% speed</title></circle>
+<circle class="s3 ring" cx="714.9" cy="178.8" r="4"/>
+<circle cx="714.9" cy="178.8" r="7" fill="transparent"><title>x25519 rc25: 111003 ms, 0.00900 kex/s, +1.53% speed</title></circle>
+<circle class="s3 ring" cx="780.0" cy="181.4" r="4"/>
+<circle cx="780.0" cy="181.4" r="7" fill="transparent"><title>x25519 rc26: 109162 ms, 0.00920 kex/s, +3.24% speed</title></circle>
+<path class="grid" d="M782,181.4 L790,183.6 h6" fill="none"/>
+<text class="t" x="800" y="187.6">x25519</text>
+<path class="ref" d="M64.0,356.7L129.1,358.8L194.2,359.1L259.3,353.9L324.4,360.4L389.5,359.7L454.5,360.4L519.6,360.2L584.7,360.4L649.8,361.0L714.9,361.2L780.0,361.5" fill="none" stroke-width="3" stroke-linejoin="round"><title>geomean</title></path>
+<circle class="dot ring" cx="64.0" cy="356.7" r="4"/>
+<circle cx="64.0" cy="356.7" r="7" fill="transparent"><title>geomean rc5: 35577 ms, +0.00% speed</title></circle>
+<circle class="dot ring" cx="129.1" cy="358.8" r="4"/>
+<circle cx="129.1" cy="358.8" r="7" fill="transparent"><title>geomean rc11: 35096 ms, +1.37% speed</title></circle>
+<circle class="dot ring" cx="194.2" cy="359.1" r="4"/>
+<circle cx="194.2" cy="359.1" r="7" fill="transparent"><title>geomean rc12: 35037 ms, +1.54% speed</title></circle>
+<circle class="dot ring" cx="259.3" cy="353.9" r="4"/>
+<circle cx="259.3" cy="353.9" r="7" fill="transparent"><title>geomean rc14: 36214 ms, -1.76% speed</title></circle>
+<circle class="dot ring" cx="324.4" cy="360.4" r="4"/>
+<circle cx="324.4" cy="360.4" r="7" fill="transparent"><title>geomean rc17: 34732 ms, +2.44% speed</title></circle>
+<circle class="dot ring" cx="389.5" cy="359.7" r="4"/>
+<circle cx="389.5" cy="359.7" r="7" fill="transparent"><title>geomean rc18: 34901 ms, +1.94% speed</title></circle>
+<circle class="dot ring" cx="454.5" cy="360.4" r="4"/>
+<circle cx="454.5" cy="360.4" r="7" fill="transparent"><title>geomean rc20: 34744 ms, +2.40% speed</title></circle>
+<circle class="dot ring" cx="519.6" cy="360.2" r="4"/>
+<circle cx="519.6" cy="360.2" r="7" fill="transparent"><title>geomean rc21: 34787 ms, +2.27% speed</title></circle>
+<circle class="dot ring" cx="584.7" cy="360.4" r="4"/>
+<circle cx="584.7" cy="360.4" r="7" fill="transparent"><title>geomean rc22: 34733 ms, +2.43% speed</title></circle>
+<circle class="dot ring" cx="649.8" cy="361.0" r="4"/>
+<circle cx="649.8" cy="361.0" r="7" fill="transparent"><title>geomean rc24: 34595 ms, +2.84% speed</title></circle>
+<circle class="dot ring" cx="714.9" cy="361.2" r="4"/>
+<circle cx="714.9" cy="361.2" r="7" fill="transparent"><title>geomean rc25: 34550 ms, +2.97% speed</title></circle>
+<circle class="dot ring" cx="780.0" cy="361.5" r="4"/>
+<circle cx="780.0" cy="361.5" r="7" fill="transparent"><title>geomean rc26: 34484 ms, +3.17% speed</title></circle>
+<path class="grid" d="M782,361.5 L790,376.9 h6" fill="none"/>
+<text class="t name" x="800" y="380.9">geomean</text>
+</svg>

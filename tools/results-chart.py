@@ -202,8 +202,10 @@ def size_lines(opts):
              "curve25519.o": 3, "pngread.o": 0, "cJSON.o": 5, "deflate.o": 0}
     series = [(name, [None if r[k] == "-" else int(r[k]) for r in rows],
                color.get(name, 2)) for k, name in enumerate(head) if k]
-    legend = [("Benchwork", 4), ("compression", 0), ("crypto", 3), ("text", 5),
-              ("programs", 2)]
+    used = {c for _, _, c in series}
+    legend = [(label, c) for label, c in
+              (("Benchwork", 4), ("compression", 0), ("crypto", 3), ("text", 5),
+               ("programs", 2)) if c in used]
     # The axis fits the sizes closely, so that the lines use all of it; the
     # decades of KB get a heavier line than the 2 and 5 steps between them.
     kb = (5, 10, 20, 50, 100, 200, 500, 1000)

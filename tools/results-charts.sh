@@ -45,9 +45,22 @@ tools/results-chart.py --lines --groups=memory -o results/gcc-releases-memory-04
     "rc14=$L-rc14-O2-040.txt" "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt" "rc24=$L-rc24-O2-040.txt" "rc25=$L-rc25-O2-040.txt" \
     "rc26=$L-rc26-O2-040.txt"
+# The same on the 68000.
+r000() { for r in "$@"; do echo "$r=$L-$r-000-O2-000.txt"; done; }
+# shellcheck disable=SC2046 # one word per release
+tools/results-chart.py --lines --skip-groups=memory -o results/gcc-releases-000.svg \
+    -t "GCC 16.2 releases on benchwork-000 on a 68000, time in ms" \
+    $(r000 rc5 rc11 rc12 rc14 rc17 rc18 rc20 rc21 rc22 rc24 rc25 rc26)
+# shellcheck disable=SC2046
+tools/results-chart.py --lines --groups=memory -o results/gcc-releases-memory-000.svg \
+    -t "GCC 16.2 releases on benchwork-000 on a 68000, memory benchmarks, time in ms" \
+    $(r000 rc5 rc11 rc14 rc18 rc20 rc24 rc26)
 tools/results-chart.py --size-lines "$R/releases/release-sizes.txt" \
     -o results/gcc-releases-size-040.svg \
     -t "Code size in the GCC 16.2 releases, in bytes"
+tools/results-chart.py --size-lines "$R/releases/release-sizes-000.txt" \
+    -o results/gcc-releases-size-000.svg \
+    -t "Code size in the GCC 16.2 releases, built for the 68000, in bytes"
 
 tools/results-chart.py --hide-base -o results/opt-levels-030.svg \
     -t "GCC 16.2-rc26 optimization levels on a 68030 with cache, speed relative to -O2" \

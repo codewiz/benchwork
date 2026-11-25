@@ -113,3 +113,28 @@ out=$results/release-sizes.txt
     done
 } >"$out"
 cat "$out"
+
+# The same Benchwork objects built for the 68000, from tools/regen-results.sh's
+# -m68000 builds, in release-sizes-000.txt: the code without a 32-bit
+# multiply or divide, nor an FPU.
+out=$results/release-sizes-000.txt
+{
+    printf '%-8s %13s %9s' release benchwork-000 objects
+    for o in $OBJECTS; do
+        printf ' %12s' "${o#*/}.o"
+    done
+    printf '\n'
+    for rc in $RELEASES; do
+        bin=$TOOLCHAINS/m68k-amigaos-gcc-16.2-rc$rc/bin/m68k-amigaos
+        build=tmp/regen/build-gcc-16.2-rc$rc-000-O2-000
+        printf '%-8s %13s %9s' "rc$rc" \
+            "$(text "$bin-size" "tmp/regen/benchwork-gcc-16.2-rc$rc-000-O2-000")" \
+            "$(find "$build" -name '*.o' -print0 | xargs -0 "$bin-size" |
+                awk 'NR > 1 { t += $1 } END { print t }')"
+        for o in $OBJECTS; do
+            printf ' %12s' "$(text "$bin-size" "$build/third_party/$o.o")"
+        done
+        printf '\n'
+    done
+} >"$out"
+cat "$out"
