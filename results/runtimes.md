@@ -92,7 +92,7 @@ rc21 to rc26, each time in ms with its change from the release before:
 
 [^rc26]: `m68k-amigaos-gcc (AmigaDev 16.2-rc26) 16.2.1b 20261010182711`,
     the release tarball.
-[^amiberry]: Amiberry 8.6.0, built 2026-11-20: an A4000 with a 25 MHz
+[^amiberry]: Amiberry 0f97f686a, after v8.5.0 (it reports 8.6.0): an A4000 with a 25 MHz
     68040, `cpu_cycle_exact`, 2 MB of chip and 128 MB of motherboard RAM,
     Kickstart 47.115 and Workbench 3.2.3. Each benchmark is the fastest of
     three repetitions, of at least a second each.
