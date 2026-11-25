@@ -68,7 +68,13 @@ then using the CJSON_API_VISIBILITY flag to "export" the same symbols the way CJ
 #define CJSON_PUBLIC(type)   __declspec(dllimport) type CJSON_STDCALL
 #endif
 #else /* !__WINDOWS__ */
+#if defined(__amigaos__) && defined(__GNUC__)
+/* The hooks point to the C library's malloc() and free(), which take their
+   arguments on the stack even when -mregparm passes them in registers.  */
+#define CJSON_CDECL __attribute__((stkparm))
+#else
 #define CJSON_CDECL
+#endif
 #define CJSON_STDCALL
 
 #if (defined(__GNUC__) || defined(__SUNPRO_CC) || defined (__SUNPRO_C)) && defined(CJSON_API_VISIBILITY)
