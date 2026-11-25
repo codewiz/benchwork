@@ -33,9 +33,11 @@ AmigaPorts release[^releases] since rc5, the oldest one still published:
   an immediate: memcpy-small 6% faster, scene-2d 2%, 0.6% overall. The
   newlib startup code no longer pulls in `strstr()`, or stdio when the
   program doesn't use it.
-- rc26: a retuned cost model, among other code generation changes. sha512
-  9% slower, its 64-bit code 7% longer; png-encode, nfs3-clip and
-  json-print 2% to 3% slower; aesgcm 2.8% faster. Overall unchanged.
+- rc26: Bebbo's table-driven cost model, tuned by CMA-ES
+  (AmigaPorts/gcc#138), among other changes. The cost model makes
+  zlib-inflate 11% faster and aesgcm 2.8%, but sha512 9% slower, its 64-bit
+  halves moved through address registers. wipeout-tris is 1.9% faster;
+  png-encode, nfs3-clip and json-print 2% to 3% slower. Overall unchanged.
 
 ## Application workloads
 
