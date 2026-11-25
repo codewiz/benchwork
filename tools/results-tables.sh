@@ -110,10 +110,11 @@ sizes runtimes-{newlib,nix20,clib2} >>"$T/runtimes.md"
 # The JSON benchmarks across releases, a table each. The clib2 of rc21 and
 # rc22 hangs before printing anything, so there is no file for it.
 for b in json-parse json-print; do
-    tools/results-releases-table.py --releases rc21,rc22,rc23 --bench "$b" \
-        "newlib=$C/json-rc21-newlib.txt,$C/json-rc22-newlib.txt,$C/json-rc23-newlib.txt" \
-        "libnix=$C/json-rc21-nix20.txt,$C/json-rc22-nix20.txt,$C/json-rc23-nix20.txt" \
-        "clib2=hangs,hangs,$C/json-rc23-clib2.txt" >"$T/runtimes-$b.md"
+    tools/results-releases-table.py --releases rc21,rc22,rc23,rc24,rc25,rc26 --bench "$b" \
+        "newlib=$(printf "$C/json-rc%s-newlib.txt," 21 22 23 24 25 26 | sed 's/,$//')" \
+        "libnix=$(printf "$C/json-rc%s-nix20.txt," 21 22 23 24 25 26 | sed 's/,$//')" \
+        "clib2=hangs,hangs,$(printf "$C/json-rc%s-clib2.txt," 23 24 25 26 | sed 's/,$//')" \
+        >"$T/runtimes-$b.md"
 done
 tools/results-splice.py results/runtimes.md "$T/runtimes.md" \
     "$T/runtimes-json-parse.md" "$T/runtimes-json-print.md"
