@@ -31,7 +31,7 @@ sizes() { tools/results-sizes.py --results-dir "$R" "$@"; }
 { tools/results-table.py --best \
     --geomean-skip=nfs3-project,nfs3-clip,sha512,aesgcm,chacha20poly1305,x25519 \
     "6.5.0b[^gcc6]=$R/gcc-6.5.0b-O2-040.txt" \
-    "16.2-rc25[^rc25]=$G-rc25-O2-040.txt" \
+    "16.2-rc26[^rc26]=$G-rc26-O2-040.txt" \
     "vbcc 2026-01-12[^vbcc]=$R/vbcc-20260112-O3-040.txt" \
     "SAS/C 6.58[^sasc]=$R/sasc-6.58-040-040.txt" 2>"$T/compilers.err" ||
     true; } |
@@ -53,52 +53,52 @@ tools/results-table.py --best --skip-groups=memory \
     "rc17=$L-rc17-O2-040.txt" "rc18=$L-rc18-O2-040.txt" \
     "rc20=$L-rc20-O2-040.txt" "rc22=$L-rc22-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt" "rc24=$L-rc24-O2-040.txt" \
-    "rc25=$L-rc25-O2-040.txt" >"$T/releases.md"
+    "rc25=$L-rc25-O2-040.txt" "rc26=$L-rc26-O2-040.txt" >"$T/releases.md"
 tools/results-sizes.py --results-dir "$R/releases" \
-    gcc-16.2-{rc5,rc11,rc12,rc14,rc17,rc18,rc20,rc22,rc23,rc24,rc25}-O2-040 >>"$T/releases.md"
+    gcc-16.2-{rc5,rc11,rc12,rc14,rc17,rc18,rc20,rc22,rc23,rc24,rc25,rc26}-O2-040 >>"$T/releases.md"
 tools/results-table.py --best --groups=memory \
     "rc5=$L-rc5-O2-040.txt" "rc11=$L-rc11-O2-040.txt" "rc12=$L-rc12-O2-040.txt" \
     "rc14=$L-rc14-O2-040.txt" \
     "rc18=$L-rc18-O2-040.txt" "rc20=$L-rc20-O2-040.txt" \
     "rc23=$L-rc23-O2-040.txt" "rc24=$L-rc24-O2-040.txt" \
-    "rc25=$L-rc25-O2-040.txt" >"$T/releases-memory.md"
+    "rc25=$L-rc25-O2-040.txt" "rc26=$L-rc26-O2-040.txt" >"$T/releases-memory.md"
 # Their code sizes: the releases in which a size changes, and rc6, the first
 # that builds p96cts.
 tools/results-sizes-table.py "$R/releases/release-sizes.txt" \
-    rc5 rc6 rc11 rc12 rc14 rc17 rc22 rc23 rc24 rc25 >"$T/releases-size.md"
+    rc5 rc6 rc11 rc12 rc14 rc17 rc22 rc23 rc24 rc25 rc26 >"$T/releases-size.md"
 tools/results-splice.py results/gcc-releases.md "$T/releases.md" \
     "$T/releases-memory.md" "$T/releases-size.md"
 
 # Optimization levels, on the 68030 with its cache.
 tools/results-table.py --best \
-    "-O2=$G-rc25-030-O2-030-cache.txt" "-Os=$G-rc25-030-Os-030-cache.txt" \
-    "-O3=$G-rc25-030-O3-030-cache.txt" \
-    "-O2 -flto=$G-rc25-030-O2-lto-030-cache.txt" |
+    "-O2=$G-rc26-030-O2-030-cache.txt" "-Os=$G-rc26-030-Os-030-cache.txt" \
+    "-O3=$G-rc26-030-O3-030-cache.txt" \
+    "-O2 -flto=$G-rc26-030-O2-lto-030-cache.txt" |
     sed 's/^| dhrystone /| dhrystone[^dhry-lto] /' >"$T/opt.md"
-sizes gcc-16.2-rc25-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
+sizes gcc-16.2-rc26-030-{O2,Os,O3,O2-lto}-030-cache >>"$T/opt.md"
 tools/results-splice.py results/opt-levels.md "$T/opt.md"
 
 # The release binaries on a 68040, then -m68020-60 against -m68060 on a
 # 68060.
 tools/results-table.py \
-    "68000=$G-rc25-000-040.txt" "68020=$G-rc25-020-040.txt" \
-    "68020-60-FP=$G-rc25-020fp-040.txt" "68040-FP=$G-rc25-O2-040.txt" |
+    "68000=$G-rc26-000-040.txt" "68020=$G-rc26-020-040.txt" \
+    "68020-60-FP=$G-rc26-020fp-040.txt" "68040-FP=$G-rc26-O2-040.txt" |
     sed -E 's/^\| (wipeout-tris|nfs3-[a-z]+) /| \1[^softfloat] /' \
     >"$T/cpus.md"
-sizes gcc-16.2-rc25-{000,020,020fp,O2}-040 >>"$T/cpus.md"
+sizes gcc-16.2-rc26-{000,020,020fp,O2}-040 >>"$T/cpus.md"
 tools/results-table.py --best \
-    "-m68020-60 -m68881=$G-rc25-020fp-060-cache.txt" \
-    "-m68060 -m68881=$G-rc25-060fp-060-cache.txt" >"$T/060.md"
-sizes gcc-16.2-rc25-{020fp,060fp}-060-cache >>"$T/060.md"
+    "-m68020-60 -m68881=$G-rc26-020fp-060-cache.txt" \
+    "-m68060 -m68881=$G-rc26-060fp-060-cache.txt" >"$T/060.md"
+sizes gcc-16.2-rc26-{020fp,060fp}-060-cache >>"$T/060.md"
 tools/results-splice.py results/cpus.md "$T/cpus.md" "$T/060.md"
 
 # Register arguments.
 tools/results-table.py --best \
-    "stack args=$G-rc21-base-040.txt" \
-    "-mregparm=2=$G-rc21-regparm2-040.txt" \
-    "-mregparm=4=$G-rc21-regparm4-040.txt" \
-    "-msasregparm=$G-rc21-sasregparm-040.txt" >"$T/regparm.md"
-sizes gcc-16.2-rc21-{base,regparm2,regparm4,sasregparm}-040 >>"$T/regparm.md"
+    "stack args=$G-rc26-base-040.txt" \
+    "-mregparm=2=$G-rc26-regparm2-040.txt" \
+    "-mregparm=4=$G-rc26-regparm4-040.txt" \
+    "-msasregparm=$G-rc26-sasregparm-040.txt" >"$T/regparm.md"
+sizes gcc-16.2-rc26-{base,regparm2,regparm4,sasregparm}-040 >>"$T/regparm.md"
 tools/results-splice.py results/regparm.md "$T/regparm.md"
 
 # The C runtimes. Their runs are not part of regen-results.sh: they boot

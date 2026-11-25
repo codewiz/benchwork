@@ -5,7 +5,7 @@
 <rect class="s0" x="180" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="200" y="21">gcc 6.5.0b</text>
 <rect class="s1" x="306" y="8" width="14" height="14" rx="2"/>
-<text class="t big" x="326" y="21">gcc 16.2-rc25</text>
+<text class="t big" x="326" y="21">gcc 16.2-rc26</text>
 <rect class="s2" x="455" y="8" width="14" height="14" rx="2"/>
 <text class="t big" x="475" y="21">vbcc 2026-01-12</text>
 <rect class="s3" x="618" y="8" width="14" height="14" rx="2"/>
@@ -22,75 +22,74 @@
 <text class="t axis" x="810.0" y="1874" text-anchor="middle">2.0x</text>
 <text class="t big" x="168" y="68.0" text-anchor="end">dhrystone</text>
 <path class="s0" d="M180,36 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,50 h299.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-299.1 z"/>
+<path class="s1" d="M180,50 h296.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-296.8 z"/>
 <path class="s2" d="M180,64 h272.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-272.3 z"/>
 <text class="t muted" x="500.0" y="74">42403 Dhry/s (-12.28%)</text>
 <path class="s3" d="M180,78 h223.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-223.4 z"/>
 <text class="t muted" x="500.0" y="88">34900 Dhry/s (-27.80%)</text>
 <text class="t big" x="168" y="138.0" text-anchor="end">scene-2d</text>
 <path class="s0" d="M180,106 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,120 h445.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-445.5 z"/>
-<text class="t muted" x="634.5" y="130">127158 px/s (+42.71%)</text>
+<path class="s1" d="M180,120 h441.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-441.1 z"/>
+<text class="t muted" x="630.1" y="130">125898 px/s (+41.30%)</text>
 <path class="s2" d="M180,134 h200.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-200.5 z"/>
 <text class="t muted" x="500.0" y="144">57831 px/s (-35.09%)</text>
 <path class="s3" d="M180,148 h139.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-139.5 z"/>
 <text class="t muted" x="328.5" y="158">40589 px/s (-54.45%)</text>
 <text class="t big" x="168" y="208.0" text-anchor="end">quantize-floyd</text>
 <path class="s0" d="M180,176 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,190 h411.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-411.2 z"/>
-<text class="t muted" x="600.2" y="200">96240 px/s (+31.82%)</text>
+<path class="s1" d="M180,190 h415.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.9 z"/>
+<text class="t muted" x="604.9" y="200">97322 px/s (+33.30%)</text>
 <path class="s2" d="M180,204 h218.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-218.9 z"/>
 <text class="t muted" x="500.0" y="214">51654 px/s (-29.25%)</text>
 <path class="s3" d="M180,218 h248.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-248.2 z"/>
 <text class="t muted" x="500.0" y="228">58462 px/s (-19.92%)</text>
 <text class="t big" x="168" y="278.0" text-anchor="end">lha-pack</text>
 <path class="s0" d="M180,246 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,260 h309.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-309.6 z"/>
+<path class="s1" d="M180,260 h308.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-308.2 z"/>
 <path class="s2" d="M180,274 h319.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-319.6 z"/>
 <path class="s3" d="M180,288 h275.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-275.4 z"/>
 <text class="t muted" x="500.0" y="298">51.9 KB/s (-11.31%)</text>
 <text class="t big" x="168" y="348.0" text-anchor="end">lha-unpack</text>
 <path class="s0" d="M180,316 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,330 h324.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-324.5 z"/>
+<path class="s1" d="M180,330 h318.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-318.6 z"/>
 <path class="s2" d="M180,344 h334.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-334.9 z"/>
 <text class="t muted" x="523.9" y="354">226 KB/s (+7.60%)</text>
 <path class="s3" d="M180,358 h287.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-287.4 z"/>
 <text class="t muted" x="500.0" y="368">194 KB/s (-7.50%)</text>
 <text class="t big" x="168" y="418.0" text-anchor="end">zlib-deflate</text>
 <path class="s0" d="M180,386 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,400 h270.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-270.0 z"/>
-<text class="t muted" x="500.0" y="410">79.8 KB/s (-13.00%)</text>
+<path class="s1" d="M180,400 h269.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-269.7 z"/>
+<text class="t muted" x="500.0" y="410">79.7 KB/s (-13.12%)</text>
 <path class="s2" d="M180,414 h229.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-229.9 z"/>
 <text class="t muted" x="500.0" y="424">68.1 KB/s (-25.75%)</text>
 <path class="s3" d="M180,428 h241.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-241.8 z"/>
 <text class="t muted" x="500.0" y="438">71.6 KB/s (-21.97%)</text>
 <text class="t big" x="168" y="488.0" text-anchor="end">zlib-inflate</text>
 <path class="s0" d="M180,456 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,470 h264.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-264.0 z"/>
-<text class="t muted" x="500.0" y="480">833 KB/s (-14.93%)</text>
+<path class="s1" d="M180,470 h297.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-297.8 z"/>
 <path class="s2" d="M180,484 h327.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-327.9 z"/>
 <text class="t muted" x="516.9" y="494">1032 KB/s (+5.36%)</text>
 <path class="s3" d="M180,498 h285.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-285.1 z"/>
 <text class="t muted" x="500.0" y="508">899 KB/s (-8.21%)</text>
 <text class="t big" x="168" y="558.0" text-anchor="end">png-encode</text>
 <path class="s0" d="M180,526 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,540 h289.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-289.0 z"/>
-<text class="t muted" x="500.0" y="550">51056 px/s (-6.97%)</text>
+<path class="s1" d="M180,540 h280.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-280.6 z"/>
+<text class="t muted" x="500.0" y="550">49593 px/s (-9.64%)</text>
 <path class="s2" d="M180,554 h198.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-198.5 z"/>
 <text class="t muted" x="500.0" y="564">35274 px/s (-35.73%)</text>
 <path class="s3" d="M180,568 h214.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-214.4 z"/>
 <text class="t muted" x="500.0" y="578">38060 px/s (-30.65%)</text>
 <text class="t big" x="168" y="628.0" text-anchor="end">png-decode</text>
 <path class="s0" d="M180,596 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,610 h290.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-290.9 z"/>
-<text class="t muted" x="500.0" y="620">195505 px/s (-6.38%)</text>
+<path class="s1" d="M180,610 h291.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-291.9 z"/>
+<text class="t muted" x="500.0" y="620">196163 px/s (-6.06%)</text>
 <path class="s2" d="M180,624 h222.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-222.2 z"/>
 <text class="t muted" x="500.0" y="634">149939 px/s (-28.20%)</text>
 <path class="s3" d="M180,638 h228.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-228.9 z"/>
 <text class="t muted" x="500.0" y="648">154419 px/s (-26.05%)</text>
 <text class="t big" x="168" y="698.0" text-anchor="end">ftgrays</text>
 <path class="s0" d="M180,666 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,680 h305.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-305.9 z"/>
+<path class="s1" d="M180,680 h307.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-307.4 z"/>
 <path class="s2" d="M180,694 h256.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-256.2 z"/>
 <text class="t muted" x="500.0" y="704">718 glyph/s (-17.41%)</text>
 <path class="s3" d="M180,708 h284.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-284.2 z"/>
@@ -111,92 +110,93 @@
 <text class="t muted" x="500.0" y="858">50861 KB/s (-36.66%)</text>
 <text class="t big" x="168" y="908.0" text-anchor="end">memcpy-var-small</text>
 <path class="s0" d="M180,876 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,890 h324.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-324.9 z"/>
+<path class="s1" d="M180,890 h329.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-329.9 z"/>
+<text class="t muted" x="518.9" y="900">14580 KB/s (+6.01%)</text>
 <path class="s2" d="M180,904 h306.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-306.5 z"/>
 <path class="s3" d="M180,918 h456.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-456.1 z"/>
 <text class="t muted" x="645.1" y="928">20086 KB/s (+46.05%)</text>
 <text class="t big" x="168" y="978.0" text-anchor="end">memcpy-var-large</text>
 <path class="s0" d="M180,946 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,960 h312.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-312.8 z"/>
+<path class="s1" d="M180,960 h313.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-313.4 z"/>
 <path class="s2" d="M180,974 h116.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-116.6 z"/>
 <text class="t muted" x="305.6" y="984">19242 KB/s (-61.70%)</text>
 <path class="s3" d="M180,988 h312.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-312.1 z"/>
 <text class="t big" x="168" y="1048.0" text-anchor="end">memmove-small</text>
 <path class="s0" d="M180,1016 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1030 h306.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-306.2 z"/>
+<path class="s1" d="M180,1030 h309.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-309.7 z"/>
 <path class="s2" d="M180,1044 h129.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-129.8 z"/>
 <text class="t muted" x="318.8" y="1054">3284 KB/s (-57.51%)</text>
 <path class="s3" d="M180,1058 h182.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-182.4 z"/>
 <text class="t muted" x="500.0" y="1068">4574 KB/s (-40.82%)</text>
 <text class="t big" x="168" y="1118.0" text-anchor="end">memmove-large</text>
 <path class="s0" d="M180,1086 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1100 h334.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-334.3 z"/>
-<text class="t muted" x="523.3" y="1110">30084 KB/s (+7.39%)</text>
+<path class="s1" d="M180,1100 h334.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-334.4 z"/>
+<text class="t muted" x="523.4" y="1110">30096 KB/s (+7.43%)</text>
 <path class="s2" d="M180,1114 h35.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-35.2 z"/>
 <text class="t muted" x="224.2" y="1124">3483 KB/s (-87.57%)</text>
 <path class="s3" d="M180,1128 h50.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-50.8 z"/>
 <text class="t muted" x="239.8" y="1138">4875 KB/s (-82.60%)</text>
 <text class="t big" x="168" y="1188.0" text-anchor="end">json-parse</text>
 <path class="s0" d="M180,1156 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1170 h309.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-309.1 z"/>
+<path class="s1" d="M180,1170 h306.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-306.4 z"/>
 <path class="s2" d="M180,1184 h570.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-570.0 z"/>
 <text class="t muted" x="759.0" y="1194">219 KB/s (+82.23%)</text>
 <path class="s3" d="M180,1198 h163.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-163.2 z"/>
 <text class="t muted" x="352.2" y="1208">63.7 KB/s (-46.93%)</text>
 <text class="t big" x="168" y="1258.0" text-anchor="end">json-print</text>
 <path class="s0" d="M180,1226 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1240 h334.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-334.1 z"/>
-<text class="t muted" x="523.1" y="1250">190 KB/s (+7.34%)</text>
-<path class="s2" d="M180,1254 h427.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-427.8 z"/>
-<text class="t muted" x="616.8" y="1264">243 KB/s (+37.07%)</text>
-<path class="s3" d="M180,1268 h260.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-260.9 z"/>
-<text class="t muted" x="500.0" y="1278">149 KB/s (-15.91%)</text>
+<path class="s1" d="M180,1240 h326.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-326.6 z"/>
+<path class="s2" d="M180,1254 h427.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-427.5 z"/>
+<text class="t muted" x="616.5" y="1264">243 KB/s (+36.99%)</text>
+<path class="s3" d="M180,1268 h260.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-260.7 z"/>
+<text class="t muted" x="500.0" y="1278">149 KB/s (-15.96%)</text>
 <text class="t big" x="168" y="1328.0" text-anchor="end">wipeout-tris</text>
 <path class="s0" d="M180,1296 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1310 h308.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-308.5 z"/>
+<path class="s1" d="M180,1310 h314.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-314.7 z"/>
 <path class="s2" d="M180,1324 h149.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-149.8 z"/>
 <text class="t muted" x="338.8" y="1334">45302 tri/s (-51.17%)</text>
 <path class="s3" d="M180,1338 h203.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-203.3 z"/>
 <text class="t muted" x="500.0" y="1348">61055 tri/s (-34.19%)</text>
 <text class="t big" x="168" y="1398.0" text-anchor="end">nfs3-project</text>
 <path class="s0" d="M180,1366 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1380 h341.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-341.8 z"/>
-<text class="t muted" x="530.8" y="1390">46992 vert/s (+9.77%)</text>
+<path class="s1" d="M180,1380 h343.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-343.7 z"/>
+<text class="t muted" x="532.7" y="1390">47258 vert/s (+10.40%)</text>
 <text class="t muted" x="186" y="1404">not built</text>
 <text class="t muted" x="186" y="1418">not built</text>
 <text class="t big" x="168" y="1468.0" text-anchor="end">nfs3-clip</text>
 <path class="s0" d="M180,1436 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1450 h331.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-331.7 z"/>
-<text class="t muted" x="520.7" y="1460">6360 poly/s (+6.58%)</text>
+<path class="s1" d="M180,1450 h324.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-324.1 z"/>
 <text class="t muted" x="186" y="1474">not built</text>
 <text class="t muted" x="186" y="1488">not built</text>
 <text class="t big" x="168" y="1538.0" text-anchor="end">sha512</text>
 <path class="s0" d="M180,1506 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1520 h313.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-313.0 z"/>
-<path class="s2" d="M180,1534 h75.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-75.0 z"/>
-<text class="t muted" x="264.0" y="1544">33.5 KB/s (-74.91%)</text>
+<path class="s1" d="M180,1520 h287.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-287.3 z"/>
+<text class="t muted" x="500.0" y="1530">123 KB/s (-7.51%)</text>
+<path class="s2" d="M180,1534 h75.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-75.4 z"/>
+<text class="t muted" x="264.4" y="1544">33.5 KB/s (-74.78%)</text>
 <text class="t muted" x="186" y="1558">not built</text>
 <text class="t big" x="168" y="1608.0" text-anchor="end">aesgcm</text>
 <path class="s0" d="M180,1576 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1590 h405.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-405.1 z"/>
-<text class="t muted" x="594.1" y="1600">155 KB/s (+29.88%)</text>
+<path class="s1" d="M180,1590 h416.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-416.9 z"/>
+<text class="t muted" x="605.9" y="1600">159 KB/s (+33.62%)</text>
 <path class="s2" d="M180,1604 h104.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-104.9 z"/>
 <text class="t muted" x="293.9" y="1614">41.3 KB/s (-65.42%)</text>
 <text class="t muted" x="186" y="1628">not built</text>
 <text class="t big" x="168" y="1678.0" text-anchor="end">chacha20poly1305</text>
 <path class="s0" d="M180,1646 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1660 h295.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-295.9 z"/>
+<path class="s1" d="M180,1660 h295.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-295.0 z"/>
+<text class="t muted" x="500.0" y="1670">319 KB/s (-5.09%)</text>
 <path class="s2" d="M180,1674 h118.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-118.0 z"/>
 <text class="t muted" x="307.0" y="1684">130 KB/s (-61.25%)</text>
 <text class="t muted" x="186" y="1698">not built</text>
 <text class="t big" x="168" y="1748.0" text-anchor="end">x25519</text>
 <path class="s0" d="M180,1716 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1730 h306.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-306.8 z"/>
+<path class="s1" d="M180,1730 h306.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-306.2 z"/>
 <text class="t muted" x="186" y="1754">failed</text>
 <text class="t muted" x="186" y="1768">not built</text>
 <text class="t big name" x="168" y="1818.0" text-anchor="end">geomean</text>
 <path class="s0" d="M180,1786 h311.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-311.0 z"/>
-<path class="s1" d="M180,1800 h316.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-316.9 z"/>
+<path class="s1" d="M180,1800 h318.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-318.3 z"/>
 <path class="s2" d="M180,1814 h196.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-196.4 z"/>
 <text class="t muted" x="385.4" y="1824">-36.37%</text>
 <path class="s3" d="M180,1828 h214.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-214.8 z"/>

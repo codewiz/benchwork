@@ -101,8 +101,7 @@ SC=${SC:-sc-volamos}
 tc=$TOOLCHAINS/m68k-amigaos-gcc
 rc18=$tc-16.2-rc18
 rc20=$tc-16.2-rc20
-rc21=$tc-16.2-rc21
-rc25=$tc-16.2-rc25
+rc26=$tc-16.2-rc26
 vbcc_tc=${VBCC_TOOLCHAIN:-$rc20}
 run=(tools/bench-run.sh --results-dir "$results")
 
@@ -116,14 +115,14 @@ v060=(--clock-mhz 50 --cpu 68060 --fpu --cache --fpsp-emulate "${libs[@]}")
 
 # gcc 6.5 and the 16.2 releases the compilers page compares it with.
 "${run[@]}" "$tc-6.5" gcc-6.5.0b-O2-040 "-m68040 -m68881" "$o2" "${v040[@]}"
-for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 25; do
+for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 25 26; do
     "${run[@]}" "$tc-16.2-rc$rc" "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" \
         "${v040[@]}"
 done
 
 # Every 16.2 release for the releases page, in a directory of its own: these
 # include the JSON benchmarks, which the pages above have no other column for.
-for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25; do
+for rc in 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26; do
     tools/bench-run.sh --results-dir "$results/releases" "$tc-16.2-rc$rc" \
         "gcc-16.2-rc$rc-O2-040" "-m68040 -m68881" "$o2" "${v040[@]}"
 done
@@ -134,29 +133,29 @@ if [ -n "$odfs" ] && [ -n "$p96cts" ]; then
         --p96cts "$p96cts"
 fi
 
-# rc25's release binaries on the 68040.
-"${run[@]}" "$rc25" gcc-16.2-rc25-000-040 -m68000 "$o2" "${v040[@]}"
-"${run[@]}" "$rc25" gcc-16.2-rc25-020-040 -m68020 "$o2" "${v040[@]}"
-"${run[@]}" "$rc25" gcc-16.2-rc25-020fp-040 "-m68020-60 -m68881" "$o2" "${v040[@]}"
+# rc26's release binaries on the 68040.
+"${run[@]}" "$rc26" gcc-16.2-rc26-000-040 -m68000 "$o2" "${v040[@]}"
+"${run[@]}" "$rc26" gcc-16.2-rc26-020-040 -m68020 "$o2" "${v040[@]}"
+"${run[@]}" "$rc26" gcc-16.2-rc26-020fp-040 "-m68020-60 -m68881" "$o2" "${v040[@]}"
 
 # Optimization levels, on a 68030 with its instruction cache.
 for opt in O2 Os O3; do
-    "${run[@]}" "$rc25" "gcc-16.2-rc25-030-$opt-030-cache" "-m68030 -m68881" \
+    "${run[@]}" "$rc26" "gcc-16.2-rc26-030-$opt-030-cache" "-m68030 -m68881" \
         "-$opt -fomit-frame-pointer" "${v030[@]}"
 done
-"${run[@]}" "$rc25" gcc-16.2-rc25-030-O2-lto-030-cache "-m68030 -m68881" \
+"${run[@]}" "$rc26" gcc-16.2-rc26-030-O2-lto-030-cache "-m68030 -m68881" \
     "$o2 -flto" "${v030[@]}"
 
 # The 68060.
-"${run[@]}" "$rc25" gcc-16.2-rc25-020fp-060-cache "-m68020-60 -m68881" "$o2" \
+"${run[@]}" "$rc26" gcc-16.2-rc26-020fp-060-cache "-m68020-60 -m68881" "$o2" \
     "${v060[@]}"
-"${run[@]}" "$rc25" gcc-16.2-rc25-060fp-060-cache "-m68060 -m68881" "$o2" \
+"${run[@]}" "$rc26" gcc-16.2-rc26-060fp-060-cache "-m68060 -m68881" "$o2" \
     "${v060[@]}"
 
 # Register arguments, two repetitions.
 for v in base: regparm2:-mregparm=2 regparm4:-mregparm=4 \
     sasregparm:-msasregparm; do
-    "${run[@]}" --repeat 2 "$rc21" "gcc-16.2-rc21-${v%%:*}-040" \
+    "${run[@]}" --repeat 2 "$rc26" "gcc-16.2-rc26-${v%%:*}-040" \
         "-m68040 -m68881" "$o2 ${v#*:}" "${v040[@]}"
 done
 
