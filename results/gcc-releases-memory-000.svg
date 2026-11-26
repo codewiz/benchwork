@@ -11,6 +11,14 @@
 <line class="grid" x1="541.3" y1="44" x2="541.3" y2="650" stroke-dasharray="3 4"/>
 <line class="grid" x1="660.7" y1="44" x2="660.7" y2="650" stroke-dasharray="3 4"/>
 <line class="grid" x1="780.0" y1="44" x2="780.0" y2="650" stroke-dasharray="3 4"/>
+<line class="grid" x1="64" y1="489.9" x2="780" y2="489.9"/>
+<text class="t axis" x="58" y="493.9" text-anchor="end">20 s</text>
+<line class="grid" x1="64" y1="393.6" x2="780" y2="393.6"/>
+<text class="t axis" x="58" y="397.6" text-anchor="end">30 s</text>
+<line class="grid" x1="64" y1="272.3" x2="780" y2="272.3"/>
+<text class="t axis" x="58" y="276.3" text-anchor="end">50 s</text>
+<line class="grid" x1="64" y1="107.7" x2="780" y2="107.7"/>
+<text class="t axis" x="58" y="111.7" text-anchor="end">100 s</text>
 <text class="t axis" x="64.0" y="670" text-anchor="middle">rc5</text>
 <text class="t axis" x="183.3" y="670" text-anchor="middle">rc11</text>
 <text class="t axis" x="302.7" y="670" text-anchor="middle">rc14</text>

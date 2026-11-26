@@ -178,7 +178,10 @@ def lines(opts, columns):
     # colors.
     shown = {group_of.get(n) for n, *_ in series} & set(GROUP_COLORS)
     legend = [(g, GROUP_COLORS[g]) for g in sorted(shown, key=GROUP_COLORS.get)]
-    ticks = [(t, f"{t} ms") for t in (50, 100, 200, 300, 500, 1000, 2000, 3000, 5000)]
+    # Seconds from 5 s up, so that the 68000's long times fit the margin.
+    ticks = [(t, f"{t} ms" if t < 5000 else f"{t // 1000} s")
+             for t in (50, 100, 200, 300, 500, 1000, 2000, 3000, 5000, 10000, 20000,
+                       30000, 50000, 100000, 200000, 300000, 500000)]
 
     def tip(n, i, v, vs):
         rate = columns[i][3].get(n)
