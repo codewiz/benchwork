@@ -29,284 +29,284 @@
 <line class="grid" x1="810.0" y1="36" x2="810.0" y2="2220"/>
 <text class="t axis" x="810.0" y="2238" text-anchor="middle">200x</text>
 <text class="t big" x="168" y="75.0" text-anchor="end">dhrystone</text>
-<path class="s0" d="M180,36 h188.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-188.5 z"/>
-<text class="t muted" x="377.5" y="46">5.05x</text>
-<path class="s1" d="M180,50 h246.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-246.0 z"/>
-<text class="t muted" x="435.0" y="60">8.19x</text>
-<path class="s2" d="M180,64 h273.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-273.1 z"/>
-<text class="t muted" x="462.1" y="74">10.3x</text>
-<path class="s3" d="M180,78 h486.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-486.0 z"/>
-<text class="t muted" x="675.0" y="88">61.6x</text>
-<path class="s4" d="M180,92 h422.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-422.6 z"/>
-<text class="t muted" x="611.6" y="102">36.1x</text>
+<path class="s0" d="M180,36 h78.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-78.4 z"/>
+<text class="t muted" x="267.4" y="46">2.00x</text>
+<path class="s1" d="M180,50 h143.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-143.6 z"/>
+<text class="t muted" x="332.6" y="60">3.46x</text>
+<path class="s2" d="M180,64 h183.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-183.0 z"/>
+<text class="t muted" x="372.0" y="74">4.82x</text>
+<path class="s3" d="M180,78 h488.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-488.9 z"/>
+<text class="t muted" x="677.9" y="88">63.1x</text>
+<path class="s4" d="M180,92 h423.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-423.4 z"/>
+<text class="t muted" x="612.4" y="102">36.4x</text>
 <text class="t big" x="168" y="159.0" text-anchor="end">scene-2d</text>
-<path class="s0" d="M180,120 h201.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-201.8 z"/>
-<text class="t muted" x="390.8" y="130">5.64x</text>
-<path class="s1" d="M180,134 h292.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-292.2 z"/>
-<text class="t muted" x="481.2" y="144">12.1x</text>
-<path class="s2" d="M180,148 h313.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-313.6 z"/>
-<text class="t muted" x="502.6" y="158">14.5x</text>
-<path class="s3" d="M180,162 h478.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-478.0 z"/>
-<text class="t muted" x="667.0" y="172">57.6x</text>
-<path class="s4" d="M180,176 h534.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-534.1 z"/>
-<text class="t muted" x="723.1" y="186">92.4x</text>
+<path class="s0" d="M180,120 h105.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-105.3 z"/>
+<text class="t muted" x="294.3" y="130">2.51x</text>
+<path class="s1" d="M180,134 h186.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-186.4 z"/>
+<text class="t muted" x="375.4" y="144">4.96x</text>
+<path class="s2" d="M180,148 h216.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-216.3 z"/>
+<text class="t muted" x="405.3" y="158">6.38x</text>
+<path class="s3" d="M180,162 h476.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-476.3 z"/>
+<text class="t muted" x="665.3" y="172">56.8x</text>
+<path class="s4" d="M180,176 h535.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-535.3 z"/>
+<text class="t muted" x="724.3" y="186">93.3x</text>
 <text class="t big" x="168" y="243.0" text-anchor="end">quantize-floyd</text>
-<path class="s0" d="M180,204 h158.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-158.9 z"/>
-<text class="t muted" x="347.9" y="214">3.93x</text>
-<path class="s1" d="M180,218 h229.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-229.9 z"/>
-<text class="t muted" x="418.9" y="228">7.15x</text>
-<path class="s2" d="M180,232 h253.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-253.7 z"/>
-<text class="t muted" x="442.7" y="242">8.74x</text>
-<path class="s3" d="M180,246 h544.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-544.0 z"/>
-<text class="t muted" x="733.0" y="256">100x</text>
-<path class="s4" d="M180,260 h452.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-452.3 z"/>
-<text class="t muted" x="641.3" y="270">46.4x</text>
+<path class="s0" d="M180,204 h51.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-51.1 z"/>
+<text class="t muted" x="240.1" y="214">1.59x</text>
+<path class="s1" d="M180,218 h124.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-124.5 z"/>
+<text class="t muted" x="313.5" y="228">2.95x</text>
+<path class="s2" d="M180,232 h157.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-157.7 z"/>
+<text class="t muted" x="346.7" y="242">3.90x</text>
+<path class="s3" d="M180,246 h538.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-538.5 z"/>
+<text class="t muted" x="727.5" y="256">95.8x</text>
+<path class="s4" d="M180,260 h450.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-450.9 z"/>
+<text class="t muted" x="639.9" y="270">45.9x</text>
 <text class="t big" x="168" y="327.0" text-anchor="end">lha-pack</text>
-<path class="s0" d="M180,288 h171.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-171.0 z"/>
-<text class="t muted" x="360.0" y="298">4.36x</text>
-<path class="s1" d="M180,302 h248.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-248.1 z"/>
-<text class="t muted" x="437.1" y="312">8.33x</text>
-<path class="s2" d="M180,316 h288.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-288.3 z"/>
-<text class="t muted" x="477.3" y="326">11.7x</text>
-<path class="s3" d="M180,330 h497.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-497.6 z"/>
-<text class="t muted" x="686.6" y="340">67.9x</text>
-<path class="s4" d="M180,344 h409.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-409.8 z"/>
-<text class="t muted" x="598.8" y="354">32.5x</text>
+<path class="s0" d="M180,288 h76.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-76.2 z"/>
+<text class="t muted" x="265.2" y="298">1.96x</text>
+<path class="s1" d="M180,302 h143.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-143.2 z"/>
+<text class="t muted" x="332.2" y="312">3.45x</text>
+<path class="s2" d="M180,316 h205.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-205.1 z"/>
+<text class="t muted" x="394.1" y="326">5.81x</text>
+<path class="s3" d="M180,330 h497.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-497.3 z"/>
+<text class="t muted" x="686.3" y="340">67.8x</text>
+<path class="s4" d="M180,344 h410.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-410.3 z"/>
+<text class="t muted" x="599.3" y="354">32.6x</text>
 <text class="t big" x="168" y="411.0" text-anchor="end">lha-unpack</text>
-<path class="s0" d="M180,372 h157.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-157.5 z"/>
-<text class="t muted" x="346.5" y="382">3.89x</text>
-<path class="s1" d="M180,386 h239.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-239.4 z"/>
-<text class="t muted" x="428.4" y="396">7.74x</text>
-<path class="s2" d="M180,400 h248.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-248.2 z"/>
-<text class="t muted" x="437.2" y="410">8.34x</text>
-<path class="s3" d="M180,414 h462.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-462.0 z"/>
-<text class="t muted" x="651.0" y="424">50.3x</text>
-<path class="s4" d="M180,428 h415.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-415.3 z"/>
-<text class="t muted" x="604.3" y="438">34.0x</text>
+<path class="s0" d="M180,372 h67.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-67.7 z"/>
+<text class="t muted" x="256.7" y="382">1.83x</text>
+<path class="s1" d="M180,386 h135.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-135.8 z"/>
+<text class="t muted" x="324.8" y="396">3.24x</text>
+<path class="s2" d="M180,400 h189.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-189.8 z"/>
+<text class="t muted" x="378.8" y="410">5.10x</text>
+<path class="s3" d="M180,414 h464.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-464.3 z"/>
+<text class="t muted" x="653.3" y="424">51.3x</text>
+<path class="s4" d="M180,428 h417.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-417.4 z"/>
+<text class="t muted" x="606.4" y="438">34.6x</text>
 <text class="t big" x="168" y="495.0" text-anchor="end">zlib-deflate</text>
-<path class="s0" d="M180,456 h162.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-162.9 z"/>
-<text class="t muted" x="351.9" y="466">4.07x</text>
-<path class="s1" d="M180,470 h233.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-233.8 z"/>
-<text class="t muted" x="422.8" y="480">7.39x</text>
-<path class="s2" d="M180,484 h276.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-276.4 z"/>
-<text class="t muted" x="465.4" y="494">10.6x</text>
-<path class="s3" d="M180,498 h486.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-486.1 z"/>
-<text class="t muted" x="675.1" y="508">61.7x</text>
-<path class="s4" d="M180,512 h426.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-426.9 z"/>
-<text class="t muted" x="615.9" y="522">37.5x</text>
+<path class="s0" d="M180,456 h64.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-64.1 z"/>
+<text class="t muted" x="253.1" y="466">1.77x</text>
+<path class="s1" d="M180,470 h132.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-132.2 z"/>
+<text class="t muted" x="321.2" y="480">3.14x</text>
+<path class="s2" d="M180,484 h221.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-221.0 z"/>
+<text class="t muted" x="410.0" y="494">6.63x</text>
+<path class="s3" d="M180,498 h489.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-489.3 z"/>
+<text class="t muted" x="678.3" y="508">63.3x</text>
+<path class="s4" d="M180,512 h427.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-427.0 z"/>
+<text class="t muted" x="616.0" y="522">37.5x</text>
 <text class="t big" x="168" y="579.0" text-anchor="end">zlib-inflate</text>
-<path class="s0" d="M180,540 h172.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-172.9 z"/>
-<text class="t muted" x="361.9" y="550">4.43x</text>
-<path class="s1" d="M180,554 h217.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-217.9 z"/>
-<text class="t muted" x="406.9" y="564">6.47x</text>
-<path class="s2" d="M180,568 h269.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-269.5 z"/>
-<text class="t muted" x="458.5" y="578">9.98x</text>
-<path class="s3" d="M180,582 h482.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-482.2 z"/>
-<text class="t muted" x="671.2" y="592">59.7x</text>
-<path class="s4" d="M180,596 h410.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-410.4 z"/>
-<text class="t muted" x="599.4" y="606">32.6x</text>
+<path class="s0" d="M180,540 h67.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-67.0 z"/>
+<text class="t muted" x="256.0" y="550">1.82x</text>
+<path class="s1" d="M180,554 h109.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-109.7 z"/>
+<text class="t muted" x="298.7" y="564">2.60x</text>
+<path class="s2" d="M180,568 h168.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-168.4 z"/>
+<text class="t muted" x="357.4" y="578">4.26x</text>
+<path class="s3" d="M180,582 h480.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-480.5 z"/>
+<text class="t muted" x="669.5" y="592">58.8x</text>
+<path class="s4" d="M180,596 h396.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-396.2 z"/>
+<text class="t muted" x="585.2" y="606">29.0x</text>
 <text class="t big" x="168" y="663.0" text-anchor="end">png-encode</text>
-<path class="s0" d="M180,624 h231.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-231.8 z"/>
-<text class="t muted" x="420.8" y="634">7.26x</text>
-<path class="s1" d="M180,638 h231.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-231.8 z"/>
-<text class="t muted" x="420.8" y="648">7.27x</text>
-<path class="s2" d="M180,652 h369.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-369.9 z"/>
-<text class="t muted" x="558.9" y="662">23.2x</text>
-<path class="s3" d="M180,666 h502.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-502.0 z"/>
-<text class="t muted" x="691.0" y="676">70.5x</text>
-<path class="s4" d="M180,680 h405.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-405.1 z"/>
-<text class="t muted" x="594.1" y="690">31.2x</text>
+<path class="s0" d="M180,624 h131.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-131.6 z"/>
+<text class="t muted" x="320.6" y="634">3.13x</text>
+<path class="s1" d="M180,638 h131.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-131.8 z"/>
+<text class="t muted" x="320.8" y="648">3.13x</text>
+<path class="s2" d="M180,652 h251.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-251.9 z"/>
+<text class="t muted" x="440.9" y="662">8.61x</text>
+<path class="s3" d="M180,666 h502.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-502.7 z"/>
+<text class="t muted" x="691.7" y="676">70.9x</text>
+<path class="s4" d="M180,680 h408.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-408.6 z"/>
+<text class="t muted" x="597.6" y="690">32.1x</text>
 <text class="t big" x="168" y="747.0" text-anchor="end">png-decode</text>
-<path class="s0" d="M180,708 h238.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-238.0 z"/>
-<text class="t muted" x="427.0" y="718">7.65x</text>
-<path class="s1" d="M180,722 h237.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-237.0 z"/>
-<text class="t muted" x="426.0" y="732">7.59x</text>
-<path class="s2" d="M180,736 h343.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-343.7 z"/>
-<text class="t muted" x="532.7" y="746">18.6x</text>
-<path class="s3" d="M180,750 h475.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-475.6 z"/>
-<text class="t muted" x="664.6" y="760">56.5x</text>
-<path class="s4" d="M180,764 h422.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-422.2 z"/>
-<text class="t muted" x="611.2" y="774">36.0x</text>
+<path class="s0" d="M180,708 h132.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-132.5 z"/>
+<text class="t muted" x="321.5" y="718">3.15x</text>
+<path class="s1" d="M180,722 h133.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-133.3 z"/>
+<text class="t muted" x="322.3" y="732">3.17x</text>
+<path class="s2" d="M180,736 h240.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-240.0 z"/>
+<text class="t muted" x="429.0" y="746">7.78x</text>
+<path class="s3" d="M180,750 h476.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-476.4 z"/>
+<text class="t muted" x="665.4" y="760">56.8x</text>
+<path class="s4" d="M180,764 h421.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-421.7 z"/>
+<text class="t muted" x="610.7" y="774">35.9x</text>
 <text class="t big" x="168" y="831.0" text-anchor="end">ftgrays</text>
-<path class="s0" d="M180,792 h189.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-189.4 z"/>
-<text class="t muted" x="378.4" y="802">5.08x</text>
-<path class="s1" d="M180,806 h228.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-228.4 z"/>
-<text class="t muted" x="417.4" y="816">7.06x</text>
-<path class="s2" d="M180,820 h299.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-299.8 z"/>
-<text class="t muted" x="488.8" y="830">12.9x</text>
-<path class="s3" d="M180,834 h484.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-484.6 z"/>
-<text class="t muted" x="673.6" y="844">60.9x</text>
-<path class="s4" d="M180,848 h411.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-411.8 z"/>
-<text class="t muted" x="600.8" y="858">33.0x</text>
+<path class="s0" d="M180,792 h73.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-73.3 z"/>
+<text class="t muted" x="262.3" y="802">1.92x</text>
+<path class="s1" d="M180,806 h131.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-131.1 z"/>
+<text class="t muted" x="320.1" y="816">3.11x</text>
+<path class="s2" d="M180,820 h195.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-195.9 z"/>
+<text class="t muted" x="384.9" y="830">5.37x</text>
+<path class="s3" d="M180,834 h480.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-480.0 z"/>
+<text class="t muted" x="669.0" y="844">58.6x</text>
+<path class="s4" d="M180,848 h411.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-411.2 z"/>
+<text class="t muted" x="600.2" y="858">32.9x</text>
 <text class="t big" x="168" y="915.0" text-anchor="end">memcpy-small</text>
-<path class="s0" d="M180,876 h80.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-80.3 z"/>
-<text class="t muted" x="269.3" y="886">2.03x</text>
-<path class="s1" d="M180,890 h164.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-164.4 z"/>
-<text class="t muted" x="353.4" y="900">4.12x</text>
-<path class="s2" d="M180,904 h161.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-161.9 z"/>
-<text class="t muted" x="350.9" y="914">4.03x</text>
-<path class="s3" d="M180,918 h527.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-527.2 z"/>
-<text class="t muted" x="716.2" y="928">87.1x</text>
+<path class="s0" d="M180,876 h25.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-25.0 z"/>
+<text class="t muted" x="214.0" y="886">1.28x</text>
+<path class="s1" d="M180,890 h67.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-67.5 z"/>
+<text class="t muted" x="256.5" y="900">1.82x</text>
+<path class="s2" d="M180,904 h104.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-104.4 z"/>
+<text class="t muted" x="293.4" y="914">2.49x</text>
+<path class="s3" d="M180,918 h523.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-523.6 z"/>
+<text class="t muted" x="712.6" y="928">84.5x</text>
 <path class="s4" d="M180,932 h448.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-448.4 z"/>
 <text class="t muted" x="637.4" y="942">44.9x</text>
 <text class="t big" x="168" y="999.0" text-anchor="end">memcpy-large</text>
-<path class="s0" d="M180,960 h150.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-150.1 z"/>
-<text class="t muted" x="339.1" y="970">3.65x</text>
-<path class="s1" d="M180,974 h160.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-160.9 z"/>
-<text class="t muted" x="349.9" y="984">4.00x</text>
-<path class="s2" d="M180,988 h337.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-337.9 z"/>
-<text class="t muted" x="526.9" y="998">17.7x</text>
-<path class="s3" d="M180,1002 h488.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-488.4 z"/>
-<text class="t muted" x="677.4" y="1012">62.9x</text>
+<path class="s0" d="M180,960 h93.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-93.3 z"/>
+<text class="t muted" x="282.3" y="970">2.27x</text>
+<path class="s1" d="M180,974 h63.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-63.6 z"/>
+<text class="t muted" x="252.6" y="984">1.77x</text>
+<path class="s2" d="M180,988 h184.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-184.6 z"/>
+<text class="t muted" x="373.6" y="998">4.88x</text>
+<path class="s3" d="M180,1002 h483.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-483.7 z"/>
+<text class="t muted" x="672.7" y="1012">60.4x</text>
 <path class="s4" d="M180,1016 h468.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-468.5 z"/>
 <text class="t muted" x="657.5" y="1026">53.2x</text>
 <text class="t big" x="168" y="1083.0" text-anchor="end">memcpy-var-small</text>
-<path class="s0" d="M180,1044 h213.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-213.4 z"/>
-<text class="t muted" x="402.4" y="1054">6.22x</text>
-<path class="s1" d="M180,1058 h231.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-231.9 z"/>
-<text class="t muted" x="420.9" y="1068">7.27x</text>
-<path class="s2" d="M180,1072 h333.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-333.8 z"/>
-<text class="t muted" x="522.8" y="1082">17.1x</text>
-<path class="s3" d="M180,1086 h440.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-440.7 z"/>
-<text class="t muted" x="629.7" y="1096">42.1x</text>
-<path class="s4" d="M180,1100 h348.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-348.8 z"/>
-<text class="t muted" x="537.8" y="1110">19.4x</text>
+<path class="s0" d="M180,1044 h109.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-109.5 z"/>
+<text class="t muted" x="298.5" y="1054">2.60x</text>
+<path class="s1" d="M180,1058 h132.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-132.4 z"/>
+<text class="t muted" x="321.4" y="1068">3.15x</text>
+<path class="s2" d="M180,1072 h215.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-215.2 z"/>
+<text class="t muted" x="404.2" y="1082">6.32x</text>
+<path class="s3" d="M180,1086 h439.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-439.2 z"/>
+<text class="t muted" x="628.2" y="1096">41.6x</text>
+<path class="s4" d="M180,1100 h347.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-347.0 z"/>
+<text class="t muted" x="536.0" y="1110">19.1x</text>
 <text class="t big" x="168" y="1167.0" text-anchor="end">memcpy-var-large</text>
-<path class="s0" d="M180,1128 h126.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-126.7 z"/>
-<text class="t muted" x="315.7" y="1138">3.00x</text>
-<path class="s1" d="M180,1142 h201.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-201.7 z"/>
-<text class="t muted" x="390.7" y="1152">5.64x</text>
-<path class="s2" d="M180,1156 h403.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-403.6 z"/>
-<text class="t muted" x="592.6" y="1166">30.8x</text>
-<path class="s3" d="M180,1170 h424.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-424.7 z"/>
-<text class="t muted" x="613.7" y="1180">36.8x</text>
-<path class="s4" d="M180,1184 h465.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-465.7 z"/>
-<text class="t muted" x="654.7" y="1194">51.9x</text>
+<path class="s0" d="M180,1128 h36.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-36.7 z"/>
+<text class="t muted" x="225.7" y="1138">1.41x</text>
+<path class="s1" d="M180,1142 h103.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-103.6 z"/>
+<text class="t muted" x="292.6" y="1152">2.47x</text>
+<path class="s2" d="M180,1156 h245.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-245.1 z"/>
+<text class="t muted" x="434.1" y="1166">8.13x</text>
+<path class="s3" d="M180,1170 h425.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-425.0 z"/>
+<text class="t muted" x="614.0" y="1180">36.9x</text>
+<path class="s4" d="M180,1184 h465.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-465.5 z"/>
+<text class="t muted" x="654.5" y="1194">51.8x</text>
 <text class="t big" x="168" y="1251.0" text-anchor="end">memmove-small</text>
-<path class="s0" d="M180,1212 h232.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-232.3 z"/>
-<text class="t muted" x="421.3" y="1222">7.30x</text>
-<path class="s1" d="M180,1226 h256.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-256.6 z"/>
-<text class="t muted" x="445.6" y="1236">8.95x</text>
-<path class="s2" d="M180,1240 h358.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-358.4 z"/>
-<text class="t muted" x="547.4" y="1250">21.1x</text>
-<path class="s3" d="M180,1254 h398.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-398.3 z"/>
-<text class="t muted" x="587.3" y="1264">29.5x</text>
-<path class="s4" d="M180,1268 h452.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-452.6 z"/>
-<text class="t muted" x="641.6" y="1278">46.5x</text>
+<path class="s0" d="M180,1212 h141.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-141.3 z"/>
+<text class="t muted" x="330.3" y="1222">3.39x</text>
+<path class="s1" d="M180,1226 h139.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-139.3 z"/>
+<text class="t muted" x="328.3" y="1236">3.34x</text>
+<path class="s2" d="M180,1240 h233.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-233.2 z"/>
+<text class="t muted" x="422.2" y="1250">7.35x</text>
+<path class="s3" d="M180,1254 h396.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-396.4 z"/>
+<text class="t muted" x="585.4" y="1264">29.0x</text>
+<path class="s4" d="M180,1268 h450.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-450.6 z"/>
+<text class="t muted" x="639.6" y="1278">45.7x</text>
 <text class="t big" x="168" y="1335.0" text-anchor="end">memmove-large</text>
-<path class="s0" d="M180,1296 h195.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-195.9 z"/>
-<text class="t muted" x="384.9" y="1306">5.37x</text>
-<path class="s1" d="M180,1310 h226.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-226.5 z"/>
-<text class="t muted" x="415.5" y="1320">6.95x</text>
-<path class="s2" d="M180,1324 h307.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-307.6 z"/>
-<text class="t muted" x="496.6" y="1334">13.7x</text>
-<path class="s3" d="M180,1338 h387.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-387.4 z"/>
-<text class="t muted" x="576.4" y="1348">26.9x</text>
-<path class="s4" d="M180,1352 h508.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-508.7 z"/>
-<text class="t muted" x="697.7" y="1362">74.5x</text>
+<path class="s0" d="M180,1296 h104.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-104.4 z"/>
+<text class="t muted" x="293.4" y="1306">2.49x</text>
+<path class="s1" d="M180,1310 h115.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-115.4 z"/>
+<text class="t muted" x="304.4" y="1320">2.73x</text>
+<path class="s2" d="M180,1324 h177.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-177.4 z"/>
+<text class="t muted" x="366.4" y="1334">4.60x</text>
+<path class="s3" d="M180,1338 h386.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-386.3 z"/>
+<text class="t muted" x="575.3" y="1348">26.6x</text>
+<path class="s4" d="M180,1352 h508.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-508.4 z"/>
+<text class="t muted" x="697.4" y="1362">74.4x</text>
 <text class="t big" x="168" y="1419.0" text-anchor="end">json-parse</text>
-<path class="s0" d="M180,1380 h167.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-167.8 z"/>
-<text class="t muted" x="356.8" y="1390">4.24x</text>
-<path class="s1" d="M180,1394 h231.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-231.4 z"/>
-<text class="t muted" x="420.4" y="1404">7.24x</text>
-<path class="s2" d="M180,1408 h254.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-254.8 z"/>
-<text class="t muted" x="443.8" y="1418">8.82x</text>
-<path class="s3" d="M180,1422 h473.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-473.6 z"/>
-<text class="t muted" x="662.6" y="1432">55.5x</text>
+<path class="s0" d="M180,1380 h62.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-62.7 z"/>
+<text class="t muted" x="251.7" y="1390">1.75x</text>
+<path class="s1" d="M180,1394 h121.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-121.8 z"/>
+<text class="t muted" x="310.8" y="1404">2.88x</text>
+<path class="s2" d="M180,1408 h146.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-146.7 z"/>
+<text class="t muted" x="335.7" y="1418">3.55x</text>
+<path class="s3" d="M180,1422 h487.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-487.2 z"/>
+<text class="t muted" x="676.2" y="1432">62.3x</text>
 <text class="t muted" x="186" y="1446">not built</text>
 <text class="t big" x="168" y="1503.0" text-anchor="end">json-print</text>
-<path class="s0" d="M180,1464 h158.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-158.3 z"/>
-<text class="t muted" x="347.3" y="1474">3.92x</text>
-<path class="s1" d="M180,1478 h215.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-215.3 z"/>
-<text class="t muted" x="404.3" y="1488">6.33x</text>
-<path class="s2" d="M180,1492 h252.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-252.3 z"/>
-<text class="t muted" x="441.3" y="1502">8.63x</text>
-<path class="s3" d="M180,1506 h434.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-434.6 z"/>
-<text class="t muted" x="623.6" y="1516">40.0x</text>
+<path class="s0" d="M180,1464 h75.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-75.7 z"/>
+<text class="t muted" x="264.7" y="1474">1.96x</text>
+<path class="s1" d="M180,1478 h106.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-106.2 z"/>
+<text class="t muted" x="295.2" y="1488">2.53x</text>
+<path class="s2" d="M180,1492 h149.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-149.3 z"/>
+<text class="t muted" x="338.3" y="1502">3.63x</text>
+<path class="s3" d="M180,1506 h495.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-495.9 z"/>
+<text class="t muted" x="684.9" y="1516">67.0x</text>
 <text class="t muted" x="186" y="1530">not built</text>
 <text class="t big" x="168" y="1587.0" text-anchor="end">wipeout-tris</text>
-<path class="s0" d="M180,1548 h68.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-68.6 z"/>
-<text class="t muted" x="257.6" y="1558">1.84x</text>
-<path class="s1" d="M180,1562 h181.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-181.8 z"/>
-<text class="t muted" x="370.8" y="1572">4.77x</text>
-<path class="s2" d="M180,1576 h152.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-152.6 z"/>
-<text class="t muted" x="341.6" y="1586">3.73x</text>
-<path class="s3" d="M180,1590 h166.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-166.9 z"/>
-<text class="t muted" x="355.9" y="1600">4.21x</text>
-<path class="s4" d="M180,1604 h437.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-437.0 z"/>
-<text class="t muted" x="626.0" y="1614">40.8x</text>
+<path class="s0" d="M180,1548 h33.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-33.1 z"/>
+<text class="t muted" x="222.1" y="1558">1.37x</text>
+<path class="s1" d="M180,1562 h63.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-63.8 z"/>
+<text class="t muted" x="252.8" y="1572">1.77x</text>
+<path class="s2" d="M180,1576 h64.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-64.5 z"/>
+<text class="t muted" x="253.5" y="1586">1.78x</text>
+<path class="s3" d="M180,1590 h488.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-488.9 z"/>
+<text class="t muted" x="677.9" y="1600">63.1x</text>
+<path class="s4" d="M180,1604 h434.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-434.6 z"/>
+<text class="t muted" x="623.6" y="1614">40.0x</text>
 <text class="t big" x="168" y="1671.0" text-anchor="end">nfs3-project</text>
-<path class="s0" d="M180,1632 h55.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-55.3 z"/>
-<text class="t muted" x="244.3" y="1642">1.65x</text>
-<path class="s1" d="M180,1646 h179.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-179.1 z"/>
-<text class="t muted" x="368.1" y="1656">4.66x</text>
-<path class="s2" d="M180,1660 h139.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-139.7 z"/>
-<text class="t muted" x="328.7" y="1670">3.35x</text>
-<path class="s3" d="M180,1674 h112.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-112.6 z"/>
-<text class="t muted" x="301.6" y="1684">2.67x</text>
+<path class="s0" d="M180,1632 h49.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-49.9 z"/>
+<text class="t muted" x="238.9" y="1642">1.57x</text>
+<path class="s1" d="M180,1646 h76.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-76.9 z"/>
+<text class="t muted" x="265.9" y="1656">1.98x</text>
+<path class="s2" d="M180,1660 h50.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-50.0 z"/>
+<text class="t muted" x="239.0" y="1670">1.57x</text>
+<path class="s3" d="M180,1674 h482.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-482.3 z"/>
+<text class="t muted" x="671.3" y="1684">59.7x</text>
 <text class="t muted" x="186" y="1698">wrong output</text>
 <text class="t big" x="168" y="1755.0" text-anchor="end">nfs3-clip</text>
-<path class="s0" d="M180,1716 h71.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-71.4 z"/>
-<text class="t muted" x="260.4" y="1726">1.89x</text>
-<path class="s1" d="M180,1730 h209.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-209.4 z"/>
-<text class="t muted" x="398.4" y="1740">6.02x</text>
-<path class="s2" d="M180,1744 h167.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-167.0 z"/>
-<text class="t muted" x="356.0" y="1754">4.21x</text>
-<path class="s3" d="M180,1758 h214.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-214.8 z"/>
-<text class="t muted" x="403.8" y="1768">6.30x</text>
+<path class="s0" d="M180,1716 h54.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-54.5 z"/>
+<text class="t muted" x="243.5" y="1726">1.64x</text>
+<path class="s1" d="M180,1730 h90.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-90.0 z"/>
+<text class="t muted" x="279.0" y="1740">2.20x</text>
+<path class="s2" d="M180,1744 h83.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-83.9 z"/>
+<text class="t muted" x="272.9" y="1754">2.09x</text>
+<path class="s3" d="M180,1758 h475.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-475.3 z"/>
+<text class="t muted" x="664.3" y="1768">56.3x</text>
 <text class="t muted" x="186" y="1782">wrong output</text>
 <text class="t big" x="168" y="1839.0" text-anchor="end">sha512</text>
-<path class="s0" d="M180,1800 h108.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-108.5 z"/>
-<text class="t muted" x="297.5" y="1810">2.58x</text>
-<path class="s1" d="M180,1814 h152.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-152.2 z"/>
-<text class="t muted" x="341.2" y="1824">3.72x</text>
-<path class="s2" d="M180,1828 h194.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-194.4 z"/>
-<text class="t muted" x="383.4" y="1838">5.31x</text>
-<path class="s3" d="M180,1842 h547.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-547.6 z"/>
-<text class="t muted" x="736.6" y="1852">103x</text>
-<path class="s4" d="M180,1856 h448.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-448.5 z"/>
-<text class="t muted" x="637.5" y="1866">44.9x</text>
+<path class="s0" d="M180,1800 h21.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-21.2 z"/>
+<text class="t muted" x="210.2" y="1810">1.24x</text>
+<path class="s1" d="M180,1814 h50.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-50.7 z"/>
+<text class="t muted" x="239.7" y="1824">1.58x</text>
+<path class="s2" d="M180,1828 h108.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-108.5 z"/>
+<text class="t muted" x="297.5" y="1838">2.58x</text>
+<path class="s3" d="M180,1842 h425.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-425.3 z"/>
+<text class="t muted" x="614.3" y="1852">37.0x</text>
+<path class="s4" d="M180,1856 h458.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-458.3 z"/>
+<text class="t muted" x="647.3" y="1866">48.8x</text>
 <text class="t big" x="168" y="1923.0" text-anchor="end">aesgcm</text>
-<path class="s0" d="M180,1884 h90.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-90.9 z"/>
-<text class="t muted" x="279.9" y="1894">2.22x</text>
-<path class="s1" d="M180,1898 h203.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-203.4 z"/>
-<text class="t muted" x="392.4" y="1908">5.72x</text>
-<path class="s2" d="M180,1912 h188.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-188.8 z"/>
-<text class="t muted" x="377.8" y="1922">5.06x</text>
-<path class="s3" d="M180,1926 h433.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-433.1 z"/>
-<text class="t muted" x="622.1" y="1936">39.5x</text>
-<path class="s4" d="M180,1940 h523.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-523.1 z"/>
-<text class="t muted" x="712.1" y="1950">84.2x</text>
+<path class="s0" d="M180,1884 h101.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-101.4 z"/>
+<text class="t muted" x="290.4" y="1894">2.43x</text>
+<path class="s1" d="M180,1898 h97.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-97.3 z"/>
+<text class="t muted" x="286.3" y="1908">2.34x</text>
+<path class="s2" d="M180,1912 h202.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-202.6 z"/>
+<text class="t muted" x="391.6" y="1922">5.68x</text>
+<path class="s3" d="M180,1926 h401.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-401.8 z"/>
+<text class="t muted" x="590.8" y="1936">30.4x</text>
+<path class="s4" d="M180,1940 h519.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-519.7 z"/>
+<text class="t muted" x="708.7" y="1950">81.8x</text>
 <text class="t big" x="168" y="2007.0" text-anchor="end">chacha20poly1305</text>
-<path class="s0" d="M180,1968 h152.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-152.2 z"/>
-<text class="t muted" x="341.2" y="1978">3.72x</text>
-<path class="s1" d="M180,1982 h207.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-207.0 z"/>
-<text class="t muted" x="396.0" y="1992">5.90x</text>
-<path class="s2" d="M180,1996 h256.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-256.6 z"/>
-<text class="t muted" x="445.6" y="2006">8.95x</text>
-<path class="s3" d="M180,2010 h548.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-548.8 z"/>
-<text class="t muted" x="737.8" y="2020">104x</text>
-<path class="s4" d="M180,2024 h532.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-532.6 z"/>
-<text class="t muted" x="721.6" y="2034">91.1x</text>
+<path class="s0" d="M180,1968 h67.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-67.9 z"/>
+<text class="t muted" x="256.9" y="1978">1.83x</text>
+<path class="s1" d="M180,1982 h104.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-104.7 z"/>
+<text class="t muted" x="293.7" y="1992">2.49x</text>
+<path class="s2" d="M180,1996 h160.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-160.1 z"/>
+<text class="t muted" x="349.1" y="2006">3.97x</text>
+<path class="s3" d="M180,2010 h549.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-549.7 z"/>
+<text class="t muted" x="738.7" y="2020">105x</text>
+<path class="s4" d="M180,2024 h532.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-532.9 z"/>
+<text class="t muted" x="721.9" y="2034">91.4x</text>
 <text class="t big" x="168" y="2091.0" text-anchor="end">x25519</text>
-<path class="s0" d="M180,2052 h161.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-161.5 z"/>
-<text class="t muted" x="350.5" y="2062">4.02x</text>
-<path class="s1" d="M180,2066 h228.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-228.7 z"/>
-<text class="t muted" x="417.7" y="2076">7.08x</text>
-<path class="s2" d="M180,2080 h257.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-257.6 z"/>
-<text class="t muted" x="446.6" y="2090">9.03x</text>
-<path class="s3" d="M180,2094 h617.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-617.8 z"/>
-<text class="t muted" x="806.8" y="2104">187x</text>
-<path class="s4" d="M180,2108 h511.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-511.8 z"/>
-<text class="t muted" x="700.8" y="2118">76.5x</text>
+<path class="s0" d="M180,2052 h57.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-57.9 z"/>
+<text class="t muted" x="246.9" y="2062">1.68x</text>
+<path class="s1" d="M180,2066 h113.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-113.1 z"/>
+<text class="t muted" x="302.1" y="2076">2.68x</text>
+<path class="s2" d="M180,2080 h163.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-163.3 z"/>
+<text class="t muted" x="352.3" y="2090">4.08x</text>
+<path class="s3" d="M180,2094 h592.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-592.2 z"/>
+<text class="t muted" x="781.2" y="2104">151x</text>
+<path class="s4" d="M180,2108 h512.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-512.0 z"/>
+<text class="t muted" x="701.0" y="2118">76.7x</text>
 <text class="t big name" x="168" y="2175.0" text-anchor="end">geomean</text>
-<path class="s0" d="M180,2136 h155.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-155.6 z"/>
-<text class="t muted" x="344.6" y="2146">3.83x</text>
-<path class="s1" d="M180,2150 h217.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-217.7 z"/>
-<text class="t muted" x="406.7" y="2160">6.46x</text>
-<path class="s2" d="M180,2164 h269.4 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-269.4 z"/>
-<text class="t muted" x="458.4" y="2174">9.97x</text>
-<path class="s3" d="M180,2178 h443.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-443.8 z"/>
-<text class="t muted" x="632.8" y="2188">43.2x</text>
+<path class="s0" d="M180,2136 h75.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-75.8 z"/>
+<text class="t muted" x="264.8" y="2146">1.96x</text>
+<path class="s1" d="M180,2150 h112.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-112.6 z"/>
+<text class="t muted" x="301.6" y="2160">2.67x</text>
+<path class="s2" d="M180,2164 h174.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-174.9 z"/>
+<text class="t muted" x="363.9" y="2174">4.50x</text>
+<path class="s3" d="M180,2178 h476.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-476.7 z"/>
+<text class="t muted" x="665.7" y="2188">57.0x</text>
 <text class="t muted" x="186" y="2202">n/a</text>
 </svg>
